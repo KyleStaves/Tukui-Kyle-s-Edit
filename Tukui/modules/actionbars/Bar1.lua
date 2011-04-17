@@ -1,5 +1,7 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 
+-- THIS IS BOTTOM LEFT --
+
 if not C["actionbar"].enable == true then return end
 
 ---------------------------------------------------------------------------
@@ -21,12 +23,19 @@ local bar = TukuiBar1
 ]]--
 
 local Page = {
+	["DRUID"] = "[bonusbar:0] 1; [bonusbar:1] 7; [bonusbar:2] 1; [bonusbar:3] 9; [bonusbar:4] 1; [bonusbar:5] 11;",
+	["WARRIOR"] = "[bonusbar:0] 1; [bonusbar:1] 1; [bonusbar:2] 7; [bonusbar:3] 9; [bonusbar:5] 11;",
+	["ROGUE"] = "[bonusbar:0] 1; [bonusbar:1] 7; [form:3] 7; [bonusbar:5] 11;",
+	["DEFAULT"] = " [bonusbar:5] 11; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;",
+}
+
+--[[local Page = {
 	["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 8; [bonusbar:2] 8; [bonusbar:3] 9; [bonusbar:4] 10;",
 	["WARRIOR"] = "[bonusbar:1] 7; [bonusbar:2] 8; [bonusbar:3] 9;",
 	["PRIEST"] = "[bonusbar:1] 7;",
 	["ROGUE"] = "[bonusbar:1] 7; [form:3] 7;",
 	["DEFAULT"] = "[bonusbar:5] 11; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;",
-}
+}]]--
 
 local function GetBar()
 	local condition = Page["DEFAULT"]

@@ -1,7 +1,10 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 
+-- THIS IS DISABLED AND USED FOR STANCES
+
 if not C["actionbar"].enable == true then return end
 
+if true then return end
 ---------------------------------------------------------------------------
 -- setup MultiBarBottomLeft as bar #2
 ---------------------------------------------------------------------------

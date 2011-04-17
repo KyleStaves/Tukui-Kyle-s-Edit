@@ -3,6 +3,8 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 -- I really hope you'll understand the code, because I was totally drunk when I wrote this file.
 -- At least, it work fine. :P (lol)
 
+if true then return end
+
 local function ShowOrHideBar(bar, button)
 	local db = TukuiDataPerChar
 	
@@ -288,6 +290,7 @@ RegisterStateDriver(vehicleright, "visibility", "[target=vehicle,exists] show;hi
 --------------------------------------------------------------
 
 local init = CreateFrame("Frame")
+
 init:RegisterEvent("VARIABLES_LOADED")
 init:SetScript("OnEvent", function(self, event)
 	if not TukuiDataPerChar then TukuiDataPerChar = {} end
