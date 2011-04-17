@@ -1,0 +1,10 @@
+## Interface: 40000
+## Title: Tidy Plates
+## Notes: Did you floss today, mo**erf**ker?
+## Author: Binbwen and Friends
+## Version: 6.2 Beta Revision: 259
+## SavedVariables: TidyPlatesData
+## SavedVariablesPerCharacter: TidyPlatesOptions
+
+TidyPlates.xml
+widgets\Widgets.xml

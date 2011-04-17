@@ -1,0 +1,17 @@
+﻿## Interface: 40000
+
+## Title: ArkInventory [Rules] Example
+## Notes: Example rule for ArkInventory
+## Author: Arkayenro
+## Version: 1.00
+## DefaultState: Enabled
+## LoadOnDemand: 0
+
+## RequiredDeps: ArkInventoryRules
+## OptionalDeps: 
+
+## LoadManagers: AddonLoader
+## X-LoadOn-Always:delayed
+
+
+ArkInventoryRulesExample.lua

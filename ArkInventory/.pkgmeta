@@ -1,0 +1,27 @@
+package-as: ArkInventory
+
+externals:
+    Externals/Ace3-AceAddon: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
+    Externals/Ace3-AceConsole: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConsole-3.0
+    Externals/Ace3-AceGUI: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
+    Externals/Ace3-AceConfig: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
+    Externals/Ace3-AceDB: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDB-3.0
+    Externals/Ace3-AceDBOptions: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDBOptions-3.0
+	Externals/Ace3-AceLocale: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
+    Externals/Ace3-AceHook: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceHook-3.0
+    Externals/Ace3-AceEvent: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceEvent-3.0
+    Externals/Ace3-AceTimer: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceTimer-3.0
+    Externals/Ace3-AceBucket: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceBucket-3.0
+    Externals/PeriodicTable: svn://svn.wowace.com/wow/libperiodictable-3-1/mainline/trunk/LibPeriodicTable-3.1
+    Externals/PeriodicTable-Consumable: svn://svn.wowace.com/wow/libperiodictable-3-1/mainline/trunk/LibPeriodicTable-3.1-Consumable
+    Externals/PeriodicTable-Misc: svn://svn.wowace.com/wow/libperiodictable-3-1/mainline/trunk/LibPeriodicTable-3.1-Misc
+    Externals/PeriodicTable-Reputation: svn://svn.wowace.com/wow/libperiodictable-3-1/mainline/trunk/LibPeriodicTable-3.1-Reputation
+    Externals/PeriodicTable-Tradeskill: svn://svn.wowace.com/wow/libperiodictable-3-1/mainline/trunk/LibPeriodicTable-3.1-Tradeskill
+    Externals/PeriodicTable-TradeskillResultMats: svn://svn.wowace.com/wow/libperiodictable-3-1/mainline/trunk/LibPeriodicTable-3.1-TradeskillResultMats
+    Externals/SharedMedia: svn://svn.wowace.com/wow/libsharedmedia-3-0/mainline/trunk/LibSharedMedia-3.0
+	Externals/SharedMediaWidgets: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk/AceGUI-3.0-SharedMediaWidgets
+
+move-folders:
+	ArkInventory/Modules/ArkInventoryRules: ArkInventoryRules
+	ArkInventory/Modules/ArkInventoryRulesExample: ArkInventoryRulesExample
+	

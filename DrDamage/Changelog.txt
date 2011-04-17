@@ -1,0 +1,4 @@
+1.8.0 beta:
+- Updated Druids, Hunters, Mages, Paladins, Rogues, Shamans, Warlocks and Warriors for Cataclysm
+- Death Knights and Priests are still not ready
+

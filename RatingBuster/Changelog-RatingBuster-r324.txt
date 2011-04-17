@@ -1,0 +1,40 @@
+------------------------------------------------------------------------
+r324 | cremor | 2010-12-14 13:30:31 +0000 (Tue, 14 Dec 2010) | 2 lines
+Changed paths:
+   M /trunk/RatingBuster.lua
+
+- Fixed sumTotalReduction localization lookup.
+- This also pulls the latest LibStatLogic which fixes combat mana regen.
+------------------------------------------------------------------------
+r323 | cremor | 2010-11-27 13:15:21 +0000 (Sat, 27 Nov 2010) | 2 lines
+Changed paths:
+   M /trunk/RatingBuster-Locale-enUS.lua
+   M /trunk/RatingBuster.lua
+
+- Fixed MP5OCFromInt localization lookup.
+- This also pulls the latest LibStatLogic which fixes Haste detection for enUS.
+------------------------------------------------------------------------
+r322 | Zidomo | 2010-11-24 15:16:09 +0000 (Wed, 24 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/RatingBuster-Locale-enUS.lua
+
+- enUS update
+------------------------------------------------------------------------
+r321 | zhTW | 2010-11-23 02:05:45 +0000 (Tue, 23 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/RatingBuster-Locale-zhTW.lua
+
+- zhTW update
+------------------------------------------------------------------------
+r320 | cremor | 2010-11-22 19:37:51 +0000 (Mon, 22 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/RatingBuster-Locale-deDE.lua
+
+- deDE update
+------------------------------------------------------------------------
+r319 | zhTW | 2010-11-06 17:34:28 +0000 (Sat, 06 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/RatingBuster-Locale-zhTW.lua
+
+- zhTW update
+------------------------------------------------------------------------

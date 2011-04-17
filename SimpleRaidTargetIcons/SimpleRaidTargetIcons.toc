@@ -1,0 +1,8 @@
+## Interface: 40000
+## Title: SimpleRaidTargetIcons
+## Author: Driizt
+## X-Credits: Brodrick (aka Kirov), Qzot
+## Version: 1.14
+## Notes: Displays a widget on modifier + left click or double click on a unit to let a player assign Raid Target Icons.
+## SavedVariablesPerCharacter: SRTISaved
+SimpleRaidTargetIcons.lua

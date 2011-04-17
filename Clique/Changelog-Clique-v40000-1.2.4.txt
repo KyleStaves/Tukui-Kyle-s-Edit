@@ -1,0 +1,14 @@
+tag v40000-1.2.4
+0c0adb8f89e48510685934778880d07f03169bd5
+James Whitehead II <jnwhiteh@gmail.com>
+2010-10-14 23:34:41 +0100
+
+Tagging bugfix release
+
+
+--------------------
+
+James Whitehead II:
+	- Allow the dash key to be bound without errors
+	- Don't update the config if it is not visible
+	- Add headers to each file to make viewing source a bit easier
