@@ -29,7 +29,7 @@ C["unitframes"] = {
 	["unicolor"] = false,                               -- enable unicolor theme
 	["combatfeedback"] = true,                          -- enable combattext on player and target.
 	["playeraggro"] = true,                             -- color player border to red if you have aggro on current target.
-	["healcomm"] = false,                               -- enable healprediction support.
+	["healcomm"] = true,                               -- enable healprediction support.
 	["onlyselfdebuffs"] = false,                        -- display only our own debuffs applied on target
 	["showfocustarget"] = true,                         -- show focus target
 
@@ -48,7 +48,7 @@ C["unitframes"] = {
 	["showboss"] = true,                                -- enable boss unit frames for PVELOL encounters.
 
 	-- priest only plugin
-	["weakenedsoulbar"] = true,                         -- show weakened soul bar
+	["weakenedsoulbar"] = false,                         -- show weakened soul bar
 	
 	-- class bar
 	["classbar"] = true,                                -- enable tukui classbar over player unit

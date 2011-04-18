@@ -1,0 +1,6 @@
+## Interface: 40000
+## Title: AptechkaVance
+## Notes: Vance skin
+## Dependencies: Aptechka
+
+Aptechka_Vance.lua

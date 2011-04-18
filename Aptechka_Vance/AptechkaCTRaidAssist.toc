@@ -1,0 +1,5 @@
+## Interface: 40000
+## Title: AptechkaCTRaidAssist
+## Notes: CTRA skin
+## Dependencies: Aptechka
+ctra.lua
