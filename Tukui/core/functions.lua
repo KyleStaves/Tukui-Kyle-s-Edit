@@ -388,7 +388,36 @@ T.PostUpdateHealth = function(health, unit, min, max)
 				health:SetStatusBarColor(r, g, b)
 			end					
 		end
+		
+		if unit == "target" then
+			if min ~= max then
+				local r, g, b
+				r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
 
+				if C["unitframes"].showtotalhpmp == true then
+					health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r",ShortValue(min), ShortValue(max))
+				else
+					health.value:SetFormattedText("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r",ShortValue(min), r * 255, g * 255, b * 255, floor(min / max * 100))
+				end
+
+			else
+
+				health.value:SetFormattedText("|cff559655"..ShortValue(max).."|r")
+
+			end
+		else
+			local r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+		
+			local current = max - min
+			if(current > 0) then
+				-- return current
+				health.value:SetFormattedText("|cff%02x%02x%02x%s%s|r",r * 255, g * 255, b * 255, "-" ,current)
+			else
+				health.value:SetText(" ")
+			end
+		end
+		
+		--[[
 		if min ~= max then
 			local r, g, b
 			r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
@@ -418,7 +447,9 @@ T.PostUpdateHealth = function(health, unit, min, max)
 				health.value:SetText(" ")
 			end
 		end
+	--]]
 	end
+	
 end
 
 T.PostUpdateHealthRaid = function(health, unit, min, max)
@@ -528,7 +559,8 @@ T.PostUpdatePower = function(power, unit, min, max)
 		end
 	end
 	if self.Name then
-		if unit == "target" then T.PostNamePosition(self, power) end
+		-- KYLE DISABLED
+		--if unit == "target" then T.PostNamePosition(self, power) end
 	end
 end
 

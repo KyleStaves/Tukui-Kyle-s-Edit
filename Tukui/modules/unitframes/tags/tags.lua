@@ -30,7 +30,7 @@ end
 oUF.Tags['Tukui:health'] = function(unit)
 	local min, max = UnitHealth(unit), UnitHealthMax(unit)
 	local status = not UnitIsConnected(unit) and 'Offline' or UnitIsGhost(unit) and 'Ghost' or UnitIsDead(unit) and 'Dead'
-
+	--[[
 	if(status) then
 		return status
 	elseif(unit == 'target' and UnitCanAttack('player', unit)) then
@@ -41,7 +41,37 @@ oUF.Tags['Tukui:health'] = function(unit)
 		return ('%s |cff0090ff/|r %s'):format(ShortenValue(min), ShortenValue(max))
 	else
 		return max
+	end]]--
+	
+	if (status) then
+		return status
+	elseif (unit == 'target') then
+		local r, g, b
+		if min ~= max then
+			local r, g, b
+			r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+
+			if TukuiCF["unitframes"].showtotalhpmp == true then
+				return ("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r"):format(ShortValue(min), ShortValue(max))
+			else
+				return ("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r"):format(ShortValue(min), r * 255, g * 255, b * 255, floor(min / max * 100))
+			end
+
+		else
+
+			return ("|cff559655"..ShortValue(max).."|r")
+
+		end
+	else
+		local r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+		
+		local current = max - min
+		if(current > 0) then
+			-- return current
+			return ("|cff%02x%02x%02x%s%s|r"):format(r * 255, g * 255, b * 255, "-" ,current)
+		end
 	end
+		
 end
 
 oUF.Tags['Tukui:power'] = function(unit)
@@ -50,6 +80,20 @@ oUF.Tags['Tukui:power'] = function(unit)
 		local _, type = UnitPowerType(unit)
 		local colors = _COLORS.power
 		return ('%s%d|r'):format(Hex(colors[type] or colors['RUNES']), power)
+	end
+end
+
+oUF.Tags['Tukui:playerPower'] = function(unit)
+	local min, max = UnitPower(unit), UnitPowerMax(unit)
+	local colors = _COLORS.power
+	if (not UnitIsDeadOrGhost(unit)) then
+		if (max > 999) then
+			return ('%s%d|r'):format(Hex(colors[type] or colors['RUNES']), math.floor(min/max*100+.5))
+		else
+			return ('%s%d|r'):format(Hex(colors[type] or colors['RUNES']), min)
+		end
+	else
+		return nil
 	end
 end
 
@@ -134,7 +178,13 @@ end
 oUF.TagEvents['Tukui:nameshort'] = 'UNIT_NAME_UPDATE'
 oUF.Tags['Tukui:nameshort'] = function(unit)
 	local name = UnitName(unit)
-	return utf8sub(name, 10, false)
+	return utf8sub(name, 7, false) -- default = 10
+end
+
+oUF.TagEvents['Tukui:targetname'] = 'UNIT_NAME_UPDATE'
+oUF.Tags['Tukui:targetname'] = function(unit)
+	local name = UnitName(unit)
+	return utf8sub(name, 12, true)
 end
 
 oUF.TagEvents['Tukui:namemedium'] = 'UNIT_NAME_UPDATE'

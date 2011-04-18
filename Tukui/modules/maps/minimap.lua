@@ -5,6 +5,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 
 local TukuiMinimap = CreateFrame("Frame", "TukuiMinimap", UIParent)
 TukuiMinimap:CreatePanel("Default", 1, 1, "CENTER", UIParent, "CENTER", 0, 0)
+TukuiMinimap:CreateShadow()
 TukuiMinimap:RegisterEvent("ADDON_LOADED")
 TukuiMinimap:Point("TOPRIGHT", UIParent, "TOPRIGHT", -24, -22)
 TukuiMinimap:Size(144)

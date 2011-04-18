@@ -44,7 +44,7 @@ local function style(self)
 		-- create the bg/border panel
 		local panel = CreateFrame("Frame", name.."Panel", self)
 		panel:CreatePanel("Default", T.buttonsize, T.buttonsize, "CENTER", self, "CENTER", 0, 0)
- 
+		panel:CreateShadow()
 		panel:SetFrameStrata(self:GetFrameStrata())
 		panel:SetFrameLevel(self:GetFrameLevel() - 1)
  
@@ -86,6 +86,7 @@ local function stylesmallbutton(normal, button, icon, name, pet)
 		
 		local panel = CreateFrame("Frame", name.."Panel", button)
 		panel:CreatePanel("Default", T.petbuttonsize, T.petbuttonsize, "CENTER", button, "CENTER", 0, 0)
+		panel:CreateShadow()
 		panel:SetBackdropColor(unpack(media.backdropcolor))
 		panel:SetFrameStrata(button:GetFrameStrata())
 		panel:SetFrameLevel(button:GetFrameLevel() - 1)

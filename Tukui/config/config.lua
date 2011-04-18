@@ -13,7 +13,7 @@ C["unitframes"] = {
 	["enemyhcolor"] = false,                            -- enemy target (players) color by hostility, very useful for healer.
 	["unitcastbar"] = true,                             -- enable tukui castbar
 	["cblatency"] = false,                              -- enable castbar latency
-	["cbicons"] = true,                                 -- enable icons on castbar
+	["cbicons"] = false,                                 -- enable icons on castbar
 	["auratimer"] = true,                               -- enable timers on buffs/debuffs
 	["auratextscale"] = 11,                             -- the font size of buffs/debuffs timers on unitframes
 	["playerauras"] = false,                            -- enable auras
@@ -26,12 +26,12 @@ C["unitframes"] = {
 	["charportrait"] = false,                           -- do i really need to explain this?
 	["maintank"] = false,                               -- enable maintank
 	["mainassist"] = false,                             -- enable mainassist
-	["unicolor"] = false,                               -- enable unicolor theme
-	["combatfeedback"] = true,                          -- enable combattext on player and target.
+	["unicolor"] = true,                               -- enable unicolor theme
+	["combatfeedback"] = false,                          -- enable combattext on player and target.
 	["playeraggro"] = true,                             -- color player border to red if you have aggro on current target.
 	["healcomm"] = true,                               -- enable healprediction support.
 	["onlyselfdebuffs"] = false,                        -- display only our own debuffs applied on target
-	["showfocustarget"] = true,                         -- show focus target
+	["showfocustarget"] = false,                         -- show focus target
 
 	-- raid layout (if one of them is enabled)
 	["showrange"] = true,                               -- show range opacity on raidframes
@@ -67,8 +67,8 @@ C["actionbar"] = {
 	["hotkey"] = false,                                 -- enable hotkey display because it was a lot requested
 	["hideshapeshift"] = false,                         -- hide shapeshift or totembar because it was a lot requested.
 	["showgrid"] = true,                                -- show grid on empty button
-	["buttonsize"] = 27,                                -- normal buttons size
-	["petbuttonsize"] = 29,                             -- pet & stance buttons size
+	["buttonsize"] = 24,                                -- normal buttons size
+	["petbuttonsize"] = 22,                             -- pet & stance buttons size
 	["buttonspacing"] = 4,                              -- buttons spacing
 }
 
@@ -115,7 +115,7 @@ C["datatext"] = {
 	["battleground"] = true,                            -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = false,                                  -- set time to 24h format.
 	["localtime"] = true,                              -- set time to local time instead of server time.
-	["fontsize"] = 12,                                  -- font size for panels.
+	["fontsize"] = 10,                                  -- font size for panels.
 }
 
 C["chat"] = {
@@ -168,4 +168,6 @@ C["buffreminder"] = {
 C["kyle"] = {
 	["disableChatTabs"] = true,							-- Should show always-visible chat tabs when chat BG is enabled?
 	["chatBGHeight"] = 153,								-- Height of the chat box background
+	["unitFrameLayout"] = 1,							-- 1: Kyle, 2: Tuk default
+	["jasjeComboPoints"] = true,
 }

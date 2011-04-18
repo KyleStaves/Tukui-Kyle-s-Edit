@@ -174,9 +174,9 @@ end
 
 local SetJob_Text1 = function(self,job)
     if job.healthtext then
-		local r, g, b = oUF.ColorGradient(self.parent.vHealth/self.parent.vHealthMax, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+		--local r, g, b = oUF.ColorGradient(self.parent.vHealth/self.parent.vHealthMax, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
         --self:SetFormattedText("-%.0fk", (self.parent.vHealthMax - self.parent.vHealth) / 1e3)
-		self:SetFormattedText("|cff%02x%02x%02x%s%.0fk|r", r * 255, g * 255, b * 255, "-" ,(self.parent.vHealthMax - self.parent.vHealth) / 1e3)
+		self:SetFormattedText("|cff%02x%02x%02x%s%.0fk|r", 1 * 255, 1 * 255, 1 * 255, "-" ,(self.parent.vHealthMax - self.parent.vHealth) / 1e3)
     elseif job.nametext then
         self:SetText(self.parent.name)
     elseif job.text then
@@ -192,9 +192,9 @@ local SetJob_Text1 = function(self,job)
 end
 local SetJob_Text2 = function(self,job) -- text2 is always green
     if job.healthtext then
-        local r, g, b = oUF.ColorGradient(self.parent.vHealth/self.parent.vHealthMax, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+        --local r, g, b = oUF.ColorGradient(self.parent.vHealth/self.parent.vHealthMax, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
         --self:SetFormattedText("-%.0fk", (self.parent.vHealthMax - self.parent.vHealth) / 1e3)
-		self:SetFormattedText("|cff%02x%02x%02x%s%.0fk|r", r * 255, g * 255, b * 255, "-" ,(self.parent.vHealthMax - self.parent.vHealth) / 1e3)
+		self:SetFormattedText("|cff%02x%02x%02x%s%.0fk|r", 1 * 255, 1 * 255, 1 * 255, "-" ,(self.parent.vHealthMax - self.parent.vHealth) / 1e3)
     elseif job.inchealtext then
         self:SetFormattedText("+%.0fk", self.parent.vIncomingHeal / 1e3)
     elseif job.nametext then

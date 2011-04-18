@@ -1,12 +1,12 @@
+local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+if not C.unitframes.enable or C.kyle.unitFrameLayout ~= 2 then return end
+
 local ADDON_NAME, ns = ...
 local oUF = ns.oUF or oUF
 assert(oUF, "Tukui was unable to locate oUF install.")
 
 ns._Objects = {}
 ns._Headers = {}
-
-local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
-if not C["unitframes"].enable == true then return end
 
 ------------------------------------------------------------------------
 --	local variables

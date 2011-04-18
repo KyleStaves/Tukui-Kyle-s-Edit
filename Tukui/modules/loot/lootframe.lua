@@ -155,7 +155,7 @@ addon:RegisterForClicks"anyup"
 
 addon:SetParent(UIParent)
 --addon:SetUserPlaced(true)
-addon:Point("TOPLEFT", 0, -104)
+addon:Point("CENTER", -200, -25)
 addon:SetTemplate("Default")
 addon:Width(256)
 addon:Height(64)
@@ -198,7 +198,7 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 	else
 		self:ClearAllPoints()
 		self:SetUserPlaced(false)
-		self:Point("TOPLEFT", 0, -104)		
+		self:Point("CENTER", -200, -25)		
 	end
 
 	local m, w, t = 0, 0, title:GetStringWidth()

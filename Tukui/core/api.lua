@@ -89,16 +89,38 @@ local function SetTemplate(f, t, tex)
 	  insets = { left = -mult, right = -mult, top = -mult, bottom = -mult}
 	})
 	
-	if t == "Transparent" then backdropa = 0.8 else backdropa = 1 end
+	local bordera
+	if t == "Invisible" then
+		backdropa = 0
+		bordera = 0
+	elseif t == "Transparent" then
+		backdropa = 0.8
+		bordera = 1
+	else
+		backdropa = 1
+		bordera = 1
+	end
 	
 	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
-	f:SetBackdropBorderColor(borderr, borderg, borderb)
+	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
 local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	GetTemplate(t)
+	local bordera
 	
 	if t == "Transparent" then backdropa = 0.8 else backdropa = 1 end
+	
+	if t == "Invisible" then
+		backdropa = 0
+		bordera = 0
+	elseif t == "Transparent" then
+		backdropa = 0.8
+		bordera = 1
+	else
+		backdropa = 1
+		bordera = 1
+	end
 	
 	local sh = Scale(h)
 	local sw = Scale(w)
@@ -115,7 +137,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	})
 	
 	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
-	f:SetBackdropBorderColor(borderr, borderg, borderb)
+	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
 local function CreateShadow(f, t)
@@ -133,16 +155,16 @@ local function CreateShadow(f, t)
 	local shadow = CreateFrame("Frame", nil, f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:Point("TOPLEFT", -3, 3)
-	shadow:Point("BOTTOMLEFT", -3, -3)
-	shadow:Point("TOPRIGHT", 3, 3)
-	shadow:Point("BOTTOMRIGHT", 3, -3)
+	shadow:Point("TOPLEFT", -4, 4)
+	shadow:Point("BOTTOMLEFT", -4, -4)
+	shadow:Point("TOPRIGHT", 4, 4)
+	shadow:Point("BOTTOMRIGHT", 4, -4)
 	shadow:SetBackdrop( { 
 		edgeFile = C["media"].glowTex, edgeSize = T.Scale(3),
 		insets = {left = T.Scale(5), right = T.Scale(5), top = T.Scale(5), bottom = T.Scale(5)},
 	})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.8)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.6)
 	f.shadow = shadow
 end
 
