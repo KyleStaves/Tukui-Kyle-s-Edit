@@ -107,7 +107,7 @@ end
 		healthBG:SetTexture(.1, .1, .1)
 	
 		health.value = T.SetFontString(health, pixelfont, 10, "OUTLINEMONOCHROME")
-		health.value:Point("RIGHT", health, "RIGHT", T.Scale(-2), T.Scale(0))
+		health.value:Point("RIGHT", health, "RIGHT", -4, 0)
 		health.PostUpdate = T.PostUpdateHealth
 				
 		self.Health = health
@@ -168,7 +168,7 @@ end
 			end
 		else
 			power.value = T.SetFontString(health, pixelfont, 10, "OUTLINEMONOCHROME")
-			power.value:Point("LEFT", health, "LEFT", T.Scale(2), T.Scale(0))
+			power.value:Point("LEFT", health, "LEFT", 4, 0)
 		end
 		
 		power.PreUpdate = T.PreUpdatePower
@@ -1039,7 +1039,7 @@ end
 		healthBG:SetTexture(.1, .1, .1)
 
 		health.value = T.SetFontString(health, pixelfont, 10, "OUTLINEMONOCHROME")
-		health.value:Point("RIGHT", -2, 0)
+		health.value:Point("RIGHT", -4, 0)
 		health.PostUpdate = T.PostUpdateHealth
 				
 		self.Health = health

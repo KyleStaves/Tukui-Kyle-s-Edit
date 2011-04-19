@@ -198,7 +198,7 @@ label:SetText(L.move_roll)
 anchor:SetMovable(true)
 anchor:EnableMouse(false)
 anchor:SetTemplate("Default")
-anchor:SetAlpha(1)
+anchor:SetAlpha(0)
 anchor:SetBackdropBorderColor(1, 0, 0, 1)
 
 local frames = {}
@@ -338,5 +338,5 @@ anchor:SetScript("OnEvent", function(frame, event, addon)
 
 	anchor:SetScript("OnEvent", function(frame, event, ...) if event == "CHAT_MSG_LOOT" then return CHAT_MSG_LOOT(...) else return START_LOOT_ROLL(...) end end)
 
-	anchor:Point("BOTTOM", UIParent, "BOTTOM", 0, 40)
+	anchor:Point("BOTTOM", UIParent, "BOTTOM", 0, 35)
 end)
