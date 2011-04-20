@@ -273,3 +273,106 @@ m_zone:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 m_zone:RegisterEvent("ZONE_CHANGED")
 m_zone:RegisterEvent("ZONE_CHANGED_INDOORS")
 m_zone:SetScript("OnEvent",zone_Update) 
+
+
+-- EXPANDER BEHAVIOR FROM CHINCHILLA MINIMAP
+local expanderCluster, expanderMinimap, expanderButton
+local expanderShow = false
+
+local ExpanderRefresh = function ()
+	if expanderShow then
+		if not expanderCluster then
+			expanderCluster = CreateFrame("Frame", nil, UIParent)
+			expanderCluster:SetFrameStrata("LOW")
+			expanderCluster:SetWidth(140)
+			expanderCluster:SetHeight(140)
+			expanderCluster:SetScale(C.kyle.expanderScale)
+			expanderCluster:SetPoint("CENTER")
+
+			expanderMinimap = CreateFrame("Minimap", "Tukui_Expander_Minimap", expanderCluster)
+			expanderMinimap:SetFrameStrata("BACKGROUND")
+			expanderMinimap:SetWidth(140)
+			expanderMinimap:SetHeight(140)
+			expanderMinimap:SetScale(C.kyle.expanderScale)
+			expanderMinimap:SetPoint("CENTER")
+			expanderMinimap:SetAlpha(C.kyle.expanderAlpha)
+
+			expanderMinimap:EnableMouse(false)
+			expanderMinimap:EnableMouseWheel(false)
+			expanderMinimap:EnableKeyboard(false)
+
+			setmetatable(expanderCluster, { __index = expanderMinimap })
+
+			expanderCluster.GetScale = function() return 1 end
+		end
+		
+		TukuiMinimap:Hide()
+		
+		expanderCluster:Show()
+		expanderMinimap:Show()
+		
+		local z = expanderMinimap:GetZoom()
+		
+		if z > 2 then expanderMinimap:SetZoom(z-1)
+		else expanderMinimap:SetZoom(z+1) end
+		
+		expanderMinimap:SetZoom(z)
+		
+		if GatherMate2 then GatherMate2:GetModule("Display"):ReparentMinimapPins(expanderCluster) end
+		if Routes and Routes.ReparentMinimap then Routes:ReparentMinimap(expanderCluster) end
+	else
+		expanderCluster:Hide()
+		expanderMinimap:Hide()
+		
+		TukuiMinimap:Show()
+		
+		local z = Minimap:GetZoom()
+		
+		if z > 2 then Minimap:SetZoom(z-1, true)
+		else Minimap:SetZoom(z+1, true) end
+		
+		Minimap:SetZoom(z, true)
+		
+		if GatherMate2 then GatherMate2:GetModule("Display"):ReparentMinimapPins(Minimap) end
+		if Routes and Routes.ReparentMinimap then Routes:ReparentMinimap(Minimap) end
+	end
+end
+
+if not expanderButton then
+	expanderButton = CreateFrame("Button", "Tukui_Expander_Button")
+end
+
+expanderButton:SetScript("OnMouseDown", function()
+	if C.kyle.expanderToggle == true then
+		expanderShow = not expanderShow
+	else
+		expanderShow = true
+	end
+	
+	ExpanderRefresh()
+end)
+
+expanderButton:SetScript("OnMouseUp", function()
+	if not C.kyle.expanderToggle then
+		expanderShow = false
+		ExpanderRefresh()
+	end
+end)
+
+CreateFrame("Frame"):SetScript("OnUpdate", function(this)
+	if InCombatLockdown() then return end
+	SetBindingClick(C.kyle.expanderButton, "Tukui_Expander_Button")
+	this:Hide()
+end)
+
+local SetExpanderSize = function()
+	if not expanderCluster or not expanderMinimap then return end
+	
+	expanderCluster:SetWidth(140)
+	expanderCluster:SetHeight(140)
+	expanderCluster:SetScale(1.2)
+	
+	expanderMinimap:SetWidth(140)
+	expanderMinimap:SetHeight(140)
+	expanderMinimap:SetScale(1.2)
+end

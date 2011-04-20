@@ -170,4 +170,8 @@ C["kyle"] = {
 	["chatBGHeight"] = 153,								-- Height of the chat box background
 	["unitFrameLayout"] = 1,							-- 1: Kyle, 2: Tuk default
 	["jasjeComboPoints"] = true,
+	["expanderButton"] = "G",
+	["expanderScale"] = 1.8,
+	["expanderAlpha"] = 0.8,
+	["expanderToggle"] = true,
 }
