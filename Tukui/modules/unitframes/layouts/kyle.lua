@@ -244,7 +244,36 @@ end
 		end
 
 		if (unit == "player") then
-
+			
+			-- experience bar
+			if T.level ~= MAX_PLAYER_LEVEL then
+				local Experience = CreateFrame("StatusBar", self:GetName().."_Experience", self)
+				Experience:SetStatusBarTexture(normTex)
+				Experience:SetStatusBarColor(0.6, 0.6, 0.6, 1)
+				Experience:SetBackdrop(backdrop)
+				Experience:SetBackdropColor(unpack(C["media"].backdropcolor))
+				Experience:Width(power:GetWidth())
+				Experience:Height(power:GetHeight())
+				Experience:Point("TOPLEFT", power, 0, 0)
+				Experience:Point("BOTTOMRIGHT", power, 0, 0)
+				Experience:SetFrameLevel(10)
+				Experience:SetAlpha(0)				
+				Experience:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
+				Experience:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
+				Experience.Tooltip = true						
+				Experience.Rested = CreateFrame('StatusBar', nil, self)
+				Experience.Rested:SetParent(Experience)
+				Experience.Rested:SetAllPoints(Experience)
+				local Resting = Experience:CreateTexture(nil, "OVERLAY")
+				Resting:SetHeight(28)
+				Resting:SetWidth(28)
+				Resting:SetPoint("LEFT", -18, 68)
+				Resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
+				Resting:SetTexCoord(0, 0.5, 0, 0.421875)
+				self.Resting = Resting
+				self.Experience = Experience
+			end
+			
 			-- custom info (low mana warning)
 			FlashInfo = CreateFrame("Frame", "TukuiFlashInfo", self)
 			FlashInfo:SetScript("OnUpdate", T.UpdateManaLevel)
