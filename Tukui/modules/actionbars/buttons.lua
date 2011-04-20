@@ -3,6 +3,22 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 -- I really hope you'll understand the code, because I was totally drunk when I wrote this file.
 -- At least, it work fine. :P (lol)
 
+local vehicleleft = CreateFrame("Button", "TukuiExitVehicleButtonLeft", UIParent, "SecureHandlerClickTemplate")
+vehicleleft:SetWidth(17)
+vehicleleft:SetHeight(17)
+vehicleleft:SetPoint("Right", TukuiBar1, "Left", -2, 0)
+vehicleleft:SetFrameStrata(TukuiBar1:GetFrameStrata())
+vehicleleft:SetFrameLevel(TukuiBar1:GetFrameLevel() + 1)
+vehicleleft:SetTemplate("Default")
+vehicleleft:SetBackdropBorderColor(75/255,  175/255, 76/255)
+vehicleleft:RegisterForClicks("AnyUp")
+vehicleleft:SetScript("OnClick", function() VehicleExit() end)
+vehicleleft.text = T.SetFontString(vehicleleft, C.media.uffont, 20)
+vehicleleft.text:SetPoint("CENTER", T.Scale(1), T.Scale(1))
+vehicleleft.text:SetText("|cff4BAF4CV|r")
+--vehicleleft:SetAlpha(1)
+RegisterStateDriver(vehicleleft, "visibility", "[target=vehicle,exists] show;hide")
+
 if true then return end
 
 local function ShowOrHideBar(bar, button)
@@ -258,18 +274,7 @@ TukuiBar5ButtonBottom.text:Point("CENTER", 1, 1)
 if T.lowversion then TukuiBar5ButtonBottom.text:SetText("|cff4BAF4C<|r") else TukuiBar5ButtonBottom.text:SetText("|cff4BAF4C>|r") end
 
 -- exit vehicle button on left side of bottom action bar
-local vehicleleft = CreateFrame("Button", "TukuiExitVehicleButtonLeft", UIParent, "SecureHandlerClickTemplate")
-vehicleleft:SetAllPoints(TukuiBar2Button)
-vehicleleft:SetFrameStrata(TukuiBar2Button:GetFrameStrata())
-vehicleleft:SetFrameLevel(TukuiBar2Button:GetFrameLevel() + 1)
-vehicleleft:SetTemplate("Default")
-vehicleleft:SetBackdropBorderColor(75/255,  175/255, 76/255)
-vehicleleft:RegisterForClicks("AnyUp")
-vehicleleft:SetScript("OnClick", function() VehicleExit() end)
-vehicleleft.text = T.SetFontString(vehicleleft, C.media.uffont, 20)
-vehicleleft.text:SetPoint("CENTER", T.Scale(1), T.Scale(1))
-vehicleleft.text:SetText("|cff4BAF4CV|r")
-RegisterStateDriver(vehicleleft, "visibility", "[target=vehicle,exists] show;hide")
+
 
 -- exit vehicle button on right side of bottom action bar
 local vehicleright = CreateFrame("Button", "TukuiExitVehicleButtonRight", UIParent, "SecureHandlerClickTemplate")
