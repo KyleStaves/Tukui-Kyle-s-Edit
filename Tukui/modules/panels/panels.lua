@@ -142,18 +142,6 @@ ltoabr:SetFrameLevel(1)
 local movechat = 0
 if C.chat.background then movechat = 10 ileftlv:SetAlpha(0) irightlv:SetAlpha(0) end
 
--- INFO LEFT (FOR STATS)
-local ileft = CreateFrame("Frame", "TukuiInfoLeft", TukuiBar1)
-ileft:CreatePanel("Default", T.InfoLeftRightWidth, 23, "LEFT", ltoabl, "LEFT", 14 - movechat, 0)
-ileft:SetFrameLevel(2)
-ileft:SetFrameStrata("BACKGROUND")
-
--- INFO RIGHT (FOR STATS)
-local iright = CreateFrame("Frame", "TukuiInfoRight", TukuiBar1)
-iright:CreatePanel("Default", T.InfoLeftRightWidth, 23, "RIGHT", ltoabr, "RIGHT", -14 + movechat, 0)
-iright:SetFrameLevel(2)
-iright:SetFrameStrata("BACKGROUND")
-
 -- BOTTOM BAR
 local bottomBar = CreateFrame("Frame", "TukuiBottomBar", UIParent)
 bottomBar:CreatePanel("Default", 6000, 23, "BOTTOM", UIParent, "BOTTOM", 0, -5)
@@ -161,19 +149,26 @@ bottomBar:CreateShadow()
 bottomBar:SetFrameLevel(0)
 bottomBar:SetFrameStrata("BACKGROUND")
 
+-- TOP BAR
+local topBar = CreateFrame("Frame", "TukuiTopBar", UIParent)
+topBar:CreatePanel("Default", 6000, 23, "TOP", UIParent, "TOP", 0, 7)
+topBar:CreateShadow()
+topBar:SetFrameLevel(0)
+topBar:SetFrameStrata("BACKGROUND")
+
 if C.chat.background then
 	-- Alpha horizontal lines because all panels is dependent on this frame.
 	ltoabl:SetAlpha(0)
 	ltoabr:SetAlpha(0)
 	
 	-- CHAT BG LEFT
-	local chatleftbg = CreateFrame("Frame", "TukuiChatBackgroundLeft", TukuiInfoLeft)
-	chatleftbg:CreatePanel("Transparent", T.InfoLeftRightWidth + 12, C.kyle.chatBGHeight, "BOTTOM", TukuiInfoLeft, "BOTTOM", 0, -6)
+	local chatleftbg = CreateFrame("Frame", "TukuiChatBackgroundLeft", UIParent)
+	chatleftbg:CreatePanel("Transparent", C.kyle.chatWidth + 11, C.kyle.chatHeight + 11, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 7, 7)
 	chatleftbg:CreateShadow()
 	
 	-- CHAT BG RIGHT
-	local chatrightbg = CreateFrame("Frame", "TukuiChatBackgroundRight", TukuiInfoRight)
-	chatrightbg:CreatePanel("Transparent", T.InfoLeftRightWidth + 12, C.kyle.chatBGHeight, "BOTTOM", TukuiInfoRight, "BOTTOM", 0, -6)
+	local chatrightbg = CreateFrame("Frame", "TukuiChatBackgroundRight", UIParent)
+	chatrightbg:CreatePanel("Transparent", C.kyle.chatWidth + 11, C.kyle.chatHeight + 11, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -7, 7)
 	chatrightbg:CreateShadow()
 	
 	-- LEFT TAB PANEL
@@ -210,20 +205,83 @@ if C.chat.background then
 	]]--
 end
 
-if TukuiMinimap then
-	local minimapstatsleft = CreateFrame("Frame", "TukuiMinimapStatsLeft", TukuiMinimap)
-	minimapstatsleft:CreatePanel("Default", ((TukuiMinimap:GetWidth() + 4) / 2) -3, 19, "TOPLEFT", TukuiMinimap, "BOTTOMLEFT", 0, -2)
+-- Experience Frame
+local expFrame = CreateFrame("Frame", "TukuiExperienceFrame", UIParent)
+expFrame:CreatePanel("Default", 300, 17, "TOP", UIParent, "TOP", 0, -6)
+expFrame:SetFrameStrata("BACKGROUND")
+expFrame:SetFrameLevel(1)
 
-	local minimapstatsright = CreateFrame("Frame", "TukuiMinimapStatsRight", TukuiMinimap)
-	minimapstatsright:CreatePanel("Default", ((TukuiMinimap:GetWidth() + 4) / 2) -3, 19, "TOPRIGHT", TukuiMinimap, "BOTTOMRIGHT", 0, -2)
-end
+-- Buttons
+-- local expLeftButton = CreateFrame("Frame", "TukuiExperienceButtonLeft", UIParent)
+-- expLeftButton:CreatePanel("Default", 15, 15, "RIGHT", expFrame, "LEFT", -3, 0)
+-- expLeftButton:SetFrameStrata("BACKGROUND")
+-- expLeftButton:SetFrameLevel(1)
+
+local expLeftButton = CreateFrame("Button", "TukuiExperienceButtonLeft", UIParent)
+expLeftButton:Width(15)
+expLeftButton:Height(15)
+expLeftButton:Point("RIGHT", expFrame, "LEFT", -3, 0)
+expLeftButton:SetFrameStrata("BACKGROUND")
+expLeftButton:SetFrameLevel(1)
+expLeftButton:SetTemplate("Default")
+expLeftButton:RegisterForClicks("AnyUp")
+
+local expRightButton = CreateFrame("Frame", "TukuiExperienceButtonRight", UIParent)
+expRightButton:CreatePanel("Default", 15, 15, "LEFT", expFrame, "RIGHT", 3, 0)
+expRightButton:SetFrameStrata("BACKGROUND")
+expRightButton:SetFrameLevel(1)
+
+-- Stats Frames
+local statFrame1 = CreateFrame("Frame", "TukuiStatFrameTopLeft1", UIParent)
+statFrame1:CreatePanel("Default", 82, 17, "TOPLEFT", UIParent, "TOPLEFT", 6, -6)
+statFrame1:SetFrameStrata("BACKGROUND")
+statFrame1:SetFrameLevel(1)
+
+local statFrame2 = CreateFrame("Frame", "TukuiStatFrameTopLeft2", UIParent)
+statFrame2:CreatePanel("Default", 82, 17, "LEFT", TukuiStatFrameTopLeft1, "RIGHT", 6, 0)
+statFrame2:SetFrameStrata("BACKGROUND")
+statFrame2:SetFrameLevel(1)
+
+local statFrame3 = CreateFrame("Frame", "TukuiStatFrameTopLeft3", UIParent)
+statFrame3:CreatePanel("Default", 82, 17, "LEFT", TukuiStatFrameTopLeft2, "RIGHT", 6, 0)
+statFrame3:SetFrameStrata("BACKGROUND")
+statFrame3:SetFrameLevel(1)
+
+local statFrame6 = CreateFrame("Frame", "TukuiStatFrameTopRight3", UIParent)
+statFrame6:CreatePanel("Default", 82, 17, "TOPRIGHT", UIParent, "TOPRIGHT", -6, -6)
+statFrame6:SetFrameStrata("BACKGROUND")
+statFrame6:SetFrameLevel(1)
+
+local statFrame5 = CreateFrame("Frame", "TukuiStatFrameTopRight2", UIParent)
+statFrame5:CreatePanel("Default", 82, 17, "RIGHT", TukuiStatFrameTopRight3, "LEFT", -6, 0)
+statFrame5:SetFrameStrata("BACKGROUND")
+statFrame5:SetFrameLevel(1)
+
+local statFrame4 = CreateFrame("Frame", "TukuiStatFrameTopRight1", UIParent)
+statFrame4:CreatePanel("Default", 82, 17, "RIGHT", TukuiStatFrameTopRight2, "LEFT", -6, 0)
+statFrame4:SetFrameStrata("BACKGROUND")
+statFrame4:SetFrameLevel(1)
+
+
 
 --BATTLEGROUND STATS FRAME
 if C["datatext"].battleground == true then
 	local bgframe = CreateFrame("Frame", "TukuiInfoLeftBattleGround", UIParent)
 	bgframe:CreatePanel("Default", 1, 1, "TOPLEFT", UIParent, "BOTTOMLEFT", 0, 0)
-	bgframe:SetAllPoints(ileft)
+	bgframe:SetAllPoints(expFrame)
 	bgframe:SetFrameStrata("LOW")
 	bgframe:SetFrameLevel(0)
 	bgframe:EnableMouse(true)
+	
+	local function ToggleBattlegroundFrame()
+		if TukuiInfoLeftBattleGround:IsShown() then
+			TukuiInfoLeftBattleGround:Hide()
+		else
+			TukuiInfoLeftBattleGround:Show()
+		end
+	end
+	
+	expLeftButton:EnableMouse(true)
+	expLeftButton:SetScript("OnClick", function() ToggleBattlegroundFrame() end)
+	
 end

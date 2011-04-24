@@ -9,7 +9,7 @@ if C["datatext"].gold and C["datatext"].gold > 0 then
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+	local Text  = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 	Text:SetFont(C.media.pixelfont, C["datatext"].fontsize)
 	T.PP(C["datatext"].gold, Text)
 

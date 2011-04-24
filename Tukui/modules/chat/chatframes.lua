@@ -83,8 +83,8 @@ local function SetChatStyle(frame)
 	
 	-- move the chat edit box
 	_G[chat.."EditBox"]:ClearAllPoints()
-	_G[chat.."EditBox"]:Point("TOPLEFT", TukuiTabsLeftBackground or TukuiInfoLeft, 2, -2)
-	_G[chat.."EditBox"]:Point("BOTTOMRIGHT", TukuiTabsLeftBackground or TukuiInfoLeft, -2, 2)	
+	_G[chat.."EditBox"]:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "TOPLEFT", 0, 3)
+	_G[chat.."EditBox"]:Point("TOPRIGHT", TukuiChatBackgroundLeft, "TOPRIGHT", 0, 22)	
 	
 	-- Hide textures
 	for j = 1, #CHAT_FRAME_TEXTURES do
@@ -141,7 +141,9 @@ local function SetChatStyle(frame)
 	local EditBoxBackground = CreateFrame("frame", "TukuiChatchatEditBoxBackground", _G[chat.."EditBox"])
 	EditBoxBackground:CreatePanel("Default", 1, 1, "LEFT", _G[chat.."EditBox"], "LEFT", 0, 0)
 	EditBoxBackground:ClearAllPoints()
-	EditBoxBackground:SetAllPoints(TukuiTabsLeftBackground or TukuiInfoLeft)
+	--EditBoxBackground:SetAllPoints(TukuiTabsLeftBackground or TukuiInfoLeft)
+	EditBoxBackground:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "TOPLEFT", 0, 3)
+	EditBoxBackground:Point("TOPRIGHT", TukuiChatBackgroundLeft, "TOPRIGHT", 0, 22)
 	EditBoxBackground:SetFrameStrata("LOW")
 	EditBoxBackground:SetFrameLevel(1)
 	
@@ -204,18 +206,27 @@ local function SetupChatPosAndFont(self)
 			FCF_SetChatWindowFontSize(nil, chat, fontSize)
 		end
 		
+		if i == 1 then
+				frame:ClearAllPoints()
+				frame:Point("CENTER", TukuiChatBackgroundLeft, "CENTER", 0, 0)
+			elseif i == 4 and chatName == LOOT then
+				frame:ClearAllPoints()
+				frame:Point("CENTER", TukuiChatBackgroundRight, "CENTER", 0, 0)
+			end
+		
 		-- force chat position on #1 and #4, needed if we change ui scale or resolution
 		-- also set original width and height of chatframes 1 and 4 if first time we run tukui.
 		-- doing resize of chat also here for users that hit "cancel" when default installation is show.
 		if i == 1 then
-			chat:Point("BOTTOMLEFT", TukuiInfoLeft, "TOPLEFT", 0, 6)
-			chat:Point("BOTTOMRIGHT", TukuiInfoLeft, "TOPRIGHT", 0, 6)
+			chat:ClearAllPoints()
+			chat:Point("TOPLEFT", TukuiChatBackgroundLeft, "TOPLEFT", 5, 2)
+			chat:Point("BOTTOMRIGHT", TukuiChatBackgroundLeft, "BOTTOMRIGHT", -5, 5)
 			FCF_SavePositionAndDimensions(chat)
 		elseif i == 4 and name == LOOT then
 			if not chat.isDocked then
 				chat:ClearAllPoints()
-				chat:Point("BOTTOMRIGHT", TukuiInfoRight, "TOPRIGHT", 0, 6)
-				chat:Point("BOTTOMLEFT", TukuiInfoRight, "TOPLEFT", 0, 6)
+				chat:Point("TOPLEFT", TukuiChatBackgroundRight, "TOPLEFT", 5, 2)
+				chat:Point("BOTTOMRIGHT", TukuiChatBackgroundRight, "BOTTOMRIGHT", -5, 5)
 				chat:SetJustifyH("RIGHT") 
 				FCF_SavePositionAndDimensions(chat)
 			end

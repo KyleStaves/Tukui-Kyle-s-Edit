@@ -10,7 +10,7 @@ if C["datatext"].fps_ms and C["datatext"].fps_ms > 0 then
 	Stat:SetFrameLevel(3)
 	Stat:EnableMouse(true)
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+	local Text  = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 	Text:SetFont(C.media.pixelfont, C["datatext"].fontsize)
 	T.PP(C["datatext"].fps_ms, Text)
 

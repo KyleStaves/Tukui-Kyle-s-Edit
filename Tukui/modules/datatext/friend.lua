@@ -10,7 +10,7 @@ Stat:EnableMouse(true)
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
-local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+local Text  = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 Text:SetFont(C.media.pixelfont, C["datatext"].fontsize)
 Text:SetShadowOffset(T.mult, -T.mult)
 T.PP(C["datatext"].friends, Text)

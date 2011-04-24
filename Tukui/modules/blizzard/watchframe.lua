@@ -69,25 +69,31 @@ local function setup()
 	WatchFrame:SetPoint("TOPLEFT", 32,-2.5)
 	WatchFrame:SetPoint("BOTTOMRIGHT", 4,0)
 	WatchFrame.SetPoint = T.dummy
-
+	
 	WatchFrameTitle:SetParent(TukuiWatchFrame)
 	WatchFrameCollapseExpandButton:SetParent(TukuiWatchFrame)
-	WatchFrameCollapseExpandButton:SetFrameStrata(WatchFrameHeader:GetFrameStrata())
-	WatchFrameCollapseExpandButton:SetFrameLevel(WatchFrameHeader:GetFrameLevel() + 1)
-	WatchFrameCollapseExpandButton:SetNormalTexture("")
-	WatchFrameCollapseExpandButton:SetPushedTexture("")
-	WatchFrameCollapseExpandButton:SetHighlightTexture("")
-	WatchFrameCollapseExpandButton:SetTemplate("Default")
-	WatchFrameCollapseExpandButton:FontString("text", C.media.font, 12)
-	WatchFrameCollapseExpandButton.text:SetText("X")
-	WatchFrameCollapseExpandButton.text:Point("CENTER", 1, 0)
-	WatchFrameCollapseExpandButton:HookScript("OnClick", function(self) 
-		if WatchFrame.collapsed then 
-			self.text:SetText("V") 
-		else 
-			self.text:SetText("X")
-		end 
-	end)
+	
+	if C.kyle.watchframeExpandButton then
+		WatchFrameCollapseExpandButton:SetFrameStrata(WatchFrameHeader:GetFrameStrata())
+		WatchFrameCollapseExpandButton:SetFrameLevel(WatchFrameHeader:GetFrameLevel() + 1)
+		WatchFrameCollapseExpandButton:SetNormalTexture("")
+		WatchFrameCollapseExpandButton:SetPushedTexture("")
+		WatchFrameCollapseExpandButton:SetHighlightTexture("")
+		WatchFrameCollapseExpandButton:SetTemplate("Default")
+		WatchFrameCollapseExpandButton:FontString("text", C.media.font, 12)
+		WatchFrameCollapseExpandButton.text:SetText("X")
+		WatchFrameCollapseExpandButton.text:Point("CENTER", 1, 0)
+		WatchFrameCollapseExpandButton:HookScript("OnClick", function(self) 
+			if WatchFrame.collapsed then 
+				self.text:SetText("V") 
+			else 
+				self.text:SetText("X")
+			end 
+		end)
+	else
+		WatchFrameCollapseExpandButton:Kill()
+		
+	end
 	WatchFrameTitle:Kill()
 end
 

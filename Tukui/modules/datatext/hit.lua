@@ -7,7 +7,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 if not C["datatext"].hit == nil or C["datatext"].hit > 0 then
 	local Stat = CreateFrame("Frame")
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+	local Text  = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 	Text:SetFont(C.media.pixelfont, C["datatext"].fontsize)
 	T.PP(C["datatext"].hit, Text)
 

@@ -8,7 +8,7 @@ PlayerPowerBarAlt:UnregisterEvent("UNIT_POWER_BAR_HIDE")
 PlayerPowerBarAlt:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	
 --Create the new bar
-local AltPowerBar = CreateFrame("Frame", "TukuiAltPowerBar", TukuiInfoLeft)
+local AltPowerBar = CreateFrame("Frame", "TukuiAltPowerBar", TukuiStatFrameTopLeft1)
 AltPowerBar:SetAllPoints()
 AltPowerBar:SetFrameStrata("LOW")
 AltPowerBar:SetFrameLevel(0)
@@ -20,8 +20,8 @@ local AltPowerBarStatus = CreateFrame("StatusBar", "TukuiAltPowerBarStatus", Alt
 AltPowerBarStatus:SetFrameLevel(AltPowerBar:GetFrameLevel() + 1)
 AltPowerBarStatus:SetStatusBarTexture(C.media.normTex)
 AltPowerBarStatus:SetMinMaxValues(0, 100)
-AltPowerBarStatus:Point("TOPLEFT", TukuiInfoLeft, "TOPLEFT", 2, -2)
-AltPowerBarStatus:Point("BOTTOMRIGHT", TukuiInfoLeft, "BOTTOMRIGHT", -2, 2)
+--AltPowerBarStatus:Point(TukuiStatFrameTopLeft1, "TOPLEFT", 2, -2)
+--AltPowerBarStatus:Point("RIGHT", TukuiStatFrameTopLeft1, "BOTTOMRIGHT", -2, 2)
 AltPowerBarStatus:SetStatusBarColor(75/255,  175/255, 76/255)
 
 local AltPowerText = AltPowerBarStatus:CreateFontString(nil, "OVERLAY")

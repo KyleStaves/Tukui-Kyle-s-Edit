@@ -65,7 +65,7 @@ C["auras"] = {
 C["actionbar"] = {
 	["enable"] = true,                                  -- enable tukui action bars
 	["hotkey"] = false,                                 -- enable hotkey display because it was a lot requested
-	["hideshapeshift"] = false,                         -- hide shapeshift or totembar because it was a lot requested.
+	["hideshapeshift"] = true,                         -- hide shapeshift or totembar because it was a lot requested.
 	["showgrid"] = true,                                -- show grid on empty button
 	["buttonsize"] = 24,                                -- normal buttons size
 	["petbuttonsize"] = 22,                             -- pet & stance buttons size
@@ -73,7 +73,7 @@ C["actionbar"] = {
 }
 
 C["bags"] = {
-	["enable"] = true,                                  -- enable an all in one bag mod that fit tukui perfectly
+	["enable"] = false,                                  -- enable an all in one bag mod that fit tukui perfectly
 }
 
 C["map"] = {
@@ -83,7 +83,7 @@ C["map"] = {
 C["loot"] = {
 	["lootframe"] = true,                               -- reskin the loot frame to fit tukui
 	["rolllootframe"] = true,                           -- reskin the roll frame to fit tukui
-	["autogreed"] = true,                               -- auto-dez or auto-greed item at max level, auto-greed Frozen orb
+	["autogreed"] = false,                               -- auto-dez or auto-greed item at max level, auto-greed Frozen orb
 }
 
 C["cooldown"] = {
@@ -92,25 +92,25 @@ C["cooldown"] = {
 }
 
 C["datatext"] = {
-	["fps_ms"] = 4,                                     -- show fps and ms on panels
-	["system"] = 5,                                     -- show total memory and others systems infos on panels
+	["fps_ms"] = 0,                                     -- show fps and ms on panels
+	["system"] = 0,                                     -- show total memory and others systems infos on panels
 	["bags"] = 0,                                       -- show space used in bags on panels
-	["gold"] = 6,                                       -- show your current gold on panels
-	["wowtime"] = 8,                                    -- show time on panels
+	["gold"] = 0,                                       -- show your current gold on panels
+	["wowtime"] = 6,                                    -- show time on panels
 	["guild"] = 1,                                      -- show number on guildmate connected on panels
-	["dur"] = 2,                                        -- show your equipment durability on panels.
-	["friends"] = 3,                                    -- show number of friends connected.
+	["dur"] = 3,                                        -- show your equipment durability on panels.
+	["friends"] = 2,                                    -- show number of friends connected.
 	["dps_text"] = 0,                                   -- show a dps meter on panels
 	["hps_text"] = 0,                                   -- show a heal meter on panels
-	["power"] = 7,                                      -- show your attackpower/spellpower/healpower/rangedattackpower whatever stat is higher gets displayed
+	["power"] = 5,                                      -- show your attackpower/spellpower/healpower/rangedattackpower whatever stat is higher gets displayed
 	["haste"] = 0,                                      -- show your haste rating on panels.
 	["crit"] = 0,                                       -- show your crit rating on panels.
 	["avd"] = 0,                                        -- show your current avoidance against the level of the mob your targeting
 	["armor"] = 0,                                      -- show your armor value against the level mob you are currently targeting
-	["currency"] = 0,                                   -- show your tracked currency on panels
+	["currency"] = 4,                                   -- show your tracked currency on panels
 	["hit"] = 0,
 	["mastery"] = 0,
-	["micromenu"] = 0,
+	["micromenu"] = 99,
 
 	["battleground"] = true,                            -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = false,                                  -- set time to 24h format.
@@ -150,7 +150,7 @@ C["merchant"] = {
 }
 
 C["error"] = {
-	["enable"] = true,                                  -- true to enable this mod, false to disable
+	["enable"] = false,                                  -- true to enable this mod, false to disable
 	filter = {                                          -- what messages to not hide
 		[INVENTORY_FULL] = true,                        -- inventory is full will not be hidden by default
 	},
@@ -174,4 +174,7 @@ C["kyle"] = {
 	["expanderScale"] = 1.8,
 	["expanderAlpha"] = 0.8,
 	["expanderToggle"] = true,
+	["watchframeExpandButton"] = false,
+	["chatWidth"] = 410,
+	["chatHeight"] = 136,
 }

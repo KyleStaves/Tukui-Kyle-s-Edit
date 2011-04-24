@@ -26,15 +26,15 @@ local classification = {
 local NeedBackdropBorderRefresh = true
 
 local anchor = CreateFrame("Frame", "TukuiTooltipAnchor", UIParent)
-anchor:SetSize(200, TukuiInfoRight:GetHeight())
+anchor:SetSize(200, TukuiStatFrameTopRight3:GetHeight())
 anchor:SetFrameStrata("TOOLTIP")
 anchor:SetFrameLevel(20)
 anchor:SetClampedToScreen(true)
 anchor:SetAlpha(0)
 if C.chat.background and TukuiChatBackgroundRight then
-	anchor:SetPoint("BOTTOMRIGHT", TukuiChatBackgroundRight, "TOPRIGHT", 0, -TukuiInfoRight:GetHeight())
+	anchor:SetPoint("BOTTOMRIGHT", TukuiChatBackgroundRight, "TOPRIGHT", 0, -TukuiStatFrameTopRight3:GetHeight())
 else
-	anchor:SetPoint("BOTTOMRIGHT", TukuiInfoRight)
+	anchor:SetPoint("BOTTOMRIGHT", UIParent, -25, -200)
 end
 anchor:SetTemplate("Default")
 anchor:SetBackdropBorderColor(1, 0, 0, 1)

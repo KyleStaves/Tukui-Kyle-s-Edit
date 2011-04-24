@@ -12,7 +12,7 @@ Stat:SetFrameLevel(3)
 Stat:EnableMouse(true)
 Stat.tooltip = false
 
-local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+local Text  = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 Text:SetFont(C.media.pixelfont, C["datatext"].fontsize)
 T.PP(C["datatext"].system, Text)
 

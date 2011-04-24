@@ -9,7 +9,7 @@ if C["datatext"].hps_text and C["datatext"].hps_text > 0 then
 	local player_id = UnitGUID("player")
 	local actual_heals_total, cmbt_time = 0
  
-	local hText = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+	local hText = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 	hText:SetFont(C.media.pixelfont, C["datatext"].fontsize)
 	hText:SetText("0.0 ",L.datatext_hps)
  

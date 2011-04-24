@@ -215,10 +215,10 @@ local function Shared(self, unit)
 		AltPowerBar:SetStatusBarColor(163/255,  24/255,  24/255)
 		AltPowerBar:EnableMouse(true)
 
-		AltPowerBar:Point("LEFT", TukuiInfoLeft, 2, -2)
-		AltPowerBar:Point("RIGHT", TukuiInfoLeft, -2, 2)
-		AltPowerBar:Point("TOP", TukuiInfoLeft, 2, -2)
-		AltPowerBar:Point("BOTTOM", TukuiInfoLeft, -2, 2)
+		AltPowerBar:Point("LEFT", TukuiStatFrameTopLeft1, 2, -2)
+		AltPowerBar:Point(TukuiStatFrameTopLeft1iInfoLeft, -2, 2)
+		AltPoweTukuiStatFrameTopLeft1OP", TukuiInfoLeftBattleGround, 2, -2)
+		ATukuiStatFrameTopLeft1int("BOTTOM", TukuiInfoLeftBattleGround, -2, 2)
 		
 		AltPowerBar:SetBackdrop({
 			bgFile = C["media"].blank, 

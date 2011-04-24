@@ -395,9 +395,9 @@ function Stuffing:CreateBagFrame(w)
 	f:SetFrameLevel(20)
 
 	if w == "Bank" then
-		f:Point("BOTTOMLEFT", TukuiInfoLeft, "TOPLEFT", 0, 5)
+		f:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "TOPLEFT", 0, 5)
 	else
-		f:Point("BOTTOMRIGHT", TukuiInfoRight, "TOPRIGHT", 0, 5)
+		f:Point("BOTTOMRIGHT", TukuiChatBackgroundRight, "TOPRIGHT", 0, 5)
 	end
 	
 	-- close button
@@ -909,7 +909,7 @@ function Stuffing:PLAYER_ENTERING_WORLD()
 	end)
 	
 	ContainerFrame1:ClearAllPoints()
-	ContainerFrame1:Point("BOTTOMRIGHT", TukuiInfoRight, "TOPRIGHT", 4, 5)
+	ContainerFrame1:Point("BOTTOMRIGHT", TukuiStatFrameTopRight3, "TOPRIGHT", 4, 5)
 	ContainerFrame1.ClearAllPoints = T.dummy
 	ContainerFrame1.SetPoint = T.dummy
 end

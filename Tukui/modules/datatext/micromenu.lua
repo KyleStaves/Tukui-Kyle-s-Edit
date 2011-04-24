@@ -18,12 +18,13 @@ if C["datatext"].micromenu and C["datatext"].micromenu > 0 then
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+	local Text  = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 	Text:SetFont(C.media.pixelfont, C["datatext"].fontsize)
 	T.PP(C["datatext"].micromenu, Text)
 
 	local function OnEvent(self, event, ...)
-		Text:SetText(MAINMENU_BUTTON)
+		Text:SetText("M")
+		Text:SetAlpha(0)
 		self:SetAllPoints(Text)
 	end
 

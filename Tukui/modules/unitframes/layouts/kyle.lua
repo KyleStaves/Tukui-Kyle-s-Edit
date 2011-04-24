@@ -245,25 +245,26 @@ end
 
 		if (unit == "player") then
 			
-			-- experience bar
 			if T.level ~= MAX_PLAYER_LEVEL then
 				local Experience = CreateFrame("StatusBar", self:GetName().."_Experience", self)
 				Experience:SetStatusBarTexture(normTex)
 				Experience:SetStatusBarColor(0.6, 0.6, 0.6, 1)
 				Experience:SetBackdrop(backdrop)
 				Experience:SetBackdropColor(unpack(C["media"].backdropcolor))
-				Experience:Width(power:GetWidth())
-				Experience:Height(power:GetHeight())
-				Experience:Point("TOPLEFT", power, 0, 0)
-				Experience:Point("BOTTOMRIGHT", power, 0, 0)
-				Experience:SetFrameLevel(10)
-				Experience:SetAlpha(0)				
-				Experience:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
-				Experience:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
-				Experience.Tooltip = true						
+				Experience:Width(TukuiExperienceFrame:GetWidth())
+				Experience:Height(TukuiExperienceFrame:GetHeight() / 2 - 1)
+				Experience:Point("TOPLEFT", TukuiExperienceFrame, 2, -2)
+				Experience:Point("TOPRIGHT", TukuiExperienceFrame, -2, -2)
+				Experience:SetFrameLevel(11)
+				Experience:SetAlpha(1)
+				
+				Experience.Tooltip = true
+				
 				Experience.Rested = CreateFrame('StatusBar', nil, self)
 				Experience.Rested:SetParent(Experience)
 				Experience.Rested:SetAllPoints(Experience)
+				
+				
 				local Resting = Experience:CreateTexture(nil, "OVERLAY")
 				Resting:SetHeight(28)
 				Resting:SetWidth(28)
@@ -272,7 +273,92 @@ end
 				Resting:SetTexCoord(0, 0.5, 0, 0.421875)
 				self.Resting = Resting
 				self.Experience = Experience
+				
+				local Reputation = CreateFrame("StatusBar", self:GetName().."_Reputation", self)
+				Reputation:SetStatusBarTexture(normTex)
+				Reputation:SetStatusBarColor(0.45, 0.45, 0.45, 1)
+				Reputation:SetBackdrop(backdrop)
+				Reputation:SetBackdropColor(unpack(C["media"].backdropcolor))
+				
+				Reputation:Width(TukuiExperienceFrame:GetWidth())
+				Reputation:Height(TukuiExperienceFrame:GetHeight() / 2 + 1)
+				Reputation:Point("BOTTOMLEFT", TukuiExperienceFrame, 2, 2)
+				Reputation:Point("BOTTOMRIGHT", TukuiExperienceFrame, -2, 2)
+				Reputation:SetFrameLevel(10)
+				Reputation:SetAlpha(1)
+				
+				--Reputation.PostUpdate = T.UpdateReputationColor
+				Reputation.Tooltip = true
+				self.Reputation = Reputation
+			else
+				local Reputation = CreateFrame("StatusBar", self:GetName().."_Reputation", self)
+				Reputation:SetStatusBarTexture(normTex)
+				Reputation:SetStatusBarColor(0.45, 0.45, 0.45, 1)
+				Reputation:SetBackdrop(backdrop)
+				Reputation:SetBackdropColor(unpack(C["media"].backdropcolor))
+				
+				Reputation:Width(TukuiExperienceFrame:GetWidth())
+				Reputation:Height(TukuiExperienceFrame:GetHeight())
+				Reputation:Point("TOPLEFT", TukuiExperienceFrame, 2, -2)
+				Reputation:Point("BOTTOMRIGHT", TukuiExperienceFrame, -2, 2)
+				Reputation:SetFrameStrata("BACKGROUND")
+				Reputation:SetFrameLevel(5)
+				Reputation:SetAlpha(1)
+				
+				--Reputation.PostUpdate = T.UpdateReputationColor
+				Reputation.Tooltip = true
+				self.Reputation = Reputation
 			end
+			
+			-- experience bar
+			-- if T.level ~= MAX_PLAYER_LEVEL then
+				-- local Experience = CreateFrame("StatusBar", self:GetName().."_Experience", self)
+				-- Experience:SetStatusBarTexture(normTex)
+				-- Experience:SetStatusBarColor(0.6, 0.6, 0.6, 1)
+				-- Experience:SetBackdrop(backdrop)
+				-- Experience:SetBackdropColor(unpack(C["media"].backdropcolor))
+				-- Experience:Width(power:GetWidth())
+				-- Experience:Height(power:GetHeight())
+				-- Experience:Point("TOPLEFT", power, 0, 0)
+				-- Experience:Point("BOTTOMRIGHT", power, 0, 0)
+				-- Experience:SetFrameLevel(10)
+				-- Experience:SetAlpha(0)				
+				-- Experience:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
+				-- Experience:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
+				-- Experience.Tooltip = true						
+				-- Experience.Rested = CreateFrame('StatusBar', nil, self)
+				-- Experience.Rested:SetParent(Experience)
+				-- Experience.Rested:SetAllPoints(Experience)
+				-- local Resting = Experience:CreateTexture(nil, "OVERLAY")
+				-- Resting:SetHeight(28)
+				-- Resting:SetWidth(28)
+				-- Resting:SetPoint("LEFT", -18, 68)
+				-- Resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
+				-- Resting:SetTexCoord(0, 0.5, 0, 0.421875)
+				-- self.Resting = Resting
+				-- self.Experience = Experience
+			-- end
+			
+			-- reputation bar for max level character
+			-- if T.level == MAX_PLAYER_LEVEL then
+				-- local Reputation = CreateFrame("StatusBar", self:GetName().."_Reputation", self)
+				-- Reputation:SetStatusBarTexture(normTex)
+				-- Reputation:SetBackdrop(backdrop)
+				-- Reputation:SetBackdropColor(unpack(C["media"].backdropcolor))
+				-- Reputation:Width(panel:GetWidth() - 4)
+				-- Reputation:Height(panel:GetHeight() - 4)
+				-- Reputation:Point("TOPLEFT", panel, 2, -2)
+				-- Reputation:Point("BOTTOMRIGHT", panel, -2, 2)
+				-- Reputation:SetFrameLevel(10)
+				-- Reputation:SetAlpha(0)
+
+				-- Reputation:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
+				-- Reputation:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
+
+				-- Reputation.PostUpdate = T.UpdateReputationColor
+				-- Reputation.Tooltip = true
+				-- self.Reputation = Reputation
+			-- end
 			
 			-- custom info (low mana warning)
 			FlashInfo = CreateFrame("Frame", "TukuiFlashInfo", self)

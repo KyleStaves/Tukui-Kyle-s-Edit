@@ -12,59 +12,48 @@ end
 
 -- datatext panel position
 T.PP = function(p, obj)
-	local left = TukuiInfoLeft
-	local right = TukuiInfoRight
-	local mapleft = TukuiMinimapStatsLeft
-	local mapright = TukuiMinimapStatsRight
-	
 	if p == 1 then
-		obj:SetParent(left)
-		obj:SetHeight(left:GetHeight())
-		obj:SetPoint("LEFT", left, 30, 0)
-		obj:SetPoint('TOP', left)
-		obj:SetPoint('BOTTOM', left)
+		obj:SetParent(TukuiStatFrameTopLeft1)
+		obj:SetHeight(TukuiStatFrameTopLeft1:GetHeight())
+		obj:ClearAllPoints()
+		obj:SetPoint("TOPLEFT", TukuiStatFrameTopLeft1, 4, 0)
+		obj:SetPoint("BOTTOMRIGHT", TukuiStatFrameTopLeft1, -4, 0)
 	elseif p == 2 then
-		obj:SetParent(left)
-		obj:SetHeight(left:GetHeight())
-		obj:SetPoint('TOP', left)
-		obj:SetPoint('BOTTOM', left)
+		obj:SetParent(TukuiStatFrameTopLeft2)
+		obj:SetHeight(TukuiStatFrameTopLeft2:GetHeight())
+		obj:ClearAllPoints()
+		obj:SetPoint("TOPLEFT", TukuiStatFrameTopLeft2, 4, 0)
+		obj:SetPoint("BOTTOMRIGHT", TukuiStatFrameTopLeft2, -4, 0)
 	elseif p == 3 then
-		obj:SetParent(left)
-		obj:SetHeight(left:GetHeight())
-		obj:SetPoint("RIGHT", left, -30, 0)
-		obj:SetPoint('TOP', left)
-		obj:SetPoint('BOTTOM', left)
+		obj:SetParent(TukuiStatFrameTopLeft3)
+		obj:SetHeight(TukuiStatFrameTopLeft3:GetHeight())
+		obj:ClearAllPoints()
+		obj:SetPoint("TOPLEFT", TukuiStatFrameTopLeft3, 4, 0)
+		obj:SetPoint("BOTTOMRIGHT", TukuiStatFrameTopLeft3, -4, 0)
 	elseif p == 4 then
-		obj:SetParent(right)
-		obj:SetHeight(right:GetHeight())
-		obj:SetPoint("LEFT", right, 30, 0)
-		obj:SetPoint('TOP', right)
-		obj:SetPoint('BOTTOM', right)
+		obj:SetParent(TukuiStatFrameTopRight1)
+		obj:SetHeight(TukuiStatFrameTopRight1:GetHeight())
+		obj:ClearAllPoints()
+		obj:SetPoint("TOPLEFT", TukuiStatFrameTopRight1, 4, 0)
+		obj:SetPoint("BOTTOMRIGHT", TukuiStatFrameTopRight1, -4, 0)
 	elseif p == 5 then
-		obj:SetParent(right)
-		obj:SetHeight(right:GetHeight())
-		obj:SetPoint('TOP', right)
-		obj:SetPoint('BOTTOM', right)
+		obj:SetParent(TukuiStatFrameTopRight2)
+		obj:SetHeight(TukuiStatFrameTopRight2:GetHeight())
+		obj:ClearAllPoints()
+		obj:SetPoint("TOPLEFT", TukuiStatFrameTopRight2, 4, 0)
+		obj:SetPoint("BOTTOMRIGHT", TukuiStatFrameTopRight2, -4, 0)
 	elseif p == 6 then
-		obj:SetParent(right)
-		obj:SetHeight(right:GetHeight())
-		obj:SetPoint("RIGHT", right, -30, 0)
-		obj:SetPoint('TOP', right)
-		obj:SetPoint('BOTTOM', right)
-	end
-	
-	if TukuiMinimap then
-		if p == 7 then
-			obj:SetParent(mapleft)
-			obj:SetHeight(mapleft:GetHeight())
-			obj:SetPoint('TOP', mapleft)
-			obj:SetPoint('BOTTOM', mapleft)
-		elseif p == 8 then
-			obj:SetParent(mapright)
-			obj:SetHeight(mapright:GetHeight())
-			obj:SetPoint('TOP', mapright)
-			obj:SetPoint('BOTTOM', mapright)
-		end
+		obj:SetParent(TukuiStatFrameTopRight3)
+		obj:SetHeight(TukuiStatFrameTopRight3:GetHeight())
+		obj:ClearAllPoints()
+		obj:SetPoint("TOPLEFT", TukuiStatFrameTopRight3, 4, 0)
+		obj:SetPoint("BOTTOMRIGHT", TukuiStatFrameTopRight3, -4, 0)
+	elseif p == 99 then
+		obj:SetParent(TukuiExperienceButtonRight)
+		obj:SetHeight(TukuiExperienceButtonRight:GetHeight())
+		obj:ClearAllPoints()
+		obj:SetPoint("TOPLEFT", TukuiExperienceButtonRight, 0, 0)
+		obj:SetPoint("BOTTOMRIGHT", TukuiExperienceButtonRight, 0, 0)
 	end
 end
 
@@ -72,26 +61,17 @@ T.DataTextTooltipAnchor = function(self)
 	local panel = self:GetParent()
 	local anchor = "ANCHOR_TOP"
 	local xoff = 0
-	local yoff = T.Scale(5)
+	local yoff = T.Scale(100)
 	
-	if panel == TukuiInfoLeft then
+	if panel == TukuiStatFrameTopLeft3 or panel == TukuiStatFrameTopLeft2 or panel == TukuiStatFrameTopLeft1 then
 		anchor = "ANCHOR_TOPLEFT"
-	elseif panel == TukuiInfoRight then
+		yoff = T.Scale(-100)
+	elseif panel == TukuiStatFrameTopRight1 or panel == TukuiStatFrameTopRight2 or panel == TukuiStatFrameTopRight3 then
 		anchor = "ANCHOR_TOPRIGHT"
-	elseif panel == TukuiMinimapStatsLeft or panel == TukuiMinimapStatsRight then
-		local position = TukuiMinimap:GetPoint()
-		if position:match("LEFT") then
-			anchor = "ANCHOR_BOTTOMRIGHT"
-			yoff = T.Scale(-6)
-			xoff = 0 - TukuiMinimapStatsRight:GetWidth()
-		elseif position:match("RIGHT") then
-			anchor = "ANCHOR_BOTTOMLEFT"
-			yoff = T.Scale(-6)
-			xoff = TukuiMinimapStatsRight:GetWidth()
-		else
-			anchor = "ANCHOR_BOTTOM"
-			yoff = T.Scale(-6)
-		end
+		yoff = T.Scale(100)
+	else
+		anchor = "ANCHOR_TOPRIGHT"
+		yoff = T.Scale(-17)
 	end
 	
 	return anchor, panel, xoff, yoff
