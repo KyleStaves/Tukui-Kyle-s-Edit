@@ -1633,18 +1633,18 @@ oUF:RegisterStyle('Tukui', Shared)
 
 -- player
 local player = oUF:Spawn('player', "TukuiPlayer")
-player:SetPoint("BOTTOMRIGHT", InvTukuiActionBarBackground, "TOP", -200, 180)
+player:SetPoint("BOTTOMRIGHT", InvTukuiActionBarBackground, "TOP", -200, 160)
 	player:Size(250, 26)
 
 
 -- focus
 local focus = oUF:Spawn('focus', "TukuiFocus")
-focus:SetPoint("BOTTOMLEFT", TukuiPlayer, "TOPLEFT", 0,40)
-    focus:Size(220, 15)
+focus:SetPoint("TOPRIGHT", TukuiPlayer, "BOTTOMRIGHT", 0,-25)
+    focus:Size(150, 15)
 
 -- target
 local target = oUF:Spawn('target', "TukuiTarget")
-target:SetPoint("BOTTOM", InvTukuiActionBarBackground, "TOP", 0, 180)
+target:SetPoint("BOTTOM", InvTukuiActionBarBackground, "TOP", 0, 160)
 	target:Size(350, 26)
 
 -- tot

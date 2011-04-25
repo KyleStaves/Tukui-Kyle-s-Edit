@@ -540,6 +540,8 @@ Filger_Spells = {
 			{ spellID = 2565, size = 47, filter = "CD" },
 			-- Last Stand 12975
 			{ spellID = 12975, size = 47, filter = "CD" },
+			-- Shield Wall 871
+			{ spellID = 871, size = 47, filter = "CD" },
 			
 			-- Bloodthirst 23881
 			{ spellID = 23881, size = 47, filter = "CD" },
@@ -577,8 +579,6 @@ Filger_Spells = {
 			{ spellID = 12809, size = 32, filter = "CD" },
 			-- Shield Bash 72
 			{ spellID = 72, size = 32, filter = "CD" },
-			-- Shield Wall 871
-			{ spellID = 871, size = 32, filter = "CD" },
 			
 			-- Death Wish 12292
 			{ spellID = 12292, size = 32, filter = "CD" },
@@ -607,6 +607,8 @@ Filger_Spells = {
 			{ spellID = 55694, size = 32, filter = "CD" },
 			-- Intercept 20252
 			{ spellID = 20252, size = 32, filter = "CD" },
+			-- Heroic Leap 6544
+			{ spellID = 6544, size = 32, filter = "CD" },
 			
 
 		},
@@ -1163,28 +1165,44 @@ Filger_Spells = {
 			{ spellID = 6770, size = 32, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			
 		},
-		-- {
-			-- Name = "P_COOLDOWNS_IMPORTANT",
-			-- Direction = "LEFT",
-			-- Interval = 4,
-			-- Mode = "ICON",
-			-- setPoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
-
-			-- Barkskin 22812
-			-- { spellID = 22812, size = 47, filter = "CD" },
+		{
+			Name = "P_COOLDOWNS_IMPORTANT",
+			Direction = "LEFT",
+			Interval = 4,
+			Mode = "ICON",
+			setPoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			
-		-- },
-		-- {
-			-- Name = "P_COOLDOWNS_MEH",
-			-- Direction = "LEFT",
-			-- Interval = 4,
-			-- Mode = "ICON",
-			-- setPoint = { "RIGHT", UIParent, "CENTER", -198, -240 },
+			-- Kick 1766
+			{ spellID = 1766, size = 47, filter = "CD" },
+			-- Kidney Shot 408
+			{ spellID = 408, size = 47, filter = "CD" },
+			-- Gouge 1776
+			{ spellID = 1776, size = 47, filter = "CD" },
+			-- Blind 2094
+			{ spellID = 2094, size = 47, filter = "CD" },
+			-- Dismantle 51722
+			{ spellID = 51722, size = 47, filter = "CD" },
+			
+		},
+		{
+			Name = "P_COOLDOWNS_MEH",
+			Direction = "LEFT",
+			Interval = 4,
+			Mode = "ICON",
+			setPoint = { "RIGHT", UIParent, "CENTER", -198, -240 },
+			
+			-- Premed 14183
+			{ spellID = 14183, size = 32, filter = "CD" },
+			-- Shadow Step 36554
+			{ spellID = 36554, size = 32, filter = "CD" },
+			-- Vanish 1856
+			{ spellID = 1856, size = 32, filter = "CD" },
+			-- Evasion 5277
+			{ spellID = 5277, size = 32, filter = "CD" },
+			-- Sprint 2983
+			{ spellID = 2983, size = 32, filter = "CD" },
 
-			-- Swiftmend  18562
-			-- { spellID = 18562, size = 32, filter = "CD" },
-
-		-- },
+		},
 	},
 	["DEATHKNIGHT"] = {
 		{
@@ -1885,6 +1903,10 @@ Filger_Spells = {
 			{ slotID = 13, size = 32, filter = "CD" },
 			{ slotID = 14, size = 32, filter = "CD" },
 			
+			-- Dwarf Stoneform 20594
+			{ spellID = 20594, size = 32, filter = "CD" },
+			-- Worgen Darkflight 68992
+			{ spellID = 68992, size = 32, filter = "CD" },
 			-- Goblin Rocket Jump 69070
 			{ spellID = 69070, size = 32, filter = "CD" },
 			

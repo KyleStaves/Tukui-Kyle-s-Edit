@@ -15,7 +15,7 @@ C["unitframes"] = {
 	["cblatency"] = false,                              -- enable castbar latency
 	["cbicons"] = false,                                 -- enable icons on castbar
 	["auratimer"] = true,                               -- enable timers on buffs/debuffs
-	["auratextscale"] = 11,                             -- the font size of buffs/debuffs timers on unitframes
+	["auratextscale"] = 10,                             -- the font size of buffs/debuffs timers on unitframes
 	["playerauras"] = false,                            -- enable auras
 	["targetauras"] = true,                             -- enable auras on target unit frame
 	["lowThreshold"] = 20,                              -- global low threshold, for low mana warning.
@@ -36,12 +36,12 @@ C["unitframes"] = {
 	-- raid layout (if one of them is enabled)
 	["showrange"] = true,                               -- show range opacity on raidframes
 	["raidalphaoor"] = 0.3,                             -- alpha of unitframes when unit is out of range
-	["gridonly"] = false,                               -- enable grid only mode for all healer mode raid layout.
+	["gridonly"] = true,                               -- enable grid only mode for all healer mode raid layout.
 	["showsymbols"] = true,	                            -- show symbol.
 	["aggro"] = true,                                   -- show aggro on all raids layouts
 	["raidunitdebuffwatch"] = true,                     -- track important spell to watch in pve for grid mode.
 	["gridhealthvertical"] = true,                      -- enable vertical grow on health bar for grid mode.
-	["showplayerinparty"] = false,                      -- show my player frame in party
+	["showplayerinparty"] = true,                      -- show my player frame in party
 	["gridscale"] = 1,                                  -- set the healing grid scaling
 	
 	-- boss frames
@@ -177,4 +177,8 @@ C["kyle"] = {
 	["watchframeExpandButton"] = false,
 	["chatWidth"] = 410,
 	["chatHeight"] = 136,
+	grid = {
+		width = 55,
+		height = 55,
+	}
 }

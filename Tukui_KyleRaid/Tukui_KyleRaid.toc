@@ -1,0 +1,10 @@
+## Interface: 40000
+## Author: Kyle
+## Title: |cffC495DDTukui KyleRaid|r
+## Notes: KyleRaid layout for party and raid
+## X-Email: kyle@kylestaves.com
+## X-Category: UnitFrame
+## RequiredDeps: Tukui
+
+oUF_Tukz_Raid01_25.lua
+oUF_Tukz_KyleRaid.lua

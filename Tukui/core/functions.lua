@@ -369,7 +369,7 @@ T.PostUpdateHealth = function(health, unit, min, max)
 			end					
 		end
 		
-		if unit == "target" then
+		if unit == "target" or unit == "boss1" or unit == "boss2" or unit == "boss3" or unit == "boss4" or unit == "boss5" or unit == "boss6" or unit == "boss7" then
 			if min ~= max then
 				local r, g, b
 				r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
@@ -930,7 +930,7 @@ T.createAuraWatch = function(self, unit)
 			end
 
 			local count = icon:CreateFontString(nil, "OVERLAY")
-			count:SetFont(C["media"].uffont, 8*C["unitframes"].gridscale, "THINOUTLINE")
+			count:SetFont(C["media"].pixelfont, 10, "THINOUTLINEMONOCHROME")
 			count:SetPoint("CENTER", unpack(T.countOffsets[spell[2]]))
 			icon.count = count
 
