@@ -38,9 +38,9 @@ C["media"] = {
 	["bubbleTex"] = [[Interface\AddOns\Tukui\medias\textures\bubbleTex]], -- unitframes combo points
 	["copyicon"] = [[Interface\AddOns\Tukui\medias\textures\copy]], -- copy icon
 	["blank"] = [[Interface\AddOns\Tukui\medias\textures\blank]], -- the main texture for all borders/panels
-	["bordercolor"] = { .3,.3,.3 }, -- border color of tukui panels
-	["altbordercolor"] = { .3,.3,.3 }, -- alternative border color, mainly for unitframes text panels.
-	["backdropcolor"] = { .1,.1,.1 }, -- background color of tukui panels
+	["bordercolor"] = C.general.bordercolor or { .3,.3,.3 }, -- border color of tukui panels
+	["altbordercolor"] = C.unitframes.bordercolor or { .3,.3,.3 }, -- alternative border color, mainly for unitframes text panels.
+	["backdropcolor"] = C.general.backdropcolor or { .1,.1,.1 }, -- background color of tukui panels
 	["buttonhover"] = [[Interface\AddOns\Tukui\medias\textures\button_hover]],
 	
 	-- sound

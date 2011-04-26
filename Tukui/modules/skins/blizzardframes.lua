@@ -50,6 +50,58 @@ TukuiSkin:RegisterEvent("ADDON_LOADED")
 TukuiSkin:SetScript("OnEvent", function(self, event, addon)
 	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") then return end
 	
+	if addon == "Blizzard_DebugTools" then
+		local noscalemult = T.mult * C["general"].uiscale
+		local bg = {
+		  bgFile = C["media"].blank, 
+		  edgeFile = C["media"].blank, 
+		  tile = false, tileSize = 0, edgeSize = noscalemult, 
+		  insets = { left = -noscalemult, right = -noscalemult, top = -noscalemult, bottom = -noscalemult}
+		}
+		
+		ScriptErrorsFrame:SetBackdrop(bg)
+		ScriptErrorsFrame:SetBackdropColor(unpack(C.media.backdropcolor))
+		ScriptErrorsFrame:SetBackdropBorderColor(unpack(C.media.bordercolor))	
+
+		EventTraceFrame:SetTemplate("Transparent")
+		
+		local texs = {
+			"TopLeft",
+			"TopRight",
+			"Top",
+			"BottomLeft",
+			"BottomRight",
+			"Bottom",
+			"Left",
+			"Right",
+			"TitleBG",
+			"DialogBG",
+		}
+		
+		for i=1, #texs do
+			_G["ScriptErrorsFrame"..texs[i]]:SetTexture(nil)
+			_G["EventTraceFrame"..texs[i]]:SetTexture(nil)
+		end
+		
+		local bg = {
+		  bgFile = C["media"].blank, 
+		  edgeFile = C["media"].blank, 
+		  tile = false, tileSize = 0, edgeSize = noscalemult, 
+		  insets = { left = -noscalemult, right = -noscalemult, top = -noscalemult, bottom = -noscalemult}
+		}
+		
+		for i=1, ScriptErrorsFrame:GetNumChildren() do
+			local child = select(i, ScriptErrorsFrame:GetChildren())
+			if child:GetObjectType() == "Button" and not child:GetName() then
+				
+				SkinButton(child)
+				child:SetBackdrop(bg)
+				child:SetBackdropColor(unpack(C.media.backdropcolor))
+				child:SetBackdropBorderColor(unpack(C.media.bordercolor))	
+			end
+		end	
+	end
+	
 	-- stuff not in Blizzard load-on-demand
 	if addon == "Tukui" then
 		-- Blizzard frame we want to reskin
@@ -73,6 +125,9 @@ TukuiSkin:SetScript("OnEvent", function(self, event, addon)
 			"GhostFrameContentsFrame",
 			"ColorPickerFrame",
 			"StackSplitFrame",
+			"ChannelPullout",
+			"ChannelPulloutTab",
+			"RolePollPopup",
 		}
 
 		-- reskin popup buttons
@@ -98,7 +153,7 @@ TukuiSkin:SetScript("OnEvent", function(self, event, addon)
  
 		for i = 1, getn(ChatMenus) do
 			if _G[ChatMenus[i]] == _G["ChatMenu"] then
-				_G[ChatMenus[i]]:HookScript("OnShow", function(self) self:SetTemplate("Default") self:ClearAllPoints() self:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, T.Scale(30)) end)
+				_G[ChatMenus[i]]:HookScript("OnShow", function(self) self:SetTemplate("Default") self:ClearAllPoints() self:Point("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, 30) end)
 			else
 				_G[ChatMenus[i]]:HookScript("OnShow", function(self) self:SetTemplate("Default") end)
 			end
@@ -116,7 +171,8 @@ TukuiSkin:SetScript("OnEvent", function(self, event, addon)
 			"Logout", 
 			"Quit", 
 			"Continue", 
-			"MacOptions"
+			"MacOptions",
+			"Help",
 		}
 		
 		for i = 1, getn(BlizzardMenuButtons) do
@@ -169,6 +225,7 @@ TukuiSkin:SetScript("OnEvent", function(self, event, addon)
 			"ColorPickerCancelButton",
 			"StackSplitOkayButton",
 			"StackSplitCancelButton",
+			"RolePollPopupAcceptButton"
 		}
 		
 		for i = 1, getn(BlizzardButtons) do
@@ -199,12 +256,23 @@ TukuiSkin:SetScript("OnEvent", function(self, event, addon)
 		_G["ColorPickerCancelButton"]:ClearAllPoints()
 		_G["ColorPickerOkayButton"]:ClearAllPoints()
 		_G["ColorPickerCancelButton"]:SetPoint("BOTTOMRIGHT", ColorPickerFrame, "BOTTOMRIGHT", -6, 6)
-		_G["ColorPickerOkayButton"]:SetPoint("RIGHT",_G["ColorPickerCancelButton"],"LEFT", -4,0)		
-		
+		_G["ColorPickerOkayButton"]:SetPoint("RIGHT",_G["ColorPickerCancelButton"],"LEFT", -4,0)
+		_G["ChannelPulloutTab"]:SetHeight(20)
+		_G["ChannelPulloutTabText"]:ClearAllPoints()
+		_G["ChannelPulloutTabText"]:SetPoint("TOP",0,-6)
+				
 		-- others
 		_G["ReadyCheckListenerFrame"]:SetAlpha(0)
 		_G["ReadyCheckFrame"]:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end) -- bug fix, don't show it if initiator
 		_G["StackSplitFrame"]:GetRegions():Hide()
+		_G["StaticPopup1EditBox"]:SetTemplate("Default")
+		_G["StaticPopup1EditBoxLeft"]:SetTexture(nil)
+		_G["StaticPopup1EditBoxMid"]:SetTexture(nil)
+		_G["StaticPopup1EditBoxRight"]:SetTexture(nil)
+		_G["ChannelPulloutBackground"]:Kill()
+		_G["ChannelPulloutTabLeft"]:SetTexture(nil)
+		_G["ChannelPulloutTabMiddle"]:SetTexture(nil)
+		_G["ChannelPulloutTabRight"]:SetTexture(nil)
 	end
 	
 	-- mac menu/option panel, made by affli.

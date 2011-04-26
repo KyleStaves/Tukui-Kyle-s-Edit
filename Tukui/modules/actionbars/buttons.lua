@@ -3,6 +3,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 -- I really hope you'll understand the code, because I was totally drunk when I wrote this file.
 -- At least, it work fine. :P (lol)
 
+
 local vehicleleft = CreateFrame("Button", "TukuiExitVehicleButtonLeft", UIParent, "SecureHandlerClickTemplate")
 vehicleleft:SetWidth(17)
 vehicleleft:SetHeight(17)
@@ -14,7 +15,7 @@ vehicleleft:SetBackdropBorderColor(75/255,  175/255, 76/255)
 vehicleleft:RegisterForClicks("AnyUp")
 vehicleleft:SetScript("OnClick", function() VehicleExit() end)
 vehicleleft.text = T.SetFontString(vehicleleft, C.media.uffont, 20)
-vehicleleft.text:SetPoint("CENTER", T.Scale(1), T.Scale(1))
+vehicleleft.text:Point("CENTER", 1, 1)
 vehicleleft.text:SetText("|cff4BAF4CV|r")
 --vehicleleft:SetAlpha(1)
 RegisterStateDriver(vehicleleft, "visibility", "[target=vehicle,exists] show;hide")
@@ -274,8 +275,6 @@ TukuiBar5ButtonBottom.text:Point("CENTER", 1, 1)
 if T.lowversion then TukuiBar5ButtonBottom.text:SetText("|cff4BAF4C<|r") else TukuiBar5ButtonBottom.text:SetText("|cff4BAF4C>|r") end
 
 -- exit vehicle button on left side of bottom action bar
-
-
 -- exit vehicle button on right side of bottom action bar
 local vehicleright = CreateFrame("Button", "TukuiExitVehicleButtonRight", UIParent, "SecureHandlerClickTemplate")
 vehicleright:SetAllPoints(TukuiBar3Button)
@@ -286,7 +285,7 @@ vehicleright:SetBackdropBorderColor(75/255,  175/255, 76/255)
 vehicleright:RegisterForClicks("AnyUp")
 vehicleright:SetScript("OnClick", function() VehicleExit() end)
 vehicleright.text = T.SetFontString(vehicleright, C.media.uffont, 20)
-vehicleright.text:SetPoint("CENTER", T.Scale(1), T.Scale(1))
+vehicleright.text:Point("CENTER", 1, 1)
 vehicleright.text:SetText("|cff4BAF4CV|r")
 RegisterStateDriver(vehicleright, "visibility", "[target=vehicle,exists] show;hide")
 

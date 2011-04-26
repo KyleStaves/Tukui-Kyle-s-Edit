@@ -6,5 +6,4 @@
 ## X-Category: UnitFrame
 ## RequiredDeps: Tukui
 
-oUF_Tukz_Raid01_25.lua
 oUF_Tukz_KyleRaid.lua

@@ -12,8 +12,8 @@
 	<Script file="locales\korean.lua"/>	
 	<Script file="config\config.lua"/>
 	<Script file="config\profiles.lua"/>
-	<Script file="medias\medias.lua"/>	
 	<Script file="core\configui.lua"/>
+	<Script file="medias\medias.lua"/>
 	<Include file="modules\unitframes\core\oUF\oUF.xml"/>
 	<Script file="modules\unitframes\plugins\oUF_AuraWatch\oUF_AuraWatch.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_CombatFeedback\oUF_CombatFeedback.lua"/>
@@ -77,6 +77,7 @@
 	<Script file="modules\datatext\hit.lua"/>
 	<Script file="modules\datatext\micromenu.lua"/>
 	<Script file="modules\datatext\mastery.lua"/>
+	<Script file="modules\datatext\regen.lua"/>
 	<Script file="modules\actionbars\Bind.lua"/>
 	<Script file="modules\actionbars\Hide.lua"/>
 	<Script file="modules\actionbars\Bar1.lua"/>
@@ -113,11 +114,9 @@
 	<Include file="modules\unitframes\templates\tankassist.xml"/>
 	<Script file="modules\unitframes\tags\tags.lua"/>
 	<Script file="modules\unitframes\layouts\tukui.lua"/>
-	<Script file="modules\unitframes\layouts\kyle.lua"/>
-	<Script file="modules\notifications\hunterpethappiness.lua"/>	
-	<Script file="modules\misc\altpowerbar.lua"/>
 	<Script file="modules\misc\threatbar.lua"/>
 	<Script file="modules\blizzard\achievements.lua"/>
 	<Script file="core\movers.lua"/>
 	<Script file="developer\test.lua"/>
+	<Script file="modules\chat\blizzfixrealidlink.lua"/>	
 </Ui>
