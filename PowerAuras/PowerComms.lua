@@ -10,6 +10,7 @@ minimize load and prevent clashes when dealing with split messages.
 --]]
 PowaComms = {
 	Handlers = {}, -- Custom functions to be executed when an instruction is processed.
+	Registered = false,
 
 	ReceiverLock = nil,
 	RecieverTimeout = 0,
@@ -23,6 +24,40 @@ PowaComms = {
 }
 -- Accessible through PowaAuras.Comms;
 PowaAuras["Comms"] = PowaComms;
+
+--[[
+------------------------------------------------------------------------------------------------------------------------
+Register
+
+Registers the POWA header for addon communications. Note that this requires a patch 4.1 client.
+------------------------------------------------------------------------------------------------------------------------
+--]]
+function PowaComms:Register()
+	-- Register prefix.
+	if(not RegisterAddonMessagePrefix) then return; end
+	RegisterAddonMessagePrefix("POWA");
+	-- Check to see if it's registered (RegisterAddonMessagePrefix may return true even if it fails, just playing safe!).
+	if(not IsAddonMessagePrefixRegistered("POWA")) then
+		if(PowaMisc.debug) then PowaAuras:ShowText("PowaComms:Register() |cFFFF0000failed!|r"); end
+		self.Registered = false;
+		return false;
+	else
+		if(PowaMisc.debug) then PowaAuras:ShowText("PowaComms:Register() |cFF00FF00succeeded!|r"); end
+		self.Registered = true;
+		return true;
+	end
+end
+--[[
+------------------------------------------------------------------------------------------------------------------------
+IsRegistered
+
+Returns the status of the PowaComms addon message header.
+------------------------------------------------------------------------------------------------------------------------
+--]]
+function PowaComms:IsRegistered()
+	-- Stored the result of IsAddonMessagePrefixRegistered in a boolean during register func.
+	return self.Registered;
+end
 --[[
 ------------------------------------------------------------------------------------------------------------------------
 CHAT_MSG_ADDON
@@ -32,21 +67,22 @@ handle the data.
 ------------------------------------------------------------------------------------------------------------------------
 --]]
 function PowaAuras:CHAT_MSG_ADDON(header, data, channel, from)
-	-- Check the first 4 chars of the header for POWA.
-	if(strsub(header, 1, 4) ~= "POWA") then return; end
-	-- A good header is always in the following format: POWA|INSTRUCTION|SEGMENT_INDEX|SEGMENT_COUNT
-	local stx = strfind(header, "|", 1, true);
-	local segpos = strfind(header, "|", stx+1, true);
-	local segtotal = strfind(header, "|", segpos+1, true);
+	-- Check the header.
+	if(header ~= "POWA") then return; end
+	-- A good data message is always in the following format: <INSTRUCTION;SEGMENT_INDEX;SEGMENT_COUNT;/>
+	local stx = strfind(data, "<", 1, true);
+	local segpos = strfind(data, ";", stx+1, true);
+	local segtotal = strfind(data, ";", segpos+1, true);
+	local datasegment = strfind(data, "/>", segtotal+1, true);
 	-- They all need to be present.
-	if(not stx or not segpos or not segtotal) then return; end
+	if(not stx or not segpos or not segtotal or not datasegment) then return; end
 	-- Replace segpos/segtotal with their actual values. Extract the instruction too.
-	local instruction, segpos, segtotal = strsub(header, stx+1, segpos-1),
-		tonumber(strsub(header, segpos+1, segtotal-1), 10),
-		tonumber(strsub(header, segtotal+1), 10);
+	local instruction, segpos, segtotal, datasegment = strsub(data, stx+1, segpos-1),
+		tonumber(strsub(data, segpos+1, segtotal-1), 10),
+		tonumber(strsub(data, segtotal+1, datasegment-1), 10),
+		strsub(data, datasegment+2);
 	-- Fire handlers.
-	if(PowaMisc.debug) then self:ShowText("Comms: Firing handler for instruction " .. instruction); end
-	self.Comms:FireHandler(instruction, data, from, segpos, segtotal);
+	self.Comms:FireHandler(instruction, datasegment, from, segpos, segtotal);
 end
 --[[
 ------------------------------------------------------------------------------------------------------------------------
@@ -56,12 +92,15 @@ Wrapper for SendAddonMessage, handles all of the lock requests and multiple data
 ------------------------------------------------------------------------------------------------------------------------
 --]]
 function PowaComms:SendAddonMessage(instruction, data, to, segment, total)
+	-- Only send if we can receive.
+	if(not self:IsRegistered()) then return false; end
 	-- Check length.
 	local length = strlen(data);
 	if(PowaMisc.debug) then PowaAuras:ShowText("Comms: Sending instruction " .. instruction .. " (data length " .. length .. ")"); end
 	if(length <= 200) then
 		-- And AWAY!
-		SendAddonMessage("POWA|" .. instruction .. "|" .. (segment or 1) .. "|" .. (total or 1), data, "WHISPER", to);
+		data = "<" .. instruction .. ";" .. (segment or 1) .. ";" .. (total or 1) .. "/>" .. data;
+		SendAddonMessage("POWA", data, "WHISPER", to);
 	elseif(not self.SenderLock or time() > self.SenderTimeout) then
 		-- We'll need a multipart message. Store this data for now.
 		self.SenderInstruction = instruction;
@@ -72,6 +111,7 @@ function PowaComms:SendAddonMessage(instruction, data, to, segment, total)
 		-- Request a lock with this user.
 		self:SendAddonMessage("REQUEST_LOCK", instruction, to);
 	end
+	return true;
 end
 --[[
 ------------------------------------------------------------------------------------------------------------------------
@@ -96,6 +136,7 @@ Executes any handlers for the given instruction.
 --]]
 function PowaComms:FireHandler(instruction, data, from, segpos, segtotal)
 	-- Send data to the appropriate place.
+	if(PowaMisc.debug) then PowaAuras:ShowText("Comms: Firing handler for instruction: " .. instruction); end
 	if(self.Handlers[instruction]) then
 		for index, func in pairs(self.Handlers[instruction]) do
 			if(func(self, data, from, segpos, segtotal) == true) then
@@ -276,4 +317,14 @@ VERSION_RESPONSE header.
 PowaComms:AddHandler("VERSION_REQUEST", function(self, _, from)
 	-- Give them our version.
 	self:SendAddonMessage("VERSION_RESPONSE", PowaAuras.Version, from);
+end);
+--[[
+------------------------------------------------------------------------------------------------------------------------
+VERSION_RESPONSE
+
+Responds to a version request. Prints it out (send VERSION_REQUEST for debugging).
+------------------------------------------------------------------------------------------------------------------------
+--]]
+PowaComms:AddHandler("VERSION_RESPONSE", function(self, data, from)
+	PowaAuras:ShowText(from, " is using version ", data, ".");
 end);

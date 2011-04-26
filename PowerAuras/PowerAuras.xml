@@ -2374,7 +2374,10 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
               </BackgroundInsets>
             </Backdrop>
             <Scripts>
-              <OnLoad>self:SetBackdropBorderColor(0.0, 0.0, 0.0); self:SetBackdropColor(0.1, 0.1, 0.1);</OnLoad>
+              <OnLoad>
+					self:SetBackdropBorderColor(0.0, 0.0, 0.0);
+					self:SetBackdropColor(0.1, 0.1, 0.1);
+				</OnLoad>
             </Scripts>
             <Frames>
               <Frame name="PowaDropDownAnimBegin"
@@ -2642,7 +2645,7 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
                 </Anchors>
                 <Scripts>
                   <OnLoad>
-                  	self.tooltipText = PowaAuras.Text.aideOldAnimations; 
+                  	self.tooltipText = PowaAuras.Text.aideAnimationsAreBrokenSorry; 
 					PowaOldAnimationText:SetText(PowaAuras.Text.nomOldAnimations);
                   </OnLoad>
                   <OnClick>PowaAuras:OldAnimationChecked(self);</OnClick>
@@ -4010,7 +4013,7 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
               	PowaBarConfigFrameEditor4:Hide();
               	PowaBarConfigFrameEditor5:Hide(); 
               	PowaBarConfigFrameEditor6:Hide(); 
-              	PlaySound("igCharacterInfoTab");
+              	PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
               </OnClick>
               <OnLoad>
               	PowaEditorTab2Text:SetText(PowaAuras.Text.nomTabActiv); 
@@ -4043,7 +4046,7 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
               	PowaBarConfigFrameEditor4:Hide();
               	PowaBarConfigFrameEditor5:Hide(); 
               	PowaBarConfigFrameEditor6:Hide(); 
-              	PlaySound("igCharacterInfoTab");
+              	PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
               </OnClick>
               <OnLoad>
               	PowaEditorTab1Text:SetText(PowaAuras.Text.nomTabAnim); 
@@ -4077,7 +4080,7 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
               	PowaBarConfigFrameEditor3:Hide();
               	PowaBarConfigFrameEditor4:Hide(); 
               	PowaBarConfigFrameEditor6:Hide(); 
-              	PlaySound("igCharacterInfoTab");
+              	PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
               </OnClick>
               <OnLoad>
               	PowaEditorTab4Text:SetText(PowaAuras.Text.nomTabSound); 
@@ -4112,7 +4115,7 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
               	PowaBarConfigFrameEditor5:Hide(); 
               	PowaBarConfigFrameEditor6:Hide(); 
               	PowaAuras:UpdateTimerOptions(); 
-              	PlaySound("igCharacterInfoTab");
+              	PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
               </OnClick>
               <OnLoad>
               	PowaEditorTab3Text:SetText(PowaAuras.Text.nomTabTimer); 
@@ -4147,7 +4150,7 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
              	PowaBarConfigFrameEditor4:Hide();
               	PowaBarConfigFrameEditor5:Hide(); 
               	PowaAuras:UpdateStacksOptions(); 
-              	PlaySound("igCharacterInfoTab");
+              	PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
               </OnClick>
               <OnLoad>
               	PowaEditorTab5Text:SetText(PowaAuras.Text.nomTabStacks); 

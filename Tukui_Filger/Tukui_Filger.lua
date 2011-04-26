@@ -7,9 +7,10 @@
 	Modded again by Virance (Tinkerplink@US-Black Dragonflight)
 	
 ]]
+local T, C, L = unpack(Tukui)
 
 local font_size = 8
-local usedfont = TukuiCF["media"].pixelfont or TukuiCF["media"].font
+local usedfont = C["media"].pixelfont or C["media"].font
 
 local f_s = Filger_Settings;
 
@@ -64,8 +65,8 @@ function Update(self)
 			bar:SetWidth(value.data.size);
 			bar:SetHeight(value.data.size);
 			bar:SetScale(1);
-			TukuiDB.SetTemplate(bar)
-			TukuiDB.CreateShadow(bar)
+			bar:SetTemplate("Default")
+			bar:CreateShadow("Default")
 
 			if (index == 1) then
 				bar:SetPoint(unpack(self.setPoint));
@@ -85,8 +86,8 @@ function Update(self)
 				bar.icon = _G[bar.icon:GetName()]
 			else
 				bar.icon = bar:CreateTexture("$parentIcon", "ARTWORK");
-				bar.icon:SetPoint("TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
-				bar.icon:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
+				bar.icon:Point("TOPLEFT", 2, -2)
+				bar.icon:Point("BOTTOMRIGHT", -2, 2)
 				bar.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9);
 			end
 			
@@ -100,7 +101,7 @@ function Update(self)
 				else
 					bar.count = bar:CreateFontString("$parentCount", "OVERLAY");
 					bar.count:SetFont(usedfont, font_size, "OUTLINEMONOCHROME");
-					bar.count:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(1), TukuiDB.Scale(-1));
+					bar.count:Point("BOTTOMRIGHT", 1, -1);
 					bar.count:SetJustifyH("CENTER");
 				end
 			else
@@ -108,9 +109,9 @@ function Update(self)
 					bar.statusbar = _G[bar.statusbar:GetName()]
 				else
 					bar.statusbar = CreateFrame("StatusBar", "$parentStatusBar", bar);
-					bar.statusbar:SetWidth(TukuiDB.Scale(value.data.barWidth - 2));
-					bar.statusbar:SetHeight(TukuiDB.Scale(value.data.size - 10));
-					bar.statusbar:SetStatusBarTexture(TukuiCF["media"].normTex);
+					bar.statusbar:Width(value.data.barWidth - 2);
+					bar.statusbar:Height(value.data.size - 10);
+					bar.statusbar:SetStatusBarTexture(C["media"].normTex);
 					bar.statusbar:SetStatusBarColor(classcolor.r, classcolor.g, classcolor.b, 1);
 					if ( self.IconSide == "LEFT" ) then
 						bar.statusbar:SetPoint("BOTTOMLEFT", bar, "BOTTOMRIGHT", 6, 2);
@@ -125,8 +126,8 @@ function Update(self)
 					bar.bg = _G[bar.bg:GetName()]
 				else
 					bar.bg = CreateFrame("Frame","$parentBG", bar.statusbar)
-					bar.bg:SetPoint("TOPLEFT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
-					bar.bg:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
+					bar.bg:Point("TOPLEFT", -2, 2)
+					bar.bg:Point("BOTTOMRIGHT", 2, -2)
 					bar.bg:SetFrameStrata("BACKGROUND")
 					TukuiDB.SetTemplate(bar.bg)
 					TukuiDB.CreateShadow(bar.bg)
@@ -137,7 +138,7 @@ function Update(self)
 				else
 					bar.background = bar.statusbar:CreateTexture(nil, "BACKGROUND");
 					bar.background:SetAllPoints();
-					bar.background:SetTexture(TukuiCF["media"].normTex);
+					bar.background:SetTexture(C["media"].normTex);
 					bar.background:SetVertexColor(0, 0, 0, 0.5);
 				end
 				
@@ -146,7 +147,7 @@ function Update(self)
 				else			
 					bar.time = bar.statusbar:CreateFontString("$parentTime", "ARTWORK");
 					bar.time:SetFont(usedfont, font_size, "OUTLINEMONOCHROME");
-					bar.time:SetPoint("RIGHT", bar.statusbar, TukuiDB.Scale(0), 0);
+					bar.time:SetPoint("RIGHT", bar.statusbar, 0, 0);
 				end
 				
 				if (bar.count) then
@@ -154,7 +155,7 @@ function Update(self)
 				else
 					bar.count = bar:CreateFontString("$parentCount", "ARTWORK");
 					bar.count:SetFont(usedfont, font_size, "OUTLINEMONOCHROME");
-					bar.count:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(1), TukuiDB.Scale(1));
+					bar.count:Point("BOTTOMRIGHT", 1, 1);
 					bar.count:SetJustifyH("CENTER");
 				end
 				
@@ -163,8 +164,8 @@ function Update(self)
 				else
 					bar.spellname = bar.statusbar:CreateFontString("$parentSpellName", "ARTWORK");
 					bar.spellname:SetFont(usedfont, font_size, "OUTLINEMONOCHROME");
-					bar.spellname:SetPoint("LEFT", bar.statusbar, TukuiDB.Scale(2), 0);
-					bar.spellname:SetPoint("RIGHT", bar.time, "LEFT");
+					bar.spellname:Point("LEFT", bar.statusbar, 2, 0);
+					bar.spellname:Point("RIGHT", bar.time, "LEFT");
 					bar.spellname:SetJustifyH("LEFT");
 				end
 			end
@@ -254,7 +255,9 @@ function GetFilgerData(data)
 		elseif data.filter == "DEBUFF" then
 			name, rank, _, count, debuffType, duration, expirationTime, caster, isStealable = UnitDebuff(data.unitId, spn);
 		elseif data.filter == "CD" then
-			start, duration, enabled = GetSpellCooldown(spn);
+			if spn ~= nil then
+				start, duration, enabled = GetSpellCooldown(spn);
+			end
 			--_, _, icon = GetSpellInfo(data.spellID);
 		end
 	elseif data.slotID then

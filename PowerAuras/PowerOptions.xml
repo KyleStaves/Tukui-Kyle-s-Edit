@@ -100,7 +100,7 @@
 				</FontString>
 				<FontString name="$parentSendTitle" inherits="GameFontNormal" text="Enter a player name below and click 'Send'." justifyH="CENTER" justifyV="TOP">
 					<Size>
-						<AbsDimension x="375" y="24" />
+						<AbsDimension x="365" y="24" />
 					</Size>
 					<Anchors>
 						<Anchor point="TOP" relativePoint="TOP" x="0" y="-125"/>
@@ -221,7 +221,10 @@
 						<Anchor point="TOP" relativePoint="TOP" x="0" y="-24"/>
 					</Anchors>
 				</FontString>
-				<FontString name="$parentDescTitle" inherits="GameFontNormal" text="%s would like to send you some auras." justifyH="CENTER">
+				<FontString name="$parentDescTitle" inherits="GameFontNormal" text="%s would like to send you some auras." justifyH="CENTER" justifyV="TOP">
+					<Size>
+						<AbsDimension x="365" y="24" />
+					</Size>
 					<Anchors>
 						<Anchor point="TOP" relativePoint="TOP" x="0" y="-50"/>
 					</Anchors>
@@ -229,7 +232,7 @@
 				</FontString>
 				<FontString name="$parentWarningTitle" inherits="GameFontNormal" text="" justifyH="CENTER" justifyV="TOP">
 					<Size>
-						<AbsDimension x="375" y="24" />
+						<AbsDimension x="365" y="24" />
 					</Size>
 					<Anchors>
 						<Anchor point="TOP" relativePoint="TOP" x="0" y="-64"/>
@@ -335,7 +338,7 @@
                 tinsert(UISpecialFrames, self:GetName());
 			</OnLoad>
             <OnShow>
-				PlaySound("TalentScreenOpen");
+				PlaySound("TalentScreenOpen", PowaMisc.SoundChannel);
 			</OnShow>
             <OnHide>
 				PowaAuras:MainOptionClose();
@@ -425,7 +428,7 @@
 					</OnLoad>
 					<OnClick>
 						PowaAuras:EditorShow();
-						PlaySound("igCharacterInfoTab");
+						PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -446,7 +449,7 @@
 					<OnClick>
 						PowaAuras:OptionTest();
 						PowaAuras:UpdateMainOption();
-						PlaySound("igCharacterInfoTab");
+						PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -467,7 +470,7 @@
 					<OnClick>
 						PowaAuras:OptionTestAll();
 						PowaAuras:UpdateMainOption();
-						PlaySound("igCharacterInfoTab");
+						PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -488,7 +491,7 @@
 					<OnClick>
 						PowaAuras:ToggleLock();
 						PowaAuras:UpdateMainOption();
-						PlaySound("igCharacterInfoTab");
+						PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -509,7 +512,7 @@
 					<OnClick>
 						PowaAuras:OptionHideAll();
 						PowaAuras:UpdateMainOption();
-						PlaySound("igCharacterInfoTab");
+						PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -808,7 +811,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionNewEffect();
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -831,7 +834,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionDeleteEffect(PowaAuras.CurrentAuraId);
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 							<OnEnter>
 								GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -861,7 +864,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionMoveEffect(true);
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -884,7 +887,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionMoveEffect(false);
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -907,7 +910,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionImportEffect();
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -930,7 +933,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionExportEffect();
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 						</Scripts>
 					</Button>				
@@ -953,7 +956,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionImportSet();
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -976,7 +979,7 @@
 							</OnLoad>
 							<OnClick>
 								PowaAuras:OptionExportSet();
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 						</Scripts>
 					</Button>					
@@ -1237,7 +1240,7 @@
 						<Scripts>
 							<OnClick>
 								PowaAuras:OptionRename();
-								PlaySound("igCharacterInfoTab");
+								PlaySound("igCharacterInfoTab", PowaMisc.SoundChannel);
 							</OnClick>
 							<OnEnter>
 								GameTooltip:SetOwner(self, "ANCHOR_RIGHT");

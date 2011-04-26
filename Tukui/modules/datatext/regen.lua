@@ -7,7 +7,7 @@ local Stat = CreateFrame("Frame")
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
-local Text = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
+local Text = TukuiStatFrameTopLeft1:CreateFontString(nil, "OVERLAY")
 Text:SetFont(C["media"].uffont, C["datatext"].fontsize)
 Text:SetShadowColor(0, 0, 0)
 Text:SetShadowOffset(1.25, -1.25)

@@ -445,7 +445,7 @@ function PowaAuras:OptionNewEffect()
 	
 	if (not PowaBarConfigFrame:IsVisible()) then
 		PowaBarConfigFrame:Show();
-		PlaySound("TalentScreenOpen");
+		PlaySound("TalentScreenOpen", PowaMisc.SoundChannel);
 	end
 	--self:Debug("New aura ", i);
 	--aura:Display();
@@ -855,6 +855,8 @@ function PowaAuras:ExportDialogInit(self)
 	-- Add needed functions.
 	-- Fired when the frame state needs updating.
 	self.SetStatus = function(self, status)
+		-- Can we send/receive data?
+		if(not PowaAuras.Comms:IsRegistered()) then status = 6; end
 		-- Change it.
 		self.sendStatus = status or self.sendStatus or 1;
 		-- Hide buttons, update labels and change values depending on status.
@@ -903,6 +905,12 @@ function PowaAuras:ExportDialogInit(self)
 				PowaAuras:SetDialogTimeout(self, 0);
 				self.AcceptButton:Enable();
 				self.CancelButton:Enable();
+			elseif(self.sendStatus == 6) then
+				-- Status 6 - Addon comms failure.
+				-- Don't need this for the import dialog, as that only pops up if comms work in the first place.
+				self.Title:SetText(PowaAuras.Text.aideCommsRegisterFailure);
+				self.CancelButton:Enable();
+				PowaAuras:SetDialogTimeout(self, 0);
 			end
 		end	
 	end
@@ -1278,7 +1286,7 @@ function PowaAuras:MainOptionShow()
 		self.ModTest = true;
 		self:UpdateMainOption();
 		PowaOptionsFrame:Show();
-		PlaySound("TalentScreenOpen");
+		PlaySound("TalentScreenOpen", PowaMisc.SoundChannel);
 		if (PowaMisc.Disabled) then
 			self:DisplayText("Power Auras "..self.Colors.Red..ADDON_DISABLED.."|r");
 		end
@@ -1296,7 +1304,7 @@ function PowaAuras:MainOptionClose()
 	FontSelectorFrame:Hide();
 	PowaBarConfigFrame:Hide();
 	PowaOptionsFrame:Hide();
-	PlaySound("TalentScreenClose");
+	PlaySound("TalentScreenClose", PowaMisc.SoundChannel);
 
 	PowaAuras:OptionHideAll();
     
@@ -2072,7 +2080,7 @@ function PowaAuras:CustomSoundTextChanged(force)
 				pathToSound = PowaGlobalMisc.PathToSounds..aura.customsound;
 			end
 			--self:ShowText("Playing sound "..pathToSound);
-			local played = PlaySoundFile(pathToSound);
+			local played = PlaySoundFile(pathToSound, PowaMisc.SoundChannel);
 			--self:ShowText("played = "..played);
 			if (not played) then
 				self:DisplayText("Failed to play sound "..pathToSound);
@@ -2104,7 +2112,7 @@ function PowaAuras:CustomSoundEndTextChanged(force)
 				--self:ShowText("Playing sound "..pathToSound);
 			end
 			--self:ShowText("Playing sound "..pathToSound);
-			local played = PlaySoundFile(pathToSound);
+			local played = PlaySoundFile(pathToSound, PowaMisc.SoundChannel);
 			--self:ShowText("played = "..played);
 			if (not played) then
 				self:DisplayText("Failed to play sound "..pathToSound);
@@ -2647,10 +2655,10 @@ function PowaAuras.DropDownMenu_OnClickSound(self)
 
 	if (string.find(PowaAuras.Sound[self.value], "%.")) then
 		--PowaAuras:ShowText("Playing sound "..PowaGlobalMisc.PathToSounds..PowaAuras.Sound[self.value]);
-		PlaySoundFile(PowaGlobalMisc.PathToSounds..PowaAuras.Sound[self.value]);
+		PlaySoundFile(PowaGlobalMisc.PathToSounds..PowaAuras.Sound[self.value], PowaMisc.SoundChannel);
 	else
 		--PowaAuras:ShowText("Playing WoW sound "..PowaAuras.Sound[self.value]);
-		PlaySound(PowaAuras.Sound[self.value]);
+		PlaySound(PowaAuras.Sound[self.value], PowaMisc.SoundChannel);
 	end
 end;
 
@@ -2674,10 +2682,10 @@ function PowaAuras.DropDownMenu_OnClickSoundEnd(self)
 
 	if (string.find(PowaAuras.Sound[self.value], "%.")) then
 		--PowaAuras:ShowText("Playing sound "..PowaGlobalMisc.PathToSounds..PowaAuras.Sound[self.value]);
-		PlaySoundFile(PowaGlobalMisc.PathToSounds..PowaAuras.Sound[self.value]);
+		PlaySoundFile(PowaGlobalMisc.PathToSounds..PowaAuras.Sound[self.value], PowaMisc.SoundChannel);
 	else
 		--PowaAuras:ShowText("Playing WoW sound "..PowaAuras.Sound[self.value]);
-		PlaySound(PowaAuras.Sound[self.value]);
+		PlaySound(PowaAuras.Sound[self.value], PowaMisc.SoundChannel);
 	end
 
 end
@@ -2898,7 +2906,7 @@ function PowaAuras:EditorShow()
 		end
 		self:InitPage(aura);
 		PowaBarConfigFrame:Show();
-		PlaySound("TalentScreenOpen");
+		PlaySound("TalentScreenOpen", PowaMisc.SoundChannel);
 	end
 end
 
@@ -2912,7 +2920,7 @@ function PowaAuras:EditorClose()
 			ColorPickerFrame:Hide();
 		end
 		PowaBarConfigFrame:Hide();
-		PlaySound("TalentScreenClose");
+		PlaySound("TalentScreenClose", PowaMisc.SoundChannel);
 	end
 end
 
@@ -3276,14 +3284,6 @@ end
 local function OptionsOK()
 	--PowaAuras:DisplayText("OptionsOK");
 	PowaMisc.OnUpdateLimit = (100 - PowaOptionsUpdateSlider2:GetValue()) / 200;
-	local newFps = PowaOptionsAnimationsSlider2:GetValue();
-	if (newFps~=PowaMisc.AnimationFps) then
-		PowaMisc.AnimationFps = newFps;
-		for auraId in pairs(PowaAuras.Auras) do
-			PowaAuras:RedisplayAura(auraId);
-		end
-	end
-	PowaMisc.AnimationLimit = (100 - PowaOptionsTimerUpdateSlider2:GetValue()) / 1000;
 	PowaMisc.UserSetMaxTextures = PowaOptionsTextureCount:GetValue();
 	if (PowaMisc.OverrideMaxTextures) then
 		PowaAuras.MaxTextures = PowaMisc.UserSetMaxTextures;
@@ -3348,7 +3348,6 @@ local function OptionsRefresh()
 	--PowaAuras:ShowText("debug=", PowaMisc.debug);
 	--PowaAuras:ShowText("UserSetMaxTextures=", PowaMisc.UserSetMaxTextures);
 	PowaOptionsUpdateSlider2:SetValue(100-200*PowaMisc.OnUpdateLimit); 
-	PowaOptionsAnimationsSlider2:SetValue(PowaMisc.AnimationFps);
 	PowaOptionsTimerUpdateSlider2:SetValue(100-1000*PowaMisc.AnimationLimit);
 	PowaOptionsTextureCount:SetValue(PowaMisc.UserSetMaxTextures);
 	PowaOverrideTextureCountButton:SetChecked(PowaMisc.OverrideMaxTextures ~= true);
@@ -3376,10 +3375,6 @@ end
 
 function PowaAuras:PowaOptionsUpdateSliderChanged2(control)
 	PowaOptionsUpdateSlider2Text:SetText(self.Text.nomUpdateSpeed.." : "..control:GetValue().."%");
-end
-
-function PowaAuras:PowaOptionsAnimationsSliderChanged2(control)
-	PowaOptionsAnimationsSlider2Text:SetText(self.Text.nomFPS.." : "..control:GetValue().." FPS");
 end
 
 function PowaAuras:PowaOptionsTimerUpdateSliderChanged2(control)

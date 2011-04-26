@@ -60,7 +60,7 @@ function PowaAuras:VARIABLES_LOADED(...)
 	if (not PowaMisc.Disabled) then
 		self:RegisterEvents(PowaAuras_Frame);
 	end
-	
+
 	self.VariablesLoaded = true;
 end
 
@@ -95,6 +95,8 @@ function PowaAuras:Setup()
 
 	self.WeAreMounted = (IsMounted() == 1 and true or self:IsDruidTravelForm());
 	self.WeAreInVehicle = (UnitInVehicle("player")~=nil);
+	
+	self.Comms:Register();
 
 	self.ActiveTalentGroup = GetActiveTalentGroup();
 	
@@ -173,6 +175,7 @@ function PowaAuras:PARTY_MEMBERS_CHANGED(...)
 		self.DoCheck.GroupOrSelfBuffs = true;
 		self.DoCheck.PartyHealth = true;
 		self.DoCheck.PartyMana = true;
+		self.DoCheck.UnitMatch = true;
 		self.DoCheck.CheckIt = true;
 	end
 	local partyCount = GetNumPartyMembers();
@@ -187,6 +190,7 @@ function PowaAuras:RAID_ROSTER_UPDATE(...)
 		self.DoCheck.GroupOrSelfBuffs = true;
 		self.DoCheck.RaidHealth = true;
 		self.DoCheck.RaidMana = true;
+		self.DoCheck.UnitMatch = true;
 		self.DoCheck.CheckIt = true;
 	end
 	local raidCount = GetNumRaidMembers();
@@ -398,6 +402,7 @@ function PowaAuras:PLAYER_FOCUS_CHANGED(...)
 		self.DoCheck.FocusSpells = true;
 		self.DoCheck.StealableFocusSpells = true;
 		self.DoCheck.PurgeableFocusSpells = true;
+		self.DoCheck.UnitMatch = true;
 		self.DoCheck.CheckIt = true;
 	end
 end
@@ -492,6 +497,7 @@ function PowaAuras:PLAYER_TARGET_CHANGED(...)
 		self.DoCheck.StealableTargetSpells = true;
 		self.DoCheck.PurgeableTargetSpells = true;
 		self.DoCheck.Combo = true;
+		self.DoCheck.UnitMatch = true;
 		self.DoCheck.CheckIt = true;
 	end
 end
@@ -504,6 +510,7 @@ function PowaAuras:UNIT_TARGET(...)
 		self:DisplayText("UNIT_TARGET ", unit);
 	end
 	if (self.ModTest == false) then
+		self.DoCheck.UnitMatch = true;
 		for existingTarget in pairs (PowaAuras.ChangedUnits.Targets) do
 			if (UnitIsUnit(target, existingTarget)) then
 				return;
@@ -513,8 +520,8 @@ function PowaAuras:UNIT_TARGET(...)
 		if (UnitCanAttack(target, "player")) then
 			self.DoCheck.StealableSpells = true;
 			self.DoCheck.PurgeableSpells = true;
-			self.DoCheck.CheckIt = true;
 		end
+		self.DoCheck.CheckIt = true;
 	end
 end
 	 
@@ -559,6 +566,7 @@ function PowaAuras:UNIT_PET(...)
 	if (unit ~= "player") then return; end
 	if (self.ModTest == false) then
 		self.DoCheck.Pet = true;
+		self.DoCheck.UnitMatch = true;
 		self.DoCheck.CheckIt = true;
 	end
 end
@@ -659,12 +667,7 @@ function PowaAuras:COMBAT_LOG_EVENT_UNFILTERED(...)
 	--self:ShowText("COMBAT_LOG_EVENT_UNFILTERED");
 	if (self.ModTest) then return end
 	-- 4.1 backwards compat (will remove when 4.1 is live, prevents needing to time a release to fix this).
-	local timestamp,event,casterHidden,sourceGUID,sourceName,sourceFlags,destGUID,destName,destFlags, spellId, spellName, spellType;
-	if(self.WoWBuild >= 13682) then
-		timestamp,event,casterHidden,sourceGUID,sourceName,sourceFlags,destGUID,destName,destFlags, spellId, spellName, _, spellType = ...;	
-	else
-		timestamp,event,sourceGUID,sourceName,sourceFlags,destGUID,destName,destFlags, spellId, spellName, _, spellType = ...;
-	end
+	local timestamp,event,casterHidden,sourceGUID,sourceName,sourceFlags,destGUID,destName,destFlags, spellId, spellName, _, spellType = ...;		
 	if (not spellName) then return end
 	--self:ShowText("CLEU: ", event, " by me=", sourceGUID==UnitGUID("player"), " on me=", destGUID==UnitGUID("player"), " ", spellName);
 	--self:ShowText("Player=", UnitGUID("player"), " sourceGUID=", sourceGUID, " destGUID=", destGUID);
@@ -858,5 +861,20 @@ function PowaAuras:UNIT_THREAT_SITUATION_UPDATE(...)
 			self.DoCheck.RaidAggro = true;
 			self.DoCheck.CheckIt = true;
 		end
+	end
+end
+
+-- Enables the boss1-boss3 units.
+function PowaAuras:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+	if (self.ModTest == false) then
+		self.DoCheck.UnitMatch = true;
+		self.DoCheck.CheckIt = true;
+	end
+end
+
+function PowaAuras:UNIT_NAME_UPDATE()
+	if (self.ModTest == false) then
+		self.DoCheck.UnitMatch = true;
+		self.DoCheck.CheckIt = true;
 	end
 end

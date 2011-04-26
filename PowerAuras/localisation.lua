@@ -124,6 +124,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 		[PowaAuras.BuffTypes.Items] = "Named Items",
 		[PowaAuras.BuffTypes.Tracking] = "Tracking",
 		[PowaAuras.BuffTypes.TypeBuff] = "Buff type",
+		[PowaAuras.BuffTypes.UnitMatch] = "Unit Match",
 		[PowaAuras.BuffTypes.GTFO] = "GTFO Alert",
 	},
 	
@@ -133,7 +134,6 @@ PowaAuras:MergeTables(PowaAuras.Text,
 		[SPELL_POWER_RAGE] = "Rage",
 		[SPELL_POWER_FOCUS] = "Focus",
 		[SPELL_POWER_ENERGY] = "Energy",
-		[SPELL_POWER_HAPPINESS] = "Happiness",
 		[SPELL_POWER_RUNIC_POWER] = "Runic Power",
 		[SPELL_POWER_SOUL_SHARDS] = "Soul Shards",
 		[SPELL_POWER_LUNAR_ECLIPSE] = "Lunar Eclipse",
@@ -228,6 +228,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	aideItems = "Enter full name of Item or [xxx] for Id",
 	aideSlots = "Enter name of slot to track: Ammo, Back, Chest, Feet, Finger0, Finger1, Hands, Head, Legs, MainHand, Neck, Ranged, SecondaryHand, Shirt, Shoulder, Tabard, Trinket0, Trinket1, Waist, Wrist",
 	aideTracking = "Enter name of Tracking type e.g. fish",
+	aideUnitMatch = "Enter the names of the units that need to match, separated by a forward slash (/).\n\nYou can use unit ID's such as \"player\", \"pet\", \"boss1\", \"arena1\", as well as an asterisk (*) to see if the unit in question exists.\n\n|cFFCCCCCCExamples|r\nTarget is Ragnaros:\ntarget/Ragnaros\n\nPet target exists:\npettarget/*\n\nBoss targetting me:\nboss1target/player",
 
 	-- editor
 	aideCustomText = "Enter text to display (%t=target name, %f=focus name, %v=display value, %u=unit name, %str=str, %agl=agl, %sta=sta, %int=int, %spi=spi, %sp=spell power, %ap=attack power, %df=defence)",
@@ -245,7 +246,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 
 	nomCustomAuraPath = "Path to custom aura textures:",
 	aideCustomAuraPath = "Set this to your own path (within the WoW install) to prevent your own textures being overwritten by updating Power Auras",
-	
+
 	nomSoundEnding = "Ending Sound:",
 	nomSoundEnd = "Sound to play",
 	nomSound2End = "More sounds to play",
@@ -310,7 +311,6 @@ PowaAuras:MergeTables(PowaAuras.Text,
 
 	nomUpdateSpeed = "Update speed",
 	nomSpeed = "Animation speed",
-	nomFPS = "Global Animation FPS",
 	nomTimerUpdate = "Timer update speed",
 	nomBegin = "Begin Animation",
 	nomEnd = "End Animation",
@@ -339,7 +339,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	aideIgnoreItemUseable = "Ignores if item is usable (just if equipped)",
 	nomCheckPet = "Pet",
 	aideCheckPet = "Check to Monitor only Pet Spells",
-	
+
 	nomOnMe = "Cast On Me",
 	aideOnMe = "Only show if being Cast On Me",
 
@@ -580,7 +580,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	nomReasonTargetNotFriendly = "Target not Friendly",
 
 	nomReasonNoPet = "Player has no Pet",
-	
+
 	nomReasonNotInCombat = "Not in combat",
 	nomReasonInCombat = "In combat",
 	
@@ -636,9 +636,9 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	
 	nomReasonCastingByMe	 = "I am casting $1 on $2", --$1=SpellName $2=TargetName (e.g. "I am casting Holy Light on Fred")
 	nomReasonNotCastingByMe	 = "No matching spell being cast by me",
-	
+
 	nomReasonAnimationDuration  = "Still within custom duration",
-	
+
 	nomReasonItemUsable     = "Item $1 usable",
 	nomReasonItemNotUsable  = "Item $1 not usable",
 	nomReasonItemNotReady   = "Item $1 Not Ready, on cooldown, timer invert",
@@ -716,10 +716,13 @@ PowaAuras:MergeTables(PowaAuras.Text,
 
 	nomReasonStatic = "Static Aura",
 	
+	nomReasonUnitMatch = "Unit $1 matches unit $2.",
+	nomReasonNoUnitMatch = "Unit $1 does not match unit $2.",
+	
 	nomReasonUnknownName = "Unit name unknown",
 	nomReasonRoleUnknown = "Role unknown",
 	nomReasonRoleNoMatch = "No matching Role",
-	
+
 	nomUnknownSpellId = "PowerAuras: Aura $1 references an unknown spellId: ", -- $1=SpellID
 
 	nomReasonGTFOAlerts = "GTFO alerts are never always on.",
@@ -762,8 +765,12 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	PlayerImportDialogAcceptButton2  = "Save",
 	PlayerImportDialogCancelButton1  = "Reject",
 
+	aideCommsRegisterFailure = "There was an error when setting up addon communications.",
 	aideBlockIncomingAuras = "Prevent anybody sending you auras",
 	nomBlockIncomingAuras = "Block Incoming Auras",
+	aideFixExports = "Check this when aura exports are not functioning correctly and leave you with a blank textbox.",
+	nomFixExports = "Alternative Exports",
+	aideAnimationsAreBrokenSorry = "If your animations appear to skip or increase in size randomly, you should enable Old Animations.",
 
 });
 

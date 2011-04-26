@@ -1,3 +1,4 @@
+local strsplit = strsplit;
 --=========cPowaAura=========
 --   cPowaAura is the base class and is not instanced directly, the other classes inherit properties and methods from it
 --===========================
@@ -2297,51 +2298,23 @@ function cPowaActionReady:CheckIfShouldShow(giveReason)
 		return false, PowaAuras.Text.nomReasonActionNotFound; 
 	end
 	
-	-- What's on this button, a spell/item or macro?
-	local actionType, actionId = GetActionInfo(self.slot);
-	local cdstart, cdduration, enabled = 0, 0, 1;
-	if(actionType == "macro"
-	and ((GetMacroSpell(actionId) and GetMacroSpell(actionId) ~= GetSpellInfo(self.buffname))
-	or  (GetMacroItem(actionId) and GetMacroItem(actionId) ~= GetItemInfo(self.buffname)))) then
-		-- It's a macro, and the spell on the macro isn't the one we're trying to track, use SpellCooldown/IsUsableSpell on self.buffname.
-		cdstart, cdduration, enabled = GetSpellCooldown(self.buffname);
-		-- PowaAuras:ShowText("cdstart= ",cdstart," duration= ",cdduration," enabled= ",enabled);
-		if (not enabled) then
-			if (self.Timer) then
-				self.Timer:SetDurationInfo(0);
-			end
-			if (not giveReason) then return false; end
-			return false, PowaAuras:InsertText(PowaAuras.Text.nomReasonActionlNotEnabled, spellName);
+	local cdstart, cdduration, enabled = GetActionCooldown(self.slot);
+	-- PowaAuras:ShowText("cdstart= ",cdstart," duration= ",cdduration," enabled= ",enabled);
+	if (not enabled) then
+		if (self.Timer) then
+			self.Timer:SetDurationInfo(0);
 		end
+		if (not giveReason) then return false; end
+		return false, PowaAuras:InsertText(PowaAuras.Text.nomReasonActionlNotEnabled, spellName);
+	end
 
-		-- PowaAuras:ShowText("self.mine= ",self.mine," usable= ",IsUsableSpell(self.buffname));
-		if (not self.mine) then
-			local usable, noMana = IsUsableSpell(self.buffname);
-			if (not usable) then
-				--PowaAuras:ShowText("HIDE!!");
-				if (not giveReason) then return false; end
-				return false, PowaAuras.Text.nomReasonActionNotUsable;
-			end
-		end
-	else
-		cdstart, cdduration, enabled = GetActionCooldown(self.slot);
-		-- PowaAuras:ShowText("cdstart= ",cdstart," duration= ",cdduration," enabled= ",enabled);
-		if (not enabled) then
-			if (self.Timer) then
-				self.Timer:SetDurationInfo(0);
-			end
+	-- PowaAuras:ShowText("self.mine= ",self.mine," usable= ",IsUsableSpell(self.buffname));
+	if (not self.mine) then
+		local usable, noMana = IsUsableAction(self.slot);
+		if (not usable) then
+			--PowaAuras:ShowText("HIDE!!");
 			if (not giveReason) then return false; end
-			return false, PowaAuras:InsertText(PowaAuras.Text.nomReasonActionlNotEnabled, spellName);
-		end
-
-		-- PowaAuras:ShowText("self.mine= ",self.mine," usable= ",IsUsableSpell(self.buffname));
-		if (not self.mine) then
-			local usable, noMana = IsUsableAction(self.slot);
-			if (not usable) then
-				--PowaAuras:ShowText("HIDE!!");
-				if (not giveReason) then return false; end
-				return false, PowaAuras.Text.nomReasonActionNotUsable;
-			end
+			return false, PowaAuras.Text.nomReasonActionNotUsable;
 		end
 	end
 	
@@ -2703,8 +2676,6 @@ function cPowaPowerType:UnitValue(unit)
 		power = math.max(-UnitPower(unit, SPELL_POWER_ECLIPSE), 0);
 	elseif (self.PowerType==SPELL_POWER_SOLAR_ECLIPSE) then
 		power = math.max(UnitPower(unit, SPELL_POWER_ECLIPSE));
-	elseif (self.PowerType==SPELL_POWER_HAPPINESS) then
-		power = GetPetHappiness() or 0;
 	else
 		power = UnitPower(unit, self.PowerType);
 	end
@@ -2724,8 +2695,6 @@ function cPowaPowerType:UnitValueMax(unit)
 		maxpower = UnitPowerMax(unit);
 	elseif (self.PowerType==SPELL_POWER_LUNAR_ECLIPSE or self.PowerType==SPELL_POWER_SOLAR_ECLIPSE) then
 		maxpower = 100;
-	elseif (self.PowerType==SPELL_POWER_HAPPINESS) then
-		maxpower = 3;
 	else
 		maxpower = UnitPowerMax(unit, self.PowerType);
 	end
@@ -2740,7 +2709,6 @@ function cPowaPowerType:IsCorrectPowerType(unit)
 	if (self.PowerType==SPELL_POWER_HOLY_POWER  and PowaAuras.playerclass == "PALADIN")
 	or (self.PowerType==SPELL_POWER_RUNIC_POWER and PowaAuras.playerclass == "DEATHKNIGHT") 
 	or (self.PowerType==SPELL_POWER_SOUL_SHARDS and PowaAuras.playerclass == "WARLOCK") 
-	or (self.PowerType==SPELL_POWER_HAPPINESS   and PowaAuras.playerclass == "HUNTER") 
 	or ((self.PowerType==SPELL_POWER_LUNAR_ECLIPSE or self.PowerType==SPELL_POWER_SOLAR_ECLIPSE)     and PowaAuras.playerclass == "DRUID") then return true; end
 	
 	local unitPowerType = UnitPowerType(unit);
@@ -3935,6 +3903,67 @@ function cPowaStatic:SetFixedIcon()
 	self:SetIcon("Interface\\icons\\Spell_frost_frozencore");
 end
 
+-- Unit Match Aura--
+cPowaUnitMatch= PowaClass(cPowaAura, { AuraType = "UnitMatch", ValueName = "Unit Check" });
+cPowaUnitMatch.OptionText = {
+	typeText=PowaAuras.Text.AuraType[PowaAuras.BuffTypes.UnitMatch],
+	buffNameTooltip=PowaAuras.Text.aideUnitMatch,
+};
+cPowaUnitMatch.TooltipOptions = {
+	r=0.4, 
+	g=0.6, 
+	b=0.8
+};
+cPowaUnitMatch.CheckBoxes={
+	["PowaInverseButton"]=1,
+	["PowaIngoreCaseButton"]=1,
+	["PowaOwntexButton"]=1,
+	["PowaRoleTankButton"]=1,
+	["PowaRoleHealerButton"]=1,
+	["PowaRoleMeleDpsButton"]=1,
+	["PowaRoleRangeDpsButton"]=1,
+}
+
+function cPowaUnitMatch:AddEffectAndEvents()
+	table.insert(PowaAuras.AurasByType[self.AuraType], self.id);
+	PowaAuras.Events.UNIT_TARGET = true;
+	PowaAuras.Events.INSTANCE_ENCOUNTER_ENGAGE_UNIT = true;
+	PowaAuras.Events.PLAYER_TARGET_CHANGED = true;
+	PowaAuras.Events.PLAYER_FOCUS_CHANGED = true;
+	PowaAuras.Events.UNIT_NAME_UPDATE = true; -- Supposedly fires whenever a unit spawns too.
+end
+
+function cPowaUnitMatch:CheckIfShouldShow(giveReason)
+	-- Check to see if the two units match.
+	local unit1, unit2 = strsplit("/", self.buffname);
+	-- If one doesn't exist, replace with player.
+	if(not unit1 or unit1 == "") then unit1 = "player"; end
+	if(not unit2 or unit2 == "") then unit2 = "player"; end
+	-- If unit2 is *, then we only need to check if unit1 exists.
+	local result = false;
+	if(unit2 == "*") then
+		result = (UnitExists(unit1) and true or false);
+	else
+		-- Check unit match.
+		result = (UnitIsUnit(unit1, unit2) and true or false);
+		-- If it failed, do a unit name comparison for both.
+		if(not result) then
+			result = (UnitName(unit1) == unit2 and true or (UnitName(unit2) == unit1 and true or false));
+		end
+	end
+	-- Done.
+	if(not giveReason) then
+		return result, "";
+	else
+		return result, PowaAuras:InsertText((result and PowaAuras.Text.nomReasonUnitMatch or PowaAuras.Text.nomReasonNoUnitMatch), unit1, unit2);
+	end
+end
+
+function cPowaUnitMatch:SetFixedIcon()
+	self.icon = nil;
+	self:SetIcon("Interface\\Icons\\Spell_Misc_EmotionAngry");
+end
+
 -- Concrete Classes
 PowaAuras.AuraClasses = {
 	[PowaAuras.BuffTypes.Buff]=cPowaBuff,
@@ -3963,6 +3992,7 @@ PowaAuras.AuraClasses = {
 	[PowaAuras.BuffTypes.Tracking]=cPowaTracking,
 	[PowaAuras.BuffTypes.TypeBuff]=cPowaTypeBuff,
 	[PowaAuras.BuffTypes.Static]=cPowaStatic,
+	[PowaAuras.BuffTypes.UnitMatch]=cPowaUnitMatch,
 }
 
 -- Instance concrete class based on type

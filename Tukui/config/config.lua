@@ -6,7 +6,7 @@ C["general"] = {
 	["overridelowtohigh"] = false,                      -- EXPERIMENTAL ONLY! override lower version to higher version on a lower reso.
 	["multisampleprotect"] = false,                      -- i don't recommend this because of shitty border but, voila!
 	["backdropcolor"] = { .1,.1,.1 },                   -- default backdrop color of panels
-	["bordercolor"] = { .6,.6,.6 },                     -- default border color of panels
+	["bordercolor"] = { .3,.3,.3 },                     -- default border color of panels
 }
 
 C["unitframes"] = {
@@ -34,7 +34,7 @@ C["unitframes"] = {
 	["healcomm"] = true,                               -- enable healprediction support.
 	["onlyselfdebuffs"] = false,                        -- display only our own debuffs applied on target
 	["showfocustarget"] = false,                         -- show focus target
-	["bordercolor"] = { .4,.4,.4 },                     -- unit frames panel border color
+	["bordercolor"] = { .3,.3,.3 },                     -- unit frames panel border color
 
 	-- raid layout (if one of them is enabled)
 	["showrange"] = true,                               -- show range opacity on raidframes
@@ -115,7 +115,6 @@ C["datatext"] = {
 	["mastery"] = 0,
 	["micromenu"] = 99,
 	["regen"] = 0,                                      -- show mana regeneration
-
 	["battleground"] = true,                            -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = false,                                  -- set time to 24h format.
 	["localtime"] = true,                              -- set time to local time instead of server time.

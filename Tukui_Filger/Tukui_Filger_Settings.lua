@@ -801,28 +801,34 @@ Filger_Spells = {
 			{ spellID = 853, size = 32, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			
 		},
-		-- {
-			-- Name = "P_COOLDOWNS_IMPORTANT",
-			-- Direction = "LEFT",
-			-- Interval = 4,
-			-- Mode = "ICON",
-			-- setPoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
-
-			-- Barkskin 22812
-			-- { spellID = 22812, size = 47, filter = "CD" },
+		{
+			Name = "P_COOLDOWNS_IMPORTANT",
+			Direction = "LEFT",
+			Interval = 4,
+			Mode = "ICON",
+			setPoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			
-		-- },
-		-- {
-			-- Name = "P_COOLDOWNS_MEH",
-			-- Direction = "LEFT",
-			-- Interval = 4,
-			-- Mode = "ICON",
-			-- setPoint = { "RIGHT", UIParent, "CENTER", -198, -240 },
+			-- Holy Shock 20473
+			{ spellID = 20473, size = 47, filter = "CD" },
+			-- Holy Radiance 82327
+			{ spellID = 82327, size = 47, filter = "CD" },
+			
+		},
+		{
+			Name = "P_COOLDOWNS_MEH",
+			Direction = "LEFT",
+			Interval = 4,
+			Mode = "ICON",
+			setPoint = { "RIGHT", UIParent, "CENTER", -198, -240 },
+			
+			-- Divine Favor 31842
+			{ spellID = 31842, size = 32, filter = "CD" },
+			-- Divine Plea 54428
+			{ spellID = 54428, size = 32, filter = "CD" },
+			-- GoTAC 86150
+			{ spellID = 86150, size = 32, filter = "CD" },
 
-			-- Swiftmend  18562
-			-- { spellID = 18562, size = 32, filter = "CD" },
-
-		-- },
+		},
 	},
 	["PRIEST"] = {
 		{

@@ -634,7 +634,8 @@ end
 				end
 					
 				local border = CreateFrame("Frame", "ComboPoint"..i.."Border", CPoints[i])
-				T.CreatePanel(border,1,1, "CENTER", panel, "CENTER" ,0,0)
+				border:CreatePanel("Default", 1, 1, "CENTER", panel, "CENTER", 0, 0)
+
 				border:SetPoint("TOPLEFT", T.Scale(-2), T.Scale(2))
 				border:SetPoint("BOTTOMRIGHT", T.Scale(2), T.Scale(-2))
 				border:SetBackdropColor(0,0,0)
@@ -716,11 +717,11 @@ end
 				end
 			else
 				if unit == "player" then
-					castbar:SetPoint("BOTTOM", InvTukuiActionBarBackground, "CENTER", 0,240)
+					castbar:SetPoint("BOTTOM", InvTukuiActionBarBackground, "CENTER", 0,280)
 					castbar:SetHeight(T.Scale(20))
 					castbar:SetWidth(T.Scale(230))
 				elseif unit == "target" then
-					castbar:SetPoint("BOTTOM", TukuiTarget, "TOP", 0, 70)
+					castbar:SetPoint("BOTTOM", InvTukuiActionBarBackground, "CENTER", 0, 330)
 					castbar:SetHeight(T.Scale(18))
 					castbar:SetWidth(T.Scale(220))
 				end

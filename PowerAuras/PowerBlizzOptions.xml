@@ -142,6 +142,32 @@
 			</CheckButton>
 			
 			
+			<CheckButton name="PowaFixExportsButton" inherits="PowaCheckTemplate">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+			  <Anchor point="TOPLEFT"
+					  relativeTo="PowaAllowInspectionsButton"
+					  relativePoint="BOTTOMLEFT">
+				<Offset>
+				  <AbsDimension x="0"
+								y="5" />
+				</Offset>
+			  </Anchor>
+			</Anchors>				
+				<Scripts>
+					<OnLoad>
+						self.tooltipText = PowaAuras.Text.aideFixExports;
+						getglobal(self:GetName().."Text"):SetText(PowaAuras.Text.nomFixExports);
+					</OnLoad>
+					<OnClick>
+						PowaAuras:GlobalMiscChecked(self, "FixExports");
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			
+			
 			
 			<!-- Frequency auras are checked for updates -->
 			<Slider name="PowaOptionsUpdateSlider2"
@@ -170,34 +196,6 @@
 				  <OnValueChanged>PowaAuras:PowaOptionsUpdateSliderChanged2(self);</OnValueChanged>
 				</Scripts>
 			</Slider>
-		  
-			<!-- FPS for animations -->
-		  <Slider name="PowaOptionsAnimationsSlider2"
-				  inherits="PowaBarSliderTemplate">
-			<Size>
-			  <AbsDimension x="360"
-							y="16" />
-			</Size>
-			<Anchors>
-			  <Anchor point="TOPLEFT"
-					  relativeTo="PowaOptionsUpdateSlider2"
-					  relativePoint="BOTTOMLEFT">
-				<Offset>
-				  <AbsDimension x="0"
-								y="-20" />
-				</Offset>
-			  </Anchor>
-			</Anchors>
-			<Scripts>
-			  <OnLoad>
-				self:SetMinMaxValues(0,60); self:SetValue(PowaMisc.AnimationFps); self:SetValueStep(1); 
-				PowaOptionsAnimationsSlider2Text:SetText(PowaAuras.Text.nomFPS.." : "..self:GetValue().." FPS");
-				PowaOptionsAnimationsSlider2Low:SetText("0"); 
-				PowaOptionsAnimationsSlider2High:SetText("60");
-			  </OnLoad>
-			  <OnValueChanged>PowaAuras:PowaOptionsAnimationsSliderChanged2(self);</OnValueChanged>
-			</Scripts>
-		  </Slider>
 
 			<!-- Frequency timers are updated -->
 		  <Slider name="PowaOptionsTimerUpdateSlider2"
@@ -208,7 +206,7 @@
 			</Size>
 			<Anchors>
 			  <Anchor point="TOPLEFT"
-					  relativeTo="PowaOptionsAnimationsSlider2"
+					  relativeTo="PowaOptionsUpdateSlider2"
 					  relativePoint="BOTTOMLEFT">
 				<Offset>
 				  <AbsDimension x="0"

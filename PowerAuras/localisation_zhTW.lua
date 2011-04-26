@@ -88,6 +88,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 		[PowaAuras.BuffTypes.StealableSpell] = "可偷取法術",
 		[PowaAuras.BuffTypes.PurgeableSpell] = "可凈化法術",
 		[PowaAuras.BuffTypes.TypeBuff] = "Buff type",
+		[PowaAuras.BuffTypes.UnitMatch] = "Unit Match",
 	},
 	
 	-- main
@@ -180,7 +181,6 @@ PowaAuras:MergeTables(PowaAuras.Text,
 
 	nomUpdateSpeed = "更新速度",
 	nomSpeed = "運動速度",
-	nomFPS = "全局動畫幀數",
 	nomTimerUpdate = "計時器更新速度",
 	nomBegin = "進場效果",
 	nomEnd = "結束效果",

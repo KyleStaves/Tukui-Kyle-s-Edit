@@ -25,8 +25,8 @@ local function Shared(self, unit)
 	self:SetBackdropColor(0.1, 0.1, 0.1)
 	
 	local health = CreateFrame('StatusBar', nil, self)
-	health:SetPoint("TOPLEFT")
-	health:SetPoint("BOTTOMRIGHT")
+	health:Point("TOPLEFT", self, "TOPLEFT")
+	health:Point("BOTTOMRIGHT", self, "BOTTOMRIGHT")
 	health:SetStatusBarTexture(normTex)
 	self.Health = health
 	
@@ -42,7 +42,7 @@ local function Shared(self, unit)
 	self.Health.bg = health.bg
 	
 	local name = health:CreateFontString(nil, "OVERLAY")
-    name:SetPoint("CENTER", health, "CENTER", 0, 0)
+    name:Point("CENTER", health, "CENTER", 0, 0)
 	name:SetFont(pixelfont, 10, "THINOUTLINEMONOCHROME")
 	self:Tag(name, "[Tukui:getnamecolor][Tukui:verynameshort]")
 	self.Name = name
@@ -71,18 +71,20 @@ local function Shared(self, unit)
 	
 	-- health border
 	local Healthbg = CreateFrame("Frame", nil, self)
-	Healthbg:SetPoint("TOPLEFT", self, "TOPLEFT", T.Scale(-2), T.Scale(2))
-	Healthbg:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", T.Scale(2), T.Scale(-2))
-	T.SetTemplate(Healthbg)
-	T.CreateShadow(Healthbg)
+	Healthbg:Point("TOPLEFT", self, "TOPLEFT", -2, 2)
+	Healthbg:Point("BOTTOMRIGHT", self, "BOTTOMRIGHT", 2, -2)
+	Healthbg:SetTemplate("Default")
+	Healthbg:CreateShadow("Default")
+	--T.SetTemplate(Healthbg)
+	--T.CreateShadow(Healthbg)
 	Healthbg:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
 	Healthbg:SetFrameLevel(2)
 	self.Healthbg = Healthbg
 	-- end health border
 	
 	local power = CreateFrame("StatusBar", nil, self)
-	power:SetHeight(T.Scale(3))
-	power:SetWidth(T.Scale(C.kyle.grid.width - 8))
+	power:SetHeight(3)
+	power:SetWidth(C.kyle.grid.width - 8)
 	power:Point("TOP", self.Health, "BOTTOM", 0, 1)
 	power:SetStatusBarTexture(normTex)
 	power:SetFrameStrata(health:GetFrameStrata())
@@ -91,14 +93,16 @@ local function Shared(self, unit)
 	
 	-- power border
 	local powerborder = CreateFrame("Frame", nil, self)
-	T.CreatePanel(powerborder, 1, 1, "CENTER", health, "CENTER", 0, 0)
+	powerborder:CreatePanel(powerborder, 1, 1, "CENTER", health, "CENTER", 0, 0)
 	powerborder:ClearAllPoints()
-	powerborder:SetPoint("TOPLEFT", power, T.Scale(-2), T.Scale(2))
-	powerborder:SetPoint("BOTTOMRIGHT", power, T.Scale(2), T.Scale(-2))
+	powerborder:Point("TOPLEFT", power, -2, 2)
+	powerborder:Point("BOTTOMRIGHT", power, 2, -2)
 	powerborder:SetFrameStrata(health:GetFrameStrata())
 	powerborder:SetFrameLevel(health:GetFrameLevel() + 1)
-	T.SetTemplate(powerborder)
-	T.CreateShadow(powerborder)
+	powerborder:SetTemplate("Default")
+	powerborder:CreateShadow("Default")
+	--T.SetTemplate(powerborder)
+	--T.CreateShadow(powerborder)
 	self.powerborder = powerborder
 	-- end border
 	
@@ -129,7 +133,7 @@ local function Shared(self, unit)
 		local RaidIcon = health:CreateTexture(nil, 'OVERLAY')
 		RaidIcon:Height(18*T.raidscale)
 		RaidIcon:Width(18*T.raidscale)
-		RaidIcon:SetPoint('CENTER', self, 'TOP')
+		RaidIcon:Point('CENTER', self, 'TOP')
 		RaidIcon:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\raidicons.blp") -- thx hankthetank for texture
 		self.RaidIcon = RaidIcon
 	end
@@ -137,7 +141,7 @@ local function Shared(self, unit)
 	local ReadyCheck = power:CreateTexture(nil, "OVERLAY")
 	ReadyCheck:Height(12*C["unitframes"].gridscale*T.raidscale)
 	ReadyCheck:Width(12*C["unitframes"].gridscale*T.raidscale)
-	ReadyCheck:SetPoint('CENTER') 	
+	ReadyCheck:Point('CENTER') 	
 	self.ReadyCheck = ReadyCheck
 	
 	--local picon = self.Health:CreateTexture(nil, 'OVERLAY')
@@ -167,12 +171,12 @@ local function Shared(self, unit)
 		local mhpb = CreateFrame('StatusBar', nil, self.Health)
 		if C["unitframes"].gridhealthvertical then
 			mhpb:SetOrientation("VERTICAL")
-			mhpb:SetPoint('BOTTOM', self.Health:GetStatusBarTexture(), 'TOP', 0, 0)
+			mhpb:Point('BOTTOM', self.Health:GetStatusBarTexture(), 'TOP', 0, 0)
 			mhpb:Width(C.kyle.grid.width)
 			mhpb:Height(C.kyle.grid.height)		
 		else
-			mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
-			mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
+			mhpb:Point('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
+			mhpb:Point('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
 			mhpb:Width(C.kyle.grid.width)
 		end				
 		mhpb:SetStatusBarTexture(normTex)
@@ -181,12 +185,12 @@ local function Shared(self, unit)
 		local ohpb = CreateFrame('StatusBar', nil, self.Health)
 		if C["unitframes"].gridhealthvertical then
 			ohpb:SetOrientation("VERTICAL")
-			ohpb:SetPoint('BOTTOM', mhpb:GetStatusBarTexture(), 'TOP', 0, 0)
+			ohpb:Point('BOTTOM', mhpb:GetStatusBarTexture(), 'TOP', 0, 0)
 			ohpb:Width(C.kyle.grid.width)
 			ohpb:Height(C.kyle.grid.height)
 		else
-			ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
-			ohpb:SetPoint('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
+			ohpb:Point('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
+			ohpb:Point('BOTTOMLEFT', mhpb:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 0)
 			ohpb:Width(C.kyle.grid.width)
 		end
 		ohpb:SetStatusBarTexture(normTex)
@@ -230,11 +234,11 @@ local function Shared(self, unit)
 		
 		RaidDebuffs.count = RaidDebuffs:CreateFontString(nil, 'OVERLAY')
 		RaidDebuffs.count:SetFont(pixelfont, 10, "THINOUTLINEMONOCHROME")
-		RaidDebuffs.count:SetPoint('BOTTOMRIGHT', RaidDebuffs, 'BOTTOMRIGHT', 0, 2)
+		RaidDebuffs.count:Point('BOTTOMRIGHT', RaidDebuffs, 'BOTTOMRIGHT', 0, 2)
 		RaidDebuffs.count:SetTextColor(1, .9, 0)
 		
 		RaidDebuffs:FontString('time', pixelfont, 10, "THINOUTLINEMONOCHROME")
-		RaidDebuffs.time:SetPoint('CENTER')
+		RaidDebuffs.time:Point('CENTER')
 		RaidDebuffs.time:SetTextColor(1, .9, 0)
 		
 		self.RaidDebuffs = RaidDebuffs
@@ -283,5 +287,5 @@ oUF:Factory(function(self)
 		"columnSpacing", T.Scale(10),
 		"columnAnchorPoint", "BOTTOM"		
 	)
-	raid:SetPoint("BOTTOMLEFT", TukuiKyleRaidFrameAnchor, "TOPRIGHT", T.Scale(6), T.Scale(6))
+	raid:Point("BOTTOMLEFT", TukuiKyleRaidFrameAnchor, "TOPRIGHT", 6, 6)
 end)
