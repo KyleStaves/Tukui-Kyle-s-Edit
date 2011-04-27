@@ -219,24 +219,6 @@ local defaultTriggers = {
 		color = "7f007f",
 	}]],
 	[1012] = [[{
-		-- 33154 Surge of Light
-		name = L["%s!"]:format(GetSpellInfo(33154)),
-		icon = 25364,
-		class = "PRIEST",
-		conditions = {
-			["Aura gain"] = {
-				{
-					spell = GetSpellInfo(33154),
-					unit = "player",
-					auraType = "BUFF",
-				},
-			},
-		},
-		sticky = true,
-		disabled = true,
-		color = "ff0000",
-	}]],
-	[1013] = [[{
 		-- Overpower = 7384
 		name = L["%s!"]:format(GetSpellInfo(7384)),
 		icon = 7384,
@@ -255,7 +237,7 @@ local defaultTriggers = {
 		sticky = true,
 		color = "7f007f",
 	}]],
-	[1014] = [[{
+	[1013] = [[{
 		-- Revenge = 6572
 		name = L["%s!"]:format(GetSpellInfo(6572)),
 		icon = 6572,
@@ -275,7 +257,7 @@ local defaultTriggers = {
 		color = "ffff00",
 		disabled = true,
 	}]],
-	[1015] = [[{
+	[1014] = [[{
 		-- Riposte = 14251
 		name = L["%s!"]:format(GetSpellInfo(14251)),
 		icon = 14251,
@@ -291,7 +273,7 @@ local defaultTriggers = {
 		sticky = true,
 		color = "ffff00",
 	}]],--]]
-	[1016] = [[{
+	[1015] = [[{
 		-- Maelstrom Weapon = 51532
 		name = L["%s!"]:format(GetSpellInfo(53817)),
 		icon = 51532,
