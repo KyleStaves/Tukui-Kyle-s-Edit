@@ -4,7 +4,7 @@ local BossIDs = LibStub("LibBossIDs-1.0")
 
 local Recount = _G.Recount
 
-local revision = tonumber(string.sub("$Revision: 1143 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1147 $", 12, -3))
 if Recount.Version < revision then Recount.Version = revision end
 
 local dbCombatants
@@ -963,7 +963,16 @@ Recount.dstRetention = false
 local srcRetention = Recount.srcRetention
 local dstRetention = Recount.dstRetention
 local parsefunc
-function Recount:CombatLogEvent(_,timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
+-- Pre-4.1 CLEU compat start
+local TOC
+local dummyTable = {}
+do
+	-- Because GetBuildInfo() still returns 40000 on the PTR
+	local major, minor, rev = strsplit(".", (GetBuildInfo()))
+	TOC = major*10000 + minor*100
+end
+-- Pre-4.1 CLEU compat end
+function Recount:CombatLogEvent(_,timestamp, eventtype, hideCaster, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
 	if not Recount.db.profile.GlobalDataCollect or not Recount.CurrentDataCollect then
 		return
 	end
@@ -971,6 +980,13 @@ function Recount:CombatLogEvent(_,timestamp, eventtype, srcGUID, srcName, srcFla
 	if QuickExitEvents[eventtype] then -- Counter bursty combat log events we don't care about.
 		return
 	end
+
+	-- Pre-4.1 CLEU compat start
+	if TOC < 40100 and hideCaster ~= dummyTable then
+		-- Insert a dummy for the new argument introduced in 4.1 and perform a tail call
+		return self:CombatLogEvent(_,timestamp, eventtype, dummyTable, hideCaster, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
+	end
+	-- Pre-4.1 CLEU compat end
 	
 	srcRetention = Recount:CheckRetentionFromFlags(srcFlags,srcName,srcGUID)
 	dstRetention = Recount:CheckRetentionFromFlags(dstFlags,dstName,dstGUID)

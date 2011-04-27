@@ -876,8 +876,8 @@ Filger_Spells = {
 			Mode = "ICON",
 			setPoint = { "RIGHT", UIParent, "CENTER", -198, -20 },
 
-			-- Surge of Light
-			{ spellID = 33151, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Surge of Light REMOVED?
+			--{ spellID = 33151, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
 			-- Serendipity
 			{ spellID = 63730, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
 			
@@ -1910,11 +1910,11 @@ Filger_Spells = {
 			{ slotID = 14, size = 32, filter = "CD" },
 			
 			-- Dwarf Stoneform 20594
-			{ spellID = 20594, size = 32, filter = "CD" },
+			--{ spellID = 20594, size = 32, filter = "CD" },
 			-- Worgen Darkflight 68992
-			{ spellID = 68992, size = 32, filter = "CD" },
+			--{ spellID = 68992, size = 32, filter = "CD" },
 			-- Goblin Rocket Jump 69070
-			{ spellID = 69070, size = 32, filter = "CD" },
+			--{ spellID = 69070, size = 32, filter = "CD" },
 			
 			-- Saronite Bomb
 			{ itemID = 41119, size = 32, filter = "CD" },

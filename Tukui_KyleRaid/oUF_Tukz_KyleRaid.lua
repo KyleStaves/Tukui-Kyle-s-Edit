@@ -79,6 +79,7 @@ local function Shared(self, unit)
 	--T.CreateShadow(Healthbg)
 	Healthbg:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
 	Healthbg:SetFrameLevel(2)
+	self:HighlightUnit(.6, .6, .6)
 	self.Healthbg = Healthbg
 	-- end health border
 	
@@ -141,7 +142,7 @@ local function Shared(self, unit)
 	local ReadyCheck = power:CreateTexture(nil, "OVERLAY")
 	ReadyCheck:Height(12*C["unitframes"].gridscale*T.raidscale)
 	ReadyCheck:Width(12*C["unitframes"].gridscale*T.raidscale)
-	ReadyCheck:Point('CENTER') 	
+	ReadyCheck:Point('BOTTOM', health, 'BOTTOM', 0, 4) 	
 	self.ReadyCheck = ReadyCheck
 	
 	--local picon = self.Health:CreateTexture(nil, 'OVERLAY')
@@ -209,9 +210,9 @@ local function Shared(self, unit)
 		
 		-- Raid Debuffs (big middle icon)
 		local RaidDebuffs = CreateFrame('Frame', nil, self)
-		RaidDebuffs:Height(24*C["unitframes"].gridscale)
-		RaidDebuffs:Width(24*C["unitframes"].gridscale)
-		RaidDebuffs:Point('CENTER', health, 1,0)
+		RaidDebuffs:Height(14*C["unitframes"].gridscale)
+		RaidDebuffs:Width(14*C["unitframes"].gridscale)
+		RaidDebuffs:Point('BOTTOM', health, 0,5)
 		RaidDebuffs:SetFrameStrata(health:GetFrameStrata())
 		RaidDebuffs:SetFrameLevel(health:GetFrameLevel() + 2)
 		

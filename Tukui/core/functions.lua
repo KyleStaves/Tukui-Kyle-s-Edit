@@ -506,29 +506,42 @@ T.PostUpdatePower = function(power, unit, min, max)
 	else
 		if min ~= max then
 			if pType == 0 then
+				-- if unit == "target" then
+					-- if C["unitframes"].showtotalhpmp == true then
+						-- power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
+					-- else
+						-- power.value:SetFormattedText("%d%% |cffD7BEA5-|r %s", floor(min / max * 100), ShortValue(max - (max - min)))
+					-- end
+				-- elseif unit == "player" and self:GetAttribute("normalUnit") == "pet" or unit == "pet" then
+					-- if C["unitframes"].showtotalhpmp == true then
+						-- power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
+					-- else
+						-- power.value:SetFormattedText("%d%%", floor(min / max * 100))
+					-- end
+				-- elseif (unit and unit:find("arena%d")) or unit == "focus" or unit == "focustarget" then
+					-- power.value:SetText(ShortValue(min))
+				-- else
+					-- if C["unitframes"].showtotalhpmp == true then
+						-- power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
+					-- else
+						-- power.value:SetFormattedText("%d%% |cffD7BEA5-|r %d", floor(min / max * 100), max - (max - min))
+					-- end
+				-- end
+				
 				if unit == "target" then
-					if C["unitframes"].showtotalhpmp == true then
-						power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
+					power.value:SetFormattedText("%d|cffD7BEA5:|r %d%%", floor(max), floor(min/max*100+.5))
+				elseif unit == "player" then
+					if max > 999 then
+						power.value:SetText(floor(min/max*100+.5))
 					else
-						power.value:SetFormattedText("%d%% |cffD7BEA5-|r %s", floor(min / max * 100), ShortValue(max - (max - min)))
+						power.value:SetText(min)
 					end
-				elseif unit == "player" and self:GetAttribute("normalUnit") == "pet" or unit == "pet" then
-					if C["unitframes"].showtotalhpmp == true then
-						power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
-					else
-						power.value:SetFormattedText("%d%%", floor(min / max * 100))
-					end
-				elseif (unit and unit:find("arena%d")) or unit == "focus" or unit == "focustarget" then
-					power.value:SetText(ShortValue(min))
 				else
-					if C["unitframes"].showtotalhpmp == true then
-						power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
-					else
-						power.value:SetFormattedText("%d%% |cffD7BEA5-|r %d", floor(min / max * 100), max - (max - min))
-					end
+					power.value:SetText(ShortValue(min))
 				end
+				
 			else
-				power.value:SetText(max - (max - min))
+				power.value:SetText(min)
 			end
 		else
 			if unit == "pet" or unit == "target" or unit == "focus" or unit == "focustarget" or (unit and unit:find("arena%d")) then

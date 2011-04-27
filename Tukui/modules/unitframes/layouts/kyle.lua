@@ -119,7 +119,7 @@ end
 		end
 		
 		if C["unitframes"].unicolor == true then
-			health.colorTapping = false
+			health.colorTapping = true
 			health.colorDisconnected = false
 			health.colorClass = false
 			health:SetStatusBarColor(.3, .3, .3, 1)

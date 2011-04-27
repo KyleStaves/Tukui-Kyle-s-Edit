@@ -684,6 +684,7 @@ local function hasOverlays()
 end
 
 function Mapster:UpdateDetailTiles()
+	 local NUM_WORLDMAP_DETAIL_TILES = GetNumberOfDetailTiles()
 	if db.hideBorder and GetCurrentMapZone() > 0 and hasOverlays() then
 		for i=1, NUM_WORLDMAP_DETAIL_TILES do
 			_G["WorldMapDetailTile"..i]:Hide()

@@ -251,7 +251,11 @@ function GetFilgerData(data)
 		filgerId = data.spellID
 		spn, _, icon = GetSpellInfo( data.spellID )
 		if data.filter == "BUFF" then
-			name, rank, _, count, debuffType, duration, expirationTime, caster, isStealable = UnitBuff(data.unitId, spn);
+			if (spn == nil) then
+				print("NIL: "..data.spellID)
+			else
+				name, rank, _, count, debuffType, duration, expirationTime, caster, isStealable = UnitBuff(data.unitId, spn);
+			end
 		elseif data.filter == "DEBUFF" then
 			name, rank, _, count, debuffType, duration, expirationTime, caster, isStealable = UnitDebuff(data.unitId, spn);
 		elseif data.filter == "CD" then
