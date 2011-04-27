@@ -12,8 +12,8 @@
 local addonName, addon = ...
 local L = addon.L
 
--- Returns the prefix string for the current keyboard state. 
--- 
+-- Returns the prefix string for the current keyboard state.
+--
 -- Arguments:
 --   split - Whether or not to split the modifier keys into left and right components
 
@@ -31,7 +31,7 @@ function addon:GetPrefixString(split)
         lctrl, rctrl = false, false
         lalt, ralt = false, false
     end
-        
+
     local prefix = ""
     if shift then
         prefix = ((lshift and "LSHIFT-") or (rshift and "RSHIFT-") or "SHIFT-") .. prefix
@@ -140,7 +140,7 @@ end
 
 function addon:GetBindingKeyComboText(binding)
     if type(binding) == "table" and binding.key then
-        return strconcat(convert(strsplit("-", binding.key))) 
+        return strconcat(convert(strsplit("-", binding.key)))
     elseif type(binding) == "string" then
         return strconcat(convert(strsplit("-", binding)))
     else
@@ -229,6 +229,10 @@ function addon:GetCapturedKey(key)
         key = "BUTTON3"
     elseif key == "-" then
         key = "DASH"
+    elseif key == "\\" then
+        key = "BACKSLASH"
+    elseif key == "\"" then
+        key = "DOUBLEQUOTE"
     else
         local buttonNum = key:match("Button(%d+)")
         if buttonNum and tonumber(buttonNum) <= 31 then
@@ -262,6 +266,23 @@ function addon:GetBindingInfoText(binding)
     end
 end
 
+function addon:ConvertSpecialKeys(binding)
+    if type(binding) ~= "table" or not binding.key then
+        return "UNKNOWN"
+    end
+
+    local mods, key = binding.key:match("^(.-)([^%-]+)$")
+    if key == "DASH" then
+        key = "-"
+    elseif key == "BACKSLASH" then
+        key = "\\"
+    elseif key == "DOUBLEQUOTE" then
+        key = "\""
+    end
+
+    return tostring(mods) .. tostring(key)
+end
+
 function addon:GetBindingPrefixSuffix(binding, global)
     if type(binding) ~= "table" or not binding.key then
         return "UNKNOWN", "UNKNOWN"
@@ -288,40 +309,4 @@ function addon:GetBindingPrefixSuffix(binding, global)
     end
 
     return prefix, suffix
-end
-
-
--- This function examines the current state of the game
-function addon:ShouldSetBinding(binding, global)
-    local apply = false
-
-    -- Check for global bindings first in isolation
-    if binding.sets.hovercast or binding.sets.global then
-        if global then
-            return true
-        end
-    elseif global then
-        return false
-    end
-
-    if binding.sets.enemy or binding.sets.friend then
-        apply = true
-    end
-
-    if binding.sets.ooc then
-        if UnitAffectingCombat("player") or addon.partyincombat then
-            apply = false
-        else
-            apply = true
-        end
-    end
-
-    if binding.sets.default then
-        apply = true
-    end
-
-    return apply
-end
-
-function addon:ShouldSetBindingOnFrame(binding, frame)
 end

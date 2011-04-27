@@ -1,6 +1,6 @@
 --[[
 Name: RatingBuster esES locale
-Revision: $Revision: 301 $
+Revision: $Revision: 339 $
 Translated by:
 - carahuevo@Curse
 - kaiemg
@@ -18,7 +18,6 @@ if not L then return end
 -- Waterfall --
 ---------------
 L["RatingBuster Options"] = "Opciones RatingBuster"
-L["Waterfall-1.0 is required to access the GUI."] = "Se requiere Waterfall para acceder a la GUI."
 L["Enabled"] = "Activado"
 L["Suspend/resume this addon"] = "Parar/Continuar este accesorio"
 ---------------------------
@@ -26,27 +25,36 @@ L["Suspend/resume this addon"] = "Parar/Continuar este accesorio"
 ---------------------------
 --L["General Settings"] = true
 --L["Profiles"] = true
--- /rb optionswin
+-- /rb win
 L["Options Window"] = "Ventana opciones"
 L["Shows the Options Window"] = "Muestra la ventana de opciones"
+-- /rb hidebzcomp
+--L["Hide Blizzard Item Comparisons"] = ""
+--L["Disable Blizzard stat change summary when using the built-in comparison tooltip"] = ""
 -- /rb statmod
 L["Enable Stat Mods"] = "Habilitar Stat Mods"
 L["Enable support for Stat Mods"] = "Habilita el soporte para Stat Mods"
--- /rb avoidancedr
-L["Enable Avoidance Diminishing Returns"] = "Habilita evitacion de rendimientos decrecientes"
-L["Dodge, Parry, Hit Avoidance values will be calculated using the avoidance deminishing return formula with your current stats"] = "Rendimientos decrecientes"
--- /rb itemid
-L["Show ItemID"] = "Mostrar ItemID"
-L["Show the ItemID in tooltips"] = "Mostrar ItemID en los tooltips"
--- /rb itemlevel
-L["Show ItemLevel"] = "Mostrar NivelItem"
-L["Show the ItemLevel in tooltips"] = "Muestra el NivelItem en los tooltips"
+-- /rb subtract_equip
+--L["Enable Subtract Equipped Stats"] = ""
+--L["Enable for more accurate calculation of Mana Regen from Intellect and Spirit, and diminishing stats like Dodge, Parry, Resilience"] = ""
 -- /rb usereqlv
 L["Use Required Level"] = "Usar nivel requerido"
 L["Calculate using the required level if you are below the required level"] = "Calcular apartir del nivel requerido si estas por debajo"
 -- /rb setlevel
 L["Set Level"] = "Establecer nivel"
 L["Set the level used in calculations (0 = your level)"] = "Establece el nivel usado en los caculos (0=tu nivel)"
+-- /rb ilvlid
+--L["Item Level and ID"] = ""
+--L["Settings for Item Level and Item ID"] = ""
+-- /rb ilvlid coloritemlevel
+--L["Colorize Item Level"] = ""
+--L["Customize the color of the Item Level text"] = ""
+-- /rb ilvlid itemlevelall
+--L["Show Item Level on all items"] = ""
+--L["Display the Item Level on all items instead of just on equippable items"] = ""
+-- /rb ilvlid itemid
+--L["Show Item ID"] = ""
+--L["Display the Item ID on all items"] = ""
 -------------------------------------------------------------------------------
 -- /rb rating
 L["Rating"] = "Indices"
@@ -556,12 +564,12 @@ L["ItemID: "] = "IDItem"
 --
 -- Tip2: The strings are passed into string.find, so you should escape the magic characters ^$()%.[]*+-? with a %
 L["numberPatterns"] = {
-	{pattern = " (%d+)", addInfo = "AfterNumber",},
-	{pattern = "([%+%-]%d+)", addInfo = "AfterStat",},
-	{pattern = "Otorga.-(%d+)", addInfo = "AfterNumber",}, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
-	{pattern = "Aumenta.-(%d+) p.", addInfo = "AfterNumber",}, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
-	{pattern = "Mejora.-(%d+) p.", addInfo = "AfterNumber",}, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
-	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat",}, -- [????????] +6?????5??
+	{pattern = " (%d+)", addInfo = "AfterNumber", space = " ", },
+	{pattern = "([%+%-]%d+)", addInfo = "AfterStat", space = " ", },
+	{pattern = "Otorga.-(%d+)", addInfo = "AfterNumber", space = " ", }, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
+	{pattern = "Aumenta.-(%d+) p.", addInfo = "AfterNumber", space = " ", }, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
+	{pattern = "Mejora.-(%d+) p.", addInfo = "AfterNumber", space = " ", }, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
+	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat", space = " ", }, -- [????????] +6?????5??
 }
 L["separators"] = {
 	"/", " y ", ",", "%. ", " durante ", "&"
@@ -675,7 +683,7 @@ L["$value to be Dodged/Parried"] = "$value Esquivado/Parado"
 L["$value to be Crit"] = "$value recibir Crit"
 L["$value Crit Dmg Taken"] = "$value Dano crit recib"
 L["$value DOT Dmg Taken"] = "$value Dano por tiempo recib"
-L["$value% Parry"] = "$value Parada"
+L["$value Parry"] = "$value Parada"
 -- for hit rating showing both physical and spell conversions
 -- (+1.21%, S+0.98%)
 -- (+1.21%, +0.98% S)

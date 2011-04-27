@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Zone-3.0
-Revision: $Rev: 311 $
+Revision: $Rev: 317 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-zone-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Zone-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 311 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 317 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -366,7 +366,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Darkmoon Faire"] = "Dunkelmond-Jahrmarkt",
 	Darkshore = "Dunkelküste",
 	Darnassus = "Darnassus",
-	-- Deadmines = "",
+	Deadmines = "Todesminen",
 	["Deadwind Pass"] = "Gebirgspass der Totenwinde",
 	Deepholm = "Tiefenheim",
 	["Deeprun Tram"] = "Die Tiefenbahn",
@@ -658,7 +658,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Darkmoon Faire"] = "Foire de Sombrelune",
 	Darkshore = "Sombrivage",
 	Darnassus = "Darnassus",
-	-- Deadmines = "",
+	Deadmines = "Mortemines",
 	["Deadwind Pass"] = "Défilé de Deuillevent",
 	Deepholm = "Le Tréfonds",
 	["Deeprun Tram"] = "Tram des profondeurs",
@@ -950,7 +950,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Darkmoon Faire"] = "다크문 축제",
 	Darkshore = "어둠의 해안",
 	Darnassus = "다르나서스",
-	-- Deadmines = "",
+	Deadmines = "죽음의 폐광",
 	["Deadwind Pass"] = "저승바람 고개",
 	Deepholm = "심원의 영지",
 	["Deeprun Tram"] = "깊은굴 지하철",
@@ -1107,7 +1107,7 @@ elseif GAME_LOCALE == "koKR" then
 	["The Blood Furnace"] = "피의 용광로",
 	["The Bone Wastes"] = "해골 무덤",
 	["The Botanica"] = "신록의 정원",
-	["The Cape of Stranglethorn"] = "가시덤불 봉우리",
+	["The Cape of Stranglethorn"] = "가시덤불 곶",
 	["The Construct Quarter"] = "피조물 지구",
 	["The Culling of Stratholme"] = "옛 스트라솔름",
 	["The Dark Portal"] = "어둠의 문",
@@ -1211,7 +1211,7 @@ elseif GAME_LOCALE == "esES" then
 	Badlands = "Tierras Inhóspitas",
 	["Baradin Hold"] = "Bastión de Baradin",
 	["Bash'ir Landing"] = "Zona de aterrizaje Bash'ir",
-	-- ["Battle for Gilneas"] = "",
+	["Battle for Gilneas"] = "La Batalla por Gilneas",
 	["Black Temple"] = "El Templo Oscuro",
 	["Blackfathom Deeps"] = "Cavernas de Brazanegra",
 	["Blackrock Caverns"] = "Cavernas Roca Negra",
@@ -1242,7 +1242,7 @@ elseif GAME_LOCALE == "esES" then
 	["Darkmoon Faire"] = "Feria de la Luna Negra",
 	Darkshore = "Costa Oscura",
 	Darnassus = "Darnassus",
-	-- Deadmines = "",
+	Deadmines = "Las Minas de la Muerte",
 	["Deadwind Pass"] = "Paso de la Muerte",
 	Deepholm = "Infralar",
 	["Deeprun Tram"] = "Tranvía Subterráneo",
@@ -1394,7 +1394,7 @@ elseif GAME_LOCALE == "esES" then
 	["The Argent Coliseum"] = "El Coliseo Argenta",
 	["The Barrens"] = "Los Baldíos",
 	["The Bastion of Twilight"] = "El Bastión del Crepúsculo",
-	-- ["The Battle for Gilneas"] = "",
+	["The Battle for Gilneas"] = "La Batalla por Gilneas",
 	["The Black Morass"] = "La Ciénaga Negra",
 	["The Blood Furnace"] = "El Horno de Sangre",
 	["The Bone Wastes"] = "El Vertedero de Huesos",
@@ -1481,9 +1481,9 @@ elseif GAME_LOCALE == "esES" then
 }
 elseif GAME_LOCALE == "esMX" then
 	lib:SetCurrentTranslations {
-	["Abyssal Depths"] = "Abyssal Depths", -- Needs review
+	["Abyssal Depths"] = "Profundidades Abisales", -- Needs review
 	["Ahn'Qiraj"] = "Ahn'Qiraj",
-	["Ahn'Qiraj: The Fallen Kingdom"] = "Ahn'Qiraj: The Fallen Kingdom", -- Needs review
+	["Ahn'Qiraj: The Fallen Kingdom"] = "Ahn'Qiraj: El Reino Caído", -- Needs review
 	["Ahn'kahet: The Old Kingdom"] = "Ahn'kahet: El Antiguo Reino",
 	["Alliance Base"] = "Base de la Alianza",
 	["Alterac Mountains"] = "Montañas de Alterac",
@@ -1501,17 +1501,17 @@ elseif GAME_LOCALE == "esMX" then
 	Azshara = "Azshara",
 	["Azuremyst Isle"] = "Isla Bruma Azur",
 	Badlands = "Tierras Inhóspitas",
-	["Baradin Hold"] = "Baradin Hold", -- Needs review
+	["Baradin Hold"] = "Bastión de Baradin", -- Needs review
 	["Bash'ir Landing"] = "Zona de aterrizaje Bash'ir",
-	-- ["Battle for Gilneas"] = "",
+	["Battle for Gilneas"] = "La Batalla por Gilneas", -- Needs review
 	["Black Temple"] = "El Templo Oscuro",
 	["Blackfathom Deeps"] = "Cavernas de Brazanegra",
-	["Blackrock Caverns"] = "Blackrock Caverns", -- Needs review
+	["Blackrock Caverns"] = "Cavernas Roca Negra", -- Needs review
 	["Blackrock Depths"] = "Profundidades de Roca Negra",
 	["Blackrock Mountain"] = "Montaña Roca Negra",
 	["Blackrock Spire"] = "Cumbre de Roca Negra",
 	["Blackwind Lake"] = "Lago Vientonegro",
-	["Blackwing Descent"] = "Blackwing Descent", -- Needs review
+	["Blackwing Descent"] = "Descenso de Alanegra", -- Needs review
 	["Blackwing Lair"] = "Guarida Alanegra",
 	["Blade's Edge Arena"] = "Arena Filospada",
 	["Blade's Edge Mountains"] = "Montañas Filospada",
@@ -1534,9 +1534,9 @@ elseif GAME_LOCALE == "esMX" then
 	["Darkmoon Faire"] = "Feria de la Luna Negra",
 	Darkshore = "Costa Oscura",
 	Darnassus = "Darnassus",
-	-- Deadmines = "",
+	Deadmines = "Las Minas de la Muerte", -- Needs review
 	["Deadwind Pass"] = "Paso de la Muerte",
-	Deepholm = "Deepholm", -- Needs review
+	Deepholm = "Infralar", -- Needs review
 	["Deeprun Tram"] = "Tranvía Subterráneo",
 	Desolace = "Desolace",
 	["Dire Maul"] = "La Masacre",
@@ -1565,7 +1565,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Gates of Ahn'Qiraj"] = "Puertas de Ahn'Qiraj",
 	Ghostlands = "Tierras Fantasma",
 	Gilneas = "Gilneas", -- Needs review
-	["Gilneas City"] = "Gilneas City", -- Needs review
+	["Gilneas City"] = "Ciudad de Gilneas", -- Needs review
 	Gnomeregan = "Gnomeregan",
 	Graveyard = "Cementerio",
 	["Grim Batol"] = "Grim Batol", -- Needs review
@@ -1576,7 +1576,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Hall of Champions"] = "Sala de los Campeones",
 	["Hall of Legends"] = "Sala de las Leyendas",
 	["Halls of Lightning"] = "Cámaras de Relámpagos",
-	["Halls of Origination"] = "Halls of Origination", -- Needs review
+	["Halls of Origination"] = "Cámaras de los Orígenes", -- Needs review
 	["Halls of Reflection"] = "Camáras de Reflexión",
 	["Halls of Stone"] = "Cámaras de Piedra",
 	["Hellfire Citadel"] = "Ciudadela del Fuego Infernal",
@@ -1596,12 +1596,12 @@ elseif GAME_LOCALE == "esMX" then
 	["Isle of Quel'Danas"] = "Isla de Quel'Danas",
 	Kalimdor = "Kalimdor",
 	Karazhan = "Karazhan",
-	["Kelp'thar Forest"] = "Kelp'thar Forest", -- Needs review
+	["Kelp'thar Forest"] = "Bosque Kelp'thar", -- Needs review
 	Kezan = "Kezan", -- Needs review
 	["Krasus' Landing"] = "Krasus' Landing",
 	Library = "Biblioteca",
 	["Loch Modan"] = "Loch Modan",
-	["Lost City of the Tol'vir"] = "Lost City of the Tol'vir", -- Needs review
+	["Lost City of the Tol'vir"] = "Ciudad Perdida de los Tol'vir", -- Needs review
 	["Lower Blackrock Spire"] = "Cumbre inferior de Roca Negra",
 	["Magisters' Terrace"] = "Bancal Del Magister",
 	["Magtheridon's Lair"] = "Guarida de Magtheridon",
@@ -1611,15 +1611,15 @@ elseif GAME_LOCALE == "esMX" then
 	["Menethil Harbor"] = "Puerto de Menethil",
 	["Molten Core"] = "Núcleo de Magma",
 	Moonglade = "Claro de la Luna",
-	["Mount Hyjal"] = "Mount Hyjal", -- Needs review
+	["Mount Hyjal"] = "Monte Hyjal", -- Needs review
 	Mulgore = "Mulgore",
 	Nagrand = "Nagrand",
 	["Nagrand Arena"] = "Arena de Nagrand",
 	Naxxramas = "Naxxramas",
 	Netherstorm = "Tormenta Abisal",
 	["Night Elf Village"] = "Poblado Elfo de la Noche",
-	["Northern Barrens"] = "Northern Barrens", -- Needs review
-	["Northern Stranglethorn"] = "Northern Stranglethorn", -- Needs review
+	["Northern Barrens"] = "Los Baldíos del Norte", -- Needs review
+	["Northern Stranglethorn"] = "Norte de la Vega de Tuercespina", -- Needs review
 	Northrend = "Rasganorte",
 	["Obsidia's Perch"] = "Nido de Obsidia",
 	["Ogri'la"] = "Ogri'la",
@@ -1640,8 +1640,8 @@ elseif GAME_LOCALE == "esMX" then
 	["Ring of Observance"] = "Círculo de la Observancia",
 	["Rivendark's Perch"] = "Nido de Desgarro Oscuro",
 	["Ruins of Ahn'Qiraj"] = "Ruinas de Ahn'Qiraj",
-	["Ruins of Gilneas"] = "Ruins of Gilneas", -- Needs review
-	["Ruins of Gilneas City"] = "Ruins of Gilneas City", -- Needs review
+	["Ruins of Gilneas"] = "Ruinas de Gilneas", -- Needs review
+	["Ruins of Gilneas City"] = "Ruinas de la Ciudad de Gilneas", -- Needs review
 	["Ruins of Lordaeron"] = "Ruinas de Lordaeron",
 	["Scalebeard's Cave"] = "Cueva de Barbaescamas",
 	["Scarlet Monastery"] = "Monasterio Escarlata",
@@ -1656,14 +1656,14 @@ elseif GAME_LOCALE == "esMX" then
 	["Shartuul's Transporter"] = "Transportador de Shartuul",
 	Shattrath = "Shattrath",
 	["Shattrath City"] = "Ciudad de Shattrath",
-	["Shimmering Expanse"] = "Shimmering Expanse", -- Needs review
+	["Shimmering Expanse"] = "Extensión Bruñida", -- Needs review
 	["Sholazar Basin"] = "Cuenca de Sholazar",
 	Silithus = "Silithus",
 	["Silvermoon City"] = "Ciudad de Lunargenta",
 	["Silverpine Forest"] = "Bosque de Argénteos",
 	["Skyguard Outpost"] = "Puesto de la guardia de cielo",
 	["Skysong Lake"] = "Lago Son Celeste",
-	["Southern Barrens"] = "Southern Barrens", -- Needs review
+	["Southern Barrens"] = "Los Baldíos del Sur", -- Needs review
 	["Sporewind Lake"] = "Lago Espora Volante",
 	Stonard = "Rocal",
 	["Stonetalon Mountains"] = "Sierra Espolón",
@@ -1685,13 +1685,13 @@ elseif GAME_LOCALE == "esMX" then
 	["The Arcatraz"] = "El Alcatraz",
 	["The Argent Coliseum"] = "El Coliseo Argenta",
 	["The Barrens"] = "Los Baldíos",
-	["The Bastion of Twilight"] = "The Bastion of Twilight", -- Needs review
-	-- ["The Battle for Gilneas"] = "",
+	["The Bastion of Twilight"] = "El Bastión del Crepúsculo", -- Needs review
+	["The Battle for Gilneas"] = "La Batalla por Gilneas", -- Needs review
 	["The Black Morass"] = "La Ciénaga Negra",
 	["The Blood Furnace"] = "El Horno de Sangre",
 	["The Bone Wastes"] = "El Vertedero de Huesos",
 	["The Botanica"] = "El Invernáculo",
-	["The Cape of Stranglethorn"] = "The Cape of Stranglethorn", -- Needs review
+	["The Cape of Stranglethorn"] = "El Cabo de Tuercespina", -- Needs review
 	["The Construct Quarter"] = "Ala de Abominación",
 	["The Culling of Stratholme"] = "La Matanza de Stratholme",
 	["The Dark Portal"] = "El Portal Oscuro",
@@ -1707,7 +1707,7 @@ elseif GAME_LOCALE == "esMX" then
 	["The Great Sea"] = "Mare Magnum",
 	["The Halls of Winter"] = "Las Cámaras del Invierno",
 	["The Hinterlands"] = "Tierras del Interior",
-	["The Lost Isles"] = "The Lost Isles", -- Needs review
+	["The Lost Isles"] = "Las Islas Perdidas", -- Needs review
 	["The Maelstrom"] = "La Vorágine", -- Needs review
 	["The Mechanar"] = "El Mechanar",
 	["The Military Quarter"] = "Ala Militar",
@@ -1718,33 +1718,33 @@ elseif GAME_LOCALE == "esMX" then
 	["The Plague Quarter"] = "Ala de la Plaga",
 	["The Prison of Yogg-Saron"] = "La Prisión de Yogg-Saron",
 	["The Ring of Valor"] = "El Anillo del Valor",
-	["The Ruby Sanctum"] = "The Ruby Sanctum", -- Needs review
+	["The Ruby Sanctum"] = "El Sagrario Rubí", -- Needs review
 	["The Scarlet Enclave"] = "El Enclave Escarlata",
 	["The Shattered Halls"] = "Las Salas Arrasadas",
 	["The Slave Pens"] = "Recinto de los Esclavos",
 	["The Spark of Imagination"] = "Cámaras de la Invención",
 	["The Steamvault"] = "La Cámara de Vapor",
 	["The Stockade"] = "Las Mazmorras",
-	["The Stonecore"] = "The Stonecore", -- Needs review
+	["The Stonecore"] = "El Núcleo Pétreo", -- Needs review
 	["The Storm Peaks"] = "Las Cumbres Tormentosas",
 	["The Temple of Atal'Hakkar"] = "El Templo de Atal'Hakkar",
 	["The Underbog"] = "La Sotiénaga",
 	["The Veiled Sea"] = "Mar de la Bruma",
 	["The Violet Hold"] = "El Bastión Violeta",
-	["The Vortex Pinnacle"] = "The Vortex Pinnacle", -- Needs review
+	["The Vortex Pinnacle"] = "La Cumbre del Vórtice", -- Needs review
 	["Theramore Isle"] = "Isla Theramore",
 	["Thousand Needles"] = "Las Mil Agujas",
-	["Throne of the Four Winds"] = "Throne of the Four Winds", -- Needs review
-	["Throne of the Tides"] = "Throne of the Tides", -- Needs review
+	["Throne of the Four Winds"] = "Trono de los Cuatro Vientos", -- Needs review
+	["Throne of the Tides"] = "Trono de las Mareas", -- Needs review
 	["Thunder Bluff"] = "Cima del Trueno",
 	Tirisfal = "Tirisfal",
 	["Tirisfal Glades"] = "Claros de Tirisfal",
 	["Tol Barad"] = "Tol Barad", -- Needs review
-	["Tol Barad Peninsula"] = "Tol Barad Peninsula", -- Needs review
+	["Tol Barad Peninsula"] = "Península de Tol Barad", -- Needs review
 	["Trial of the Champion"] = "Pueba del Campeon",
 	["Trial of the Crusader"] = "Prueba del Cruzado",
-	["Twilight Highlands"] = "Twilight Highlands", -- Needs review
-	["Twin Peaks"] = "Twin Peaks", -- Needs review
+	["Twilight Highlands"] = "Tierras Altas Crepusculares", -- Needs review
+	["Twin Peaks"] = "Cumbres Gemelas", -- Needs review
 	["Twisting Nether"] = "El Vacío Abisal",
 	Uldaman = "Uldaman",
 	Ulduar = "Ulduar",
@@ -1826,7 +1826,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Darkmoon Faire"] = "Ярмарка Новолуния",
 	Darkshore = "Темные берега",
 	Darnassus = "Дарнас",
-	-- Deadmines = "",
+	Deadmines = "Deadmines", -- Needs review
 	["Deadwind Pass"] = "Перевал Мертвого Ветра",
 	Deepholm = "Подземье",
 	["Deeprun Tram"] = "Подземный поезд",
@@ -2085,7 +2085,7 @@ elseif GAME_LOCALE == "zhCN" then
 	Azshara = "艾萨拉",
 	["Azuremyst Isle"] = "秘蓝岛",
 	Badlands = "荒芜之地",
-	["Baradin Hold"] = "Baradin Hold", -- Needs review
+	["Baradin Hold"] = "巴拉丁监狱",
 	["Bash'ir Landing"] = "巴什伊尔码头",
 	["Battle for Gilneas"] = "吉尔尼斯之战",
 	["Black Temple"] = "黑暗神殿",
@@ -2118,7 +2118,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Darkmoon Faire"] = "暗月马戏团",
 	Darkshore = "黑海岸",
 	Darnassus = "达纳苏斯",
-	-- Deadmines = "",
+	Deadmines = "死亡矿井",
 	["Deadwind Pass"] = "逆风小径",
 	Deepholm = "深岩之洲",
 	["Deeprun Tram"] = "矿道地铁",
@@ -2195,7 +2195,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Menethil Harbor"] = "米奈希尔港",
 	["Molten Core"] = "熔火之心",
 	Moonglade = "月光林地",
-	["Mount Hyjal"] = "海加尔", -- Needs review
+	["Mount Hyjal"] = "海加尔",
 	Mulgore = "莫高雷",
 	Nagrand = "纳格兰",
 	["Nagrand Arena"] = "纳格兰竞技场",
@@ -2286,7 +2286,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["The Eye of Eternity"] = "永恒之眼",
 	["The Forbidding Sea"] = "禁忌之海",
 	["The Forge of Souls"] = "灵魂洪炉",
-	["The Frozen Halls"] = "冰封大厅",
+	["The Frozen Halls"] = "冰封大殿",
 	["The Frozen Sea"] = "冰冻之海",
 	["The Great Sea"] = "无尽之海",
 	["The Halls of Winter"] = "寒冬之厅",
@@ -2410,7 +2410,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Darkmoon Faire"] = "暗月馬戲團",
 	Darkshore = "黑海岸",
 	Darnassus = "達納蘇斯",
-	-- Deadmines = "",
+	Deadmines = "死亡礦坑",
 	["Deadwind Pass"] = "逆風小徑",
 	Deepholm = "地深之源",
 	["Deeprun Tram"] = "礦道地鐵",

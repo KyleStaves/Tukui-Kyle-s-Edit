@@ -50,7 +50,6 @@ end)
 local function makeprofile(bindings)
 
     addon:ClearAttributes()
-    addon:ClearGlobalAttributes()
 
     local tempName = "Temp" .. GetTime()
     local suiteName = addonName .. "TestSuite"
@@ -64,7 +63,7 @@ local function makeprofile(bindings)
         table.insert(addon.bindings, v)
     end
 
-    addon:UpdateEverything()
+    addon:FireMessage("BINDINGS_CHANGED")
 end
 
 local function makebind(key)
@@ -189,6 +188,9 @@ local all_binding_types = {
     num = makebind("1"),
     foreign = makebind("ö"),
     fkey = makebind("F1"),
+    qkey = makebind("DOUBLEQUOTE"),
+    dash = makebind("DASH"),
+    bspace = makebind("BACKSPACE"),
     leftbutton = makebind("BUTTON1"),
     rightbutton = makebind("BUTTON2"),
     middlebutton = makebind("BUTTON3"),

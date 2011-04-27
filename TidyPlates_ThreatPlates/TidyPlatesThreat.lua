@@ -224,6 +224,7 @@ function TidyPlatesThreat:OnInitialize()
 				["A3"] = {true,true,true,nil, nil, nil,"normal",color = {r = 0.67,g = 1,b = 1}},
 				["A4"] = {true,true,true,nil, nil, nil,"normal",color = {r = 0.67,g = 1,b = 1}},
 				["A5"] = {true,true,true,nil, nil, nil,"normal",color = {r = 0.67,g = 1,b = 1}},
+				["A6"] = {true,true,true,nil, nil, nil,"normal",color = {r = 0.67,g = 1,b = 1}},
 				-- Earth Totems
 				["E1"] = {true,true,true,nil, nil, nil,"normal",color = {r = 1,g = 0.7,b = 0.12}},
 				["E2"] = {true,true,true,nil, nil, nil,"normal",color = {r = 1,g = 0.7,b = 0.12}},
@@ -1597,7 +1598,7 @@ function f:Events(self,event,...)
 			DB.nameplate.toggle["Totem"] = false
 		end
 		SetCVar("ShowClassColorInNameplate", 1)
-		SetCVar("bloattest", 1)
+		--SetCVar("bloattest", 1)
 		if CharDB.welcome and ((TidyPlatesOptions.primary == "Threat Plates") or (TidyPlatesOptions.secondary == "Threat Plates")) and DB.verbose then
 			print(L["|cff89f559Threat Plates:|r Welcome back |cff"]..HEX_CLASS_COLOR[PlayerClass]..UnitName("player").."|r!!")
 		end

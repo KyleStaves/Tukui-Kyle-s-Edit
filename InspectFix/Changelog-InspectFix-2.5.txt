@@ -1,0 +1,39 @@
+------------------------------------------------------------------------
+r20 | oscarucb | 2011-04-26 19:56:04 +0000 (Tue, 26 Apr 2011) | 3 lines
+Changed paths:
+   A /tags/2.5 (from /trunk:19)
+
+Tagging as 2.5
+
+4.1 toc bump
+------------------------------------------------------------------------
+r18 | oscarucb | 2011-04-26 10:05:00 +0000 (Tue, 26 Apr 2011) | 2 lines
+Changed paths:
+   M /trunk/InspectFix.toc
+
+toc bump for 4.1
+
+------------------------------------------------------------------------
+r16 | oscarucb | 2011-04-16 09:54:14 +0000 (Sat, 16 Apr 2011) | 4 lines
+Changed paths:
+   M /trunk/InspectFix.lua
+
+add Examiner support (prevent stealth inspect hijacking)
+more robust hook loading
+more debugging output
+
+------------------------------------------------------------------------
+r14 | oscarucb | 2011-04-04 01:19:39 +0000 (Mon, 04 Apr 2011) | 2 lines
+Changed paths:
+   M /trunk/InspectFix.lua
+
+More robust display of gems, enchants, reforging
+
+------------------------------------------------------------------------
+r12 | oscarucb | 2011-03-29 08:34:19 +0000 (Tue, 29 Mar 2011) | 2 lines
+Changed paths:
+   M /trunk/InspectFix.lua
+
+fix inspection of guildless characters
+
+------------------------------------------------------------------------

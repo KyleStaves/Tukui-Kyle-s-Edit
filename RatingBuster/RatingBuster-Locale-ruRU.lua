@@ -1,6 +1,6 @@
 --[[
 Name: RatingBuster ruRU locale
-Revision: $Revision: 306 $
+Revision: $Revision: 339 $
 Translated by:
 - Orsana \ StingerSoft \ Swix
 ]]
@@ -17,7 +17,6 @@ if not L then return end
 -- Waterfall --
 ---------------
 L["RatingBuster Options"] = "Окно настроек"
-L["Waterfall-1.0 is required to access the GUI."] = "Требуется Waterfall чтобы открыть настройки"
 L["Enabled"] = "Включён"
 L["Suspend/resume this addon"] = "Отключить/Запустить аддон"
 ---------------------------
@@ -39,21 +38,27 @@ L["Disable Blizzard stat change summary when using the built-in comparison toolt
 -- /rb statmod
 L["Enable Stat Mods"] = "Включить модуль статистики"
 L["Enable support for Stat Mods"] = "Включает поддержку модуля статистики"
--- /rb avoidancedr
-L["Enable Avoidance Diminishing Returns"] = "Включить убывания уклонений от удара"
-L["Dodge, Parry, Hit Avoidance values will be calculated using the avoidance deminishing return formula with your current stats"] = "Значения уклонения, парирования, уклонений от удара при расчетах будет использоваться формула убывания (deminishing return) уклонений от удара по вашим текущим данным"
--- /rb itemid
-L["Show ItemID"] = "Показывать ID предметов"
-L["Show the ItemID in tooltips"] = "Показывать ID предметов в подсказке"
--- /rb itemlevel
-L["Show ItemLevel"] = "Показывать уровень предмета"
-L["Show the ItemLevel in tooltips"] = "Показывать уровень предмета в подсказке"
+-- /rb subtract_equip
+--L["Enable Subtract Equipped Stats"] = ""
+--L["Enable for more accurate calculation of Mana Regen from Intellect and Spirit, and diminishing stats like Dodge, Parry, Resilience"] = ""
 -- /rb usereqlv
 L["Use Required Level"] = "Использовать необходимый уровень"
 L["Calculate using the required level if you are below the required level"] = "Рассчитывать статы исходя из минимально необходимого для надевания предмета уровня, если вы ниже этого уровня"
 -- /rb level
 L["Set Level"] = "Задать уровень"
 L["Set the level used in calculations (0 = your level)"] = "Задать уровень используемый в расчетах (0 - ваш уровень)"
+-- /rb ilvlid
+--L["Item Level and ID"] = ""
+--L["Settings for Item Level and Item ID"] = ""
+-- /rb ilvlid coloritemlevel
+--L["Colorize Item Level"] = ""
+--L["Customize the color of the Item Level text"] = ""
+-- /rb ilvlid itemlevelall
+--L["Show Item Level on all items"] = ""
+--L["Display the Item Level on all items instead of just on equippable items"] = ""
+-- /rb ilvlid itemid
+--L["Show Item ID"] = ""
+--L["Display the Item ID on all items"] = ""
 ---------------------------------------------------------------------------
 -- /rb rating
 L["Rating"] = "Рейтинги"
@@ -592,15 +597,15 @@ L["ItemID: "] = "ID предмета: "
 --
 -- Tip2: The strings are passed into string.find, so you should escape the magic characters ^$()%.[]*+-? with a %
 L["numberPatterns"] = {
-	{pattern = " на (%d+)", addInfo = "AfterNumber",},
-	{pattern = "([%+%-]%d+)", addInfo = "AfterNumber",},
-	{pattern = " увеличена на (%d+)", addInfo = "AfterNumber",},
+	{pattern = " на (%d+)", addInfo = "AfterNumber", space = " ", },
+	{pattern = "([%+%-]%d+)", addInfo = "AfterNumber", space = " ", },
+	{pattern = " увеличена на (%d+)", addInfo = "AfterNumber", space = " ", },
 	{pattern = "(%d+) к ", addInfo = "AfterNumber"}, -- тест
-	{pattern = "увеличение (%d+)", addInfo = "AfterNumber",}, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
-	{pattern = "дополнительно (%d+)", addInfo = "AfterNumber",}, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
+	{pattern = "увеличение (%d+)", addInfo = "AfterNumber", space = " ", }, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
+	{pattern = "дополнительно (%d+)", addInfo = "AfterNumber", space = " ", }, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
 	-- Added [^%%] so that it doesn't match strings like "Increases healing by up to 10% of your total Intellect." [Whitemend Pants] ID: 24261
 	-- Added [^|] so that it doesn't match enchant strings (JewelTips)
-	{pattern = "на (%d+)([^%d%%|]+)", addInfo = "AfterNumber",}, -- [發光的暗影卓奈石] +6法術傷害及5耐力
+	{pattern = "на (%d+)([^%d%%|]+)", addInfo = "AfterNumber", space = " ", }, -- [發光的暗影卓奈石] +6法術傷害及5耐力
 }
 L["separators"] = {
 	"/", " и ", ",", "%. ", " для ", "&", ":",
@@ -789,7 +794,7 @@ L["$value to be Dodged/Parried"] = "$value% уклон/парир"
 L["$value to be Crit"] = "$value% крит"
 L["$value Crit Dmg Taken"] = "$value крит урон"
 L["$value DOT Dmg Taken"] = "$value сила дотов"
-L["$value% Parry"] = "$value% парирование"
+L["$value Parry"] = "$value парирование"
 -- for hit rating showing both physical and spell conversions
 -- (+1.21%, S+0.98%)
 -- (+1.21%, +0.98% S)

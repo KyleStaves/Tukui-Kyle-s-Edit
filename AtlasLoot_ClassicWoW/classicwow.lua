@@ -94,7 +94,6 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 2, 13523, "", "=q1=Blood of Innocents", "=ds=#m27#"};
 				{ 3, 18746, "", "=q1=Divination Scryer", "=ds=#m27#"};
 				{ 4, 18663, "", "=q1=J'eevee's Jar", "=ds=#m27#"};
-				{ 5, 7733, "", "=q1=Staff of Prehistoria", "=ds=#m27#"};
 			};
 		};
 		info = {
@@ -1311,6 +1310,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 1, 13244, "", "=q3=Gilded Gauntlets", "=ds=#s9#, #a3#", "", "25.06%"};
 				{ 2, 13213, "", "=q3=Smolderweb's Eye", "=ds=#s14#", "", "24.97%"};
 				{ 3, 13183, "", "=q3=Venomspitter", "=ds=#h1#, #w6#", "", "12.49%"};
+				{ 5, 68673, "", "=q3=Smolderweb Egg", "=ds=#e13#"};
 				{ 16, 16715, "", "=q3=Wildheart Boots", "=ds=#s12#, #a2# (D1, #c1#)", "", "13.03%"};
 			};
 		};
@@ -1359,6 +1359,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 4, 12835, "", "=q3=Plans: Annihilator", "=ds=#p2# (300)", "", "8.37%"};
 				{ 5, 12798, "", "=q3=Annihilator", "=ds=#h1#, #w1#"};
 				{ 7, 21955, "", "=q2=Design: Black Diamond Crab", "=ds=#p12# (300)"};
+				{ 16, 12264, "", "=q3=Worg Carrier", "=ds=#e13#"};
 			};
 		};
 		info = {
@@ -2194,20 +2195,20 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 1, 18811, "", "=q4=Fireproof Cloak", "=ds=#s4#", "", "15.12%"};
 				{ 2, 18808, "", "=q4=Gloves of the Hypnotic Flame", "=ds=#s9#, #a1#", "", "15.36%"};
 				{ 3, 18809, "", "=q4=Sash of Whispered Secrets", "=ds=#s10#, #a1#", "", "15.93%"};
-               			{ 4, 19139, "", "=q4=Fireguard Shoulders", "=ds=#s3#, #a2#", "", "15.87%"};
+               	{ 4, 19139, "", "=q4=Fireguard Shoulders", "=ds=#s3#, #a2#", "", "15.87%"};
 				{ 5, 18810, "", "=q4=Wild Growth Spaulders", "=ds=#s3#, #a2#", "", "16.91%"};
 				{ 6, 18812, "", "=q4=Wristguards of True Flight", "=ds=#s8#, #a3#", "", "18.04%"};
 				{ 7, 18806, "", "=q4=Core Forged Greaves", "=ds=#s12#, #a4#", "", "16.53%"};
 				{ 8, 19140, "", "=q4=Cauterizing Band", "=ds=#s13#", "", "15.10%"};
 				{ 9, 18805, "", "=q4=Core Hound Tooth", "=ds=#h1#, #w4#", "", "16.06%"};
 				{ 10, 18803, "", "=q4=Finkle's Lava Dredger", "=ds=#h2#, #w6#", "", "12.43%"};
-				{ 16, 18703, "", "=q4=Ancient Petrified Leaf", "=ds=#m2# =q1=(#c2#)", "", "35.25%"};
+--[[			{ 16, 18703, "", "=q4=Ancient Petrified Leaf", "=ds=#m2# =q1=(#c2#)", "", "35.25%"};
 				{ 17, 18715, "", "=q4=Lok'delar, Stave of the Ancient Keepers", "=q1=#m4#: =ds=#w9#, =q1=#m1# =ds=#c2#"};
 				{ 18, 18713, "", "=q4=Rhok'delar, Longbow of the Ancient Keepers", "=q1=#m4#: =ds=#w2#, =q1=#m1# =ds=#c2#"};
 				{ 19, 18714, "", "=q4=Ancient Sinew Wrapped Lamina", "=q1=#m4#: =ds=#e1#, =q1=#m1# =ds=#c2#"};
 				{ 21, 18646, "", "=q4=The Eye of Divinity", "=ds=#m2# =q1=(#c5#)", "", "28.30%"};
 				{ 22, 18608, "", "=q4=Benediction", "=q1=#m4#: =ds=#w9#, =q1=#m1# =ds=#c5#"};
-				{ 23, 18609, "", "=q4=Anathema", "=q1=#m4#: =ds=#w9#, =q1=#m1# =ds=#c5#"};
+				{ 23, 18609, "", "=q4=Anathema", "=q1=#m4#: =ds=#w9#, =q1=#m1# =ds=#c5#"};--]]
 			};
 		};
 		info = {
@@ -3769,9 +3770,9 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 5, 2807, "", "=q3=Guillotine Axe", "=ds=#h1#, #w1#", "", "0.01%"};
 				{ 6, 1318, "", "=q3=Night Reaver", "=ds=#h2#, #w1#", "", "0.01%"};
 				{ 7, 1484, "", "=q3=Witching Stave", "=ds=#h2#, #w9#", "", "0.01%"};
-				{ 16, 60977, "", "=q1=Orders from High Command", "=ds=#m3#"};
-				{ 17, 60874, "", "=q1=Deathless Sinew", "=ds=#m3#", "", "100%"};
-				{ 18, 60875, "", "=q1=Ghostly Essence", "=ds=#m3#", "", "100%"};
+				{ 17, 60977, "", "=q1=Orders from High Command", "=ds=#m3#"};
+				{ 18, 60874, "", "=q1=Deathless Sinew", "=ds=#m3#", "", "100%"};
+				{ 19, 60875, "", "=q1=Ghostly Essence", "=ds=#m3#", "", "100%"};
 			};
 		};
 		info = {
@@ -4496,7 +4497,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 13, 9403, "", "=q3=Battered Viking Shield", "=ds=#w8#", "", "69.85%"};
 				{ 14, 1177, "", "=q1=Oil of Olaf", "=ds=#e2#", "", "76.54%"};
 				{ 16, 0, "INV_Box_01", "=q6="..AL["Baelog's Chest"], ""};
-				{ 17, 7740, "", "=q3=Gni'kiv Medallion", "=ds=#m3#"};
+				--new loot for the Chest in 4.1. Needs to be checked once it goes live!!
 			}
 		};
 		info = {
@@ -4512,7 +4513,6 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 2, 9389, "", "=q3=Revelosh's Spaulders", "=ds=#s3#, #a2#", "", "18.77%"};
 				{ 3, 9388, "", "=q3=Revelosh's Armguards", "=ds=#s8#, #a3#", "", "19.84%"};
 				{ 4, 9387, "", "=q3=Revelosh's Boots", "=ds=#s12#, #a4#", "", "20.53%"};
-				{ 6, 7741, "", "=q3=The Shaft of Tsol", "=ds=#m3#"};
 			}
 		};
 		info = {
@@ -4645,10 +4645,10 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["WailingCavernsLoot"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6="..BabbleBoss["Trigore the Lasher"], "=ec1=#j28#"};
+				{ 1, 0, "INV_Box_01", "=q6="..BabbleBoss["Trigore the Lasher"], ""};
 				{ 2, 5425, "", "=q3=Runescale Girdle", "=ds=#s8#, #a3#", "", "50%"};
 				{ 3, 5426, "", "=q3=Serpent's Kiss", "=ds=#h1#, #w1#", "", "35%"};
-				{ 5, 0, "INV_Box_01", "=q6="..BabbleBoss["Boahn"], "=ec1=#j28#"};
+				{ 5, 0, "INV_Box_01", "=q6="..BabbleBoss["Boahn"], ""};
 				{ 6, 5423, "", "=q3=Boahn's Fang", "=ds=#h2#, #w1#", "", "28%"};
 				{ 7, 5422, "", "=q2=Brambleweed Leggings", "=ds=#s11#, #a2#", "", "64%"};
 				{ 16, 0, "INV_Box_01", "=q6="..BabbleBoss["Lord Cobrahn"], ""};
@@ -4694,7 +4694,7 @@ local moduleName = "AtlasLootClassicWoW"
 		};
 	};
 
-    		------------------
+    	------------------
 		--- Zul'Farrak ---
 		------------------
 
@@ -4708,18 +4708,6 @@ local moduleName = "AtlasLootClassicWoW"
 		};
 		info = {
 			name = BabbleBoss["Gahz'rilla"],
-			module = moduleName, instance = "ZulFarrak",
-		};
-	};
-
-	AtlasLoot_Data["ZFSandfury"] = {
-		["Normal"] = {
-			{
-				{ 1, 8444, "", "=q1=Executioner's Key", "=ds=#e9#"};
-			};
-		};
-		info = {
-			name = BabbleBoss["Sandfury Executioner"],
 			module = moduleName, instance = "ZulFarrak",
 		};
 	};

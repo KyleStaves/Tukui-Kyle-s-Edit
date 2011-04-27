@@ -1,10 +1,10 @@
 --[[
 Name: RatingBuster
 Description: Converts combat ratings in tooltips into normal percentages.
-Revision: $Revision: 324 $
+Revision: $Revision: 342 $
 Author: Whitetooth
 Email: hotdogee [at] gmail [dot] com
-LastUpdate: $Date: 2010-12-14 13:30:31 +0000 (Tue, 14 Dec 2010) $
+LastUpdate: $Date: 2011-04-25 16:24:20 +0000 (Mon, 25 Apr 2011) $
 ]]
 
 ---------------
@@ -25,8 +25,8 @@ local BI = LibStub("LibBabble-Inventory-3.0"):GetLookupTable()
 --------------------
 -- AceAddon Initialization
 RatingBuster = LibStub("AceAddon-3.0"):NewAddon("RatingBuster", "AceConsole-3.0", "AceEvent-3.0")
-RatingBuster.version = "1.6.0 (r"..gsub("$Revision: 324 $", "$Revision: (%d+) %$", "%1")..")"
-RatingBuster.date = gsub("$Date: 2010-12-14 13:30:31 +0000 (Tue, 14 Dec 2010) $", "^.-(%d%d%d%d%-%d%d%-%d%d).-$", "%1")
+RatingBuster.version = "1.6.0 (r"..gsub("$Revision: 342 $", "$Revision: (%d+) %$", "%1")..")"
+RatingBuster.date = gsub("$Date: 2011-04-25 16:24:20 +0000 (Mon, 25 Apr 2011) $", "^.-(%d%d%d%d%-%d%d%-%d%d).-$", "%1")
 
 
 -----------
@@ -78,6 +78,8 @@ local SPELL_STAT3_NAME = SPELL_STAT3_NAME
 local SPELL_STAT4_NAME = SPELL_STAT4_NAME
 local SPELL_STAT5_NAME = SPELL_STAT5_NAME
 local ARMOR = ARMOR
+local ITEM_LEVEL = ITEM_LEVEL
+
 local wowBuildNo = tonumber((select(2, GetBuildInfo())))
 local toc = tonumber((select(4, GetBuildInfo())))
 
@@ -88,14 +90,16 @@ local ProfileVersion = 1
 local profileDefaults = {
   ["*"] = false,
 	hideBlizzardComparisons = true,
-	showItemLevel = true,
-	showItemID = false,
+	colorizeItemLevel = true,
+  showAllItemLevel = false,
+	showItemID = true,
+	itemLevelTextColor = {r = 1.0, g = 0.82,  b = 0, hex = "|cffffd100"},
 	useRequiredLevel = true,
 	customLevel = 0,
 	textColor = {r = 1.0, g = 0.996,  b = 0.545, hex = "|cfffffe8b"},
 	enableTextColor = true,
 	enableStatMods = true,
-	enableAvoidanceDiminishingReturns = true,
+	enableSubtractEquippedStats = true,
 	showRatings = 0,
 	ratingSpell = false,
 	ratingPhysical = false,
@@ -524,33 +528,13 @@ local options = {
 					get = getProfileOption,
 					set = setProfileOptionAndClearCache,
 				},
-				avoidancedr = {
+				subtract_equip = {
 					type = 'toggle',
 					order = 4,
 					width = "double",
-					name = L["Enable Avoidance Diminishing Returns"],
-					desc = L["Dodge, Parry, Hit Avoidance values will be calculated using the avoidance deminishing return formula with your current stats"],
-					arg = "enableAvoidanceDiminishingReturns",
-					get = getProfileOption,
-					set = setProfileOptionAndClearCache,
-				},
-				itemid = {
-					type = 'toggle',
-					order = 5,
-					width = "double",
-					name = L["Show ItemID"],
-					desc = L["Show the ItemID in tooltips"],
-					arg = "showItemID",
-					get = getProfileOption,
-					set = setProfileOptionAndClearCache,
-				},
-				itemlevel = {
-					type = 'toggle',
-					order = 6,
-					width = "double",
-					name = L["Show ItemLevel"],
-					desc = L["Show the ItemLevel in tooltips"],
-					arg = "showItemLevel",
+					name = L["Enable Subtract Equipped Stats"],
+					desc = L["Enable for more accurate calculation of Mana Regen from Intellect and Spirit, and diminishing stats like Dodge, Parry, Resilience"],
+					arg = "enableSubtractEquippedStats",
 					get = getProfileOption,
 					set = setProfileOptionAndClearCache,
 				},
@@ -577,6 +561,82 @@ local options = {
 					max = 83, -- set to level cap + 3
 					step = 1,
 				},
+        ilvlid = {
+					type = 'group',
+					order = 10,
+					dialogInline = true,
+					name = L["Item Level and ID"],
+					desc = L["Settings for Item Level and Item ID"],
+					args = {
+            coloritemlevel = {
+              type = 'toggle',
+              order = 1,
+              width = "single",
+              name = L["Colorize Item Level"],
+              desc = L["Customize the color of the Item Level text"],
+              arg = "colorizeItemLevel",
+              get = getProfileOption,
+              set = setProfileOptionAndClearCache,
+            },
+            itemlevelall = {
+              type = 'toggle',
+              order = 3,
+              width = "double",
+              name = L["Show Item Level on all items"],
+              desc = L["Display the Item Level on all items instead of just on equippable items"],
+              arg = "showAllItemLevel",
+              get = getProfileOption,
+              set = setProfileOptionAndClearCache,
+            },
+            itemid = {
+              type = 'toggle',
+              order = 4,
+              width = "single",
+              name = L["Show Item ID"],
+              desc = L["Display the Item ID on all items"],
+              arg = "showItemID",
+              get = getProfileOption,
+              set = setProfileOptionAndClearCache,
+            },
+						pick_dialog = {
+							type = 'color',
+							order = 2,
+							cmdHidden = true,
+							dropdownHidden = true,
+							name = L["Pick Color"],
+							desc = L["Pick a color"],
+              arg = "itemLevelTextColor",
+							get = function(info)
+								return profileDB[info.arg].r, profileDB[info.arg].g, profileDB[info.arg].b, 1.0
+							end,
+							set = function(info, r, g, b, a)
+								profileDB[info.arg].r, profileDB[info.arg].g, profileDB[info.arg].b = r, g, b
+								profileDB[info.arg].hex = "|cff"..string.format("%02x%02x%02x", profileDB[info.arg].r * 255, profileDB[info.arg].g * 255, profileDB[info.arg].b * 255)
+								clearCache()
+							end,
+						},
+						pick = {
+							type = 'execute',
+							order = 4,
+							dialogHidden = true,
+							name = L["Pick Color"],
+							desc = L["Pick a color"],
+              arg = "itemLevelTextColor",
+							func = function(info)
+								CloseMenus()
+								ColorPickerFrame.func = function()
+									profileDB[info.arg].r, profileDB[info.arg].g, profileDB[info.arg].b = ColorPickerFrame:GetColorRGB();
+									profileDB[info.arg].hex = "|cff"..string.format("%02x%02x%02x", profileDB[info.arg].r * 255, profileDB[info.arg].g * 255, profileDB[info.arg].b * 255)
+									--clear cache
+									clearCache()
+								end
+								ColorPickerFrame:SetColorRGB(profileDB[info.arg].r, profileDB[info.arg].g, profileDB[info.arg].b);
+								ColorPickerFrame.previousValues = {r = profileDB[info.arg].r, g = profileDB[info.arg].g, b = profileDB[info.arg].b};
+								ColorPickerFrame:Show()
+							end,
+						},
+          },
+        },
 			},
 		},
 		rating = {
@@ -1784,9 +1844,10 @@ local options = {
 -- TankPoints support, version check
 local tpSupport
 local tpLocale
-if TankPoints and (tonumber(strsub(TankPoints.version, 1, 3)) >= 2.6) then
+if TankPoints and (tonumber(strsub(TankPoints.version, 1, 3)) >= 2.9) then
 	tpSupport = true
-	tpLocale = AceLibrary("AceLocale-2.2"):new("TankPoints")
+	tpLocale = LibStub("AceLocale-3.0"):GetLocale("TankPoints") --Get the localization from TankPoints
+	
 	options.args.sum.args.tank.args.tp = {
 		type = 'toggle',
 		name = L["Sum TankPoints"],
@@ -2211,7 +2272,6 @@ function RatingBuster:OnInitialize()
     profileDB.profileVersion = ProfileVersion
   end
 
-	
 	-- Hook ShoppingTooltips to enable options to Hide Blizzard Item Comparisons
 	HookSetHyperlinkCompareItem(ShoppingTooltip1)
 	HookSetHyperlinkCompareItem(ShoppingTooltip2)
@@ -2219,6 +2279,8 @@ function RatingBuster:OnInitialize()
 	HookSetHyperlinkCompareItem(ItemRefShoppingTooltip1)
 	HookSetHyperlinkCompareItem(ItemRefShoppingTooltip2)
 	HookSetHyperlinkCompareItem(ItemRefShoppingTooltip3)
+  
+	self:SetupOptions()
 end
 
 -- OnEnable() called at PLAYER_LOGIN
@@ -2234,7 +2296,6 @@ function RatingBuster:OnEnable()
 	self:RegisterEvent("MODIFIER_STATE_CHANGED") -- modifier key press
 	self:RegisterEvent("UNIT_AURA") -- fire at most once every 1 second
 	self:RegisterEvent("ADDON_LOADED") -- Watch for Blizzard_ReforgingUI
-	self:SetupOptions()
 end
 
 function RatingBuster:OnDisable()
@@ -2416,11 +2477,12 @@ local EmptySocketLookup = {
 }
 -- Color code (used to fix gem text color)
 local currentColorCode
+
 -- Avoidance DR calculation
 local summaryFunc = {}
 local equippedSum = {}
 local equippedDodge, equippedParry, equippedMissed
-local processedDodge, processedParry, processedMissed
+local processedDodge, processedParry, processedMissed, processedInt, processedSpi, processedRes
 
 -- Modifier Keys
 local isModifierKeyDown = {
@@ -2429,6 +2491,7 @@ local isModifierKeyDown = {
 	[2] = IsControlKeyDown,
 	[3] = IsShiftKeyDown,
 }
+
 function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 	-- Check if we're in standby mode
 	if not RatingBuster:IsEnabled() then return end
@@ -2451,7 +2514,7 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 	-- Tooltip Scanner --
 	---------------------
 	-- Get equipped item avoidances
-	if profileDB.enableAvoidanceDiminishingReturns then
+	if profileDB.enableSubtractEquippedStats then
 		local red, yellow, blue, meta
 		if isModifierKeyDown[profileDB.sumGem2Toggle] and isModifierKeyDown[profileDB.sumGem2Toggle]() then
 			red = profileDB.sumGemRed2.gemID
@@ -2473,12 +2536,17 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 		StatLogic:GetSum(difflink1, equippedSum)
 		equippedSum["STR"] = (equippedSum["STR"] or 0) * RatingBuster:GetStatMod("MOD_STR")
 		equippedSum["AGI"] = (equippedSum["AGI"] or 0) * RatingBuster:GetStatMod("MOD_AGI")
+		equippedSum["INT"] = (equippedSum["INT"] or 0) * RatingBuster:GetStatMod("MOD_INT")
+		equippedSum["SPI"] = (equippedSum["SPI"] or 0) * RatingBuster:GetStatMod("MOD_SPI")
 		equippedDodge = summaryFunc["DODGE_NO_DR"](equippedSum, "sum", difflink1) * -1
 		equippedParry = summaryFunc["PARRY_NO_DR"](equippedSum, "sum", difflink1) * -1
 		equippedMissed = summaryFunc["MELEE_HIT_AVOID_NO_DR"](equippedSum, "sum", difflink1) * -1
 		processedDodge = equippedDodge
 		processedParry = equippedParry
 		processedMissed = equippedMissed
+    processedInt = equippedSum["INT"] * -1
+    processedSpi = equippedSum["SPI"] * -1
+    processedRes = (equippedSum["RESILIENCE_RATING"] or 0) * -1
 	else
 		equippedDodge = 0
 		equippedParry = 0
@@ -2486,6 +2554,7 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 		processedDodge = 0
 		processedParry = 0
 		processedMissed = 0
+    processedRes = 0
 	end
 	
 	if isModifierKeyDown[profileDB.sumGem2Toggle] and isModifierKeyDown[profileDB.sumGem2Toggle]() then
@@ -2504,7 +2573,9 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 		EmptySocketLookup[EMPTY_SOCKET_BLUE] = "sumGemBlue"
 		EmptySocketLookup[EMPTY_SOCKET_META] = "sumGemMeta"
 	end
+  
 	-- Loop through tooltip lines starting at line 2
+  local itemLevelSet
 	local tipTextLeft = tooltip:GetName().."TextLeft"
 	for i = 2, tooltip:NumLines() do
 		local fontString = _G[tipTextLeft..i]
@@ -2522,6 +2593,26 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 				cache[cacheID] = text
 				-- SetText
 				fontString:SetText(text)
+      elseif (profileDB.colorizeItemLevel or profileDB.showItemID) and link and strfind(text, ITEM_LEVEL) then
+        if cache[link] then
+          fontString:SetText(cache[link])
+        else
+          -- Get the Item ID from text string
+          local _, _, level = strfind(text, "(%d+)")
+          local newLine = L["ItemLevel: "]..level
+          if profileDB.showItemID then
+            local _, _, id = strfind(link, "item:(%d+)")
+            if id then
+              newLine = newLine..", "..L["ItemID: "]..id
+            end
+          end
+          if profileDB.colorizeItemLevel then
+            newLine = profileDB.itemLevelTextColor.hex..newLine.."|r"
+          end
+          cache[link] = newLine
+          fontString:SetText(newLine)
+        end
+        itemLevelSet = true
 			elseif strfind(text, "%d") then -- do nothing if we don't find a number
 				-- Find and set color code (used to fix gem text color) pattern:|cxxxxxxxx
 				currentColorCode = select(3, strfind(text, "(|c%x%x%x%x%x%x%x%x)")) or "|r"
@@ -2544,8 +2635,7 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 	----------------------------
 	-- Item Level and Item ID --
 	----------------------------
-	-- Check for ItemLevel addon, do nothing if found
-	if not ItemLevel_AddInfo and (profileDB.showItemLevel or profileDB.showItemID) and link then
+	if not itemLevelSet and (profileDB.showAllItemLevel or profileDB.showItemID) and link then
 		if cache[link] then
 			tooltip:AddLine(cache[link])
 		else
@@ -2554,7 +2644,7 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 			if link then
 				local _, _, id = strfind(link, "item:(%d+)")
 				local newLine = ""
-				if level and profileDB.showItemLevel then
+				if level and profileDB.showAllItemLevel then
 					newLine = newLine..L["ItemLevel: "]..level
 				end
 				if id and profileDB.showItemID then
@@ -2564,6 +2654,9 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 					newLine = newLine..L["ItemID: "]..id
 				end
 				if newLine ~= "" then
+          if profileDB.colorizeItemLevel then
+            newLine = profileDB.itemLevelTextColor.hex..newLine.."|r"
+          end
 					cache[link] = newLine
 					tooltip:AddLine(newLine)
 				end
@@ -2627,6 +2720,12 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 	-- Repaint tooltip --
 	---------------------
 	tooltip:Show()
+	for i = 2, tooltip:NumLines() do
+		local fontString = _G[tipTextLeft..i]
+    _, relativeTo, _, xOfs, _ = fontString:GetPoint(0)
+    fontString:ClearAllPoints()
+    fontString:SetPoint("TOPLEFT", relativeTo, "BOTTOMLEFT", xOfs, -2)
+  end
 end
 
 ---------------------------------------------------------------------------------
@@ -2685,10 +2784,10 @@ function RatingBuster:ProcessText(text, tooltip)
 						--self:Print(reversedAmount..", "..amount..", "..v[2]..", "..RatingBuster.targetLevel)-- debug
 						-- If rating is resilience, add a minus sign
 						-- (d0.12%, p0.12%, b0.12%, m0.12%, c-0.12%)
-						if strID == "DODGE" and profileDB.enableAvoidanceDiminishingReturns then
+						if strID == "DODGE" and profileDB.enableSubtractEquippedStats then
 							infoString = format("%+.2f%%", StatLogic:GetAvoidanceGainAfterDR("DODGE", processedDodge + effect) - StatLogic:GetAvoidanceGainAfterDR("DODGE", processedDodge))
 							processedDodge = processedDodge + effect
-						elseif strID == "PARRY" and profileDB.enableAvoidanceDiminishingReturns then
+						elseif strID == "PARRY" and profileDB.enableSubtractEquippedStats then
 							infoString = format("%+.2f%%", StatLogic:GetAvoidanceGainAfterDR("PARRY", processedParry + effect) - StatLogic:GetAvoidanceGainAfterDR("PARRY", processedParry))
 							processedParry = processedParry + effect
 						elseif strID == "EXPERTISE" and profileDB.expBreakDown then
@@ -2699,11 +2798,15 @@ function RatingBuster:ProcessText(text, tooltip)
 								infoString = format("%+.2f%%", effect)
 							end
 						elseif stat.id >= 15 and stat.id <= 17 then -- Resilience
-							effect = effect * -1
+              if profileDB.enableSubtractEquippedStats then
+                effect = StatLogic:GetResilienceEffectGainAfterDR(processedRes + value, processedRes)
+                --print(type(processedRes)..", "..processedRes..", "..processedRes + value..", "..effect)
+                processedRes = processedRes + value
+              end
 							if profileDB.detailedConversionText then
-								infoString = gsub(L["$value PVP Dmg Taken"], "$value", format("%+.2f%%%%", effect))
+								infoString = gsub(L["$value PVP Dmg Taken"], "$value", format("%+.2f%%%%", effect * -1))
 							else
-								infoString = format("%+.2f%%", effect)
+								infoString = format("%+.2f%%", -effect)
 							end
 						-- CR_HIT_MELEE = 6
 						-- CR_CRIT_MELEE = 9
@@ -2725,16 +2828,20 @@ function RatingBuster:ProcessText(text, tooltip)
 						elseif stat.id == 18 then
 							if profileDB.ratingPhysical and profileDB.ratingSpell then
 								-- stat.id + 2 = SpellID
+                effect = effect * RatingBuster:GetStatMod("MOD_MELEE_HASTE")
 								local effectSpell = StatLogic:GetEffectFromRating(value, stat.id + 2, calcLevel)
+                effectSpell = effectSpell * RatingBuster:GetStatMod("MOD_SPELL_HASTE")
                 if effectSpell == effect then
                   infoString = format("%+.2f%%", effect)
                 else
                   infoString = format("%+.2f%%, ", effect)..gsub(L["$value Spell"], "$value", format("%+.2f%%%%", effectSpell))
                 end
 							elseif profileDB.ratingPhysical then
+                effect = effect * RatingBuster:GetStatMod("MOD_MELEE_HASTE")
 								infoString = format("%+.2f%%", effect)
 							elseif profileDB.ratingSpell then
 								local effectSpell = StatLogic:GetEffectFromRating(value, stat.id + 2, calcLevel)
+                effectSpell = effectSpell * RatingBuster:GetStatMod("MOD_SPELL_HASTE")
 								infoString = format("%+.2f%%", effectSpell)
 							end
 						else
@@ -2764,34 +2871,12 @@ function RatingBuster:ProcessText(text, tooltip)
 								tinsert(infoTable, (gsub(L["$value AP"], "$value", format("%+.0f", effect))))
 							end
 						end
-						-- Paladin: Sheath of Light
-						if profileDB.showSpellDmgFromStr then 
-							local mod = RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("MOD_SPELL_DMG")
-							local effect = (value * StatLogic:GetAPPerStr(class) * RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("ADD_SPELL_DMG_MOD_AP")
-								+ value * RatingBuster:GetStatMod("ADD_SPELL_DMG_MOD_STR")) * RatingBuster:GetStatMod("MOD_SPELL_DMG")
-							if (mod ~= 1 or statmod ~= 1) and floor(abs(effect) * 10 + 0.5) > 0 then
-								tinsert(infoTable, (gsub(L["$value Dmg"], "$value", format("%+.1f", effect))))
-							elseif floor(abs(effect) + 0.5) > 0 then
-								tinsert(infoTable, (gsub(L["$value Dmg"], "$value", format("%+.0f", effect))))
-							end
-						end
-						-- Paladin: Sheath of Light
-						if profileDB.showHealingFromStr then 
-							local mod = RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("MOD_HEAL")
-							local effect = (value * StatLogic:GetAPPerStr(class) * RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("ADD_HEAL_MOD_AP")
-								+ value * RatingBuster:GetStatMod("ADD_HEAL_MOD_STR")) * RatingBuster:GetStatMod("MOD_HEAL")
-							if (mod ~= 1 or statmod ~= 1) and floor(abs(effect) * 10 + 0.5) > 0 then
-								tinsert(infoTable, (gsub(L["$value Heal"], "$value", format("%+.1f", effect))))
-							elseif floor(abs(effect) + 0.5) > 0 then
-								tinsert(infoTable, (gsub(L["$value Heal"], "$value", format("%+.0f", effect))))
-							end
-						end
             if profileDB.showSpellDmgFromStr or profileDB.showHealingFromStr then
 							local dmgmod = RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("MOD_SPELL_DMG") * (RatingBuster:GetStatMod("ADD_SPELL_DMG_MOD_AP") + RatingBuster:GetStatMod("ADD_SPELL_DMG_MOD_STR"))
 							local dmg = (value * StatLogic:GetAPPerStr(class) * RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("ADD_SPELL_DMG_MOD_AP")
 								+ value * RatingBuster:GetStatMod("ADD_SPELL_DMG_MOD_STR")) * RatingBuster:GetStatMod("MOD_SPELL_DMG")
 							local healmod = RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("MOD_HEAL") * (RatingBuster:GetStatMod("ADD_HEAL_MOD_AP") + RatingBuster:GetStatMod("ADD_HEAL_MOD_STR"))
-							local heal = (value * StatLogic:GetAPPerAgi(class) * RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("ADD_HEAL_MOD_AP")
+							local heal = (value * StatLogic:GetAPPerStr(class) * RatingBuster:GetStatMod("MOD_AP") * RatingBuster:GetStatMod("ADD_HEAL_MOD_AP")
 								+ value * RatingBuster:GetStatMod("ADD_HEAL_MOD_STR")) * RatingBuster:GetStatMod("MOD_HEAL")
               if dmg == heal then
                 if (dmgmod ~= 1 or statmod ~= 1) and floor(abs(dmg) * 10 + 0.5) > 0 then
@@ -2819,7 +2904,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						if profileDB.showParryFromStr and profileDB.showParryRatingFromStr then
 							local rating = value * RatingBuster:GetStatMod("ADD_PARRY_RATING_MOD_STR")
 							local effect = StatLogic:GetEffectFromRating(rating, 4, calcLevel) -- CR_PARRY = 4
-							if profileDB.enableAvoidanceDiminishingReturns then
+							if profileDB.enableSubtractEquippedStats then
 								local effectNoDR = effect
 								effect = StatLogic:GetAvoidanceGainAfterDR("PARRY", processedParry + effect) - StatLogic:GetAvoidanceGainAfterDR("PARRY", processedParry)
 								processedParry = processedParry + effectNoDR
@@ -2830,7 +2915,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						elseif profileDB.showParryFromStr then
 							local rating = value * RatingBuster:GetStatMod("ADD_PARRY_RATING_MOD_STR")
 							local effect = StatLogic:GetEffectFromRating(rating, 4, calcLevel) -- CR_PARRY = 4
-							if profileDB.enableAvoidanceDiminishingReturns then
+							if profileDB.enableSubtractEquippedStats then
 								local effectNoDR = effect
 								effect = StatLogic:GetAvoidanceGainAfterDR("PARRY", processedParry + effect) - StatLogic:GetAvoidanceGainAfterDR("PARRY", processedParry)
 								processedParry = processedParry + effectNoDR
@@ -2840,13 +2925,13 @@ function RatingBuster:ProcessText(text, tooltip)
 							end
 						elseif profileDB.showParryRatingFromStr then
 							local rating = value * RatingBuster:GetStatMod("ADD_PARRY_RATING_MOD_STR")
-							if profileDB.enableAvoidanceDiminishingReturns then
+							if profileDB.enableSubtractEquippedStats then
 								processedParry = processedParry + StatLogic:GetEffectFromRating(rating, 4, calcLevel)
 							end
 							if floor(abs(rating) * 10 + 0.5) > 0 then
 								tinsert(infoTable, (gsub(L["$value Parry"], "$value", format("%+.1f", rating))))
 							end
-						elseif profileDB.enableAvoidanceDiminishingReturns and RatingBuster:GetStatMod("ADD_PARRY_RATING_MOD_STR") > 0 then
+						elseif profileDB.enableSubtractEquippedStats and RatingBuster:GetStatMod("ADD_PARRY_RATING_MOD_STR") > 0 then
 							local rating = value * RatingBuster:GetStatMod("ADD_PARRY_RATING_MOD_STR")
 							local effect = StatLogic:GetEffectFromRating(rating, 4, calcLevel)
 							processedParry = processedParry + effect
@@ -2888,7 +2973,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						end
 						if profileDB.showDodgeFromAgi and (calcLevel == playerLevel) then
 							local effect = StatLogic:GetDodgeFromAgi(value)
-							if profileDB.enableAvoidanceDiminishingReturns then
+							if profileDB.enableSubtractEquippedStats then
 								local effectNoDR = effect
 								effect = StatLogic:GetAvoidanceGainAfterDR("DODGE", processedDodge + effect) - StatLogic:GetAvoidanceGainAfterDR("DODGE", processedDodge)
 								processedDodge = processedDodge + effectNoDR
@@ -2942,7 +3027,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						local infoTable = {}
 						if profileDB.showHealthFromSta then
 							local mod = RatingBuster:GetStatMod("MOD_HEALTH")
-							local effect = value * 10 * mod -- 10 Health per Sta
+							local effect = StatLogic:GetHealthFromSta(value, calcLevel) * mod -- 10 Health per Sta
 							if (mod ~= 1 or statmod ~= 1) and floor(abs(effect) * 10 + 0.5) > 0 then
 								tinsert(infoTable, (gsub(L["$value HP"], "$value", format("%+.1f", effect))))
 							elseif floor(abs(effect) + 0.5) > 0 then
@@ -3000,6 +3085,11 @@ function RatingBuster:ProcessText(text, tooltip)
 						if profileDB.showMP5FromInt then
 							local _, int = UnitStat("player", 4)
 							local _, spi = UnitStat("player", 5)
+              if profileDB.enableSubtractEquippedStats then
+                int = int + processedInt
+                spi = spi + processedSpi
+                processedInt = processedInt + value
+              end
 							local effect = (StatLogic:GetNormalManaRegenFromSpi(spi, int + value, calcLevel)
                - StatLogic:GetNormalManaRegenFromSpi(spi, int, calcLevel)) * RatingBuster:GetStatMod("ADD_COMBAT_MANA_REGEN_MOD_MANA_REGEN")
                + value * 15 * RatingBuster:GetStatMod("MOD_MANA") * RatingBuster:GetStatMod("ADD_COMBAT_MANA_REGEN_MOD_MANA") -- Replenishment
@@ -3010,6 +3100,11 @@ function RatingBuster:ProcessText(text, tooltip)
 						if profileDB.showMP5OCFromInt then
 							local _, int = UnitStat("player", 4)
 							local _, spi = UnitStat("player", 5)
+              if profileDB.enableSubtractEquippedStats then
+                int = int + processedInt
+                spi = spi + processedSpi
+                processedInt = processedInt + value
+              end
 							local effect = StatLogic:GetNormalManaRegenFromSpi(spi, int + value, calcLevel)
                - StatLogic:GetNormalManaRegenFromSpi(spi, int, calcLevel)
                + value * 15 * RatingBuster:GetStatMod("MOD_MANA") * RatingBuster:GetStatMod("ADD_COMBAT_MANA_REGEN_MOD_MANA")
@@ -3029,14 +3124,30 @@ function RatingBuster:ProcessText(text, tooltip)
 						end
 						local infoTable = {}
 						if profileDB.showMP5FromSpi then
-							local mod = RatingBuster:GetStatMod("ADD_COMBAT_MANA_REGEN_MOD_MANA_REGEN")
-							local effect = StatLogic:GetNormalManaRegenFromSpi(value, nil, calcLevel) * mod
+							local _, int = UnitStat("player", 4)
+							local _, spi = UnitStat("player", 5)
+              if profileDB.enableSubtractEquippedStats then
+                int = int + processedInt
+                spi = spi + processedSpi
+                processedSpi = processedSpi + value
+              end
+							local effect = (StatLogic:GetNormalManaRegenFromSpi(spi + value, int, calcLevel)
+               - StatLogic:GetNormalManaRegenFromSpi(spi, int, calcLevel))
+               * RatingBuster:GetStatMod("ADD_COMBAT_MANA_REGEN_MOD_MANA_REGEN")
 							if floor(abs(effect) * 10 + 0.5) > 0 then
 								tinsert(infoTable, (gsub(L["$value MP5"], "$value", format("%+.1f", effect))))
 							end
 						end
 						if profileDB.showMP5OCFromSpi then
-							local effect = StatLogic:GetNormalManaRegenFromSpi(value, nil, calcLevel)
+							local _, int = UnitStat("player", 4)
+							local _, spi = UnitStat("player", 5)
+              if profileDB.enableSubtractEquippedStats then
+                int = int + processedInt
+                spi = spi + processedSpi
+                processedSpi = processedSpi + value
+              end
+							local effect = StatLogic:GetNormalManaRegenFromSpi(spi + value, int, calcLevel)
+               - StatLogic:GetNormalManaRegenFromSpi(spi, int, calcLevel)
 							if floor(abs(effect) * 10 + 0.5) > 0 then
 								tinsert(infoTable, (gsub(L["$value MP5(OC)"], "$value", format("%+.1f", effect))))
 							end
@@ -3096,11 +3207,14 @@ function RatingBuster:ProcessText(text, tooltip)
 						-- Build replacement string
 						if num.addInfo == "AfterNumber" then -- Add after number
 							infoString = gsub(infoString, "%%", "%%%%%%%%") -- sub "%" with "%%%%"
-							infoString = gsub(strsub(text, s, e), "%d+", "%0 "..infoString, 1) -- sub "33" with "33 (3.33%)"
+							infoString = gsub(strsub(text, s, e), "%d+", "%0"..num.space..infoString, 1) -- sub "33" with "33 (3.33%)"
+						elseif num.addInfo == "AfterPattern" then -- Add after pattern
+							infoString = gsub(infoString, "%%", "%%%%") -- sub "%" with "%%%%"
+              infoString = strsub(text, s, e)..num.space..infoString
 						else -- Add after stat
 							infoString = gsub(infoString, "%%", "%%%%")
 							s, e = strfind(lowerText, stat.pattern)
-							infoString = "%0 "..infoString
+							infoString = "%0"..num.space..infoString
 						end
 						-- Insert info into text
 						RusLocalstr = gsub(strsub(text, s, e),"%(","%%(")
@@ -3179,7 +3293,7 @@ local summaryCalcData = {
 	{
 		option = "sumHP",
 		name = "HEALTH",
-		func = function(sum, sumType, link) return ((sum["HEALTH"] or 0) + (sum["STA"] * 10)) * RatingBuster:GetStatMod("MOD_HEALTH") end,
+		func = function(sum, sumType, link) return ((sum["HEALTH"] or 0) + StatLogic:GetHealthFromSta(sum["STA"], calcLevel)) * RatingBuster:GetStatMod("MOD_HEALTH") end,
 	},
 	-- Intellect - INT
 	{
@@ -3212,6 +3326,10 @@ local summaryCalcData = {
 		func = function(sum, sumType, link)
 			local _, int = UnitStat("player", 4)
 			local _, spi = UnitStat("player", 5)
+      if profileDB.enableSubtractEquippedStats and sumType == "sum" then
+        int = int - equippedSum["INT"]
+        spi = spi - equippedSum["SPI"]
+      end
 			return (sum["COMBAT_MANA_REGEN"] or 0)
 			 + (sum["INT"] * RatingBuster:GetStatMod("ADD_COMBAT_MANA_REGEN_MOD_INT"))
 			 + (StatLogic:GetNormalManaRegenFromSpi(spi + sum["SPI"], int + sum["INT"], calcLevel)
@@ -3226,6 +3344,10 @@ local summaryCalcData = {
 		func = function(sum, sumType, link)
 			local _, int = UnitStat("player", 4)
 			local _, spi = UnitStat("player", 5)
+      if profileDB.enableSubtractEquippedStats and sumType == "sum" then
+        int = int - equippedSum["INT"]
+        spi = spi - equippedSum["SPI"]
+      end
 			return (sum["COMBAT_MANA_REGEN"] or 0)
 			 + (sum["INT"] * RatingBuster:GetStatMod("ADD_COMBAT_MANA_REGEN_MOD_INT"))
 			 + StatLogic:GetNormalManaRegenFromSpi(spi + sum["SPI"], int + sum["INT"], calcLevel)
@@ -3379,7 +3501,7 @@ local summaryCalcData = {
 	{
 		option = "sumHaste",
 		name = "MELEE_HASTE",
-		func = function(sum, sumType, link) return StatLogic:GetEffectFromRating((sum["MELEE_HASTE_RATING"] or 0), "MELEE_HASTE_RATING", calcLevel) end,
+		func = function(sum, sumType, link) return StatLogic:GetEffectFromRating((sum["MELEE_HASTE_RATING"] or 0), "MELEE_HASTE_RATING", calcLevel) * RatingBuster:GetStatMod("MOD_MELEE_HASTE") end,
 		ispercent = true,
 	},
 	-- Haste Rating - MELEE_HASTE_RATING
@@ -3393,8 +3515,9 @@ local summaryCalcData = {
 		option = "sumRangedHaste",
 		name = "RANGED_HASTE",
 		func = function(sum, sumType, link)
-			return StatLogic:GetEffectFromRating((sum["MELEE_HASTE_RATING"] or 0), "MELEE_HASTE_RATING", calcLevel)
-				+ StatLogic:GetEffectFromRating((sum["RANGED_HASTE_RATING"] or 0), "RANGED_HASTE_RATING", calcLevel)
+			return (StatLogic:GetEffectFromRating((sum["MELEE_HASTE_RATING"] or 0), "MELEE_HASTE_RATING", calcLevel)
+				+ StatLogic:GetEffectFromRating((sum["RANGED_HASTE_RATING"] or 0), "RANGED_HASTE_RATING", calcLevel))
+        * RatingBuster:GetStatMod("MOD_MELEE_HASTE")
 		end,
 		ispercent = true,
 	},
@@ -3621,7 +3744,7 @@ local summaryCalcData = {
 	{
 		option = "sumSpellHaste",
 		name = "SPELL_HASTE",
-		func = function(sum, sumType, link) return StatLogic:GetEffectFromRating((sum["SPELL_HASTE_RATING"] or 0), "SPELL_HASTE_RATING", calcLevel) end,
+		func = function(sum, sumType, link) return StatLogic:GetEffectFromRating((sum["SPELL_HASTE_RATING"] or 0), "SPELL_HASTE_RATING", calcLevel) * RatingBuster:GetStatMod("MOD_SPELL_HASTE") end,
 		ispercent = true,
 	},
 	-- Spell Haste Rating - SPELL_HASTE_RATING
@@ -3673,7 +3796,7 @@ local summaryCalcData = {
 		name = "DODGE",
 		func = function(sum, sumType, link)
 			local dodge = summaryFunc["DODGE_NO_DR"](sum, sumType, link)
-			if profileDB.enableAvoidanceDiminishingReturns then
+			if profileDB.enableSubtractEquippedStats then
 				if (sumType == "diff1") or (sumType == "diff2") then
 					dodge = StatLogic:GetAvoidanceGainAfterDR("DODGE", dodge)
 				elseif sumType == "sum" then
@@ -3717,7 +3840,7 @@ local summaryCalcData = {
 		name = "PARRY",
 		func = function(sum, sumType, link)
 			local parry = summaryFunc["PARRY_NO_DR"](sum, sumType, link)
-			if profileDB.enableAvoidanceDiminishingReturns then
+			if profileDB.enableSubtractEquippedStats then
 				if (sumType == "diff1") or (sumType == "diff2") then
 					parry = StatLogic:GetAvoidanceGainAfterDR("PARRY", parry)
 				elseif sumType == "sum" then
@@ -3774,7 +3897,7 @@ local summaryCalcData = {
 		name = "MELEE_HIT_AVOID",
 		func = function(sum, sumType, link)
 			local missed = summaryFunc["MELEE_HIT_AVOID_NO_DR"](sum, sumType, link)
-			if profileDB.enableAvoidanceDiminishingReturns then
+			if profileDB.enableSubtractEquippedStats then
 				if (sumType == "diff1") or (sumType == "diff2") then
 					missed = StatLogic:GetAvoidanceGainAfterDR("MELEE_HIT_AVOID", missed)
 				elseif sumType == "sum" then
@@ -3785,7 +3908,7 @@ local summaryCalcData = {
 		end,
 		ispercent = true,
 	},
-	-- Crit Avoidance - RESILIENCE_RATING, MELEE_CRIT_AVOID_RATING
+	-- Crit Avoidance - MELEE_CRIT_AVOID_RATING
 	{
 		option = "sumCritAvoid",
 		name = "MELEE_CRIT_AVOID",

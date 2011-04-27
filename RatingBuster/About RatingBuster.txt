@@ -576,6 +576,11 @@ if select(2, GetBuildInfo()) >= "9061" then
 *********************
 ** Version History **
 *********************
+1.6.4
+- New: Option to replace Blizzard Item Level with RatingBusters colored Item Level and Item ID
+- New: Option to Enable Subtract Equipped Stats for calculation of mana regen from intellect and spirit, and diminishing stats like dodge, parry, resilience. Replaces the old option to Enable Avoidance Diminishing Returns.
+- New: Support for 4.1.0 Resilience diminishing returns
+- Fix: Stat Breakdown: Removed duplicate code and fixed heal calculations for Mental Quickness and Sheath of Light (Thanks to Belechannas)
 1.6.3
 - New: StatSummary: Protection Warriors and Paladins now shows Block Chance from Mastery
 1.6.2

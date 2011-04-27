@@ -71,6 +71,7 @@ end
 	
 
 function DefaultFrame:OnInitialize()
+	if not AtlasLoot.db then AtlasLoot:OnLoaderLoad() end
 	self.db = AtlasLoot.db:RegisterNamespace(MODULENAME, dbDefaults)
 	db = self.db.profile
 	
@@ -303,12 +304,19 @@ do
 		Frame.InstanceSelect.Text:SetPoint("BOTTOMLEFT", Frame.InstanceSelect, "TOPLEFT", 21, 0)
 		Frame.InstanceSelect.Text:SetText(AL["Select Instance"])
 		
-
+		Frame:Hide()
 	end
 
 end
 
 function DefaultFrame:DropDownRefresh()
+	if type(db.module) == "table" then
+		if UnitLevel("player") == 85 then
+			db.module = db.module[2]
+		else
+			db.module = db.module[1]
+		end
+	end
 	UIDropDownMenu_Initialize(_G[frameName.."_ModuleSelect"], DefaultFrame.ModuleSelect_Initialize)
 	UIDropDownMenu_SetSelectedValue(_G[frameName.."_ModuleSelect"], db.module)
 	UIDropDownMenu_SetWidth(_G[frameName.."_ModuleSelect"], 190)
@@ -323,7 +331,7 @@ function DefaultFrame:ModuleSelect_Initialize()
 	wipe(info)	
 	
 	for num,module in ipairs(AtlasLoot.Modules) do
-		if module[1] ~= "AtlasLootCrafting" and module[1] ~= "AtlasLootWorldEvents" then
+		if module[1] ~= "AtlasLootCrafting" and module[1] ~= "AtlasLootWorldEvents" and type(AtlasLoot:CheckModule(module[1])) ~= "string" then
 			info.text = module[5]
 			info.value = module[1]
 			info.func = DefaultFrame.ModuleSelect_OnClick
@@ -388,9 +396,9 @@ function DefaultFrame:SetInstanceTable()
 	curInstance = AtlasLoot:GetTableRegister(db.instance)
 	if not curInstance then
 		--print("ERROR: DefaultFrame:SetInstanceTable() <-->"..db.instance.." <--> "..db.module)
-		curInstance = AtlasLoot:GetTableRegister(dbDefaults.profile.instance)
-		db.instance = dbDefaults.profile.instance
-		db.module = dbDefaults.profile.module
+		curInstance = AtlasLoot:GetTableRegister("EmptyPage")
+		db.instance = "EmptyPage"
+		db.module = "EmptyPage"
 		DefaultFrame:DropDownRefresh()
 	end
 	local iniName = curInstance["Info"][1]
@@ -546,7 +554,15 @@ do
 		
 		if not mapname or not mapRegister[mapname] then return end
 		
-		db.module = mapRegister[mapname][2]
+		if type(mapRegister[mapname][2]) == "table" then
+			if UnitLevel("player") == 85 then
+				db.module = mapRegister[mapname][2][2]
+			else
+				db.module = mapRegister[mapname][2][1]
+			end
+		else
+			db.module = mapRegister[mapname][2]
+		end
 		db.instance = mapRegister[mapname][1]
 		
 		DefaultFrame:DropDownRefresh()

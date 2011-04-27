@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Boss-3.0
-Revision: $Rev: 331 $
+Revision: $Rev: 335 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-boss-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Boss-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 331 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 335 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -839,8 +839,8 @@ elseif GAME_LOCALE == "deDE" then
 	["Al'Akir"] = "Al'Akir",
 	["Al'ar"] = "Al'ar",
 	["Algalon the Observer"] = "Algalon der Beobachter",
-	-- Altairus = "",
-	Altarius = "Altairus", -- Needs review
+	Altairus = "Altairus",
+	Altarius = "Altairus",
 	["Alzzin the Wildshaper"] = "Alzzin der Wildformer",
 	Amanitar = "Amanitar",
 	["Ambassador Flamelash"] = "Botschafter Flammenschlag",
@@ -872,7 +872,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Argent Confessor Paletress"] = "Argentumbeichtpatin Blondlocke",
 	Arion = "Arion",
 	["Arugal's Voidwalker"] = "Arugals Leerwandler",
-	-- Asaad = "",
+	Asaad = "Asaad",
 	["Ascendant Council"] = "Rat der Aszendenten",
 	["Ascendant Lord Obsidius"] = "Aszendentenfürst Obsidius",
 	["Asim al Akir"] = "Asaad",
@@ -1343,7 +1343,7 @@ elseif GAME_LOCALE == "deDE" then
 	Nalorakk = "Nalorakk",
 	Nazan = "Nazan",
 	Nefarian = "Nefarian",
-	["Nefarian's End"] = "Nefarian's End", -- Needs review
+	["Nefarian's End"] = "Nefarian's Untergang",
 	["Nekrum Gutchewer"] = "Nekrum der Ausweider",
 	["Nerub'enkan"] = "Nerub'enkan",
 	["Nethermancer Sepethrea"] = "Nethermantin Sepethrea",
@@ -1644,7 +1644,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Al'Akir"] = "Al'Akir",
 	["Al'ar"] = "Al'ar",
 	["Algalon the Observer"] = "Algalon l'Observateur",
-	-- Altairus = "",
+	Altairus = "Altairus",
 	Altarius = "Altarius", -- Needs review
 	["Alzzin the Wildshaper"] = "Alzzin le Modeleur",
 	Amanitar = "Amanitar",
@@ -1677,7 +1677,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Argent Confessor Paletress"] = "Confesseur d'argent Paletress",
 	Arion = "Arion",
 	["Arugal's Voidwalker"] = "Marcheur du Vide d'Arugal",
-	-- Asaad = "",
+	Asaad = "Asaad",
 	["Ascendant Council"] = "Conseil d'ascendants",
 	["Ascendant Lord Obsidius"] = "Seigneur ascendant Obsidius",
 	["Asim al Akir"] = "Asim al Akir",
@@ -2449,8 +2449,8 @@ elseif GAME_LOCALE == "koKR" then
 	["Al'Akir"] = "알아키르",
 	["Al'ar"] = "알라르",
 	["Algalon the Observer"] = "관찰자 알갈론",
-	-- Altairus = "",
-	Altarius = "알타리우스", -- Needs review
+	Altairus = "알타리우스",
+	Altarius = "알타리우스",
 	["Alzzin the Wildshaper"] = "칼날바람 알진",
 	Amanitar = "아마니타르",
 	["Ambassador Flamelash"] = "사자 화염채찍",
@@ -2482,7 +2482,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Argent Confessor Paletress"] = "은빛 고해사제 페일트리스",
 	Arion = "아리온",
 	["Arugal's Voidwalker"] = "아루갈의 보이드워커",
-	-- Asaad = "",
+	Asaad = "아사드",
 	["Ascendant Council"] = "승천 의회",
 	["Ascendant Lord Obsidius"] = "승천 군주 옵시디우스",
 	["Asim al Akir"] = "알 아키르",
@@ -2794,7 +2794,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Infinite Corruptor"] = "무한의 타락자",
 	["Infinity Blades"] = "무한의 비수",
 	["Ingvar the Plunderer"] = "약탈자 잉그바르",
-	["Instructor Galford"] = "기록관 갈포드", -- Needs review
+	["Instructor Galford"] = "기록관 갈포드",
 	["Instructor Malicia"] = "조교 말리시아",
 	["Instructor Razuvious"] = "훈련교관 라주비어스",
 	["Interrogator Vishas"] = "심문관 비샤스",
@@ -2927,7 +2927,7 @@ elseif GAME_LOCALE == "koKR" then
 	Midnight = "천둥이",
 	Mijan = "마이잔",
 	Mimiron = "미미론",
-	["Mindbender Ghur'sha"] = "환각술사 구르샤", -- Needs review
+	["Mindbender Ghur'sha"] = "환각술사 구르샤",
 	["Miner Johnson"] = "광부 존슨",
 	["Mistress of Pain"] = "고통의 여군주",
 	Moam = "모암",
@@ -2953,7 +2953,7 @@ elseif GAME_LOCALE == "koKR" then
 	Nalorakk = "날로라크",
 	Nazan = "나잔",
 	Nefarian = "네파리안",
-	-- ["Nefarian's End"] = "",
+	["Nefarian's End"] = "네파리안의 최후",
 	["Nekrum Gutchewer"] = "네크룸 거트츄어",
 	["Nerub'enkan"] = "네룹엔칸",
 	["Nethermancer Sepethrea"] = "황천술사 세페스레아",
@@ -3254,8 +3254,8 @@ elseif GAME_LOCALE == "esES" then
 	["Al'Akir"] = "Al'Akir",
 	["Al'ar"] = "Al'ar",
 	["Algalon the Observer"] = "Algalon el Observador",
-	-- Altairus = "",
-	Altarius = "Altarius", -- Needs review
+	Altairus = "Altairus",
+	Altarius = "Altarius",
 	["Alzzin the Wildshaper"] = "Alzzin el Formaferal",
 	Amanitar = "Amanitar",
 	["Ambassador Flamelash"] = "Embajador Latifuego",
@@ -3287,7 +3287,7 @@ elseif GAME_LOCALE == "esES" then
 	["Argent Confessor Paletress"] = "Confesora Argenta Cabelloclaro",
 	Arion = "Arion",
 	["Arugal's Voidwalker"] = "Abisario de Arugal",
-	-- Asaad = "",
+	Asaad = "Asaad",
 	["Ascendant Council"] = "Consejo de ascendientes",
 	["Ascendant Lord Obsidius"] = "Ascendiente Lord Obsidius",
 	["Asim al Akir"] = "Asim Al'Akir",
@@ -3758,7 +3758,7 @@ elseif GAME_LOCALE == "esES" then
 	Nalorakk = "Nalorakk",
 	Nazan = "Nazan",
 	Nefarian = "Nefarian",
-	["Nefarian's End"] = "Nefarian's End", -- Needs review
+	["Nefarian's End"] = "El fin de Nefarian",
 	["Nekrum Gutchewer"] = "Nekrum Cometripas",
 	["Nerub'enkan"] = "Nerub'enkan",
 	["Nethermancer Sepethrea"] = "Abisálico Sepethrea",
@@ -4864,7 +4864,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Al'Akir"] = "Ал'акир",
 	["Al'ar"] = "Ал'ар",
 	["Algalon the Observer"] = "Алгалон Наблюдатель",
-	-- Altairus = "",
+	Altairus = "Альтаирий",
 	Altarius = "Альтаирий", -- Needs review
 	["Alzzin the Wildshaper"] = "Алззин Перевертень",
 	Amanitar = "Аманитар",
@@ -4897,7 +4897,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Argent Confessor Paletress"] = "Исповедница Серебряного Авангарда Пейлтресс",
 	Arion = "Аэрон",
 	["Arugal's Voidwalker"] = "Демон Бездны Аругала",
-	-- Asaad = "",
+	Asaad = "Асаад",
 	["Ascendant Council"] = "Совет Перерожденных",
 	["Ascendant Lord Obsidius"] = "Повелитель Перерожденных Обсидий",
 	-- ["Asim al Akir"] = "",
@@ -5669,8 +5669,8 @@ elseif GAME_LOCALE == "zhCN" then
 	["Al'Akir"] = "奥拉基尔",
 	["Al'ar"] = "奥",
 	["Algalon the Observer"] = "观察者奥尔加隆",
-	-- Altairus = "",
-	Altarius = "阿尔泰鲁斯", -- Needs review
+	Altairus = "阿尔泰鲁斯",
+	Altarius = "阿尔泰鲁斯",
 	["Alzzin the Wildshaper"] = "奥兹恩",
 	Amanitar = "埃曼尼塔",
 	["Ambassador Flamelash"] = "弗莱拉斯大使",
@@ -5702,7 +5702,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Argent Confessor Paletress"] = "银色神官帕尔崔丝",
 	Arion = "Arion", -- Needs review
 	["Arugal's Voidwalker"] = "阿鲁高的虚空行者",
-	-- Asaad = "",
+	Asaad = "阿萨德",
 	["Ascendant Council"] = "升腾者议会",
 	["Ascendant Lord Obsidius"] = "升腾者领主奥西迪斯",
 	["Asim al Akir"] = "Asim al Akir", -- Needs review
@@ -5841,7 +5841,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Elder Stonebark"] = "石树长老",
 	["Electrocutioner 6000"] = "电刑器6000型",
 	Electron = "Electron", -- Needs review
-	["Elementium Monstrosity"] = "Elementium Monstrosity", -- Needs review
+	["Elementium Monstrosity"] = "源质畸体", -- Needs review
 	["Emalon the Storm Watcher"] = "风暴看守者埃玛尔隆",
 	Emeriss = "艾莫莉丝",
 	["Emperor Dagran Thaurissan"] = "达格兰·索瑞森大帝",
@@ -6474,8 +6474,8 @@ elseif GAME_LOCALE == "zhTW" then
 	["Al'Akir"] = "奧拉基爾",
 	["Al'ar"] = "歐爾",
 	["Algalon the Observer"] = "『觀察者』艾爾加隆",
-	-- Altairus = "",
-	Altarius = "艾塔伊洛斯", -- Needs review
+	Altairus = "艾塔伊洛斯",
+	Altarius = "艾塔伊洛斯",
 	["Alzzin the Wildshaper"] = "『狂野變形者』奧茲恩",
 	Amanitar = "毒蕈魔",
 	["Ambassador Flamelash"] = "弗萊拉斯大使",
@@ -6507,7 +6507,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Argent Confessor Paletress"] = "銀白告解者帕爾璀絲",
 	Arion = "艾理奧",
 	["Arugal's Voidwalker"] = "阿魯高的虛無行者",
-	-- Asaad = "",
+	Asaad = "亞沙德",
 	["Ascendant Council"] = "卓越者議會",
 	["Ascendant Lord Obsidius"] = "卓越者統領奧希迪厄斯",
 	["Asim al Akir"] = "亞沙德",
@@ -6978,7 +6978,7 @@ elseif GAME_LOCALE == "zhTW" then
 	Nalorakk = "納羅拉克",
 	Nazan = "納桑",
 	Nefarian = "奈法利安",
-	["Nefarian's End"] = "Nefarian's End", -- Needs review
+	["Nefarian's End"] = "奈法利安之末",
 	["Nekrum Gutchewer"] = "耐克魯姆",
 	["Nerub'enkan"] = "奈幽布恩坎",
 	["Nethermancer Sepethrea"] = "虛空術師賽菲瑞雅",
@@ -7002,7 +7002,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Omnitron Defense System"] = "全能魔像防禦系統",
 	Omnotron = "全能魔像",
 	["Omnotron Defense System"] = "全能魔像防禦系統",
-	["Omor the Unscarred"] = "無疤者歐瑪爾",
+	["Omor the Unscarred"] = "『無疤者』歐瑪爾",
 	Onyxia = "奧妮克希亞",
 	["Opera Event"] = "歌劇院",
 	["Orgrim's Hammer"] = "奧格林之錘",
@@ -7230,7 +7230,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Void Reaver"] = "虛無搶奪者",
 	Volkhan = "渥克瀚",
 	["War Master Voone"] = "將領沃恩",
-	["Warbringer O'mrogg"] = "戰爭製造者·歐姆拉格",
+	["Warbringer O'mrogg"] = "戰爭使者歐姆拉格",
 	["Warchief Blackhand Piece"] = "黑手大酋長棋子",
 	["Warchief Kargath Bladefist"] = "大酋長卡加斯·刃拳",
 	["Warchief Rend Blackhand"] = "大酋長雷德·黑手",

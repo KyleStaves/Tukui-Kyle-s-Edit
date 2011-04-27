@@ -1,6 +1,6 @@
 --[[
 Name: RatingBuster enUS locale
-Revision: $Revision: 323 $
+Revision: $Revision: 341 $
 Translated by:
 - Whitetooth (hotdogee [at] gmail [dot] com)
 ]]
@@ -17,7 +17,6 @@ if not L then return end
 -- Waterfall --
 ---------------
 L["RatingBuster Options"] = true
-L["Waterfall-1.0 is required to access the GUI."] = true
 L["Enabled"] = true
 L["Suspend/resume this addon"] = true
 ---------------------------
@@ -39,21 +38,27 @@ L["Disable Blizzard stat change summary when using the built-in comparison toolt
 -- /rb statmod
 L["Enable Stat Mods"] = true
 L["Enable support for Stat Mods"] = true
--- /rb avoidancedr
-L["Enable Avoidance Diminishing Returns"] = true
-L["Dodge, Parry, Hit Avoidance values will be calculated using the avoidance deminishing return formula with your current stats"] = true
--- /rb itemid
-L["Show ItemID"] = true
-L["Show the ItemID in tooltips"] = true
--- /rb itemlevel
-L["Show ItemLevel"] = true
-L["Show the ItemLevel in tooltips"] = true
+-- /rb subtract_equip
+L["Enable Subtract Equipped Stats"] = true
+L["Enable for more accurate calculation of Mana Regen from Intellect and Spirit, and diminishing stats like Dodge, Parry, Resilience"] = true
 -- /rb usereqlv
 L["Use Required Level"] = true
 L["Calculate using the required level if you are below the required level"] = true
 -- /rb level
 L["Set Level"] = true
 L["Set the level used in calculations (0 = your level)"] = true
+-- /rb ilvlid
+L["Item Level and ID"] = true
+L["Settings for Item Level and Item ID"] = true
+-- /rb ilvlid coloritemlevel
+L["Colorize Item Level"] = true
+L["Customize the color of the Item Level text"] = true
+-- /rb ilvlid itemlevelall
+L["Show Item Level on all items"] = true
+L["Display the Item Level on all items instead of just on equippable items"] = true
+-- /rb ilvlid itemid
+L["Show Item ID"] = true
+L["Display the Item ID on all items"] = true
 ---------------------------------------------------------------------------
 -- /rb rating
 L["Rating"] = true
@@ -592,13 +597,13 @@ L["ItemID: "] = true
 --
 -- Tip2: The strings are passed into string.find, so you should escape the magic characters ^$()%.[]*+-? with a %
 L["numberPatterns"] = {
-	{pattern = " by (%d+)", addInfo = "AfterNumber",},
-	{pattern = "([%+%-]%d+)[^%%]", addInfo = "AfterStat",},
+	{pattern = " by (%d+)", addInfo = "AfterNumber", space = " ", },
+	{pattern = "([%+%-]%d+)[^%%]", addInfo = "AfterStat", space = " ", },
 	--{pattern = "grant.-(%d+)", addInfo = "AfterNumber",}, -- for "grant you xx stat" type pattern, ex: Quel'Serrar ID:18348, Assassination Armor set
 	--{pattern = "add.-(%d+)", addInfo = "AfterNumber",}, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone ID:23529
 	-- Added [^%%] so that it doesn't match strings like "Increases healing by up to 10% of your total Intellect." [Whitemend Pants] ID:24261
 	-- Added [^|] so that it doesn't match enchant strings (JewelTips)
-	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat",}, -- [發光的暗影卓奈石] +6法術傷害及5耐力
+	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat", space = " ", }, -- [發光的暗影卓奈石] +6法術傷害及5耐力
 }
 L["separators"] = {
 	"/", " and ", ",", "%. ", " for ", "&", ":",
@@ -668,6 +673,7 @@ L["statList"] = {
 	{pattern = "ranged hit rating", id = CR_HIT_RANGED},
 	{pattern = "hit rating", id = CR_HIT_MELEE},
 
+	{pattern = "resilience rating", id = COMBAT_RATING_RESILIENCE_PLAYER_DAMAGE_TAKEN}, -- resilience is implicitly a rating
 	{pattern = "resilience", id = COMBAT_RATING_RESILIENCE_PLAYER_DAMAGE_TAKEN}, -- resilience is implicitly a rating
 
 	{pattern = "spell haste rating", id = CR_HASTE_SPELL},

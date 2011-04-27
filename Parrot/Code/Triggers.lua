@@ -218,7 +218,7 @@ local defaultTriggers = {
 		sticky = true,
 		color = "7f007f",
 	}]],
-	[1012] = [[{
+	[1013] = [[{
 		-- Overpower = 7384
 		name = L["%s!"]:format(GetSpellInfo(7384)),
 		icon = 7384,
@@ -237,7 +237,7 @@ local defaultTriggers = {
 		sticky = true,
 		color = "7f007f",
 	}]],
-	[1013] = [[{
+	[1014] = [[{
 		-- Revenge = 6572
 		name = L["%s!"]:format(GetSpellInfo(6572)),
 		icon = 6572,
@@ -257,7 +257,7 @@ local defaultTriggers = {
 		color = "ffff00",
 		disabled = true,
 	}]],
-	[1014] = [[{
+	[1015] = [[{
 		-- Riposte = 14251
 		name = L["%s!"]:format(GetSpellInfo(14251)),
 		icon = 14251,
@@ -273,7 +273,7 @@ local defaultTriggers = {
 		sticky = true,
 		color = "ffff00",
 	}]],--]]
-	[1015] = [[{
+	[1016] = [[{
 		-- Maelstrom Weapon = 51532
 		name = L["%s!"]:format(GetSpellInfo(53817)),
 		icon = 51532,
@@ -1235,6 +1235,9 @@ local updateFuncs = {
 		resetLowManaPowerType()
 		convertPowerValues()
 	end,
+	[8] = function()
+			Parrot_Triggers.db1.profile.triggers2[1012] = nil
+		end,
 }
 
 function Parrot_Triggers:OnNewProfile(t, key)

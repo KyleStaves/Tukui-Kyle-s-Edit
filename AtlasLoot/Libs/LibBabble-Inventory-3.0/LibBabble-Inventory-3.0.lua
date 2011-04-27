@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Inventory-3.0
-Revision: $Rev: 123 $
+Revision: $Rev: 129 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-inventory-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Inventory-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 123 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 129 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -367,7 +367,7 @@ elseif GAME_LOCALE == "frFR" then
 	Bullet = "Balle",
 	Chest = "Torse",
 	Cloth = "Tissu",
-	-- Cogwheel = "",
+	Cogwheel = "Cogwheel", -- Needs review
 	Companion = "Compagnon",
 	Companions = "Compagnons",
 	Consumable = "Consommable",
@@ -406,7 +406,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Gem Bag"] = "Sac de gemmes",
 	Glyph = "Glyphe",
 	Green = "Verte",
-	-- ["Ground Mount"] = "",
+	["Ground Mount"] = "Ground Mount", -- Needs review
 	Gun = "Arme à feu",
 	Guns = "Fusils",
 	Hands = "Mains",
@@ -417,12 +417,12 @@ elseif GAME_LOCALE == "frFR" then
 	Herbalism = "Herboristerie",
 	Holiday = "Vacances",
 	Hunter = "Chasseur",
-	-- Hydraulic = "",
+	Hydraulic = "Hydraulic", -- Needs review
 	Idol = "Idole",
 	Idols = "Idoles",
 	Inscription = "Calligraphie",
 	["Inscription Bag"] = "Sac de calligraphie",
-	-- ["Item Enchantment"] = "",
+	["Item Enchantment"] = "Item Enchantment", -- Needs review
 	["Item Enhancement"] = "Amélioration d'objet",
 	Jewelcrafting = "Joaillerie",
 	Junk = "Camelote",
@@ -490,7 +490,7 @@ elseif GAME_LOCALE == "frFR" then
 	Sword = "Epée",
 	Tabard = "Tabard",
 	Tabards = "Tabards",
-	-- ["Tackle Box"] = "",
+	["Tackle Box"] = "Tackle Box", -- Needs review
 	Tailoring = "Couture",
 	Thrown = "Armes de jets",
 	Totem = "Totem",
@@ -531,7 +531,7 @@ elseif GAME_LOCALE == "koKR" then
 	Bullet = "탄환",
 	Chest = "가슴",
 	Cloth = "천",
-	-- Cogwheel = "",
+	Cogwheel = "Cogwheel", -- Needs review
 	Companion = "친구",
 	Companions = "친구",
 	Consumable = "소비 용품", -- Needs review
@@ -581,12 +581,12 @@ elseif GAME_LOCALE == "koKR" then
 	Herbalism = "약초채집",
 	Holiday = "축제용품",
 	Hunter = "사냥꾼",
-	-- Hydraulic = "",
+	Hydraulic = "Hydraulic", -- Needs review
 	Idol = "우상",
 	Idols = "우상",
 	Inscription = "주문각인",
 	["Inscription Bag"] = "주문각인 가방", -- Needs review
-	-- ["Item Enchantment"] = "",
+	["Item Enchantment"] = "Item Enchantment", -- Needs review
 	["Item Enhancement"] = "아이템 강화",
 	Jewelcrafting = "보석세공",
 	Junk = "잡동사니",
@@ -654,7 +654,7 @@ elseif GAME_LOCALE == "koKR" then
 	Sword = "도검",
 	Tabard = "휘장",
 	Tabards = "휘장",
-	-- ["Tackle Box"] = "",
+	["Tackle Box"] = "Tackle Box", -- Needs review
 	Tailoring = "재봉술",
 	Thrown = "투척 무기",
 	Totem = "토템",
@@ -695,7 +695,7 @@ elseif GAME_LOCALE == "esES" then
 	Bullet = "Bala",
 	Chest = "Torso",
 	Cloth = "Tela",
-	-- Cogwheel = "",
+	Cogwheel = "Engranaje",
 	Companion = "Comapñero",
 	Companions = "Compañeros",
 	Consumable = "Consumible",
@@ -746,12 +746,12 @@ elseif GAME_LOCALE == "esES" then
 	Herbalism = "Hebalismo",
 	Holiday = "Festivo",
 	Hunter = "Cazador",
-	-- Hydraulic = "",
+	Hydraulic = "Hidráulico",
 	Idol = "Ídolo",
 	Idols = "Ídolos",
 	Inscription = "Inscripción",
 	["Inscription Bag"] = "Bolsa de inscripción",
-	-- ["Item Enchantment"] = "",
+	["Item Enchantment"] = "Encantamiento de Objeto",
 	["Item Enhancement"] = "Mejora de Objeto",
 	Jewelcrafting = "Joyería",
 	Junk = "Basura",
@@ -819,7 +819,7 @@ elseif GAME_LOCALE == "esES" then
 	Sword = "Espada",
 	Tabard = "Tabardo",
 	Tabards = "Tabardo",
-	-- ["Tackle Box"] = "",
+	["Tackle Box"] = "Maestro del Cebo",
 	Tailoring = "Sastrería",
 	Thrown = "Arrojadiza",
 	Totem = "Tótem",
@@ -1024,7 +1024,7 @@ elseif GAME_LOCALE == "ruRU" then
 	Bullet = "Пули",
 	Chest = "Грудь",
 	Cloth = "Ткань",
-	-- Cogwheel = "",
+	Cogwheel = "Cogwheel", -- Needs review
 	Companion = "Спутник",
 	Companions = "Спутники",
 	Consumable = "Расходуемые",
@@ -1074,12 +1074,12 @@ elseif GAME_LOCALE == "ruRU" then
 	Herbalism = "Травничество",
 	Holiday = "Праздник",
 	Hunter = "Охотник",
-	-- Hydraulic = "",
+	Hydraulic = "Hydraulic", -- Needs review
 	Idol = "Идол",
 	Idols = "Идолы",
 	Inscription = "Начертание",
 	["Inscription Bag"] = "Сумка начертателя",
-	-- ["Item Enchantment"] = "",
+	["Item Enchantment"] = "Item Enchantment", -- Needs review
 	["Item Enhancement"] = "Улучшение",
 	Jewelcrafting = "Ювелирное дело",
 	Junk = "Мусор",
@@ -1147,7 +1147,7 @@ elseif GAME_LOCALE == "ruRU" then
 	Sword = "Меч",
 	Tabard = "Гербовая накидка",
 	Tabards = "Накидки",
-	-- ["Tackle Box"] = "",
+	["Tackle Box"] = "Tackle Box", -- Needs review
 	Tailoring = "Портняжное дело",
 	Thrown = "Метательное",
 	Totem = "Тотем",
@@ -1172,7 +1172,7 @@ elseif GAME_LOCALE == "zhCN" then
 	lib:SetCurrentTranslations {
 	Alchemy = "炼金术",
 	["Ammo Pouch"] = "弹药袋",
-	-- Archaeology = "",
+	Archaeology = "考古学",
 	Armor = "护甲",
 	["Armor Enchantment"] = "护甲强化",
 	Arrow = "箭",
@@ -1188,9 +1188,9 @@ elseif GAME_LOCALE == "zhCN" then
 	Bullet = "子弹",
 	Chest = "胸部",
 	Cloth = "布甲",
-	-- Cogwheel = "",
-	Companion = "伙伴",
-	Companions = "伙伴",
+	Cogwheel = "齿轮",
+	Companion = "小伙伴",
+	Companions = "小伙伴",
 	Consumable = "消耗品",
 	Container = "容器",
 	Cooking = "烹饪",
@@ -1204,7 +1204,7 @@ elseif GAME_LOCALE == "zhCN" then
 	Druid = "德鲁伊",
 	Elemental = "元素",
 	Elixir = "药剂",
-	Enchant = "附魔", -- Needs review
+	Enchant = "附魔",
 	Enchanting = "附魔",
 	["Enchanting Bag"] = "附魔材料袋",
 	Engineering = "工程学",
@@ -1238,12 +1238,12 @@ elseif GAME_LOCALE == "zhCN" then
 	Herbalism = "草药学",
 	Holiday = "节日",
 	Hunter = "猎人",
-	-- Hydraulic = "",
+	Hydraulic = "液压",
 	Idol = "神像",
 	Idols = "神像",
-	Inscription = "铭文", -- Needs review
+	Inscription = "铭文",
 	["Inscription Bag"] = "铭文包",
-	-- ["Item Enchantment"] = "",
+	["Item Enchantment"] = "物品强化",
 	["Item Enhancement"] = "物品强化",
 	Jewelcrafting = "珠宝加工",
 	Junk = "垃圾",
@@ -1264,7 +1264,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Metal & Stone"] = "金属和矿石",
 	Mining = "采矿",
 	["Mining Bag"] = "矿石袋",
-	Miscellaneous = "其他",
+	Miscellaneous = "其它",
 	Mount = "坐骑",
 	Mounts = "坐骑",
 	Neck = "颈部",
@@ -1310,8 +1310,8 @@ elseif GAME_LOCALE == "zhCN" then
 	Staves = "法杖",
 	Sword = "剑",
 	Tabard = "战袍",
-	Tabards = "徽章",
-	-- ["Tackle Box"] = "",
+	Tabards = "战袍",
+	["Tackle Box"] = "工具箱 ",
 	Tailoring = "裁缝",
 	Thrown = "投掷武器",
 	Totem = "图腾",
@@ -1378,8 +1378,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["First Aid"] = "急救",
 	Fish = "釣魚",
 	Fishing = "釣魚",
-	["Fishing Lure"] = [=[魚餌
-]=],
+	["Fishing Lure"] = "魚餌",
 	["Fishing Pole"] = "魚竿",
 	["Fishing Poles"] = "魚竿",
 	["Fist Weapon"] = "拳套",

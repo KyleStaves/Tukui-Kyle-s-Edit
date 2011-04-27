@@ -14,6 +14,7 @@ TPtotemList = {
 	[tL(8177)] = "A1", -- Grounding Totem
 	[tL(8512)] = "A4", -- Windfury Totem
 	[tL(3738)] = "A5", -- Wrath of Air Totem
+	[tL(98008)] = "A6", -- Spirit Link Totem
 	-- Earth Totems
 	[tL(2062)] = "E1", -- Earth Elemental Totem
 	[tL(2484)] = "E2", -- Earthbind Totem

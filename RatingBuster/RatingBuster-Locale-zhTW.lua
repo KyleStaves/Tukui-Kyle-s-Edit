@@ -1,6 +1,6 @@
 ﻿--[[
 Name: RatingBuster zhTW locale
-Revision: $Revision: 321 $
+Revision: $Revision: 339 $
 Translated by:
 - Whitetooth@Cenarius (hotdogee@bahamut.twbbs.org)
 - CuteMiyu
@@ -20,7 +20,6 @@ if not L then return end
 -- Waterfall --
 ---------------
 L["RatingBuster Options"] = "屬性轉換選項"
-L["Waterfall-1.0 is required to access the GUI."] = "需要 Waterfall-1.0 才能使用設定介面。"
 L["Enabled"] = "啟用"
 L["Suspend/resume this addon"] = "暫停/繼續使用這個插件"
 ---------------------------
@@ -45,18 +44,27 @@ L["Enable support for Stat Mods"] = "啟用屬性加成計算"
 -- /rb avoidancedr
 L["Enable Avoidance Diminishing Returns"] = "啟用迴避遞減效應"
 L["Dodge, Parry, Hit Avoidance values will be calculated using the avoidance deminishing return formula with your current stats"] = "你的閃避、招架、避免命中值會被計算在迴避遞減效應中"
--- /rb itemid
-L["Show ItemID"] = "顯示物品編號"
-L["Show the ItemID in tooltips"] = "顯示物品編號"
--- /rb itemlevel
-L["Show ItemLevel"] = "顯示物品等級"
-L["Show the ItemLevel in tooltips"] = "顯示物品等級"
+-- /rb subtract_equip
+--L["Enable Subtract Equipped Stats"] = "扣掉目前裝備的數值後再計算"
+--L["Enable for more accurate calculation of Mana Regen from Intellect and Spirit, and diminishing stats like Dodge, Parry, Resilience"] = "可以更精確的計算來至智力與精神得回魔，以及計算閃避、招架、韌性等遞減數值"
 -- /rb usereqlv
 L["Use Required Level"] = "使用需要等級"
 L["Calculate using the required level if you are below the required level"] = "如果你的等級低於需要等級則用需要等級來換算"
 -- /rb level
 L["Set Level"] = "設定換算等級"
 L["Set the level used in calculations (0 = your level)"] = "設定換算等級 (0 = 你的目前的等級)"
+-- /rb ilvlid
+L["Item Level and ID"] = "物品等級與編號"
+L["Settings for Item Level and Item ID"] = "物品等級與編號設定"
+-- /rb ilvlid coloritemlevel
+L["Colorize Item Level"] = "物品等級上色"
+L["Customize the color of the Item Level text"] = "自訂物品等級文字的顏色"
+-- /rb ilvlid itemlevelall
+L["Show Item Level on all items"] = "顯示所有物品等級"
+L["Display the Item Level on all items instead of just on equippable items"] = "在所有物品上顯示物品等級，而非只顯示在裝備上"
+-- /rb ilvlid itemid
+L["Show Item ID"] = "顯示物品編號"
+L["Display the Item ID on all items"] = "在所有物品上顯示物品編號"
 ---------------------------------------------------------------------------
 -- /rb rating
 L["Rating"] = "屬性等級"
@@ -595,12 +603,14 @@ L["ItemID: "] = "物品編號: "
 --
 -- Tip2: The strings are passed into string.find, so you should escape the magic characters ^$()%.[]*+-? with a %
 L["numberPatterns"] = {
-	{pattern = "提高.-(%d+)", addInfo = "AfterNumber",},
-	{pattern = "提升.-(%d+)", addInfo = "AfterNumber",}, -- [奎克米瑞之眼] ID:27683
-	{pattern = "(%d+)。", addInfo = "AfterNumber",},
-	{pattern = "([%+%-]%d+)", addInfo = "AfterStat",},
-	{pattern = "佩戴者.-(%d+)", addInfo = "AfterNumber",}, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
-	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat",}, -- [發光的暗影卓奈石] +6法術傷害及5耐力
+	{pattern = "提高.-(%d+)點", addInfo = "AfterPattern", space = "", },
+	{pattern = "提升.-(%d+)點", addInfo = "AfterPattern", space = "", }, -- [奎克米瑞之眼] ID:27683
+	{pattern = "提高.-(%d+)", addInfo = "AfterNumber", space = "", },
+	{pattern = "提升.-(%d+)", addInfo = "AfterNumber", space = "", }, -- [奎克米瑞之眼] ID:27683
+	{pattern = "(%d+)。", addInfo = "AfterNumber", space = "", },
+	{pattern = "([%+%-]%d+)", addInfo = "AfterStat", space = "", },
+	{pattern = "佩戴者.-(%d+)", addInfo = "AfterNumber", space = "", }, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
+	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat", space = "", }, -- [發光的暗影卓奈石] +6法術傷害及5耐力
 }
 L["separators"] = {
 	"/", "和", ",", "。", " 持續 ", "&", "及", "並", "，",
@@ -723,7 +733,7 @@ L["$value to be Crit"] = "$value 被致命"
 L["$value Crit Dmg Taken"] = "$value 致命傷害減免"
 L["$value DOT Dmg Taken"] = "$value 持續傷害減免"
 L["$value PVP Dmg Taken"] = "$value PVP傷害減免"
-L["$value% Parry"] = "$value% 招架"
+L["$value Parry"] = "$value 招架"
 -- for hit rating showing both physical and spell conversions
 -- (+1.21%, S+0.98%)
 -- (+1.21%, +0.98% S)

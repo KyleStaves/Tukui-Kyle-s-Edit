@@ -1,6 +1,6 @@
 --[[
 Name: RatingBuster deDE locale
-Revision: $Revision: 320 $
+Revision: $Revision: 339 $
 Translated by:
 - Kuja
 ]]
@@ -17,7 +17,6 @@ if not L then return end
 -- Waterfall --
 ---------------
 L["RatingBuster Options"] = "RatingBuster Optionen"
-L["Waterfall-1.0 is required to access the GUI."] = "Waterfall-1.0 wird zum Anzeigen der GUI benötigt"
 L["Enabled"] = "Aktiviert"
 L["Suspend/resume this addon"] = "Stoppt/Aktiviert dieses Addon"
 ---------------------------
@@ -39,21 +38,27 @@ L["Disable Blizzard stat change summary when using the built-in comparison toolt
 -- /rb statmod
 L["Enable Stat Mods"] = "Aktiviere Stat Mods"
 L["Enable support for Stat Mods"] = "Aktiviert die Unterstützung von Stat Mods"
--- /rb avoidancedr
-L["Enable Avoidance Diminishing Returns"] = "Aktiviere Diminishing Returns für Vermeidung"
-L["Dodge, Parry, Hit Avoidance values will be calculated using the avoidance deminishing return formula with your current stats"] = "Ausweichen, Parieren und Treffervermeidung wird über die Diminishing Returns (Abnehmende Wirkung) Formel berechnet"
--- /rb itemid
-L["Show ItemID"] = "Zeige ItemID"
-L["Show the ItemID in tooltips"] = "Zeigt ItemID im Tooltip"
--- /rb itemlevel
-L["Show ItemLevel"] = "Zeige ItemLevel"
-L["Show the ItemLevel in tooltips"] = "Zeigt ItemLevel im Tooltip"
+-- /rb subtract_equip
+--L["Enable Subtract Equipped Stats"] = ""
+--L["Enable for more accurate calculation of Mana Regen from Intellect and Spirit, and diminishing stats like Dodge, Parry, Resilience"] = ""
 -- /rb usereqlv
 L["Use Required Level"] = "Nutze benötigten Level"
 L["Calculate using the required level if you are below the required level"] = "Berechne auf Basis des benötigten Levels, falls du unter diesem bist"
 -- /rb level
 L["Set Level"] = "Setze Level"
 L["Set the level used in calculations (0 = your level)"] = "Legt den Level der zur Berechnung benutzt wird fest (0 = dein Level)"
+-- /rb ilvlid
+--L["Item Level and ID"] = ""
+--L["Settings for Item Level and Item ID"] = ""
+-- /rb ilvlid coloritemlevel
+--L["Colorize Item Level"] = ""
+--L["Customize the color of the Item Level text"] = ""
+-- /rb ilvlid itemlevelall
+--L["Show Item Level on all items"] = ""
+--L["Display the Item Level on all items instead of just on equippable items"] = ""
+-- /rb ilvlid itemid
+--L["Show Item ID"] = ""
+--L["Display the Item ID on all items"] = ""
 ---------------------------------------------------------------------------
 -- /rb rating
 L["Rating"] = "Wertung"
@@ -592,13 +597,13 @@ L["ItemID: "] = true
 --
 -- Tip2: The strings are passed into string.find, so you should escape the magic characters ^$()%.[]*+-? with a %
 L["numberPatterns"] = {
-	{pattern = " um (%d+)", addInfo = "AfterNumber",},
-	{pattern = "([%+%-]%d+)", addInfo = "AfterStat",},
-	{pattern = "verleiht.-(%d+)", addInfo = "AfterNumber",}, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
-	{pattern = "(%d+) erhöhen.", addInfo = "AfterNumber",}, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
+	{pattern = " um (%d+)", addInfo = "AfterNumber", space = " ", },
+	{pattern = "([%+%-]%d+)", addInfo = "AfterStat", space = " ", },
+	{pattern = "verleiht.-(%d+)", addInfo = "AfterNumber", space = " ", }, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
+	{pattern = "(%d+) erhöhen.", addInfo = "AfterNumber", space = " ", }, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
 	-- Added [^%%] so that it doesn't match strings like "Increases healing by up to 10% of your total Intellect." [Whitemend Pants] ID: 24261
 	-- Added [^|] so that it doesn't match enchant strings (JewelTips)
-	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat",}, -- [發光的暗影卓奈石] +6法術傷害及5耐力
+	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat", space = " ", }, -- [發光的暗影卓奈石] +6法術傷害及5耐力
 }
 L["separators"] = {
 	"/", " und ", ",", "%. ", " für ", "&", ":",

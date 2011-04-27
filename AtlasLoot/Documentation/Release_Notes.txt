@@ -1,10 +1,25 @@
-﻿AtlasLoot Enhanced
+AtlasLoot Enhanced
 
 This mod is distributed under Version 2 of the GPL.  A copy of the GPL is included in this zip file with links to non-english translations.
 
 -Hegarol
 
 Patch Notes
+
+v6.03.00
+Compatible with Patch 4.1
+Added support for Atlas 1.18.3
+Added support for upcoming Atlas 1.19.0
+Added some missing 4.0.6 stuff.
+
+Added various new 4.1 items.
+Added loot for heroic Zul'Gurub and Zul'Aman.
+Updated Enchanting with Cataclysm recipes.
+Updated Leatherworking with Cataclysm recipes. (Thanks to Xecration)
+Updated Children's Week.
+Fixed a bug with overlapping panel buttons.
+Fixed a bug with empty loot tables.
+Many minor fixes, additions and translations.
 
 v6.02.00
 Reorganized Justice Points menu.
@@ -14,7 +29,7 @@ Updated Alchemy with Cataclysm recipes. (Thanks to Yinzara)
 Updated Blacksmithing Cataclysm and Classic level armor and weapons pages. Armor Enhancements, Weapons Enhancements and Miscellaneous pages have also been updated.
 Updated Inscription with Cataclysm recipes. (Thanks to Xecration)
 Updated Leatherworking with Cataclysm vendor sold patterns.
-Uddated Tailoring with Cataclysm recipes and vendor sold patterns. (Thanks to Panik, Earthen Ring)
+Updated Tailoring with Cataclysm recipes and vendor sold patterns. (Thanks to Razel (Earthen Ring) and Panik)
 Added new stuff coming with Patch 4.0.6.
 Added support for Atlas 1.18.2.
 Removed Cataclysm dungeon and raid heroic trash drops.

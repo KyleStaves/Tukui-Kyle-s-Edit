@@ -1,6 +1,6 @@
 --[[
 Name: RatingBuster zhCN locale
-Revision: $Revision: 301 $
+Revision: $Revision: 339 $
 Translated by:
 - iceburn
 - 急云@CWDG
@@ -18,7 +18,6 @@ if not L then return end
 -- Waterfall --
 ---------------
 L["RatingBuster Options"] = "RatingBuster选项"
-L["Waterfall-1.0 is required to access the GUI."] = "这个GUI需要Waterfall库"
 L["Enabled"] = "\229\144\175\231\148\168"
 L["Suspend/resume this addon"] = "\230\154\130\229\129\156/\230\129\162\229\164\141 \230\173\164\230\143\146\228\187\182"
 ---------------------------
@@ -29,24 +28,33 @@ L["Suspend/resume this addon"] = "\230\154\130\229\129\156/\230\129\162\229\164\
 -- /rb win
 L["Options Window"] = "选项窗口"
 L["Shows the Options Window"] = "打开选项窗口"
+-- /rb hidebzcomp
+--L["Hide Blizzard Item Comparisons"] = ""
+--L["Disable Blizzard stat change summary when using the built-in comparison tooltip"] = ""
 -- /rb statmod
 L["Enable Stat Mods"] = "属性加成"
 L["Enable support for Stat Mods"] = "启用属性加成计算"
--- /rb avoidancedr
-L["Enable Avoidance Diminishing Returns"] = "开启回避递减效应"
-L["Dodge, Parry, Hit Avoidance values will be calculated using the avoidance deminishing return formula with your current stats"] = "你的闪避、招架、避免命中值会被计算在回避递减效应中"
--- /rb itemid
-L["Show ItemID"] = "显示物品编号"
-L["Show the ItemID in tooltips"] = "显示物品编号"
--- /rb itemlevel
-L["Show ItemLevel"] = "显示物品等级"
-L["Show the ItemLevel in tooltips"] = "显示物品等级"
+-- /rb subtract_equip
+--L["Enable Subtract Equipped Stats"] = ""
+--L["Enable for more accurate calculation of Mana Regen from Intellect and Spirit, and diminishing stats like Dodge, Parry, Resilience"] = ""
 -- /rb usereqlv
 L["Use Required Level"] = "使用需要等级"
 L["Calculate using the required level if you are below the required level"] = "如果你的等级低于需要等级则用需要等级来换算"
 -- /rb level
 L["Set Level"] = "设定换算等级"
 L["Set the level used in calculations (0 = your level)"] = "设定换算等级 (0 = 你的目前的等级)"
+-- /rb ilvlid
+--L["Item Level and ID"] = ""
+--L["Settings for Item Level and Item ID"] = ""
+-- /rb ilvlid coloritemlevel
+--L["Colorize Item Level"] = ""
+--L["Customize the color of the Item Level text"] = ""
+-- /rb ilvlid itemlevelall
+--L["Show Item Level on all items"] = ""
+--L["Display the Item Level on all items instead of just on equippable items"] = ""
+-- /rb ilvlid itemid
+--L["Show Item ID"] = ""
+--L["Display the Item ID on all items"] = ""
 ---------------------------------------------------------------------------
 -- /rb rating
 L["Rating"] = "属性等级"
@@ -556,13 +564,13 @@ L["ItemID: "] = "物品编号: "
 --
 -- Tip2: The strings are passed into string.find, so you should escape the magic characters ^$()%.[]*+-? with a %
 L["numberPatterns"] = {
-	{pattern = "(%d+)。", addInfo = "AfterNumber",},
-	{pattern = "([%+%-]%d+)", addInfo = "AfterStat",},
-	{pattern = "佩戴者.-(%d+)", addInfo = "AfterNumber",}, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
-	{pattern = "提高.-(%d+)", addInfo = "AfterNumber",},
+	{pattern = "(%d+)。", addInfo = "AfterNumber", space = " ", },
+	{pattern = "([%+%-]%d+)", addInfo = "AfterStat", space = " ", },
+	{pattern = "佩戴者.-(%d+)", addInfo = "AfterNumber", space = " ", }, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
+	{pattern = "提高.-(%d+)", addInfo = "AfterNumber", space = " ", },
 	-- Added [^%%] so that it doesn't match strings like "Increases healing by up to 10% of your total Intellect." [Whitemend Pants] ID: 24261
 	-- Added [^|] so that it doesn't match enchant strings (JewelTips)
-	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat",}, -- [发光的暗影卓奈石] +6法术伤害及5耐力
+	{pattern = "(%d+)([^%d%%|]+)", addInfo = "AfterStat", space = " ", }, -- [发光的暗影卓奈石] +6法术伤害及5耐力
 }
 L["separators"] = {
 	"/", "和", ",", "。", " 持续 ", "&", "及", "并", "，","、",
@@ -677,7 +685,7 @@ L["$value to be Dodged/Parried"] = "$value 被躲闪/被招架"
 L["$value to be Crit"] = "$value 被致命一击"
 L["$value Crit Dmg Taken"] = "$value 致命一击伤害减免"
 L["$value DOT Dmg Taken"] = "$value 持续伤害减免"
-L["$value% Parry"] = "$value% 招架"
+L["$value Parry"] = "$value 招架"
 -- for hit rating showing both physical and spell conversions
 -- (+1.21%, S+0.98%)
 -- (+1.21%, +0.98% S)

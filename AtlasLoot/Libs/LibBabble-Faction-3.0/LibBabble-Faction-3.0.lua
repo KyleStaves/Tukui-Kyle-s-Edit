@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Faction-3.0
-Revision: $Rev: 133 $
+Revision: $Rev: 135 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-faction-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Faction-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 133 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 135 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -698,8 +698,8 @@ elseif GAME_LOCALE == "zhCN" then
 	["Argent Crusade"] = "银色北伐军",
 	["Argent Dawn"] = "银色黎明",
 	["Ashtongue Deathsworn"] = "灰舌死誓者",
-	["Baradin's Wardens"] = "Baradin's Wardens", -- Needs review
-	["Bilgewater Cartel"] = "Bilgewater Cartel", -- Needs review
+	["Baradin's Wardens"] = "巴拉丁典狱官",
+	["Bilgewater Cartel"] = "锈水财阀",
 	["Bloodsail Buccaneers"] = "血帆海盗",
 	["Booty Bay"] = "藏宝海湾",
 	["Brood of Nozdormu"] = "诺兹多姆的子嗣",
@@ -708,7 +708,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Darkmoon Faire"] = "暗月马戏团",
 	["Darkspear Trolls"] = "暗矛巨魔",
 	Darnassus = "达纳苏斯",
-	["Dragonmaw Clan"] = "Dragonmaw Clan", -- Needs review
+	["Dragonmaw Clan"] = "龙喉氏族",
 	Everlook = "永望镇",
 	Exalted = "崇拜",
 	Exodar = "埃索达",
@@ -718,11 +718,11 @@ elseif GAME_LOCALE == "zhCN" then
 	["Frostwolf Clan"] = "霜狼氏族",
 	Gadgetzan = "加基森",
 	["Gelkis Clan Centaur"] = "吉尔吉斯半人马",
-	Gilneas = "Gilneas", -- Needs review
-	Gnomeregan = "Gnomeregan", -- Needs review
+	Gilneas = "吉尔尼斯",
+	Gnomeregan = "诺莫瑞根",
 	["Gnomeregan Exiles"] = "诺莫瑞根流亡者",
-	["Guardians of Hyjal"] = "Guardians of Hyjal", -- Needs review
-	["Hellscream's Reach"] = "Hellscream's Reach", -- Needs review
+	["Guardians of Hyjal"] = "海加尔守护者",
+	["Hellscream's Reach"] = "地狱咆哮近卫军",
 	["Honor Hold"] = "荣耀堡",
 	Honored = "尊敬",
 	Horde = "部落",
@@ -739,7 +739,7 @@ elseif GAME_LOCALE == "zhCN" then
 	Neutral = "中立",
 	["Ogri'la"] = "奥格瑞拉",
 	Orgrimmar = "奥格瑞玛",
-	Ramkahen = "Ramkahen", -- Needs review
+	Ramkahen = "拉穆卡恒",
 	Ratchet = "棘齿城",
 	Ravenholdt = "拉文霍德",
 	Revered = "崇敬",
@@ -756,7 +756,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["The Ashen Verdict"] = "灰烬审判军",
 	["The Consortium"] = "星界财团",
 	["The Defilers"] = "污染者",
-	["The Earthen Ring"] = "The Earthen Ring", -- Needs review
+	["The Earthen Ring"] = "大地之环",
 	["The Frostborn"] = "霜脉矮人",
 	["The Hand of Vengeance"] = "复仇之手",
 	["The Kalu'ak"] = "卡鲁亚克",
@@ -772,7 +772,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["The Taunka"] = "牦牛人",
 	["The Violet Eye"] = "紫罗兰之眼",
 	["The Wyrmrest Accord"] = "龙眠联军",
-	Therazane = "Therazane", -- Needs review
+	Therazane = "塞拉赞恩",
 	["Thorium Brotherhood"] = "瑟银兄弟会",
 	Thrallmar = "萨尔玛",
 	["Thunder Bluff"] = "雷霆崖",

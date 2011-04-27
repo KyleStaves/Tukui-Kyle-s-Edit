@@ -4,7 +4,7 @@ local BossIDs = LibStub("LibBossIDs-1.0")
 
 local Recount = _G.Recount
 
-local revision = tonumber(string.sub("$Revision: 1147 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1151 $", 12, -3))
 if Recount.Version < revision then Recount.Version = revision end
 
 local dbCombatants
@@ -384,7 +384,7 @@ Recount.SpellSchoolName = {
 
 function Recount:MatchGUID(nName,nGUID,nFlags)
 	if not Recount.PlayerName or not Recount.PlayerGUID then
-		if bit_band(nFlags, LIB_FILTER_ME) == LIB_FILTER_ME then
+		if nFlags and bit_band(nFlags, LIB_FILTER_ME) == LIB_FILTER_ME then
 			Recount.PlayerName = nName
 			Recount.PlayerGUID = nGUID
 			return
@@ -902,6 +902,8 @@ function Recount:CheckRetentionFromFlags(nameFlags,name,nameGUID)
 
   local filters = Recount.db.profile.Filters.Data
 
+  if not nameFlags then return end -- Since 4.1 this can be nil, to be explored why
+  
   if filters["Grouped"] and bit_band(nameFlags, GROUPED_FILTER_BITMASK) ~= 0 then
 
     return true -- Grouped
