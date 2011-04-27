@@ -224,14 +224,13 @@ local function Shared(self, unit)
 		RaidDebuffs.icon:Point("BOTTOMRIGHT", -2, 2)
 		
 		-- just in case someone want to add this feature, uncomment to enable it
-		--[[
 		if C["unitframes"].auratimer then
 			RaidDebuffs.cd = CreateFrame('Cooldown', nil, RaidDebuffs)
 			RaidDebuffs.cd:Point("TOPLEFT", 2, -2)
 			RaidDebuffs.cd:Point("BOTTOMRIGHT", -2, 2)
 			RaidDebuffs.cd.noOCC = true -- remove this line if you want cooldown number on it
+			RaidDebuffs.cd:SetReverse(true)
 		end
-		--]]
 		
 		RaidDebuffs.count = RaidDebuffs:CreateFontString(nil, 'OVERLAY')
 		RaidDebuffs.count:SetFont(pixelfont, 10, "THINOUTLINEMONOCHROME")
@@ -239,8 +238,9 @@ local function Shared(self, unit)
 		RaidDebuffs.count:SetTextColor(1, .9, 0)
 		
 		RaidDebuffs:FontString('time', pixelfont, 10, "THINOUTLINEMONOCHROME")
-		RaidDebuffs.time:Point('CENTER')
+		RaidDebuffs.time:Point('CENTER', RaidDebuffs)
 		RaidDebuffs.time:SetTextColor(1, .9, 0)
+		RaidDebuffs.time:SetAlpha(0)
 		
 		self.RaidDebuffs = RaidDebuffs
     end
