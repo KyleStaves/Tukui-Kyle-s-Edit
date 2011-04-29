@@ -138,6 +138,7 @@ end
 --Static values
 local baseSpiM = (select(2,UnitRace("player")) == "Human") and 1.03 or 1
 local troll = (select(2,UnitRace("player")) == "Troll")
+local mage = (playerClass == "MAGE")
 local mastery = GetSpellInfo(86471)
 
 --Static tables
@@ -403,8 +404,7 @@ function DrDamage:CasterCalc( name, rank, tooltip, modify, debug )
 			calculation.hasteRating = calculation.hasteRating - GetCombatRating(20)
 			calculation.critPerc = calculation.critPerc - GetCombatRatingBonus((baseSpell.MeleeCrit and 9 or 11))
 			calculation.hitPerc = calculation.hitPerc - GetCombatRatingBonus((baseSpell.MeleeHit and 6 or 8))
-			calculation.mastery = 8
-			--TODO: Mage frost spec base 2 mastery?
+			calculation.mastery = mage and (calculation.spec == 3) and 2 or 8
 		end
 		--Ratings
 		calculation.haste = math_max(1,(calculation.haste + 0.01 * self:GetRating((baseSpell.MeleeHaste and "MeleeHaste" or "Haste"), settings.HasteRating, true)))

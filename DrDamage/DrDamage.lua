@@ -872,11 +872,21 @@ function DrDamage:GeneralOptions()
 				desc = L["Actionbar options."],
 				order = 50,
 				args = {
+					AddonTitle = {
+						type = 'header',
+						name = "DrDamage " .. GetAddOnMetadata("DrDamage", "version"),
+						order = 0,
+					},
+					DisplayTypeText = {
+						type= 'description',
+						order = 1,
+						name= L["Choose what to display on the actionbar."],
+					},					
 					DisplayType = {
 						type = 'select',
 						name = "1. " .. (playerHybrid and L["Spells"] or ""),
 						desc = L["Choose what to display on the actionbar."],
-						order = 1,
+						order = 2,
 						hidden = playerMelee,
 						values = {
 							["Avg"] = L["Average"],
@@ -916,7 +926,7 @@ function DrDamage:GeneralOptions()
 						type = 'select',
 						name = "2. " .. (playerHybrid and L["Spells"] or ""),
 						desc = L["Choose what to display on the actionbar."],
-						order = 2,
+						order = 3,
 						hidden = playerMelee,
 						values = {
 							["Avg"] = L["Average"],
@@ -963,14 +973,14 @@ function DrDamage:GeneralOptions()
 					},
 					NewLine1 = {
 						type= 'description',
-						order = 3,
+						order = 4,
 						name= '',
 					},
 					DisplayType_M = {
 						type = 'select',
 						name = "1. " .. (playerHybrid and (L["Melee"] .. "/" .. L["Ranged"]) or ""),
 						desc = L["Choose what to display on the actionbar."],
-						order = 4,
+						order = 5,
 						hidden = playerCaster,
 						values = {
 							["Avg"] = L["Average"],
@@ -1004,7 +1014,7 @@ function DrDamage:GeneralOptions()
 						type = 'select',
 						name = "2. " .. (playerHybrid and (L["Melee"] .. "/" .. L["Ranged"]) or ""),
 						desc = L["Choose what to display on the actionbar."],
-						order = 5,
+						order = 6,
 						hidden = playerCaster,
 						values = {
 							["Avg"] = L["Average"],

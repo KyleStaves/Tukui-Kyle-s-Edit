@@ -79,7 +79,7 @@ function DrDamage:PlayerData()
 			end
 		elseif spec == 3 then
 			if mastery > 0 and mastery ~= masteryLast then
-				if calculation.healingSpell and baseSpell.DirectHeal then
+				if calculation.healingSpell then
 					local masteryBonus = calculation.masteryBonus
 					if masteryBonus then
 						calculation.dmgM = calculation.dmgM / masteryBonus
@@ -691,6 +691,7 @@ function DrDamage:PlayerData()
 			[0] = { School = "Fire", NoDotHaste = true, Hits = 24, eDot = true, eDuration = 60, sTicks = 2.5 },
 			[1] = { 0, 0 },
 		},
+        --TODO: Cannot find updated Fire Nova data
 		[GetSpellInfo(1535)] = {
 			["Name"] = "Fire Nova",
 			["ID"] = 1535,
@@ -702,7 +703,7 @@ function DrDamage:PlayerData()
 			["Name"] = "Magma Totem",
 			["ID"] = 8190,
 			["Data"] = { 0.267, 0, 0.067, },
-			[0] = { School = "Fire", NoDotHaste = true, Hits = 10, eDot = true, eDuration = 20, sTicks = 2, AoE = true },
+			[0] = { School = "Fire", NoDotHaste = true, Hits = 10, eDot = true, eDuration = 60, sTicks = 2, AoE = true },
 			[1] = { 0, 0 },
 		},
 		[GetSpellInfo(51490)] = {
@@ -758,7 +759,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(974)] = {
 			["Name"] = "Earth Shield",
 			["ID"] = 974,
-			["Data"] = { 1.7622, 0, 1, },
+			["Data"] = { 1.41, 0, 1, },
 			[0] = { School = { "Nature", "Healing", }, Hits = 9, NoDPS = true, NoDoom = true, NoPeriod = true, },
 			[1] = { 0, 0 },
 		},
@@ -801,9 +802,9 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(61882)] = {
 			["Name"] = "Earthquake",
 			["ID"] = 61882,
-			["Data"] = { 0.54 },
+			["Data"] = { 0.324 },
 			--TOOLTIP BUG: Blizzard states coefficient to be 0.21
-			[0] = { Melee = true, SPBonus = 0.1908, Hits = 8, Channeled = 8, Unavoidable = true, NoArmor = true },
+			[0] = { Melee = true, SPBonus = 0.063, Duration = 10, Unavoidable = true, NoArmor = true },
 			[1] = { 0 },
 		},
 		[GetSpellInfo(51886)] = {
@@ -918,9 +919,6 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(51525)] = { 	[1] = { Effect = 0.15, Melee = true, Spells = { "Stormstrike", "Primal Strike", "Lava Lash" }, ModType = "Static Shock" }, },
 		--Frozen Power (multiplicative - 3.3.3)
 		[GetSpellInfo(63373)] = {	[1] = { Effect = 0.05, Spells = { "Chain Lightning", "Lightning Bolt", "Shock", "Lava Lash" }, ModType = "Frozen Power" }, },
-		--Improved Fire Nova (additive - 3.3.3)
-		[GetSpellInfo(16086)] = {	[1] = { Effect = 0.1, Caster = true, Spells = "Fire Nova", },
-									[2] = { Effect = -2, Caster = true, Spells = "Fire Nova", ModType = "cooldown" }, },
 		--Searing Flames
 		[GetSpellInfo(77655)] = { 	[1] = { Effect = { 0.33, 0.66, 1 }, Caster = true, Spells = "Searing Totem", ModType = "Searing Flames" }, },
 		--Improved Lava Lash (additive?)
@@ -935,7 +933,7 @@ function DrDamage:PlayerData()
 		--Focused Insight (buff after Shock cast - multiplicative?)
 		[GetSpellInfo(77794)] = { 	[1] = { Effect = 0.1, Caster = true, Spells = "Healing", ModType = "Focused Insight" }, },
 		--Nature's Blessing (buff on Earth Shielded targets - multiplicative?)
-		[GetSpellInfo(30867)] = { 	[1] = { Effect = 0.05, Caster = true, Spells = "Healing", ModType = "Nature's Blessing" }, },
+		[GetSpellInfo(30867)] = { 	[1] = { Effect = 0.06, Caster = true, Spells = "Healing", ModType = "Nature's Blessing" }, },
 		--Soothing Rains (4.0: Healing Stream Totem part is multiplicative with Spark of Life -- which one is multiplicative?)
 		[GetSpellInfo(16187)] = { 	[1] = { Effect = 0.25, Caster = true, Multiply = true, Spells = "Healing Stream Totem", },
 									[2] = { Effect = 0.15, Caster = true, Multiply = true, Spells = "Healing Rain" }, },

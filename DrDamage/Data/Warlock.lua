@@ -112,14 +112,15 @@ function DrDamage:PlayerData()
 		if not baseSpell.NoSchoolTalents then
 			local spec = calculation.spec
 			if spec == 1 then
+				-- Checked in 4.1 - Shadow Mastery bonus went from 25% to 30%
 				if calculation.school == "Shadow" or calculation.school == "Shadowflame" then
 					--NOTE: Pets don't gain, but tooltips show base damage gain
 					if calculation.group ~= "Pet" then
 						if calculation.spellName == "Haunt" then
 							--BUG: Haunt only gains base damage?
-							calculation.bDmgM = calculation.bDmgM * 1.25
+							calculation.bDmgM = calculation.bDmgM * 1.3
 						else
-							calculation.dmgM = calculation.dmgM * 1.25
+							calculation.dmgM = calculation.dmgM * 1.3
 						end
 					end
 				end
@@ -355,7 +356,8 @@ function DrDamage:PlayerData()
 					end
 				else break end
 			end
-			calculation.dmgM = calculation.dmgM * (1 + dots * 0.15)
+			-- 4.1 - Bonus per DoT went from 15% to 30%
+			calculation.dmgM = calculation.dmgM * (1 + dots * 0.3)
 		end
 	end
 	self.Calculation["Lash of Pain"] = function( calculation, ActiveAuras, Talents, spell )
@@ -593,9 +595,10 @@ function DrDamage:PlayerData()
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(5740)] = {
+			-- Checked in 4.1
 					["Name"] = "Rain of Fire",
 					["ID"] = 5740,
-					["Data"] = { 0.638, 0, 0.191, ["PPL"] = 0.3 },
+					["Data"] = { 0.797, 0, 0.238, ["PPL"] = 0.3 },
 					[0] = { School = { "Fire", "Destruction" }, Hits = 4, Channeled = 8, sTicks = 2, AoE = true },
 					[1] = { 0, 0, },
 		},
@@ -613,9 +616,10 @@ function DrDamage:PlayerData()
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(27243)] = {
+			-- Checked in 4.1
 					["Name"] = "Seed of Corruption",
 					["ID"] = 27243,
-					["Data"] = { 0.638, 0.15, 0.191, 0.252, 0, 0.25  },
+					["Data"] = { 0.766, 0.15, 0.229, 0.302, 0, 0.3  },
 					["Data2"] = function(baseSpell, spell, playerLevel)
 						baseSpell.Cap = 1.761 * self.Scaling[playerLevel]
 						baseSpell.Cap_SPBonus = 0.143
@@ -654,7 +658,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(48181)] = {
 					["Name"] = "Haunt",
 					["ID"] = 48181,
-					["Data"] = { 0.737, 0, nil },
+					["Data"] = { 0.958, 0, nil },
 					[0] = { School = { "Shadow", "Affliction" }, SPBonus = 0.53625, Cooldown = 8 },
 					[1] = { 0, 0, },
 		},
@@ -687,18 +691,21 @@ function DrDamage:PlayerData()
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(54049)] = {
+			-- Checked in 4.1
 					["Name"] = "Shadow Bite",
 					["ID"] = 54049,
 					--Tooltip displays wrong base values, range is halved
-					["Data"] = { 0.163, 0.35 / 2 },
+					-- ["Data"] = { 0.163, 0.35 / 2 }, (4.0.3 values)
+					["Data"] = { 0.326, 0.35 / 2 },
 					[0] = { School = { "Shadow", "Pet" }, SPBonus = 0.614, Cooldown = 6, NoGlobalMod = true, NoManaCalc = true, NoNext = true, NoMPS = true, NoDPM = true, },
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(7814)] = {
+			-- Checked in 4.1
 					["Name"] = "Lash of Pain",
 					["ID"] = 7814,
 					--Tooltip displays wrong base values, multiplier of 1.5 seems to give correct values
-					["Data"] = { 0.201 * 1.5, 0.16 / 1.5 },
+					["Data"] = { 0.201 * 1.5, 0.16 / 1.5, ["c_scale"] = 1/3 },
 					[0] = { School = { "Shadow", "Pet" }, SPBonus = 0.612, NoGlobalMod = true, NoManaCalc = true, NoNext = true, NoMPS = true, NoDPM = true, },
 					[1] = { 0, 0, },
 		},

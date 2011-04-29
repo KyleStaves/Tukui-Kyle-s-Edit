@@ -1,4 +1,4 @@
-﻿## Interface: 40000
+﻿## Interface: 40100
 
 ## Title: ArkInventory [Rules]
 ## Notes: Rules for ArkInventory
@@ -8,7 +8,7 @@
 ## LoadOnDemand: 0
 
 ## RequiredDeps: ArkInventory
-## OptionalDeps: Outfitter, ItemRack, ClosetGnome, SellJunk, Scrap, ReagentRestocker
+## OptionalDeps: Outfitter, ItemRack, ClosetGnome, SellJunk, Scrap, Scrap_Merchant, ReagentRestocker
 
 ## X-Category: Inventory
 ## X-Website: http://arkinventory.googlecode.com

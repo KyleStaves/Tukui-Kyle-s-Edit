@@ -280,25 +280,38 @@ function DrDamage:PlayerData()
 			--Multiplicative - 3.3.3
  			calculation.dmgM = calculation.dmgM * 1.2
 		end
-		--Glyph of Divine Accuracy 4.0
+		--Glyph of Divine Accuracy 4.1
 		if self:HasGlyph(63246) then
 			calculation.hitPerc = calculation.hitPerc + 18
 		end
 	end
+	self.Calculation["Holy Fire"] = function( calculation, ActiveAuras )
+		--Glyph of Divine Accuracy 4.1
+		if self:HasGlyph(63246) then
+			calculation.hitPerc = calculation.hitPerc + 18
+		end
+	end
+		
+	local glyph = GetSpellInfo(52817)
+	local glyphicon = "|TInterface\\Icons\\INV_Glyph_MajorPriest:16:16:1:-1|t"	
 	self.Calculation["Prayer of Healing"] = function( calculation )
 		--Glyph of Prayer of Healing 4.0
 		if self:HasGlyph(55680) then
-			calculation.hybridDotDmg = 0.2 * 0.5 * (calculation.minDam + calculation.maxDam)
-			calculation.SPBonus_dot = 0.2 * calculation.SPBonus
-			calculation.eDuration = 6
-			calculation.sTicks = 3
+			if calculation.spec == 2 then
+				calculation.extraAvg = 0.2
+				calculation.extraTicks = 2
+				calculation.extraName = glyph
+			else
+				calculation.hybridDotDmg = 0.2 * 0.5 * (calculation.minDam + calculation.maxDam)
+				calculation.SPBonus_dot = 0.2 * calculation.SPBonus
+				calculation.eDuration = 6
+				calculation.sTicks = 3
+			end
 		end
 		if self:GetSetAmount( "T8 Healing" ) >= 2 then
 			calculation.critPerc = calculation.critPerc + 10
 		end
 	end
-	local glyph = GetSpellInfo(52817)
-	local glyphicon = "|TInterface\\Icons\\INV_Glyph_MajorPriest:16:16:1:-1|t"
 	self.Calculation["Power Word: Shield"] = function( calculation, _, Talents )
 		local auraMod = calculation.dmgM
 		calculation.dmgM = (calculation.dmgM_absorb or 1) * (1 + (Talents["Twin Disciplines"] or 0)) * (1 + (Talents["Improved Power Word: Shield"] or 0))
@@ -623,10 +636,10 @@ function DrDamage:PlayerData()
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(88685)] = {
-					-- Checked in 4.0.3
+					-- Checked in 4.1
 					["Name"] = "Holy Word: Sanctuary",
 					["ID"] = 88685,
-					["Data"] = { 0.346, 0.173, 0.031 },
+					["Data"] = { 0.346, 0.173, 0.042 },
 					[0] = { School = { "Holy", "Healing" }, Cooldown = 40, Hits = 9, AoE = 6, eDot = true, eDuration = 18, sTicks = 2, },
 					[1] = { 0, 0 },
 		},
@@ -650,12 +663,12 @@ function DrDamage:PlayerData()
 					-- Checked in 4.0.3
 					["Name"] = "Holy Fire",
 					["ID"] = 14914,
-					["Data"] = { 1.0829, 0.238, 0.571, 0.054, 0, 0.024 },
+					["Data"] = { 1.0829, 0.238, 1.11, 0.054, 0, 0.031 },
 					[0] = { School = "Holy",  Cooldown = 10, Hits_dot = 7, eDuration = 7, sTicks = 1 },
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(15237)] = {
-					-- Checked in 4.0.3
+					-- Checked in 4.1
 					["Name"] = "Holy Nova",
 					["ID"] = 15237,
 					["Data"] = { 1.94, 0.15, 0.196 },
@@ -690,10 +703,10 @@ function DrDamage:PlayerData()
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(48045)] = {
-					-- Checked in 4.0.6
+					-- Checked in 4.1
 					["Name"] = "Mind Sear",
 					["ID"] = 48045,
-					["Data"] = { 0.115, 0.080, 0.1311 },
+					["Data"] = { 0.23, 0.080, 0.2622 },
 					[0] = { School = "Shadow", Hits = 5, Channeled = 5, AoE = true },
 					[1] = { 0, 0 },
 		},

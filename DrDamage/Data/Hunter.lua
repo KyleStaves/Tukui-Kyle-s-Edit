@@ -252,9 +252,10 @@ function DrDamage:PlayerData()
 			[1] = { 0 },
 		},		
 		[GetSpellInfo(2643)] = {
+			-- Checked in 4.1
 			["Name"] = "Multi-Shot",
 			["ID"] = 2643,
-			["Data"] = { 0, ["weaponDamage"] = 0.4, ["PPL_start"] = 24, ["PPL"] = 0.268 },
+			["Data"] = { 0, ["weaponDamage"] = 1.0, ["PPL_start"] = 24, ["PPL"] = 0.670 },
 			[0] = { School = { "Physical", "Ranged", "Shot" }, AoE = true },
 			[1] = { 0 },
 		},

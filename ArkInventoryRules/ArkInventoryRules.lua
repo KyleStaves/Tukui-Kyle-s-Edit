@@ -1,6 +1,6 @@
 ﻿-- (c) 2009-2010, all rights reserved.
--- $Revision: 507 $
--- $Date: 2010-12-12 13:04:47 +1100 (Sun, 12 Dec 2010) $
+-- $Revision: 684 $
+-- $Date: 2011-04-27 23:20:10 +1000 (Wed, 27 Apr 2011) $
 
 ArkInventoryRules = LibStub( "AceAddon-3.0" ):NewAddon( "ArkInventoryRules" )
 
@@ -23,10 +23,14 @@ function ArkInventoryRules.OnInitialize( )
 	
 	-- scrap: http://wow.curse.com/downloads/wow-addons/details/scrap.aspx
 	if IsAddOnLoaded( "Scrap" ) then
-		if Scrap:GetScript( "OnReceiveDrag" ) then
-			ArkInventory.Output( "enabling Scrap support" )
-			Scrap:HookScript( "OnReceiveDrag", ArkInventory.ItemCacheClear )
+		
+		ArkInventory.Output( "enabling Scrap support" )
+		
+		if IsAddOnLoaded( "Scrap_Merchant" ) then
+			ArkInventory.Output( "enabling Scrap Merchant support" )
+			ArkInventory.MySecureHook( Scrap, "ToggleJunk", ArkInventory.ItemCacheClear )
 		end
+		
 	end
 	
 	-- selljunk: http://wow.curse.com/downloads/wow-addons/details/sell-junk.aspx

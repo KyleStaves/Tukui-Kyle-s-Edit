@@ -42,10 +42,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 5649 $"):sub(12, -3),
-	Version = "4.80",
-	DisplayVersion = "4.80", -- the string that is shown as version
-	ReleaseRevision = 5649 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 5663 $"):sub(12, -3),
+	Version = "4.801",
+	DisplayVersion = "4.80b", -- the string that is shown as version
+	ReleaseRevision = 5663 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -1730,7 +1730,7 @@ do
 		
 		function showResults()
 			-- TODO: you could catch some localized instances by observing IDs if there are multiple players with the same instance ID but a different name ;) (not that useful if you are trying to get a fresh instance)
-			DBM:AddMsg(DMB_INSTANCE_INFO_RESULTS)
+			DBM:AddMsg(DBM_INSTANCE_INFO_RESULTS)
 			for i, v in pairs(results.data) do
 				DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_HEADER:format(v.name, v.maxPlayers, v.diff))
 				for id, v in ipairs(v.ids) do

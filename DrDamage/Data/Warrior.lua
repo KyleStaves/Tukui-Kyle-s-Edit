@@ -45,7 +45,7 @@ function DrDamage:PlayerData()
 		if spec == 1 then
 			if mastery > 0 and mastery ~= masteryLast then
 				if baseSpell.AutoAttack then
-					calculation.extraChance = mastery * 0.01 * 2
+					calculation.extraChance = mastery * 0.01 * 2.2
 					calculation.masteryLast = mastery
 				end
 			end
@@ -66,6 +66,9 @@ function DrDamage:PlayerData()
 					calculation.masteryLast = mastery
 					calculation.masteryBonus = bonus
 				end
+                if baseSpell.AutoAttack then
+                    calculation.dmgM = calculation.dmgM * 1.4
+                end
 			end
 		end
 	end

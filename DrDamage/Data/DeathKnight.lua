@@ -270,7 +270,7 @@ function DrDamage:PlayerData()
 		end
 	end
 	self.Calculation["Howling Blast"] = function( calculation, _, Talents, spell )
-		calculation.aoeM = 0.6
+		calculation.aoeM = 0.5
 		--Glyph of Howling Blast 4.0
 		if self:HasGlyph(63335) then
 			calculation.extra = 0.32 * calculation.playerLevel * 1.15
@@ -552,8 +552,8 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(49143)] = {
 				["Name"] = "Frost Strike",
 				["ID"] = 49143,
-				["Data"] = { 0.247 * 1.1 },
-				[0] = { School = "Frost", Melee = true, WeaponDamage = 1.1 },
+				["Data"] = { 0.247 * 1.3 },
+				[0] = { School = "Frost", Melee = true, WeaponDamage = 1.3 },
 				[1] = { 0 },
 		},
 		[GetSpellInfo(56815)] = {
@@ -579,7 +579,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(49184)] = {
 				["Name"] = "Howling Blast",
 				["ID"] = 49184,
-				["Data"] = { 1.068, 0.083 },
+				["Data"] = { 1.281, 0.1 },
 				--NOTE: Marked as Disease and E_eDuration for Glyph
 				[0] = { School = { "Frost", "Disease", "Spell" }, Melee = true, APBonus = 0.4, Hits_extra = 7, E_eDuration = 21, E_Ticks = 3, E_canCrit = true, SpellHit = true, SpellCrit = "Frost", AoE = true, E_AoE = true, MixedAoE = true },
 				[1] = { 0, 0 },
@@ -678,7 +678,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(48963)] = {	[1] = { Effect = 0.05, Spells = "Death Coil" },
 									[2] = { Effect = 0.1, Spells = "Death and Decay" }, },
 		--Rage of Rivendare 4.0
-		[GetSpellInfo(51745)] = {	[1] = { Effect = 0.12, Spells = { "Plague Strike", "Scourge Strike", "Festering Strike" }, }, },
+		[GetSpellInfo(51745)] = {	[1] = { Effect = 0.15, Spells = { "Plague Strike", "Scourge Strike", "Festering Strike" }, }, },
 		--Unholy Blight 4.0
 		[GetSpellInfo(49194)] = {	[1] = { Effect = 1, Caster = true, Spells = "Death Coil", ModType = "Unholy Blight" }, },
 	}

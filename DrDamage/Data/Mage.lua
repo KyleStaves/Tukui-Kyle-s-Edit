@@ -61,18 +61,26 @@ function DrDamage:PlayerData()
 			end
 		elseif spec == 2 then
 			if mastery > 0 and mastery ~= masteryLast then
-				if (calculation.school == "Fire" or calculation.school == "Frostfire") and calculation.spellName ~= "Flame Orb" then
-					local masteryBonus = calculation.masteryBonus
-					if masteryBonus then
-						calculation.dmgM_dot_Add = calculation.dmgM_dot_Add - masteryBonus
-					end
-					--Flashburn: Damage Multiplier to Fire DoTs - Additive 4.0.3
-					local bonus = mastery * 0.01 * 2.8
-					calculation.dmgM_dot_Add = calculation.dmgM_dot_Add + bonus
-					calculation.masteryLast = mastery
-					calculation.masteryBonus = bonus
-					if Talents["Ignite"] then
-						calculation.extraCrit = Talents["Ignite"] * calculation.dmgM_dot * (1 + calculation.dmgM_dot_Add)
+				if (calculation.school == "Fire" or calculation.school == "Frostfire") then
+					if calculation.spellName == "Flame Orb" then
+						--local bonus = mastery * 0.01 * 2.8
+						calculation.masteryLast = mastery
+						--if Talents["Ignite"] then						
+						--	calculation.extraCrit = Talents["Ignite"] * calculation.dmgM_dot * (1 + calculation.dmgM_dot_Add + bonus)
+						--end					
+					else
+						local masteryBonus = calculation.masteryBonus
+						if masteryBonus then
+							calculation.dmgM_dot_Add = calculation.dmgM_dot_Add - masteryBonus
+						end
+						--Flashburn: Damage Multiplier to Fire DoTs - Additive 4.0.3
+						local bonus = mastery * 0.01 * 2.8
+						calculation.dmgM_dot_Add = calculation.dmgM_dot_Add + bonus
+						calculation.masteryLast = mastery
+						calculation.masteryBonus = bonus
+						if Talents["Ignite"] then
+							calculation.extraCrit = Talents["Ignite"] * calculation.dmgM_dot * (1 + calculation.dmgM_dot_Add)
+						end
 					end
 				end
 			end
@@ -356,11 +364,11 @@ function DrDamage:PlayerData()
 	self.PlayerAura[GetSpellInfo(48108)] = { Update = true, Spells = { "Pyroblast", "Pyroblast!" } }
 	--Brain Freeze - 4.0
 	self.PlayerAura[GetSpellInfo(57761)] = { Update = true, Spells = { "Fireball", "Frostfire Bolt" } }
-	--Fingers of Frost - 4.0
+	--Fingers of Frost - 4.1
 	self.PlayerAura[GetSpellInfo(44544)] = { NoManual = true, ModType =
 		function( calculation, ActiveAuras )
 			if calculation.spellName == "Ice Lance" then
-				calculation.dmgM = calculation.dmgM * 1.15
+				calculation.dmgM = calculation.dmgM * 1.25
 			end
 			ActiveAuras["Frozen"] = 1
 		end
@@ -518,21 +526,23 @@ function DrDamage:PlayerData()
 					["Name"] = "Flame Orb",
 					["ID"] = 82731,
 					["Data"] = { 0.278, 0.25, 0.134 },
-					[0] = { School = "Fire", eDot = true, Hits = 15, eDuration = 15, sTicks = 1, Cooldown = 60 },
+					[0] = { School = "Fire", eDot = true, Hits = 15, eDuration = 15, sTicks = 1, Cooldown = 60, NoDotHaste = true },
 					[1] = { 0, 0 },
 		},
 		--FROST
 		[GetSpellInfo(116)] = {
+			-- Checked in 4.1
 					["Name"] = "Frostbolt",
 					["ID"] = 116,
-					["Data"] = { 0.804, 0.242, 0.857, ["ct_min"] = 1500, ["ct_max"] = 2000, ["c_scale"] = 0.88 },
+					["Data"] = { 0.884, 0.242, 0.943, ["ct_min"] = 1500, ["ct_max"] = 2000, ["c_scale"] = 0.88 },
 					[0] = { School = "Frost", },
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(10)] = {
+			-- Checked in 4.1
 					["Name"] = "Blizzard",
 					["ID"] = 10,
-					["Data"] = { 0.319, 0, 0.095 },
+					["Data"] = { 0.542, 0, 0.162 },
 					[0] = { School = "Frost", sTicks = 1, Hits = 8, Channeled = 8, AoE = true },
 					[1] = { 0, 0 },
 		},
@@ -558,10 +568,11 @@ function DrDamage:PlayerData()
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(11426)] = {
+			-- Checked in 4.1
 					["Name"] = "Ice Barrier",
 					["ID"] = 11426,
-					["Data"] = { 3.933 },
-					[0] = { School = { "Frost", "Absorb" }, SPBonus = 0.807, Cooldown = 30, NoCrits = true, NoGlobalMod = true, NoTargetAura = true, NoSchoolTalents = true, NoNext = true, NoDPS = true, NoDoom = true, Unresistable = true, NoDPM = true, BaseIncrease = true, },
+					["Data"] = { 8.601 },
+					[0] = { School = { "Frost", "Absorb" }, SPBonus = 0.87, Cooldown = 30, NoCrits = true, NoGlobalMod = true, NoTargetAura = true, NoSchoolTalents = true, NoNext = true, NoDPS = true, NoDoom = true, Unresistable = true, NoDPM = true, BaseIncrease = true, },
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(44572)] = {
@@ -597,16 +608,18 @@ function DrDamage:PlayerData()
 		--]]
 	--ARCANE
 		[GetSpellInfo(5143)] = {
+			-- Checked in 4.1
 					["Name"] = "Arcane Missiles",
 					["ID"] = 5143,
-					["Data"] = { 0.382, 0, 0.246 },
+					["Data"] = { 0.432, 0, 0.278 },
 					[0] = { School = "Arcane", Hits = 3, Channeled = 2.25, },
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(1449)] = {
+			-- Checked in 4.1
 					["Name"] = "Arcane Explosion",
 					["ID"] = 1449,
-					["Data"] = { 0.283, 0.08, 0.143 },
+					["Data"] = { 0.368, 0.08, 0.186 },
 					[0] = { School = "Arcane", AoE = true, },
 					[1] = { 0, 0, },
 		},
@@ -618,9 +631,10 @@ function DrDamage:PlayerData()
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(44425)] = {
+			-- Checked in 4.1
 					["Name"] = "Arcane Barrage",
 					["ID"] = 44425,
-					["Data"] = { 1.25, 0.2, 0.803, ["c_scale"] = 0.83 },
+					["Data"] = { 1.413, 0.2, 0.907, ["c_scale"] = 0.83 },
 					[0] = { School = "Arcane", Cooldown = 4, },
 					[1] = { 0, 0 },
 		},

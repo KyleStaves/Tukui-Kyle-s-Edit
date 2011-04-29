@@ -1,0 +1,81 @@
+------------------------------------------------------------------------
+r1626 | zarquan | 2011-04-28 02:52:45 +0000 (Thu, 28 Apr 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Hunter.lua
+
+update multi-shot
+------------------------------------------------------------------------
+r1625 | zarquan | 2011-04-28 02:49:14 +0000 (Thu, 28 Apr 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Druid.lua
+
+4.1 updates
+------------------------------------------------------------------------
+r1624 | detseuqer | 2011-04-28 01:32:14 +0000 (Thu, 28 Apr 2011) | 3 lines
+Changed paths:
+   M /trunk/Data/Paladin.lua
+
+  * Updated paladins for 4.1.
+
+
+------------------------------------------------------------------------
+r1623 | detseuqer | 2011-04-28 00:46:39 +0000 (Thu, 28 Apr 2011) | 3 lines
+Changed paths:
+   M /trunk/Data/Hunter.lua
+
+  * Updated Hunter for 4.1.  Only needed to change Multi-Shot, although I'm not sure if I did it right.  Will test and fix it if necessary.
+
+
+------------------------------------------------------------------------
+r1622 | detseuqer | 2011-04-27 23:57:11 +0000 (Wed, 27 Apr 2011) | 3 lines
+Changed paths:
+   M /trunk/Data/Warlock.lua
+
+  * "Lash of Pain" scaling factor needed to be adjusted to account for DrDamage applying the scale from level 1 to 80 (Lash of Pain scales from 20 to 80).
+
+
+------------------------------------------------------------------------
+r1621 | karzon13 | 2011-04-27 23:48:59 +0000 (Wed, 27 Apr 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Warrior.lua
+
+4.1 Warrior changes
+------------------------------------------------------------------------
+r1620 | detseuqer | 2011-04-27 23:36:11 +0000 (Wed, 27 Apr 2011) | 3 lines
+Changed paths:
+   M /trunk/Data/Warlock.lua
+
+  * Changed "Lash of Pain" for warlock to properly scale damage while leveling for 4.1 changes.
+
+
+------------------------------------------------------------------------
+r1619 | detseuqer | 2011-04-27 23:28:11 +0000 (Wed, 27 Apr 2011) | 4 lines
+Changed paths:
+   M /trunk/Data/Mage.lua
+   M /trunk/Data/Priest.lua
+   M /trunk/Data/Warlock.lua
+
+  * Updated Priest class for 4.1
+  * Updated Mage class for 4.1
+
+
+------------------------------------------------------------------------
+r1618 | karzon13 | 2011-04-27 23:24:33 +0000 (Wed, 27 Apr 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Shaman.lua
+
+4.1 Shaman changes
+------------------------------------------------------------------------
+r1617 | karzon13 | 2011-04-27 22:44:27 +0000 (Wed, 27 Apr 2011) | 1 line
+Changed paths:
+   M /trunk/Data/DeathKnight.lua
+
+4.1 changes.  Frost Strike, Rage of Rivendare, and Howling Blast changed.
+------------------------------------------------------------------------
+r1616 | gagorian | 2011-03-26 21:56:42 +0000 (Sat, 26 Mar 2011) | 1 line
+Changed paths:
+   M /trunk/Caster.lua
+   M /trunk/DrDamage.lua
+
+- Now displays current version as a title in the actionbar options
+------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("DarkIronGolemCouncil", "DBM-BlackwingDescent")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5637 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 5654 $"):sub(12, -3))
 mod:SetCreatureID(42180, 42178, 42179, 42166)
 mod:SetZone()
 mod:SetUsedIcons(1, 3, 6, 7, 8)
@@ -103,6 +103,8 @@ mod:AddBoolOption("SetIconOnActivated")
 
 local pulled = false
 local cloudSpam = 0
+local lastActivate = 0
+local activateThreshold = 25
 local lastInterrupt = 0
 local incinerateCast = 0
 local encasing = false
@@ -182,8 +184,12 @@ function mod:OnCombatStart(delay)
 	lastInterrupt = 0
 	encasing = false
 	incinerateCast = 0
+	lastActivate = 0
 	if mod:IsDifficulty("heroic10", "heroic25") then
 		berserkTimer:Start(-delay)
+		activateThreshold = 25
+	else
+		activateThreshold = 40
 	end
 	DBM.BossHealth:Clear()
 	DBM.BossHealth:AddBoss(42180, 42178, 42179, 42166, L.name)
@@ -194,9 +200,10 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(78740, 95016, 95017, 95018) then
+	if args:IsSpellID(78740, 95016, 95017, 95018) and GetTime() - lastActivate > activateThreshold then--Ignore any activates that fire too close to eachother thanks to 4.1 screwing it up.
 		warnActivated:Show(args.destName)
 		bossActivate(args.destName)
+		lastActivate = GetTime()
 		if pulled then -- prevent show warning when first pulled.
 			specWarnActivated:Show(args.destName)
 		end
@@ -258,7 +265,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnChemicalCloud:Show()
 		cloudSpam = GetTime()
 	elseif args:IsSpellID(79629, 91555, 91556, 91557) and args:IsDestTypeHostile() then--Check if Generator buff is gained by a hostile.
-		local targetCID = self:GetUnitCreatureID("target")--Get CID of current target
+		local targetCID = self:GetUnitCreatureId("target")--Get CID of current target
 		if args:GetDestCreatureID() == targetCID and args:GetDestCreatureID() ~= 42897 then--If target gaining buff is target then not an ooze (only hostiles left filtering oozes is golems)
 			specWarnGenerator:Show(args.destName)--Show special warning to move him out of it.
 		end

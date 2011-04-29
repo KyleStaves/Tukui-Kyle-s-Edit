@@ -259,7 +259,8 @@ function DrDamage:PlayerData()
 			calculation.SPBonus_dot = Talents["Efflorescence"] * calculation.SPBonus
 			calculation.eDuration = 7
 			calculation.sTicks = 1
-			calculation.aoe = 6
+			calculation.aoe = 3
+			calculation.NoCrits = true
 			if Talents["Master Shapeshifter"] and (GetShapeshiftForm() == 0 or ActiveAuras["Tree of Life"]) then
 				calculation.dmgM_dot = calculation.dmgM_dot * 1.04
 			end
@@ -592,6 +593,9 @@ function DrDamage:PlayerData()
 			end
 		end
 	}
+	--Nature's Swiftness 4.1
+	self.PlayerAura[GetSpellInfo(17116)] = { Spells = { "Nourish", "Healing Touch", "Regrowth", "Wrath" }, Value = .5, ID = 17116, NoManual = true }
+	
 --Target
 	--Rejuvenation - 4.0
 	self.TargetAura[GetSpellInfo(774)] = { School = "Healing", ActiveAura = "Rejuvenation", Index = true, SelfCastBuff = true, ID = 774 }
@@ -709,7 +713,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(78674)] = {
 			["Name"] = "Starsurge",
 			["ID"] = 78674,
-			["Data"] = { 1.535, 0.32, 1.535 },
+			["Data"] = { 1.228, 0.32, 1.228 },
 			[0] = { School = "Spellstorm", Double = { "Nature", "Arcane" }, Cooldown = 15 },
 			[1] = { 0, 0, },
 		},
@@ -744,7 +748,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(33763)] = {
 			["Name"] = "Lifebloom",
 			["ID"] = 33763,
-			["Data"] = { 2.3374, 0, 0.355, 0.2314, 0, 0.0234 },
+			["Data"] = { 1.8729, 0, 0.284, 0.2314, 0, 0.0234 },
 			[0] = { School = { "Nature", "Healing" }, Hits_dot = 10, eDuration = 10, sTicks = 1, DotStacks = 3, },
 			[1] = { 0, 0, hybridDotDmg = 0, },
 		},
@@ -853,14 +857,14 @@ function DrDamage:PlayerData()
 		["Swipe (Bear)"] = {
 			["Name"] = "Swipe (Bear)",
 			["ID"] = 779,
-			["Data"] = { 0.145 },
-			[0] = { Melee = true, APBonus = 0.114, requiresForm = 1, AoE = true, Cooldown = 6 },
+			["Data"] = { 0.1741 },
+			[0] = { Melee = true, APBonus = 0.114, requiresForm = 1, AoE = true, Cooldown = 3 },
 			[1] = { 0 },
 		},
 		["Swipe (Cat)"] = {
 			["Name"] = "Swipe (Cat)",
 			["ID"] = 62078,
-			["Data"] = { 0, ["weaponDamage"] = 2.32, ["PPL_start"] = 36, ["PPL"] = 2.341 },
+			["Data"] = { 0, ["weaponDamage"] = 4.64, ["PPL_start"] = 36, ["PPL"] = 4.682 },
 			[0] = { Melee = true, requiresForm = 3, AoE = true },
 			[1] = { 0 },
 		},		
@@ -916,14 +920,14 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(33745)] = {
 					["Name"] = "Lacerate",
 					["ID"] = 33745,
-					["Data"] = { 0.2, ["extra"] = 0.016 },
+					["Data"] = { 2.117, ["extra"] = 0.016 },
 					[0] = { Melee = true, APBonus = 0.0766, Hits_extra = 5, APBonus_extra = 0.00512, E_eDuration = 15, E_Ticks = 3, E_canCrit = true, BleedExtra = true, requiresForm = 1 },
 					[1] = { 0, Extra = 0 },
 		},
 		[GetSpellInfo(77758)] = {
 					["Name"] = "Thrash",
 					["ID"] = 77758,
-					["Data"] = { 0.229, 0.21, ["extra"] = 0.128 },
+					["Data"] = { 0.344, 0.21, ["extra"] = 0.192 },
 					[0] = { Melee = true, APBonus = 0.154, Hits_extra = 3, APBonus_extra = 0.026, E_eDuration = 6, E_Ticks = 2, E_canCrit = true, requiresForm = 1, Cooldown = 6, E_AoE = true },
 					[1] = { 0, 0, Extra = 0 },
 		},
@@ -993,12 +997,15 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(33879)] = { 	[1] = { Effect = 0.05, Caster = true, Spells = { "Healing Touch", "Nourish" }, }, 
 									[2] = { Effect = 0.05, Caster = true, Spells = "Regrowth", ModType = "dmgM_dd_Add" }, },
 		--Efflorescense
-		[GetSpellInfo(34151)] = { 	[1] = { Effect = 0.1, Caster = true, Spells = "Swiftmend", ModType = "Efflorescence", }, },
+		[GetSpellInfo(34151)] = { 	[1] = { Effect = 0.28, Caster = true, Spells = "Swiftmend", ModType = "Efflorescence", }, },
 
 		--Gift of the Earthmother (multiplicative - 4.0)
 		[GetSpellInfo(51179)] = { 	[1] = { Effect = 0.05, Caster = true, Spells = "Lifebloom", Multiply = true, ModType = "dmgM_dd" },
 									[2] = { Effect = 0.05, Caster = true, Spells = "Rejuvenation", ModType = "Gift of the Earthmother" }, },
 		--Swift Rejuvenation
 		[GetSpellInfo(33886)] = { 	[1] = { Effect = -0.5, Caster = true, Spells = "Rejuvenation", ModType = "castTime" }, },
+
+		--Nature's Swiftness
+		[GetSpellInfo(17116)] = { 	[1] = { Effect = 0.5, Caster = true, Spells = { "Nourish", "Healing Touch", "Regrowth", "Wrath" }, Manual = "Nature's Swiftness" }, },
 	}
 end

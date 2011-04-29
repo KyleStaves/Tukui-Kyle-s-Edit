@@ -1,6 +1,6 @@
 -- (c) 2009-2011, all rights reserved.
--- $Revision: 657 $
--- $Date: 2011-02-26 15:40:18 +1100 (Sat, 26 Feb 2011) $
+-- $Revision: 687 $
+-- $Date: 2011-04-28 10:24:22 +1000 (Thu, 28 Apr 2011) $
 
 ArkInventory = LibStub( "AceAddon-3.0" ):NewAddon( "ArkInventory", "AceConsole-3.0", "AceHook-3.0", "AceEvent-3.0", "AceBucket-3.0" )
 
@@ -31,8 +31,8 @@ ArkInventory.Const = { -- constants
 	
 	Program = {
 		Name = "ArkInventory",
-		Version = 3.0277,
-		UIVersion = "3.2.77",
+		Version = 3.0278,
+		UIVersion = "3.2.78",
 		--Beta = "ALPHA",
 	},
 	
@@ -7611,6 +7611,9 @@ function ArkInventory.BlizzardAPIHooks( disable )
 		ArkInventory.MyUnhook( "OpenBag" )
 		ArkInventory.MyUnhook( "ToggleBag" )
 		ArkInventory.MyUnhook( "OpenAllBags" )
+		if ToggleAllBags then
+			ArkInventory.MyUnhook( "ToggleAllBags" )
+		end
 		
 	else
 	
@@ -7619,7 +7622,10 @@ function ArkInventory.BlizzardAPIHooks( disable )
 		ArkInventory.MyHook( "OpenBag", "HookOpenBag", true )
 		ArkInventory.MyHook( "ToggleBag", "HookToggleBag", true )
 		ArkInventory.MyHook( "OpenAllBags", "HookOpenAllBags", true )
-		
+		if ToggleAllBags then
+			ArkInventory.MyHook( "ToggleAllBags", "HookToggleAllBags", true )
+		end
+	
 	end
 
 	
@@ -7885,30 +7891,33 @@ function ArkInventory.HookOpenAllBags( self, forceOpen )
 	
 	--ArkInventory.Output( "HookOpenAllBags( ", forceOpen, " )" )
 	
-	-- we control both so just toggle the bag and return
+	-- we control both bag and bank so just toggle the bag and return
 	if ArkInventory.LocationIsControlled( ArkInventory.Const.Location.Bag ) and ArkInventory.LocationIsControlled( ArkInventory.Const.Location.Bank ) then
+		
 		if forceOpen then
 			ArkInventory.Frame_Main_Show( ArkInventory.Const.Location.Bag )
 		else
 			ArkInventory.Frame_Main_Toggle( ArkInventory.Const.Location.Bag )
 		end
+		
 		return
+		
 	end
 	
 	-- we only control one of the bag or bank
 	
 	-- modified from blizzard containerframe.lua
 	
-	local BACKPACK_WAS_OPEN = ArkInventory.Frame_Main_Get( ArkInventory.Const.Location.Bag ):IsVisible( )
 	local bagsShown = 0
 	local bagsTotal = 0
 	
-	-- close all opened blizzard bag frames
+	-- close all opened blizzard bag frames, but count how many were already opened
+	
 	for i = 1, NUM_CONTAINER_FRAMES do
 		
-		local containerFrame = _G["ContainerFrame"..i]
+		local containerFrame = _G["ContainerFrame" .. i]
 		
-		if containerFrame:IsShown( ) then
+		if containerFrame and containerFrame:IsShown( ) then
 			if containerFrame:GetID() ~= KEYRING_CONTAINER then
 				bagsShown = bagsShown + 1
 				containerFrame:Hide( )
@@ -7920,52 +7929,72 @@ function ArkInventory.HookOpenAllBags( self, forceOpen )
 	
 	if not ArkInventory.LocationIsControlled( ArkInventory.Const.Location.Bag ) then
 		
-		-- we dont control the bag
+		-- bags not overridden, need to open/close them manually
 		
-		-- find max number of bags
+		-- find max number of bags that could be open
+		
 		bagsTotal = 1
 		for x = 1, NUM_BAG_SLOTS do
-			if GetContainerNumSlots(x) > 0 then		
+			if GetContainerNumSlots( x ) > 0 then		
 				bagsTotal = bagsTotal + 1
 			end
 		end
 		
-		-- open all bags or leave them closed
-		if ( bagsShown < bagsTotal ) or forceOpen then
+		if forceOpen or ( bagsShown < bagsTotal ) then
+			
+			-- not all bags were open, or we are forcing them open, so open all bags
+			
 			OpenBackpack( )
+			
 			for x = 1, NUM_BAG_SLOTS do
 				OpenBag( x )
 			end
+			
 		end
 		
 		return
 		
 	end
 	
-	
 	if not ArkInventory.LocationIsControlled( ArkInventory.Const.Location.Bank ) then
 		
-		-- we dont control the bank
+		-- bank not overridden, need to open/close the bank bags manually
 		
 		if ArkInventory.Global.Mode.Bank then
 			
-			-- find max number of bags
-			bagsTotal = 0
+			-- find max number of bank bags that could be open
+			
+			local BACKPACK_WAS_OPEN = ArkInventory.Frame_Main_Get( ArkInventory.Const.Location.Bag ):IsVisible( )
+			
+			if BACKPACK_WAS_OPEN then
+				bagsShown = bagsShown + 1
+			end
+			
+			bagsTotal = 1
 			for x = NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS do
-				if GetContainerNumSlots(x) > 0 then		
+				if GetContainerNumSlots( x ) > 0 then
 					bagsTotal = bagsTotal + 1
 				end
 			end
 			
-			if ( bagsShown < bagsTotal ) or forceOpen then
+			--ArkInventory.Output( bagsShown, " / ", bagsTotal, " / ", forceOpen )
+			
+			if forceOpen or ( bagsShown > 0 and bagsShown < bagsTotal ) then
+				
 				for x = NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS do
 					OpenBag( x )
 				end
-				ArkInventory.Frame_Main_Show( ArkInventory.Const.Location.Bag )
+				
+				if not BACKPACK_WAS_OPEN then
+					ArkInventory.Frame_Main_Show( ArkInventory.Const.Location.Bag )
+				end
+				
 			else
-				--ArkInventory.Frame_Main_Hide( ArkInventory.Const.Location.Bag )
+				
+				ArkInventory.Frame_Main_Toggle( ArkInventory.Const.Location.Bag )
+				
 			end
-		
+
 		else
 		
 			ArkInventory.Frame_Main_Toggle( ArkInventory.Const.Location.Bag )
@@ -7976,8 +8005,12 @@ function ArkInventory.HookOpenAllBags( self, forceOpen )
 		
 	end
 	
-	ArkInventory.OutputError( "Code failure at OpenAllBags( ), you should never have got here." )
+	ArkInventory.OutputError( "code failure: HookOpenAllBags( ), you should never have got here." )
 	
+end
+
+function ArkInventory.HookToggleAllBags( self )
+	ArkInventory.HookOpenAllBags( self )
 end
 
 function ArkInventory.HookDoNothing( self )

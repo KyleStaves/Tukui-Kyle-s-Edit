@@ -52,10 +52,11 @@ function DrDamage:PlayerData()
 		local masteryLast = calculation.masteryLast
 		local spec = calculation.spec
 		if spec == 1 then
+			-- Updated for 4.1 -- Illuminated Healing bonus increased from 1.25% to 1.5% per mastery
 			if mastery > 0 and mastery ~= masteryLast then
 				if calculation.healingSpell and calculation.spellName ~= "Holy Radiance" and calculation.spellName ~= "Light of Dawn" then
 					--Mastery: Illuminated Healing
-					calculation.extraAvg = mastery * 0.01 * 1.25
+					calculation.extraAvg = mastery * 0.01 * 1.5
 					calculation.masteryLast = mastery
 				end
 			end
