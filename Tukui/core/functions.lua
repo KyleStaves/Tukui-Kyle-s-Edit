@@ -378,7 +378,7 @@ T.PostUpdateHealth = function(health, unit, min, max)
 			end
 		end
 		
-		if unit == "target" or unit == "boss1" or unit == "boss2" or unit == "boss3" or unit == "boss4" or unit == "boss5" or unit == "boss6" or unit == "boss7" then
+		if unit == "target" then
 			if min ~= max then
 				local r, g, b
 				r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
@@ -392,6 +392,22 @@ T.PostUpdateHealth = function(health, unit, min, max)
 			else
 
 				health.value:SetFormattedText("|cff559655"..ShortValue(max).."|r")
+
+			end
+		elseif unit == "boss1" or unit == "boss2" or unit == "boss3" or unit == "boss4" or unit == "boss5" or unit == "boss6" or unit == "boss7" then
+			if min ~= max then
+				local r, g, b
+				r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+
+				if C["unitframes"].showtotalhpmp == true then
+					health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r",ShortValue(min), ShortValue(max))
+				else
+					health.value:SetFormattedText("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r",ShortValue(min), r * 255, g * 255, b * 255, floor(min / max * 100))
+				end
+
+			else
+
+				health.value:SetFormattedText("|cff559655"..floor(min / max * 100+0.5).."|r")
 
 			end
 		else
@@ -553,7 +569,13 @@ T.PostUpdatePower = function(power, unit, min, max)
 				power.value:SetText(min)
 			end
 		else
-			if unit == "pet" or unit == "target" or unit == "focus" or unit == "focustarget" or (unit and unit:find("arena%d")) then
+			if unit == "player" then
+				if max > 999 then
+					power.value:SetText(floor(min/max*100+.5))
+				else
+					power.value:SetText(min)
+				end
+			elseif unit == "pet" or unit == "target" or unit == "focus" or unit == "focustarget" or (unit and unit:find("arena%d")) then
 				power.value:SetText(ShortValue(min))
 			else
 				power.value:SetText(min)
