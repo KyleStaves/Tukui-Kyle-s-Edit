@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 3362 2011-04-24 18:12:18Z trasher $
+﻿-- $Id: constants.fr.lua 3372 2011-04-29 11:18:45Z trasher $
 --[[
 constants.fr.lua --- Traduction frFR par Trasher. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -1125,6 +1125,7 @@ if AL then
 	AL["Dinner Suit Box"] = "Boîte d'habit de soirée";
 	AL["Bag of Heart Candies"] = "Sachet de bonbons en forme de cœur";
 	AL["Hidden Stash"] = "Fortune cachée";
+	--AL["The Cache of Madness"] = true; -- à traduire
 
 	-- Error Messages and warnings
 	AL["AtlasLoot Error!"] = "Erreur AtlasLoot !";

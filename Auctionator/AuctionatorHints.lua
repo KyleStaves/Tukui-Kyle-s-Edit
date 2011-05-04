@@ -1,7 +1,7 @@
 
 local addonName, addonTable = ...; 
 local zc = addonTable.zc;
-
+local zz = zc.md;
 
 -----------------------------------------
 
@@ -42,27 +42,12 @@ end
 
 ------------------------------------------------
 
-function Atr_BuildHints (itemName)
+function Atr_BuildHints (itemName, itemLink)
 
 	local results = {};
 
-	local itemLink = Atr_GetItemLink (itemName);
-
 	if (itemLink == nil and itemName == nil) then
 		return results;
-	end
-
-	-- Auctionator Full Scan
-	
-	if (itemName ~= nil and gAtr_ScanDB[itemName] ~= nil) then
-		Atr_AppendHint (results, gAtr_ScanDB[itemName], ZT("Auctionator scan data"));
-	end
-
-	-- most recent historical price
-	
-	local price = Atr_GetMostRecentSale(itemName);
-	if (price ~= nil) then
-		Atr_AppendHint (results, price, ZT("your most recent posting"));
 	end
 
 	-- Wowecon
@@ -121,82 +106,11 @@ end
 
 -----------------------------------------
 
-function Atr_ShowHints ()
-
-	Atr_Col1_Heading:Hide();
-	Atr_Col3_Heading:Hide();
-	Atr_Col4_Heading:Hide();
-
-	Atr_Col3_Heading:SetText (ZT("Source"));
-
-	local currentPane = Atr_GetCurrentPane();
-
-	currentPane.hints = Atr_BuildHints (currentPane.activeScan.itemName);
-	
-	local numrows = currentPane.hints and #currentPane.hints or 0;
-
-	if (numrows > 0) then
-		Atr_Col1_Heading:Show();
-		Atr_Col3_Heading:Show();
-	end
-
-	local line;							-- 1 through 12 of our window to scroll
-	local dataOffset;					-- an index into our data calculated from the scroll offset
-
-	FauxScrollFrame_Update (AuctionatorScrollFrame, numrows, 12, 16);
-
-	for line = 1,12 do
-
-		dataOffset = line + FauxScrollFrame_GetOffset (AuctionatorScrollFrame);
-
-		local lineEntry = getglobal ("AuctionatorEntry"..line);
-
-		lineEntry:SetID(dataOffset);
-
-		if (dataOffset <= numrows and currentPane.hints[dataOffset]) then
-
-			local data = currentPane.hints[dataOffset];
-
-			local lineEntry_item_tag = "AuctionatorEntry"..line.."_PerItem_Price";
-
-			local lineEntry_item		= getglobal(lineEntry_item_tag);
-			local lineEntry_itemtext	= getglobal("AuctionatorEntry"..line.."_PerItem_Text");
-			local lineEntry_text		= getglobal("AuctionatorEntry"..line.."_EntryText");
-			local lineEntry_stack		= getglobal("AuctionatorEntry"..line.."_StackPrice");
-
-			lineEntry_item:Show();
-			lineEntry_itemtext:Hide();
-			lineEntry_stack:SetText	("");
-
-			Atr_SetMFcolor (lineEntry_item_tag, true);
-
-			MoneyFrame_Update (lineEntry_item_tag, zc.round(data.price) );
-
-			local text = data.text;
-			if (data.volume) then
-				text = text.." ("..ZT("trade volume")..": "..data.volume..")";
-			end
-			
-			lineEntry_text:SetText (text);
-			lineEntry_text:SetTextColor (0.8, 0.8, 1.0);
-
-			lineEntry:Show();
-		else
-			lineEntry:Hide();
-		end
-	end
-
-	Atr_HighlightEntry (currentPane.hintsIndex);
-end
-
-
------------------------------------------
-
 function Atr_SetMFcolor (frameName, blue)
 
-	local goldButton = getglobal(frameName.."GoldButton");
-	local silverButton = getglobal(frameName.."SilverButton");
-	local copperButton = getglobal(frameName.."CopperButton");
+	local goldButton   = _G[frameName.."GoldButton"];
+	local silverButton = _G[frameName.."SilverButton"];
+	local copperButton = _G[frameName.."CopperButton"];
 
 	if (blue) then
 		goldButton:SetNormalFontObject(NumberFontNormalRightATRblue);
@@ -227,11 +141,11 @@ function Atr_GetAuctionPrice (item)  -- itemName or itemID
 		return nil;
 	end
 
-	if (gAtr_ScanDB[itemName]) then
-		return gAtr_ScanDB[itemName];
+	if ((type(gAtr_ScanDB) == "table") and gAtr_ScanDB[itemName] and gAtr_ScanDB[itemName].mr) then
+		return gAtr_ScanDB[itemName].mr;
 	end
 	
-	return Atr_GetMostRecentSale (itemName);
+	return nil;
 end	
 
 -----------------------------------------
@@ -330,6 +244,23 @@ local GREATER_COSMIC	= 34055;
 local LESSER_COSMIC		= 34056;
 local ABYSS_CRYSTAL		= 34057;
 
+local HEAVENLY_SHARD	= 52721;
+local SMALL_HEAVENLY	= 52720;
+
+local HYPN_DUST			= 52555;
+local GREATER_CEL		= 52719;
+local LESSER_CEL		= 52718;
+local MAELSTROM_CRYSTAL	= 52722;
+
+--[[
+local CINDERBLOOM		= 52983;
+local STORMVINE			= 52984;
+local AZSHARAS_VEIL		= 52985;
+local HEARTBLOSSOM		= 52986;
+local WHIPTAIL			= 52988;
+local ASHEN_PIGMENT		= 61979;
+]]--
+
 local engDEnames = {};
 
 engDEnames [LESSER_MAGIC]		= "Lesser Magic Essence";
@@ -378,6 +309,14 @@ engDEnames [INFINITE_DUST]		= "Infinite Dust";
 engDEnames [GREATER_COSMIC]		= "Greater Cosmic Essence";
 engDEnames [LESSER_COSMIC]		= "Lesser Cosmic Essence";
 engDEnames [ABYSS_CRYSTAL]		= "Abyss Crystal";
+
+engDEnames [HEAVENLY_SHARD]		= "Heavenly Shard";
+engDEnames [SMALL_HEAVENLY]		= "Small Heavenly Shard";
+
+engDEnames [HYPN_DUST]			= "Hypnotic Dust";
+engDEnames [GREATER_CEL]		= "Greater Celestial Essence";
+engDEnames [LESSER_CEL]			= "Lesser Celestial Essence";
+engDEnames [MAELSTROM_CRYSTAL]	= "Maelstrom Crystal";
 
 
 local dustsAndEssences = {};
@@ -429,14 +368,29 @@ tinsert (dustsAndEssences, GREATER_COSMIC)
 tinsert (dustsAndEssences, LESSER_COSMIC)
 tinsert (dustsAndEssences, ABYSS_CRYSTAL)
 
-gAtr_dustCacheIndex = 1;
-local dustCacheState = 0;
+tinsert (dustsAndEssences, HEAVENLY_SHARD)
+tinsert (dustsAndEssences, SMALL_HEAVENLY)
+                        
+tinsert (dustsAndEssences, HYPN_DUST)
+tinsert (dustsAndEssences, GREATER_CEL)
+tinsert (dustsAndEssences, LESSER_CEL)
+tinsert (dustsAndEssences, MAELSTROM_CRYSTAL)
 
+
+gAtr_dustCacheIndex = 1;
+
+local DUST_CACHE_READY_FOR_NEXT  = 0;
+local DUST_CACHE_WAITING_ON_PREV = 1;
+
+local dustCacheState = DUST_CACHE_READY_FOR_NEXT;
+
+local dustCacheNotFound = 0;
+local dustCacheFound = 0;
 -----------------------------------------
 
-function Atr_GetNextDustIntoCache()		-- make sure all the dusts and essences are in the local cache
-										-- only needed after a major patch and a cache wipe
-	if (gAtr_dustCacheIndex == 0) then
+function Atr_GetNextDustIntoCache()		-- make sure all the dusts and essences are in the RAM cache
+										
+	if (gAtr_dustCacheIndex == 0 or AtrScanningTooltip == nil) then
 		return;
 	end
 
@@ -445,19 +399,23 @@ function Atr_GetNextDustIntoCache()		-- make sure all the dusts and essences are
 	
 	local itemName, itemLink = GetItemInfo(itemString);
 	
-	if (itemLink == nil and dustCacheState == 0) then
-		dustCacheState = 1;
-		zc.md ("pulling "..itemString.." into the local cache");
+	if (itemLink == nil and dustCacheState == DUST_CACHE_READY_FOR_NEXT) then
+		dustCacheState = DUST_CACHE_WAITING_ON_PREV;
 		AtrScanningTooltip:SetHyperlink(itemString);
+		local _, link = GetItemInfo(itemString);
+--		zc.md ("pulling "..itemString.." into the local cache   ", dustCacheState);
+		dustCacheNotFound = dustCacheNotFound + 1;
 	end
 
 	if (itemLink) then
-		--zc.md (itemName.." is already in local cache");
-		dustCacheState = 0;
+--		zc.md (itemLink.." is in RAM cache");
+		dustCacheFound = dustCacheFound + 1;
+		dustCacheState = DUST_CACHE_READY_FOR_NEXT;
 		gAtr_dustCacheIndex = gAtr_dustCacheIndex + 1;
 		
 		if (gAtr_dustCacheIndex > #dustsAndEssences) then
 			gAtr_dustCacheIndex = 0;		-- finished
+--			zc.md ("num items pulled into memory: ", dustCacheNotFound, "out of", dustCacheFound);
 		end
 	end
 end
@@ -488,6 +446,11 @@ function Atr_GetAuctionPriceDE (itemID)  -- same as Atr_GetAuctionPrice but unde
 
 	local lesserPrice;
 	local greaterPrice;
+	
+	if (itemID == LESSER_CEL) then
+		lesserPrice  = Atr_GetAuctionPrice (Atr_GetDEitemName (LESSER_CEL));
+		greaterPrice = Atr_GetAuctionPrice (Atr_GetDEitemName (GREATER_CEL));
+	end
 	
 	if (itemID == LESSER_COSMIC) then
 		lesserPrice  = Atr_GetAuctionPrice (Atr_GetDEitemName (LESSER_COSMIC));
@@ -557,7 +520,7 @@ end
 function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_tables
 
 
-	-- UNCOMMON ARMOR
+	-- UNCOMMON (GREEN) ARMOR
 
 	deTable[deKey(ARMOR, UNCOMMON)] = {};
 	
@@ -581,8 +544,22 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {121, 151,	75, {1,3}, INFINITE_DUST,	22, {1,2}, LESSER_COSMIC,	3, 1, SMALL_DREAM});
 	DEtableInsert (t, {152, 200,	75, {4,7}, INFINITE_DUST,	22, {1,2}, GREATER_COSMIC,	3, 1, DREAM_SHARD});
 
+	DEtableInsert (t, {272,272        ,34,1,HYPN_DUST       ,41,2,HYPN_DUST       ,13,1,LESSER_CEL       ,12,2,LESSER_CEL  })
+	DEtableInsert (t, {278,278        ,31,1,HYPN_DUST       ,20,2,HYPN_DUST       ,22,3,HYPN_DUST       ,9,1,LESSER_CEL       ,11,2,LESSER_CEL       ,6,3,LESSER_CEL  })
+	DEtableInsert (t, {283,283        ,28,1,HYPN_DUST       ,21,2,HYPN_DUST       ,24,3,HYPN_DUST       ,1,4,HYPN_DUST       ,8,1,LESSER_CEL       ,9,2,LESSER_CEL       ,9,3,LESSER_CEL  })
+	DEtableInsert (t, {285,285        ,28,1,HYPN_DUST       ,25,2,HYPN_DUST       ,20,3,HYPN_DUST       ,0,4,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,0,6,LESSER_CEL  })
+	DEtableInsert (t, {289,289        ,25,1,HYPN_DUST       ,25,2,HYPN_DUST       ,25,3,HYPN_DUST       ,0,4,HYPN_DUST       ,0,5,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,8,3,LESSER_CEL       ,0,5,LESSER_CEL  })
+	DEtableInsert (t, {295,295        ,21,1,HYPN_DUST       ,19,2,HYPN_DUST       ,22,3,HYPN_DUST       ,17,4,HYPN_DUST       ,7,2,LESSER_CEL       ,8,3,LESSER_CEL       ,6,4,LESSER_CEL  })
+	DEtableInsert (t, {300,300        ,18,1,HYPN_DUST       ,20,2,HYPN_DUST       ,19,3,HYPN_DUST       ,19,4,HYPN_DUST       ,0,6,HYPN_DUST       ,8,2,LESSER_CEL       ,10,3,LESSER_CEL       ,7,4,LESSER_CEL  })
+	DEtableInsert (t, {305,305        ,15,1,HYPN_DUST       ,12,2,HYPN_DUST       ,26,3,HYPN_DUST       ,20,4,HYPN_DUST       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,9,4,LESSER_CEL  })
+	DEtableInsert (t, {306,306        ,24,2,HYPN_DUST       ,26,3,HYPN_DUST       ,26,4,HYPN_DUST       ,12,1,GREATER_CEL       ,12,2,GREATER_CEL  })
+	DEtableInsert (t, {312,312        ,29,2,HYPN_DUST       ,30,3,HYPN_DUST       ,20,4,HYPN_DUST       ,11,1,GREATER_CEL       ,11,2,GREATER_CEL  })
+	DEtableInsert (t, {316,316        ,18,2,HYPN_DUST       ,18,3,HYPN_DUST       ,22,4,HYPN_DUST       ,16,5,HYPN_DUST       ,14,2,GREATER_CEL       ,12,3,GREATER_CEL  })
+	DEtableInsert (t, {318,318        ,14,2,HYPN_DUST       ,21,3,HYPN_DUST       ,22,4,HYPN_DUST       ,18,5,HYPN_DUST       ,12,2,GREATER_CEL       ,13,3,GREATER_CEL  })
+	DEtableInsert (t, {325,325        ,17,3,HYPN_DUST       ,17,4,HYPN_DUST       ,17,5,HYPN_DUST       ,50,2,GREATER_CEL  })
+	DEtableInsert (t, {333,333        ,12,2,HYPN_DUST       ,24,3,HYPN_DUST       ,12,4,HYPN_DUST       ,29,5,HYPN_DUST       ,18,2,GREATER_CEL       ,6,3,GREATER_CEL  })
 
-	-- UNCOMMON WEAPONS
+	-- UNCOMMON (GREEN) WEAPONS
 
 	deTable[deKey(WEAPON, UNCOMMON)] = {};
 	
@@ -603,8 +580,21 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {100, 120,	22, {2,5}, ARCANE_DUST,		75, {1,2}, GREATER_PLANAR,	3, 1, LARGE_PRISMATIC});
 	DEtableInsert (t, {121, 151,	22, {1,3}, INFINITE_DUST,	75, {1,2}, LESSER_COSMIC,	3, 1, SMALL_DREAM});
 	DEtableInsert (t, {152, 200,	22, {4,7}, INFINITE_DUST,	75, {1,2}, GREATER_COSMIC,	3, 1, DREAM_SHARD});
+
+	DEtableInsert (t, {272,272        ,12,1,HYPN_DUST       ,11,2,HYPN_DUST       ,33,1,LESSER_CEL       ,45,2,LESSER_CEL  })
+	DEtableInsert (t, {278,278        ,16,1,HYPN_DUST       ,8,2,HYPN_DUST       ,4,3,HYPN_DUST       ,16,1,LESSER_CEL       ,28,2,LESSER_CEL       ,28,3,LESSER_CEL  })
+	DEtableInsert (t, {283,283        ,7,1,HYPN_DUST       ,5,2,HYPN_DUST       ,17,3,HYPN_DUST       ,22,1,LESSER_CEL       ,22,2,LESSER_CEL       ,25,3,LESSER_CEL  })
+	DEtableInsert (t, {289,289        ,8,1,HYPN_DUST       ,8,2,HYPN_DUST       ,25,1,LESSER_CEL       ,33,2,LESSER_CEL       ,27,3,LESSER_CEL  })
+	DEtableInsert (t, {295,295        ,2,1,HYPN_DUST       ,16,2,HYPN_DUST       ,5,3,HYPN_DUST       ,3,4,HYPN_DUST       ,17,2,LESSER_CEL       ,30,3,LESSER_CEL       ,28,4,LESSER_CEL  })
+	DEtableInsert (t, {300,300        ,4,1,HYPN_DUST       ,10,2,HYPN_DUST       ,10,3,HYPN_DUST       ,8,4,HYPN_DUST       ,25,2,LESSER_CEL       ,16,3,LESSER_CEL       ,27,4,LESSER_CEL  })
+	DEtableInsert (t, {305,305        ,25,2,HYPN_DUST       ,25,3,HYPN_DUST       ,37,3,LESSER_CEL       ,12,4,LESSER_CEL  })
+	DEtableInsert (t, {306,306        ,11,2,HYPN_DUST       ,8,3,HYPN_DUST       ,11,4,HYPN_DUST       ,36,1,GREATER_CEL       ,35,2,GREATER_CEL  })
+	DEtableInsert (t, {312,312        ,11,2,HYPN_DUST       ,7,3,HYPN_DUST       ,8,4,HYPN_DUST       ,42,1,GREATER_CEL       ,31,2,GREATER_CEL  })
+	DEtableInsert (t, {317,317        ,6,2,HYPN_DUST       ,7,3,HYPN_DUST       ,7,4,HYPN_DUST       ,6,5,HYPN_DUST       ,37,2,GREATER_CEL       ,36,3,GREATER_CEL       ,1,5,GREATER_CEL  })
+	DEtableInsert (t, {318,318        ,21,3,HYPN_DUST       ,5,5,HYPN_DUST       ,42,2,GREATER_CEL       ,32,3,GREATER_CEL  })
+
 	
-	-- RARE ITEMS
+	-- RARE (BLUE) ARMOR
 	
 	deTable[deKey(ARMOR, RARE)] = {};
 	
@@ -621,10 +611,45 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {66, 99,		99.5, 1, SMALL_PRISMATIC,		0.5, 1, NEXUS_CRYSTAL});
 	DEtableInsert (t, {100, 120,	99.5, 1, LARGE_PRISMATIC,		0.5, 1, VOID_CRYSTAL});
 	DEtableInsert (t, {121, 164,	99.5, 1, SMALL_DREAM,			0.5, 1, ABYSS_CRYSTAL});
-	DEtableInsert (t, {165, 999,	99.5, 1, DREAM_SHARD,			0.5, 1, ABYSS_CRYSTAL});
+	DEtableInsert (t, {165, 280,	99.5, 1, DREAM_SHARD,			0.5, 1, ABYSS_CRYSTAL});
 
-	deTable[deKey(WEAPON, RARE)] = deTable[deKey(ARMOR, RARE)];
+	DEtableInsert (t, {288,288        ,100,1,SMALL_HEAVENLY  })
+	DEtableInsert (t, {292,292        ,100,1,SMALL_HEAVENLY  })
+	DEtableInsert (t, {300,300        ,95,1,SMALL_HEAVENLY       ,5,2,SMALL_HEAVENLY  })
+	DEtableInsert (t, {308,308        ,100,1,SMALL_HEAVENLY  })
+	DEtableInsert (t, {316,316        ,100,1,SMALL_HEAVENLY  })
+	DEtableInsert (t, {318,318        ,100,1,HEAVENLY_SHARD  })
+	DEtableInsert (t, {325,325        ,100,1,HEAVENLY_SHARD  })
+	DEtableInsert (t, {333,333        ,97,1,HEAVENLY_SHARD       ,3,2,HEAVENLY_SHARD  })
+	DEtableInsert (t, {339,339        ,98,1,HEAVENLY_SHARD       ,2,2,HEAVENLY_SHARD  })
+	DEtableInsert (t, {346,346        ,99,1,HEAVENLY_SHARD       ,1,2,HEAVENLY_SHARD  })
+	DEtableInsert (t, {352,352        ,100,1,HEAVENLY_SHARD  })
 
+
+	-- RARE (BLUE) WEAPON
+	
+	deTable[deKey(WEAPON, RARE)] = {};
+	
+	t = deTable[deKey(WEAPON, RARE)];
+
+	DEtableInsert (t, {11, 25,		100, 1, SMALL_GLIMMERING});
+	DEtableInsert (t, {26, 30,		100, 1, LARGE_GLIMMERING});
+	DEtableInsert (t, {31, 35,		100, 1, SMALL_GLOWING});
+	DEtableInsert (t, {36, 40,		100, 1, LARGE_GLOWING});
+	DEtableInsert (t, {41, 45,		100, 1, SMALL_RADIANT});
+	DEtableInsert (t, {46, 50,		100, 1, LARGE_RADIANT});
+	DEtableInsert (t, {51, 55,		100, 1, SMALL_BRILLIANT});
+	DEtableInsert (t, {56, 65,		99.5, 1, LARGE_BRILLIANT,		0.5, 1, NEXUS_CRYSTAL});
+	DEtableInsert (t, {66, 99,		99.5, 1, SMALL_PRISMATIC,		0.5, 1, NEXUS_CRYSTAL});
+	DEtableInsert (t, {100, 120,	99.5, 1, LARGE_PRISMATIC,		0.5, 1, VOID_CRYSTAL});
+	DEtableInsert (t, {121, 164,	99.5, 1, SMALL_DREAM,			0.5, 1, ABYSS_CRYSTAL});
+	DEtableInsert (t, {165, 280,	99.5, 1, DREAM_SHARD,			0.5, 1, ABYSS_CRYSTAL});
+
+	DEtableInsert (t, {308,308        ,100,1,SMALL_HEAVENLY  })
+	DEtableInsert (t, {316,316        ,100,1,SMALL_HEAVENLY  })
+	DEtableInsert (t, {318,318        ,100,1,HEAVENLY_SHARD  })
+	DEtableInsert (t, {333,333        ,100,1,HEAVENLY_SHARD  })
+	DEtableInsert (t, {346,346        ,93,1,HEAVENLY_SHARD       ,7,2,HEAVENLY_SHARD  })
 
 	-- EPIC ITEMS
 	
@@ -639,10 +664,11 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 --	DEtableInsert (t, {61, 80,  FILLED IN BELOW
 	DEtableInsert (t, {95, 100,		100, {1,2}, VOID_CRYSTAL});
 	DEtableInsert (t, {105, 164,	33.3, 1, VOID_CRYSTAL,	66.6, 2, VOID_CRYSTAL});
-	DEtableInsert (t, {165, 200,	100, 1, ABYSS_CRYSTAL});
-	DEtableInsert (t, {200, 999,	100, 1, ABYSS_CRYSTAL});
+	DEtableInsert (t, {165, 280,	100, 1, ABYSS_CRYSTAL});
+	DEtableInsert (t, {281, 450,	100, 1, MAELSTROM_CRYSTAL});
 
-	deTable[deKey(WEAPON, EPIC)] = zc.CopyDeep (deTable[deKey(ARMOR, EPIC)]);	-- copy it this time because of differences
+	deTable[deKey(WEAPON, EPIC)] = {};
+	zc.CopyDeep (deTable[deKey(WEAPON, EPIC)], deTable[deKey(ARMOR, EPIC)]);	-- copy it this time because of differences
 
 	DEtableInsert (deTable[deKey(ARMOR,  EPIC)], {61, 80,	50,   1, NEXUS_CRYSTAL, 	50,   2, NEXUS_CRYSTAL});
 	DEtableInsert (deTable[deKey(WEAPON, EPIC)], {61, 80,	33.3, 1, NEXUS_CRYSTAL, 	66.6, 2, NEXUS_CRYSTAL});
@@ -674,7 +700,7 @@ end
 
 -----------------------------------------
 
-local function Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel, DEreqLevel)
+local function Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel)
 
 	local ta = Atr_FindDEentry (itemType, itemRarity, itemLevel);
 
@@ -688,11 +714,12 @@ local function Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel, DEre
 				deitem = "???";
 			end
 
-			tip:AddLine ("  |cFFFFFFFF"..percent.."%|r   "..ta[x+1].." "..deitem);
+			if (percent > 0) then
+				tip:AddLine ("  |cFFFFFFFF"..percent.."%|r   "..ta[x+1].." "..deitem)
+			end
 		end
 	end
 
-	tip:AddLine ("  |cFFAAAAFF"..ZT("Required DE skill level")..": "..DEreqLevel);
 end
 
 -----------------------------------------
@@ -751,27 +778,8 @@ local function ShowTipWithPricing (tip, link, num)
 		return;
 	end
 
---[[
-	if (num == "tradeskill") then
-	
-		local skill = link;
-	
-		local n;
-		for n = 1,GetTradeSkillNumReagents(skill) do
-			local rname, _, rnum = GetTradeSkillReagentInfo(skill, n);
-			local rlink = GetTradeSkillReagentItemLink (skill, n);
-			zc.md (skill, rlink, rnum);
-		end
-	
-		return;
-	end
-]]--
-
 	local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, _, _, _, _, itemVendorPrice = GetItemInfo (link);
 
-	local itemID = zc.ItemIDfromLink (link);
-	itemID = tonumber(itemID);
-	
 	local vendorPrice	= 0;
 	local auctionPrice	= 0;
 	local dePrice		= nil;
@@ -809,6 +817,9 @@ local function ShowTipWithPricing (tip, link, num)
 
 	if (AUCTIONATOR_A_TIPS == 1) then
 		
+		local itemID = zc.ItemIDfromLink (link);
+		itemID = tonumber(itemID);
+	
 		local bonding = Atr_GetBonding(itemID);
 		local isBOP   = (bonding == 1);
 		local isQuest = (bonding == 4 or bonding == 5);
@@ -843,7 +854,7 @@ local function ShowTipWithPricing (tip, link, num)
 	if (AUCTIONATOR_DE_DETAILS_TIPS == 5) then showDetails = true; end;
 	
 	if (showDetails and dePrice ~= nil) then
-		Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel, Atr_DEReqLevel(itemID));
+		Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel);
 	end
 
 	tip:Show()

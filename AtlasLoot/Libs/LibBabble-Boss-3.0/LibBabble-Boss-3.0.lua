@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Boss-3.0
-Revision: $Rev: 335 $
+Revision: $Rev: 337 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-boss-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Boss-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 335 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 337 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -2449,7 +2449,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Al'Akir"] = "알아키르",
 	["Al'ar"] = "알라르",
 	["Algalon the Observer"] = "관찰자 알갈론",
-	Altairus = "알타리우스",
+	Altairus = "알타이루스",
 	Altarius = "알타리우스",
 	["Alzzin the Wildshaper"] = "칼날바람 알진",
 	Amanitar = "아마니타르",

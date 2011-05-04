@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 3358 2011-04-24 10:09:02Z hegarol $
+-- $Id: constants.en.lua 3371 2011-04-28 19:57:26Z hegarol $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -1124,6 +1124,7 @@ if AL then
 	AL["Dinner Suit Box"] = true;
 	AL["Bag of Heart Candies"] = true;
 	AL["Hidden Stash"] = true;
+	AL["The Cache of Madness"] = true;
 
 	-- Error Messages and warnings
 	AL["AtlasLoot Error!"] = true;

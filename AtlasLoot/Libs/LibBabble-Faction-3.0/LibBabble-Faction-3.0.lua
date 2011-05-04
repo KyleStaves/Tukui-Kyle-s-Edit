@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Faction-3.0
-Revision: $Rev: 135 $
+Revision: $Rev: 137 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-faction-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Faction-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 135 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 137 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -329,7 +329,7 @@ elseif GAME_LOCALE == "koKR" then
 	Exalted = "확고한 동맹",
 	Exodar = "엑소다르",
 	["Explorers' League"] = "탐험가 연맹",
-	["Frenzyheart Tribe"] = "광란의심장일족",
+	["Frenzyheart Tribe"] = "광란심장 일족", -- Needs review
 	Friendly = "약간 우호적",
 	["Frostwolf Clan"] = "서리늑대 부족",
 	Gadgetzan = "가젯잔",

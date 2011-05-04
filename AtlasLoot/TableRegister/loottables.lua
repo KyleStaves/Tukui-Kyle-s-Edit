@@ -141,6 +141,8 @@ AtlasLoot_LootTableRegister = {
 				{ "ZA85Halazzi", 10 },
 				{ "ZA85Malacrass", 12 },
 				{ "ZA85Daakara", 21 },
+				{ "ZA85TimedChest", 34 },
+				{ "ZA85Trash", 35 },
 			},
 			["Info"] = { BabbleZone["Zul'Aman"].." ", "AtlasLootCataclysm" },
 		},
@@ -153,6 +155,7 @@ AtlasLoot_LootTableRegister = {
 				{ "ZGKilnara", 31 },
 				{ "ZGZanzil", 32 },
 				{ "ZGJindo", 36 },
+				{ "ZGTrash", 38 },
 			},
 			["Info"] = { BabbleZone["Zul'Gurub"], "AtlasLootCataclysm" },
 		},
@@ -1316,17 +1319,13 @@ AtlasLoot_LootTableRegister = {
 			["Info"] = { BabbleZone["The Deadmines"], {"AtlasLootClassicWoW", "AtlasLootCataclysm"}, sortOrder = { "TheDeadminesEnt", "TheDeadmines" }, mapname = "TheDeadmines" },
 		},
 
-		["WailingCavernsEnt"] = "WailingCavernsEaI",
-		["WailingCaverns"] = "WailingCavernsEaI",
-		["WailingCavernsEaI"] = {
-			["WailingCavernsEnt"] = {
-			},
-			["WailingCaverns"] = {
-				{ "WailingCavernsLoot#1", {2,3,4,10,11} },
-				{ "WailingCavernsLoot#2", {5,6,7,8,9,12}, hide = true },
+		["WailingCaverns"] = {
+			["Bosses"] = {
+				{ "WailingCavernsLoot#1", {2,3,4,5,6} },
+				{ "WailingCavernsLoot#2", {7,8,10,11}, hide = true },
 				{ "VWOWSets#1", 15, hide = true },
 			},
-			["Info"] = { BabbleZone["Wailing Caverns"], "AtlasLootClassicWoW", sortOrder = { "WailingCavernsEnt", "WailingCaverns" }, mapname = "WailingCaverns" },
+			["Info"] = { BabbleZone["Wailing Caverns"], "AtlasLootClassicWoW", mapname = "WailingCaverns" },
 		},
 
 		["TheStockade"] = {

@@ -30,7 +30,7 @@ function AtrQuery:CheckForDuplicatePage (pagenum)
 
 
 	if (self.prevPage) then
---		zc.msg_atr ("Comparing page ", pagenum, " to pge ", self.prevPage.pagenum);
+--		zc.msg_anm ("Comparing page ", pagenum, " to pge ", self.prevPage.pagenum);
 	
 		if (self.prevPage.pagenum == pagenum) then
 			return false;
@@ -87,7 +87,7 @@ function AtrQuery:CheckForDuplicatePage (pagenum)
 	if (dupPageFound) then
 	
 		self.numDupPages = self.numDupPages + 1;
---		zc.msg_atr ("DUPLICATE PAGE FOUND: thisPage.numOnPage: ", thisPage.numOnPage, "  numDupItems: ", numDupItems);
+--		zc.msg_anm ("DUPLICATE PAGE FOUND: thisPage.numOnPage: ", thisPage.numOnPage, "  numDupItems: ", numDupItems);
 	else
 		self.prevPage = thisPage;
 	end

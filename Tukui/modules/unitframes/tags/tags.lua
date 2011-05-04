@@ -215,3 +215,11 @@ oUF.Tags['Tukui:afk'] = function(unit)
 		return CHAT_FLAG_AFK
 	end
 end
+
+oUF.TagEvents['Tukui:combatstar'] = 'PLAYER_ENTER_COMBAT'
+oUF.TagEvents['Tukui:combatstar'] = 'PLAYER_LEAVE_COMBAT'
+oUF.Tags['Tukui:combatstar'] = function(unit)
+	if UnitAffectingCombat(unit) then
+		return string.format('|cffc62727*|r')
+	end
+end

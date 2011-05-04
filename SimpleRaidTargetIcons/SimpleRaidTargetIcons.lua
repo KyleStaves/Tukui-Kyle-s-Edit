@@ -461,7 +461,7 @@ function srti.IsNameplateUnderMouse()
 				end
 				-- default nameplates
 				local _,r=f:GetRegions();
-				if not f:GetName() and r and r:GetObjectType("Texture") and r:GetTexture()=="Interface\\Tooltips\\Nameplate-Border" then
+				if (f.GetName and not f:GetName()) and r and (r.GetObjectType and r:GetObjectType("Texture")) and (r.GetTexture and r:GetTexture()=="Interface\\Tooltips\\Nameplate-Border") then
 					return 1;
 				end
 			end

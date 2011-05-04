@@ -13,7 +13,7 @@ C["unitframes"] = {
 	-- general options
 	["enable"] = true,                                  -- do i really need to explain this?
 	["enemyhcolor"] = false,                            -- enemy target (players) color by hostility, very useful for healer.
-	["unitcastbar"] = true,                             -- enable tukui castbar
+	["unitcastbar"] = false,                             -- enable tukui castbar
 	["cblatency"] = false,                              -- enable castbar latency
 	["cbicons"] = false,                                 -- enable icons on castbar
 	["auratimer"] = true,                               -- enable timers on buffs/debuffs
@@ -128,7 +128,7 @@ C["chat"] = {
 }
 
 C["nameplate"] = {
-	["enable"] = true,                                  -- enable nice skinned nameplates that fit into tukui
+	["enable"] = false,                                  -- enable nice skinned nameplates that fit into tukui
 	["showhealth"] = false,				                -- show health text on nameplate
 	["enhancethreat"] = false,			                -- threat features based on if your a tank or not
 	["combat"] = false,					                -- only show enemy nameplates in-combat.
@@ -148,7 +148,7 @@ C["tooltip"] = {
 C["merchant"] = {
 	["sellgrays"] = true,                               -- automaticly sell grays?
 	["autorepair"] = true,                              -- automaticly repair?
-	["sellmisc"] = true,                                -- sell defined items automatically
+	["sellmisc"] = false,                                -- sell defined items automatically
 }
 
 C["error"] = {

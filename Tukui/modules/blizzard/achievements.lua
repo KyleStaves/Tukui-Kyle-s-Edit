@@ -3,7 +3,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 local AchievementHolder = CreateFrame("Frame", "TukuiAchievementHolder", UIParent)
 AchievementHolder:Width(180)
 AchievementHolder:Height(20)
-AchievementHolder:SetPoint("CENTER", UIParent, "CENTER", 0, 170)
+AchievementHolder:SetPoint("CENTER", UIParent, "CENTER", 400, 170)
 AchievementHolder:SetTemplate("Default")
 AchievementHolder:SetBackdropBorderColor(1, 0, 0)
 AchievementHolder:SetClampedToScreen(true)

@@ -356,26 +356,41 @@ T.PostUpdateHealth = function(health, unit, min, max)
 		
 		-- overwrite healthbar color for enemy player (a tukui option if enabled), target vehicle/pet too far away returning unitreaction nil and friend unit not a player. (mostly for overwrite tapped for friendly)
 		-- I don't know if we really need to call C["unitframes"].unicolor but anyway, it's safe this way.
-		if (C["unitframes"].unicolor ~= true and C["unitframes"].enemyhcolor and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C["unitframes"].unicolor ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
-			local c = T.oUF_colors.reaction[UnitReaction(unit, "player")]
-			if c then 
-				r, g, b = c[1], c[2], c[3]
-				health:SetStatusBarColor(r, g, b)
-			else
-				-- if "c" return nil it's because it's a vehicle or pet unit too far away, we force friendly color
-				-- this should fix color not updating for vehicle/pet too far away from yourself.
-				r, g, b = 75/255,  175/255, 76/255
-				health:SetStatusBarColor(r, g, b)
-			end					
-		end
+		-- if unit == "target" then
+			-- if (C["unitframes"].unicolor ~= true and C["unitframes"].enemyhcolor and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C["unitframes"].unicolor ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
+				-- local c = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+				-- if c then 
+					-- r, g, b = c[1], c[2], c[3]
+					-- health:SetStatusBarColor(r, g, b)
+				-- else
+					--if "c" return nil it's because it's a vehicle or pet unit too far away, we force friendly color
+					--this should fix color not updating for vehicle/pet too far away from yourself.
+					-- r, g, b = 75/255,  175/255, 76/255
+					-- health:SetStatusBarColor(r, g, b)
+				-- end					
+			-- end
+			
+			--KYLE Fix tapping with unicolor
+			-- if C["unitframes"].unicolor and unit == "target" then
+				-- if not UnitIsFriend(unit, "player") and not UnitIsPlayer(unit) and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
+					-- health:SetStatusBarColor(.6, .6, .6, 1)
+				-- else
+					-- health:SetStatusBarColor(.3, .3, .3, 1)
+				-- end
+			-- end
+		-- end
 		
-		-- KYLE Fix tapping with unicolor
-		if C["unitframes"].unicolor and unit == "target" then
-			if not UnitIsFriend(unit, "player") and not UnitIsPlayer(unit) and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
-				health:SetStatusBarColor(.6, .6, .6, 1)
-			else
-				health:SetStatusBarColor(.3, .3, .3, 1)
-			end
+		if unit == "target" then
+			if not UnitIsFriend(unit, "player") and not UnitIsPlayer(unit) and not UnitInVehicle(unit) and not UnitIsUnit("vehicle") and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
+					local c = T.oUF_colors.reaction[UnitReaction(unit, "player")]
+					if c then -- if "c" return nil it's because it's a vehicle or pet unit too far away
+						health:SetStatusBarColor(.6, .6, .6, 1)
+					else
+						health:SetStatusBarColor(.3, .3, .3, 1)
+					end
+				else
+					health:SetStatusBarColor(.3, .3, .3, 1)
+				end
 		end
 		
 		if unit == "target" then

@@ -967,8 +967,16 @@ Filger_Spells = {
 			Mode = "ICON",
 			setPoint = { "RIGHT", UIParent, "CENTER", -150, -12},
 			
+			-- Fel puppy Demon Soul 79460
+			{ spellID = 79460, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
+			-- PvP Damage Burst Trinket 92225
+			{ spellID = 92225, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Imp Soul FIre 85383
+			{ spellID = 85383, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Meta 59672
 			{ spellID = 59672, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Soul Swap 86211
+			{ spellID = 86211, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
 			
 		},
 		{
@@ -977,7 +985,11 @@ Filger_Spells = {
 			Interval = 4,
 			Mode = "ICON",
 			setPoint = { "RIGHT", UIParent, "CENTER", -198, -20 },
-
+			
+			-- 74241 Power TOrrent
+			{ spellID = 74241, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
+			-- 64371 Eradication
+			{ spellID = 64371, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
 			--Devious Minds/Teuflische Absichten
 			{ spellID = 70840, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Improved Soul Fire
@@ -1047,11 +1059,23 @@ Filger_Spells = {
 			Interval = 4,
 			Mode = "ICON",
 			setPoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
-
+			
+			--- Conflag
+			{ spellID = 17962, size = 47, filter = "CD" },
+			-- Chaos Bolt
+			{ spellID = 50796, size = 47, filter = "CD" },
+			-- Shadowburn
+			{ spellID = 17877, size = 47, filter = "CD" },
 			-- Hand of Gul'dan
 			{ spellID = 71521, size = 47, filter = "CD" },
 			-- Metamorphosis
 			{ spellID = 59672, size = 47, filter = "CD" },
+			-- Haunt
+			{ spellID = 48181, size = 47, filter = "CD" },
+			-- Soul Swap (Glyph gives CD)
+			{ spellID = 86121, size = 47, filter = "CD" },
+			-- Spell Lock 19647
+			{ spellID = 19647, size = 47, filter = "CD" },
 			
 		},
 		{
@@ -1060,18 +1084,20 @@ Filger_Spells = {
 			Interval = 4,
 			Mode = "ICON",
 			setPoint = { "RIGHT", UIParent, "CENTER", -198, -240 },
-
+			
+			-- Soul burn
+			{ spellID = 74434, size = 32, filter = "CD" },
 			-- Demonic Empowerment
 			{ spellID = 47193, size = 32, filter = "CD" },
-			--- Confag
-			{ spellID = 17962, size = 32, filter = "CD" },
-			-- Chaos Bolt
-			{ spellID = 50796, size = 32, filter = "CD" },
 			-- Shadowfury
 			{ spellID = 30283, size = 32, filter = "CD" },
 			-- Shadowflame
 			{ spellID = 47897, size = 32, filter = "CD" },
-
+			-- Circle Teleport
+			{ spellID = 48020, size = 32, filter = "CD" },
+			
+			-- Devour Magic 
+			{ spellID = 19505, size = 32, filter = "CD" },
 		},
 	},
 	["ROGUE"] = {
@@ -1918,6 +1944,8 @@ Filger_Spells = {
 			
 			-- Saronite Bomb
 			{ itemID = 41119, size = 32, filter = "CD" },
+			-- Health Stone
+			{ itemID = 5512, size = 32, filter = "CD" },
 		},
 	},
 }

@@ -611,7 +611,7 @@ end
 			Name:SetJustifyH("LEFT")
 			Name:SetFont(pixelfont, 10, "OUTLINEMONOCHROME")
 			Name:Point("LEFT", health, "LEFT", 4, 0)
-			self:Tag(Name, '[Tukui:getnamecolor][Tukui:namelong]')
+			self:Tag(Name, '[Tukui:getnamecolor][Tukui:namelong][Tukui:combatstar]')
 			self.Name = Name
 		end
 			
