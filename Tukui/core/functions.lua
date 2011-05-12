@@ -381,7 +381,7 @@ T.PostUpdateHealth = function(health, unit, min, max)
 		-- end
 		
 		if unit == "target" then
-			if not UnitIsFriend(unit, "player") and not UnitIsPlayer(unit) and not UnitInVehicle(unit) and not UnitIsUnit("vehicle") and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
+			if not UnitIsFriend(unit, "player") and not UnitIsPlayer(unit) and not UnitInVehicle(unit) and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
 					local c = T.oUF_colors.reaction[UnitReaction(unit, "player")]
 					if c then -- if "c" return nil it's because it's a vehicle or pet unit too far away
 						health:SetStatusBarColor(.6, .6, .6, 1)
@@ -391,6 +391,8 @@ T.PostUpdateHealth = function(health, unit, min, max)
 				else
 					health:SetStatusBarColor(.3, .3, .3, 1)
 				end
+		else
+			health:SetStatusBarColor(.3, .3, .3, 1)
 		end
 		
 		if unit == "target" then

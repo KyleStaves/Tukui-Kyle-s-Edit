@@ -144,7 +144,7 @@ cPowaAura.ExportSettings = {
 	inRaid = 0,
 	inParty = 0,
 	ismounted = false,
-	isResting = false,
+	isResting = 0,
 	inVehicle = false,	
 	combat = 0,
 	isAlive = true,
@@ -2395,7 +2395,7 @@ function cPowaSpellCooldown:AddEffectAndEvents()
 	PowaAuras.Events.SPELL_UPDATE_COOLDOWN = true;
 end
 
-function cPowaSpellCooldown:SkiptargetCheck()
+function cPowaSpellCooldown:SkipTargetChecks()
 	return true;
 end
 
@@ -2407,6 +2407,10 @@ function cPowaSpellCooldown:CheckIfShouldShow(giveReason)
 	end
 	for pword in string.gmatch(self.buffname, "[^/]+") do
 		local spellName, spellIcon, spellId = self:GetSpellFromMatch(pword);
+		if(not spellName) then
+			-- No spell name = Don't continue.
+			return false, PowaAuras:InsertText(PowaAuras.Text.nomReasonSpellNotFound, self.buffname);
+		end
 		if (self.Debug) then
 			PowaAuras:Message("spellName=",spellName," spellId=",spellId);
 			PowaAuras:Message("spellIcon=",spellIcon);
@@ -2651,6 +2655,16 @@ cPowaPowerType.ShowOptions={
 	["PowaThresholdInvertButton"]=1,
 	["PowaDropDownPowerType"]=1,
 };
+
+function cPowaPowerType:Init()
+	-- Set the ranges properly.
+	self._base.Init(self);
+	-- Fix for happiness auras.
+	if(self.PowerType == 4) then
+		self.PowerType = -1;
+	end
+	self:SetFixedIcon();
+end
 
 function cPowaPowerType:SetFixedIcon()
 	self.icon = nil;
@@ -2910,7 +2924,7 @@ function cPowaSpellAlert:AddEffectAndEvents()
 	end
 end
 
-function cPowaSpellAlert:SkiptargetCheck()
+function cPowaSpellAlert:SkipTargetChecks()
 	return self.Extra;
 end
 

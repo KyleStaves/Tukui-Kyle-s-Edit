@@ -32,7 +32,7 @@ cPowaStacks.ExportSettings = {
 	r = 1.0,
 	g = 1.0,
 	b = 1.0,
-	LegacySizing = false,
+	LegacySizing = true,
 }
 
 function cPowaStacks:CreateAuraString()

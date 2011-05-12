@@ -3,7 +3,7 @@ PowaAuras = {
 	
 	VersionPattern = "(%d+)%.(%d+)";
 	
-	WoWBuild = tonumber(select(2, GetBuildInfo()), 10);
+	WoWBuild = tonumber(select(4, GetBuildInfo()), 10);
 	
 	IconSource = "Interface\\Icons\\";
 	
@@ -15,7 +15,7 @@ PowaAuras = {
 	InspectDelay = 2;
 	ExportMaxSize = 4000;
 	ExportWidth = 500;
-	TextureCount = 186;
+	TextureCount = 238;
 	
 	DebugEvents = false;
 	--DebugAura = 3;

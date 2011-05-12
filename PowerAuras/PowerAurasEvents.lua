@@ -666,8 +666,22 @@ end
 function PowaAuras:COMBAT_LOG_EVENT_UNFILTERED(...)
 	--self:ShowText("COMBAT_LOG_EVENT_UNFILTERED");
 	if (self.ModTest) then return end
-	-- 4.1 backwards compat (will remove when 4.1 is live, prevents needing to time a release to fix this).
-	local timestamp,event,casterHidden,sourceGUID,sourceName,sourceFlags,destGUID,destName,destFlags, spellId, spellName, _, spellType = ...;		
+	-- 4.2 changes.
+	local timestamp, event, casterHidden, 
+		sourceGUID, sourceName, sourceFlags, sourceFlags2, 
+		destGUID, destName, destFlags, destFlags2, 
+		spellId, spellName, _, spellType;
+	if(self.WoWBuild >= 40200) then
+		timestamp, event, casterHidden, 
+		sourceGUID, sourceName, sourceFlags, sourceFlags2,
+		destGUID, destName, destFlags, destFlags2, 
+		spellId, spellName, _, spellType = ...;
+	else
+		timestamp, event, casterHidden, 
+		sourceGUID, sourceName, sourceFlags,
+		destGUID, destName, destFlags, 
+		spellId, spellName, _, spellType = ...;
+	end	
 	if (not spellName) then return end
 	--self:ShowText("CLEU: ", event, " by me=", sourceGUID==UnitGUID("player"), " on me=", destGUID==UnitGUID("player"), " ", spellName);
 	--self:ShowText("Player=", UnitGUID("player"), " sourceGUID=", sourceGUID, " destGUID=", destGUID);

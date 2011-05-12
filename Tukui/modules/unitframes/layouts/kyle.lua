@@ -1463,49 +1463,64 @@ end
 		self.Debuffs = debuffs
 		--]]		
 		if (C.arena.unitframes) and (unit and unit:find('arena%d')) then
-		-- trinket feature via trinket plugin
-		local Trinketbg = CreateFrame("Frame", nil, self)
-		Trinketbg:Size(39)
-		Trinketbg:SetPoint("LEFT", self, "RIGHT", 4, 0)				
-		Trinketbg:SetTemplate("Hydra")
-		Trinketbg:SetFrameLevel(0)
-		self.Trinketbg = Trinketbg
+			-- trinket feature via trinket plugin
+			local Trinketbg = CreateFrame("Frame", nil, self)
+			Trinketbg:Size(39)
+			Trinketbg:SetPoint("LEFT", self, "RIGHT", 4, 0)				
+			Trinketbg:SetTemplate("Hydra")
+			Trinketbg:SetFrameLevel(0)
+			self.Trinketbg = Trinketbg
 
-		local Trinket = CreateFrame("Frame", nil, Trinketbg)
-		Trinket:SetAllPoints(Trinketbg)
-		Trinket:SetPoint("TOPLEFT", Trinketbg, T.Scale(2), T.Scale(-2))
-		Trinket:SetPoint("BOTTOMRIGHT", Trinketbg, T.Scale(-2), T.Scale(2))
-		Trinket:SetFrameLevel(1)
-		Trinket.trinketUseAnnounce = true
-		self.Trinket = Trinket
-		
-		-- Auratracker Frame
-		local AuraTracker = CreateFrame("Frame", nil, self)
-		AuraTracker:Size(39)
-		AuraTracker:Point("RIGHT", self, "LEFT", -4, 0)
-		AuraTracker:SetTemplate("Hydra")
-		self.AuraTracker = AuraTracker
+			local Trinket = CreateFrame("Frame", nil, Trinketbg)
+			Trinket:SetAllPoints(Trinketbg)
+			Trinket:SetPoint("TOPLEFT", Trinketbg, T.Scale(2), T.Scale(-2))
+			Trinket:SetPoint("BOTTOMRIGHT", Trinketbg, T.Scale(-2), T.Scale(2))
+			Trinket:SetFrameLevel(1)
+			Trinket.trinketUseAnnounce = true
+			self.Trinket = Trinket
+			
+			-- Debuffs?
+			local debuffs = CreateFrame("Frame", nil, self)
+			debuffs:SetHeight(36)
+			debuffs:SetWidth(200)
+			debuffs:SetPoint('RIGHT', self, 'LEFT', T.Scale(-4), 0)
+			debuffs.size = 36
+			debuffs.num = 4
+			debuffs.spacing = 2
+			debuffs.initialAnchor = 'LEFT'
+			debuffs["growth-x"] = "RIGHT"
+			debuffs.PostCreateIcon = T.PostCreateAura
+			debuffs.PostUpdateIcon = T.PostUpdateAura
+			debuffs.onlyShowPlayer = true
+			self.Debuffs = debuffs
+			
+			-- Auratracker Frame
+			-- local AuraTracker = CreateFrame("Frame", nil, self)
+			-- AuraTracker:Size(39)
+			-- AuraTracker:Point("RIGHT", self, "LEFT", -4, 0)
+			-- AuraTracker:SetTemplate("Hydra")
+			-- self.AuraTracker = AuraTracker
 
-		AuraTracker.icon = AuraTracker:CreateTexture(nil, "OVERLAY")
-		AuraTracker.icon:SetAllPoints(AuraTracker)
-		AuraTracker.icon:Point("TOPLEFT", AuraTracker, 2, -2)
-		AuraTracker.icon:Point("BOTTOMRIGHT", AuraTracker, -2, 2)
-		AuraTracker.icon:SetTexCoord(0.07,0.93,0.07,0.93)
+			-- AuraTracker.icon = AuraTracker:CreateTexture(nil, "OVERLAY")
+			-- AuraTracker.icon:SetAllPoints(AuraTracker)
+			-- AuraTracker.icon:Point("TOPLEFT", AuraTracker, 2, -2)
+			-- AuraTracker.icon:Point("BOTTOMRIGHT", AuraTracker, -2, 2)
+			-- AuraTracker.icon:SetTexCoord(0.07,0.93,0.07,0.93)
 
-		AuraTracker.text = T.SetFontString(AuraTracker, pixelfont, 10, "OUTLINEMONOCHROME")
-		AuraTracker.text:SetPoint("CENTER", AuraTracker, 0, 0)
-		AuraTracker:SetScript("OnUpdate", updateAuraTrackerTime)
+			-- AuraTracker.text = T.SetFontString(AuraTracker, pixelfont, 10, "OUTLINEMONOCHROME")
+			-- AuraTracker.text:SetPoint("CENTER", AuraTracker, 0, 0)
+			-- AuraTracker:SetScript("OnUpdate", updateAuraTrackerTime)
 
-		-- ClassIcon			
-		local class = AuraTracker:CreateTexture(nil, "ARTWORK")
-		class:SetAllPoints(AuraTracker.icon)
-		self.ClassIcon = class
+			-- ClassIcon			
+			-- local class = AuraTracker:CreateTexture(nil, "ARTWORK")
+			-- class:SetAllPoints(AuraTracker.icon)
+			-- self.ClassIcon = class
 
-		-- Spec info
-		Talents = T.SetFontString(health, pixelfont, 10, "OUTLINEMONOCHROME")
-		Talents:Point("CENTER", health, 0, 0)
-		Talents:SetTextColor(1,1,1,.6)
-		self.Talents = Talents
+			-- Spec info
+			-- Talents = T.SetFontString(health, pixelfont, 10, "OUTLINEMONOCHROME")
+			-- Talents:Point("CENTER", health, 0, 0)
+			-- Talents:SetTextColor(1,1,1,.6)
+			-- self.Talents = Talents
 		end
 		
 		-- boss & arena frames cast bar!
