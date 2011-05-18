@@ -76,12 +76,6 @@ local function SkinTab(tab)
 	tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
 	tab.backdrop:Point("TOPLEFT", 10, -3)
 	tab.backdrop:Point("BOTTOMRIGHT", -10, 3)
-	
-	-- always set tab text centered
-	local name = tab:GetName()
-	_G[name.."Text"]:ClearAllPoints()
-	_G[name.."Text"]:SetPoint("CENTER")
-	_G[name.."Text"].SetPoint = T.dummy
 end
 
 local function SkinNextPrevButton(btn, horizonal)
