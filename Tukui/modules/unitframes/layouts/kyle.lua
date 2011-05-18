@@ -86,15 +86,15 @@ end
 	
 		-- health bar
 		local health = CreateFrame('StatusBar', nil, self)
-		health:Height(32)
+		--health:Height(32)
 		health:SetPoint("TOPLEFT")
-		health:SetPoint("TOPRIGHT")
+		health:SetPoint("BOTTOMRIGHT")
 		health:SetStatusBarTexture(normTex)
 		
 		-- border
 		local Healthbg = CreateFrame("Frame", nil, self)
 	    Healthbg:SetPoint("TOPLEFT", self, "TOPLEFT", T.Scale(-2), T.Scale(2))
-	    Healthbg:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", T.Scale(2), T.Scale(-8))
+	    Healthbg:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", T.Scale(2), T.Scale(-2))
 	    Healthbg:SetTemplate("Hydra")
 		Healthbg:CreateShadow("Hydra")
 	    Healthbg:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
@@ -611,7 +611,15 @@ end
 			Name:SetJustifyH("LEFT")
 			Name:SetFont(pixelfont, 10, "OUTLINEMONOCHROME")
 			Name:Point("LEFT", health, "LEFT", 4, 0)
-			self:Tag(Name, '[Tukui:getnamecolor][Tukui:namelong][Tukui:combatstar]')
+			self:Tag(Name, '[Tukui:getnamecolor][Tukui:namelong]')
+			
+			local Combat = health:CreateFontString(nil, "OVERLAY")
+			Combat:SetJustifyH("LEFT")
+			Combat:SetFont(pixelfont, 10, "OUTLINEMONOCHROME")
+			Combat:Point("LEFT", Name, "RIGHT", 0, 0)
+			Combat:SetText(string.format('|cffc62727*|r'))
+			
+			self.Combat = Combat
 			self.Name = Name
 		end
 			
@@ -1650,7 +1658,7 @@ oUF:RegisterStyle('Tukui', Shared)
 -- player
 local player = oUF:Spawn('player', "TukuiPlayer")
 player:SetPoint("BOTTOMRIGHT", InvTukuiActionBarBackground, "TOP", -200, 160)
-	player:Size(250, 26)
+	player:Size(250, 32)
 
 
 -- focus
@@ -1661,7 +1669,7 @@ focus:SetPoint("TOPRIGHT", TukuiPlayer, "BOTTOMRIGHT", 0,-25)
 -- target
 local target = oUF:Spawn('target', "TukuiTarget")
 target:SetPoint("BOTTOM", InvTukuiActionBarBackground, "TOP", 0, 160)
-	target:Size(350, 26)
+	target:Size(350, 32)
 
 -- tot
 local tot = oUF:Spawn('targettarget', "TukuiTargetTarget")

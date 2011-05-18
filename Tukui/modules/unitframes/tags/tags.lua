@@ -216,9 +216,10 @@ oUF.Tags['Tukui:afk'] = function(unit)
 	end
 end
 
-oUF.TagEvents['Tukui:combatstar'] = 'PLAYER_ENTER_COMBAT'
-oUF.TagEvents['Tukui:combatstar'] = 'PLAYER_LEAVE_COMBAT'
+oUF.TagEvents['Tukui:combatstar'] = 'PLAYER_REGEN_DISABLED'
+oUF.TagEvents['Tukui:combatstar'] = 'PLAYER_REGEN_ENABLED'
 oUF.Tags['Tukui:combatstar'] = function(unit)
+	print("COMBAT START EVENT CALLED")
 	if UnitAffectingCombat(unit) then
 		return string.format('|cffc62727*|r')
 	end

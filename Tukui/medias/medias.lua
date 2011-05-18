@@ -5,7 +5,6 @@ C["media"] = {
 	["font"] = [=[Interface\Addons\Tukui\medias\fonts\normal_font.ttf]=], -- general font of tukui
 	["uffont"] = [[Interface\AddOns\Tukui\medias\fonts\uf_font.ttf]], -- general font of unitframes
 	["dmgfont"] = [[Interface\AddOns\Tukui\medias\fonts\combat_font.ttf]], -- general font of dmg / sct
-	["pixelfont"] = [[Interface\AddOns\Tukui\medias\fonts\sf_pixelfont.ttf]], -- extra pixelfont
 	
 	-- fonts (DEUTSCH)
 	["de_font"] = [=[Interface\Addons\Tukui\medias\fonts\normal_font.ttf]=], -- general font of tukui
@@ -33,7 +32,8 @@ C["media"] = {
 	["kr_dmgfont"] = [[Fonts\2002.TTF]], -- general font of dmg / sct
 	
 	-- fonts (GLOBAL)
-	["pixelfont"] = [=[Interface\Addons\Tukui\medias\fonts\pixel_font.ttf]=], -- general font of tukui
+	-- ["pixelfont"] = [=[Interface\Addons\Tukui\medias\fonts\pixel_font.ttf]=], -- general font of tukui
+	["pixelfont"] = [[Interface\AddOns\Tukui\medias\fonts\sf_pixelfont.ttf]], -- extra pixelfont
 	
 	-- textures
 	["normTex"] = [[Interface\AddOns\Tukui\medias\textures\normTex]], -- texture used for tukui healthbar/powerbar/etc
