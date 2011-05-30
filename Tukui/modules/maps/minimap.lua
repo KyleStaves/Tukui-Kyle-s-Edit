@@ -212,6 +212,8 @@ local menuList = {
 	if(not CalendarFrame) then LoadAddOn("Blizzard_Calendar") end
 		Calendar_Toggle()
 	end},
+	{text = ENCOUNTER_JOURNAL,
+	func = function() if T.IsPTRVersion() then ToggleFrame(EncounterJournal) end end}, 
 }
 
 Minimap:SetScript("OnMouseUp", function(self, btn)

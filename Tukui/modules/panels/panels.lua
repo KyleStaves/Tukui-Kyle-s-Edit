@@ -115,7 +115,7 @@ if not C.chat.background then
 	if C["bags"].enable then
 		cuberight:EnableMouse(true)
 		cuberight:SetScript("OnMouseDown", function(self)
-			ToggleKeyRing()
+			if not T.IsPTRVersion() then ToggleKeyRing() else ToggleAllBags() end
 		end)
 	end
 end
