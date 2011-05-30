@@ -3264,7 +3264,7 @@ TukuiSkin:SetScript("OnEvent", function(self, event, addon)
 			local function LargeSkin()
 				if not InCombatLockdown() then
 					WorldMapFrame:SetParent(UIParent)
-					WorldMapFrame:EnableMouse(false)
+					--WorldMapFrame:EnableMouse(false)
 					WorldMapFrame:EnableKeyboard(false)
 					SetUIPanelAttribute(WorldMapFrame, "area", "center");
 					SetUIPanelAttribute(WorldMapFrame, "allowOtherPanels", true)

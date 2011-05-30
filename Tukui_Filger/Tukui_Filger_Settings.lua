@@ -909,28 +909,44 @@ Filger_Spells = {
 			{ spellID = 8122, size = 32, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			
 		},
-		-- {
-			-- Name = "P_COOLDOWNS_IMPORTANT",
-			-- Direction = "LEFT",
-			-- Interval = 4,
-			-- Mode = "ICON",
-			-- setPoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+		{
+			Name = "P_COOLDOWNS_IMPORTANT",
+			Direction = "LEFT",
+			Interval = 4,
+			Mode = "ICON",
+			setPoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 
-			-- Barkskin 22812
-			-- { spellID = 22812, size = 47, filter = "CD" },
+			-- Penance 47540
+			{ spellID = 47540, size = 47, filter = "CD" },
+			-- Prayer Of Mending 33076
+			{ spellID = 33076, size = 47, filter = "CD" },
+			-- Psy Scream 8122
+			{ spellID = 8122, size = 47, filter = "CD" },
+			-- Inner Focus 89485
+			{ spellID = 89485, size = 47, filter = "CD" },
 			
-		-- },
-		-- {
-			-- Name = "P_COOLDOWNS_MEH",
-			-- Direction = "LEFT",
-			-- Interval = 4,
-			-- Mode = "ICON",
-			-- setPoint = { "RIGHT", UIParent, "CENTER", -198, -240 },
+		},
+		{
+			Name = "P_COOLDOWNS_MEH",
+			Direction = "LEFT",
+			Interval = 4,
+			Mode = "ICON",
+			setPoint = { "RIGHT", UIParent, "CENTER", -198, -240 },
+			
+			-- Pain Suppression 33206
+			{ spellID = 33206, size = 32, filter = "CD" },
+			-- Power Infusion 10060
+			{ spellID = 10060, size = 32, filter = "CD" },
+			-- PW: Barrier 62618
+			{ spellID = 62618, size = 32, filter = "CD" },
+			-- Desp Prayer 19236
+			{ spellID = 19236, size = 32, filter = "CD" },
+			-- Leap Of Faith 73325
+			{ spellID = 73325, size = 32, filter = "CD" },
+			-- Shadowfeind 34433
+			{ spellID = 34433, size = 32, filter = "CD" },
 
-			-- Swiftmend  18562
-			-- { spellID = 18562, size = 32, filter = "CD" },
-
-		-- },
+		},
 	},
 	["WARLOCK"] = {
 		{
@@ -1145,6 +1161,8 @@ Filger_Spells = {
 			{ spellID = 58426, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Slice and Dice
 			{ spellID = 5171, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Recoup
+			{ spellID = 73651, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Tricks of the Trade
 			{ spellID = 57934, size = 32, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Turn the Tables
@@ -1227,13 +1245,22 @@ Filger_Spells = {
 			{ spellID = 14183, size = 32, filter = "CD" },
 			-- Shadow Step 36554
 			{ spellID = 36554, size = 32, filter = "CD" },
+			-- CLOS 31224
+			{ spellID = 31224, size = 32, filter = "CD" },
+			-- Shadow Dance 51713
+			{ spellID = 51713, size = 32, filter = "CD" },
 			-- Vanish 1856
 			{ spellID = 1856, size = 32, filter = "CD" },
 			-- Evasion 5277
 			{ spellID = 5277, size = 32, filter = "CD" },
 			-- Sprint 2983
 			{ spellID = 2983, size = 32, filter = "CD" },
-
+			-- PREP 14185
+			{ spellID = 14185, size = 32, filter = "CD" },
+			-- Combat Readiness 74001
+			{ spellID = 74001, size = 32, filter = "CD" },
+			-- Smoke Bomb 76577
+			{ spellID = 76577, size = 32, filter = "CD" },
 		},
 	},
 	["DEATHKNIGHT"] = {

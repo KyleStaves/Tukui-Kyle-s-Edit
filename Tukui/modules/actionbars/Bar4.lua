@@ -23,7 +23,8 @@ MultiBarLeft:SetParent(bar)
 local Page = {
 	["DRUID"] = "[bonusbar:1] 8; [bonusbar:2] 6; [bonusbar:3] 10; [bonusbar:4] 6;",
 	["WARRIOR"] = "[bonusbar:1] 6; [bonusbar:2] 8; [bonusbar:3] 10;",
-	["ROGUE"] = "[bonusbar:1] 8;",
+	["ROGUE"] = "[bonusbar:1] 8; [form:3] 8;",
+	["PRIEST"] = "[bonusbar:1] 6;",
 	["DEFAULT"] = "[bonusbar:0] 6;",
 }
 
