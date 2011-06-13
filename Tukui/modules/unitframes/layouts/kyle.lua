@@ -1495,8 +1495,8 @@ end
 			debuffs.size = 36
 			debuffs.num = 4
 			debuffs.spacing = 2
-			debuffs.initialAnchor = 'LEFT'
-			debuffs["growth-x"] = "RIGHT"
+			debuffs.initialAnchor = 'RIGHT'
+			debuffs["growth-x"] = "LEFT"
 			debuffs.PostCreateIcon = T.PostCreateAura
 			debuffs.PostUpdateIcon = T.PostUpdateAura
 			debuffs.onlyShowPlayer = true
