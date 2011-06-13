@@ -2,10 +2,10 @@ local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	MailFrame:StripTextures(true)
-	MailFrame:CreateBackdrop("Default")
+	MailFrame:CreateBackdrop("Transparent")
 	MailFrame.backdrop:Point("TOPLEFT", 4, 0)
 	MailFrame.backdrop:Point("BOTTOMRIGHT", 2, 74)
-	MailFrame.backdrop:CreateShadow("Default")
+	MailFrame.backdrop:CreateShadow("Transparent")
 	MailFrame:SetWidth(360)
 
 	for i = 1, INBOXITEMS_TO_DISPLAY do
@@ -38,7 +38,7 @@ local function LoadSkin()
 
 	-- send mail
 	SendMailScrollFrame:StripTextures(true)
-	SendMailScrollFrame:SetTemplate("Default")
+	SendMailScrollFrame:SetTemplate("Transparent")
 
 	T.SkinScrollBar(SendMailScrollFrameScrollBar)
 
@@ -77,10 +77,10 @@ local function LoadSkin()
 
 	-- open mail (cod)
 	OpenMailFrame:StripTextures(true)
-	OpenMailFrame:CreateBackdrop("Default")
+	OpenMailFrame:CreateBackdrop("Transparent")
 	OpenMailFrame.backdrop:Point("TOPLEFT", 4, 0)
 	OpenMailFrame.backdrop:Point("BOTTOMRIGHT", 2, 74)
-	OpenMailFrame.backdrop:CreateShadow("Default")
+	OpenMailFrame.backdrop:CreateShadow("Transparent")
 	OpenMailFrame:SetWidth(360)
 
 	T.SkinCloseButton(OpenMailCloseButton)
@@ -90,7 +90,7 @@ local function LoadSkin()
 	T.SkinButton(OpenMailCancelButton)
 
 	OpenMailScrollFrame:StripTextures(true)
-	OpenMailScrollFrame:SetTemplate("Default")
+	OpenMailScrollFrame:SetTemplate("Transparent")
 
 	T.SkinScrollBar(OpenMailScrollFrameScrollBar)
 

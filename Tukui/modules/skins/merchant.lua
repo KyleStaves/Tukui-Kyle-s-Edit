@@ -9,7 +9,7 @@ local function LoadSkin()
 	-- skin main frames
 	for i = 1, #frames do
 		_G[frames[i]]:StripTextures(true)
-		_G[frames[i]]:CreateBackdrop("Default")
+		_G[frames[i]]:CreateBackdrop("Transparent")
 	end
 
 	MerchantBuyBackItem.backdrop:Point("TOPLEFT", -6, 6)

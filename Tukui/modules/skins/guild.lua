@@ -2,8 +2,8 @@ local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	GuildFrame:StripTextures(true)
-	GuildFrame:SetTemplate("Default")
-	GuildFrame:CreateShadow("Default")
+	GuildFrame:SetTemplate("Transparent")
+	GuildFrame:CreateShadow("Transparent")
 	GuildLevelFrame:Kill()
 	
 	T.SkinCloseButton(GuildMemberDetailCloseButton)

@@ -52,7 +52,7 @@ local function LoadSkin()
 	
 	T.SkinDropDownBox(ClassTrainerFrameFilterDropDown, 155)
 
-	ClassTrainerFrame:CreateBackdrop("Default")
+	ClassTrainerFrame:CreateBackdrop("Transparent")
 	ClassTrainerFrame.backdrop:Point("TOPLEFT", ClassTrainerFrame, "TOPLEFT")
 	ClassTrainerFrame.backdrop:Point("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT")
 	T.SkinCloseButton(ClassTrainerFrameCloseButton,ClassTrainerFrame)

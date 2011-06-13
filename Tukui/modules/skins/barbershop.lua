@@ -37,7 +37,7 @@ local function LoadSkin()
 	BarberShopFrameResetButton:Point("BOTTOM", 0, 12)
 
 	BarberShopFrame:StripTextures()
-	BarberShopFrame:SetTemplate("Default")
+	BarberShopFrame:SetTemplate("Transparent")
 	BarberShopFrame:Size(BarberShopFrame:GetWidth() - 30, BarberShopFrame:GetHeight() - 56)
 	
 	BarberShopFrameMoneyFrame:StripTextures()

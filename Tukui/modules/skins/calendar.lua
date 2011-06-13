@@ -9,7 +9,7 @@ local function LoadSkin()
 		_G[frame]:StripTextures()
 	end
 	
-	CalendarFrame:SetTemplate("Default")
+	CalendarFrame:SetTemplate("Transparent")
 	T.SkinCloseButton(CalendarCloseButton)
 	CalendarCloseButton:Point("TOPRIGHT", CalendarFrame, "TOPRIGHT", -4, -4)
 	

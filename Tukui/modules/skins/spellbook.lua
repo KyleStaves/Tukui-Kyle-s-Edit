@@ -111,8 +111,8 @@ local function LoadSkin()
 		end
 	end
 	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs", SkinSkillLine)			
-	SpellBookFrame:SetTemplate("Default")
-	SpellBookFrame:CreateShadow("Default")
+	SpellBookFrame:SetTemplate("Transparent")
+	SpellBookFrame:CreateShadow("Transparent")
 
 	--Profession Tab
 	local professionbuttons = {
@@ -206,7 +206,7 @@ local function LoadSkin()
 	SpellBookCompanionModelFrame:StripTextures()
 	SpellBookCompanionModelFrameShadowOverlay:StripTextures()
 	SpellBookCompanionsModelFrame:Kill()
-	SpellBookCompanionModelFrame:SetTemplate("Default")
+	SpellBookCompanionModelFrame:SetTemplate("Transparent")
 
 	T.SkinRotateButton(SpellBookCompanionModelFrameRotateRightButton)
 	T.SkinRotateButton(SpellBookCompanionModelFrameRotateLeftButton)

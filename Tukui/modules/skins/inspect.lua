@@ -4,7 +4,7 @@ local function LoadSkin()
 	InspectFrame:StripTextures(true)
 	InspectFrameInset:StripTextures(true)
 	InspectTalentFramePointsBar:StripTextures()
-	InspectFrame:CreateBackdrop("Default")
+	InspectFrame:CreateBackdrop("Transparent")
 	InspectFrame.backdrop:SetAllPoints()
 	T.SkinCloseButton(InspectFrameCloseButton)
 	
@@ -22,7 +22,7 @@ local function LoadSkin()
 	InspectModelFrameBorderBottom:Kill()
 	InspectModelFrameBorderBottom2:Kill()
 	InspectModelFrameBackgroundOverlay:Kill()
-	InspectModelFrame:CreateBackdrop("Default")
+	InspectModelFrame:CreateBackdrop("Transparent")
 	
 		local slots = {
 			"HeadSlot",

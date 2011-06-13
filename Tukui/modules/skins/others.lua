@@ -26,9 +26,9 @@ local function LoadSkin()
 	}
 
 	for i = 1, getn(skins) do
-		_G[skins[i]]:SetTemplate("Default")
+		_G[skins[i]]:SetTemplate("Transparent")
 		if _G[skins[i]] ~= _G["AutoCompleteBox"] then -- frame to blacklist from create shadow function
-			_G[skins[i]]:CreateShadow("Default")
+			_G[skins[i]]:CreateShadow("Transparent")
 		end
 	end
 
@@ -42,15 +42,15 @@ local function LoadSkin()
 	--
 	for i = 1, getn(ChatMenus) do
 		if _G[ChatMenus[i]] == _G["ChatMenu"] then
-			_G[ChatMenus[i]]:HookScript("OnShow", function(self) self:SetTemplate("Default", true) self:SetBackdropColor(unpack(C["media"].backdropcolor)) self:ClearAllPoints() self:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, T.Scale(30)) end)
+			_G[ChatMenus[i]]:HookScript("OnShow", function(self) self:SetTemplate("Transparent", true) self:SetBackdropColor(unpack(C["media"].backdropcolor)) self:ClearAllPoints() self:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, T.Scale(30)) end)
 		else
-			_G[ChatMenus[i]]:HookScript("OnShow", function(self) self:SetTemplate("Default", true) self:SetBackdropColor(unpack(C["media"].backdropcolor)) end)
+			_G[ChatMenus[i]]:HookScript("OnShow", function(self) self:SetTemplate("Transparent", true) self:SetBackdropColor(unpack(C["media"].backdropcolor)) end)
 		end
 	end
 
 	--LFD Role Picker frame
 	LFDRoleCheckPopup:StripTextures()
-	LFDRoleCheckPopup:SetTemplate("Default")
+	LFDRoleCheckPopup:SetTemplate("Transparent")
 	T.SkinButton(LFDRoleCheckPopupAcceptButton)
 	T.SkinButton(LFDRoleCheckPopupDeclineButton)
 	T.SkinCheckBox(LFDRoleCheckPopupRoleButtonTank:GetChildren())
@@ -179,10 +179,10 @@ local function LoadSkin()
 	_G["ReadyCheckFrame"]:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end) -- bug fix, don't show it if initiator
 	_G["StackSplitFrame"]:GetRegions():Hide()
 
-	RolePollPopup:SetTemplate("Default")
-	RolePollPopup:CreateShadow("Default")
-	LFDDungeonReadyDialog:SetTemplate("Default")
-	LFDDungeonReadyDialog:CreateShadow("Default")
+	RolePollPopup:SetTemplate("Transparent")
+	RolePollPopup:CreateShadow("Transparent")
+	LFDDungeonReadyDialog:SetTemplate("Transparent")
+	LFDDungeonReadyDialog:CreateShadow("Transparent")
 	T.SkinButton(LFDDungeonReadyDialogEnterDungeonButton)
 	T.SkinButton(LFDDungeonReadyDialogLeaveQueueButton)
 end

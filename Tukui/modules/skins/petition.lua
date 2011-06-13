@@ -2,8 +2,8 @@ local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	PetitionFrame:StripTextures(true)
-	PetitionFrame:SetTemplate("Default")
-	PetitionFrame:CreateShadow("Default")
+	PetitionFrame:SetTemplate("Transparent")
+	PetitionFrame:CreateShadow("Transparent")
 
 	T.SkinButton(PetitionFrameRequestButton)
 	T.SkinButton(PetitionFrameRenameButton)

@@ -3,7 +3,7 @@ local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	TradeFrame:StripTextures(true)
-	TradeFrame:CreateBackdrop("Default")
+	TradeFrame:CreateBackdrop("Transparent")
 	TradeFrame.backdrop:Point("TOPLEFT", 10, -4)
 	TradeFrame.backdrop:Point("BOTTOMRIGHT", -16, 35)
 	T.SkinButton(TradeFrameTradeButton, true)

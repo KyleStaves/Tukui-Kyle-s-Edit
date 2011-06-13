@@ -31,14 +31,14 @@ local function LoadSkin()
 	-- skin main frames
 	for i = 1, #frames do
 		_G[frames[i]]:StripTextures(true)
-		_G[frames[i]]:CreateBackdrop("Default")
+		_G[frames[i]]:CreateBackdrop("Transparent")
 	end
 
 	HelpFrameHeader:SetFrameLevel(HelpFrameHeader:GetFrameLevel() + 2)
 	HelpFrameKnowledgebaseErrorFrame:SetFrameLevel(HelpFrameKnowledgebaseErrorFrame:GetFrameLevel() + 2)
 
 	HelpFrameTicketScrollFrame:StripTextures()
-	HelpFrameTicketScrollFrame:CreateBackdrop("Default")
+	HelpFrameTicketScrollFrame:CreateBackdrop("Transparent")
 	HelpFrameTicketScrollFrame.backdrop:Point("TOPLEFT", -4, 4)
 	HelpFrameTicketScrollFrame.backdrop:Point("BOTTOMRIGHT", 6, -4)
 	for i=1, HelpFrameTicket:GetNumChildren() do
