@@ -120,7 +120,7 @@ function AtlasLoot:CreateItemFrame()
 	Frame.PrevBack:SetHeight(30)
 	Frame.PrevBack:SetWidth(30)
 	Frame.Prev:Hide()
-
+	
 	Frame.ServerQuery = CreateFrame("Button","AtlasLootServerQueryButton",Frame,"UIPanelButtonTemplate2")
 	Frame.ServerQuery:SetWidth(160)
 	Frame.ServerQuery:SetHeight(23)

@@ -5,6 +5,7 @@ local L
 --------------
 --  Magmaw  --
 --------------
+--L = DBM:GetModLocalization(170)
 L = DBM:GetModLocalization("Magmaw")
 
 L:SetGeneralLocalization({
@@ -32,6 +33,7 @@ L:SetMiscLocalization({
 -------------------------------
 --  Dark Iron Golem Council  --
 -------------------------------
+--L = DBM:GetModLocalization(169)
 L = DBM:GetModLocalization("DarkIronGolemCouncil")
 
 L:SetGeneralLocalization({
@@ -60,7 +62,8 @@ L:SetOptionLocalization({
 	AcquiringTargetIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79501),
 	ConductorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79888),
 	BombTargetIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(80094),
-	ShadowConductorIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92053)
+	ShadowConductorIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92053),
+	SetIconOnActivated		= "設置標記到最後啟動的首領"
 })
 
 L:SetMiscLocalization({
@@ -74,6 +77,7 @@ L:SetMiscLocalization({
 ----------------
 --  Maloriak  --
 ----------------
+--L = DBM:GetModLocalization(173)
 L = DBM:GetModLocalization("Maloriak")
 
 L:SetGeneralLocalization({
@@ -115,6 +119,7 @@ L:SetMiscLocalization({
 -----------------
 --  Chimaeron  --
 -----------------
+--L = DBM:GetModLocalization(172)
 L = DBM:GetModLocalization("Chimaeron")
 
 L:SetGeneralLocalization({
@@ -140,6 +145,7 @@ L:SetMiscLocalization({
 -----------------
 --  Atramedes  --
 -----------------
+--L = DBM:GetModLocalization(171)
 L = DBM:GetModLocalization("Atramedes")
 
 L:SetGeneralLocalization({
@@ -182,7 +188,8 @@ L:SetMiscLocalization({
 ----------------
 --  Nefarian  --
 ----------------
-L = DBM:GetModLocalization("Nefarian-BD")	-- No conflict with BWL version :)
+--L = DBM:GetModLocalization(174)
+L = DBM:GetModLocalization("Nefarian")
 
 L:SetGeneralLocalization({
 	name 				= "奈法利安的末日"
@@ -193,7 +200,7 @@ L:SetWarningLocalization({
 	NefTailSwipe			= "尾部鞭擊 (奈法利安)",
 	OnyBreath			= "暗影焰息 (奧妮克希亞)",
 	NefBreath			= "暗影焰息 (奈法利安)",
-	specWarnShadowblazeSoon		= "暗影炎 即將到來 (~5秒)"
+	specWarnShadowblazeSoon		= "%s"
 })
 
 L:SetTimerLocalization({
@@ -224,14 +231,17 @@ L:SetMiscLocalization({
 	NefAoe				= "響起了電流霹啪作響的聲音!",
 	YellPhase2 			= "詛咒你們，凡人!如此冷酷地漠視他人的所有物必須受到嚴厲的懲罰!",
 	YellPhase3			= "我本來只想略盡地主之誼，但是你們就是不肯痛快的受死!是時候拋下一切的虛偽...殺光你們就好!",
+	YellShadowBlaze			= "化為灰燼吧!",
 	Nefarian			= "奈法利安",
 	Onyxia				= "奧妮克希亞",
-	Charge				= "電流充能"
+	Charge				= "電流充能",
+	ShadowBlazeExact		= "Shadowblaze in %ds",
+	ShadowBlazeEstimate		= "暗影炎 即將到來 (~5秒)"
 })
 
---------------
+-------------------------------
 --  Blackwing Descent Trash  --
---------------
+-------------------------------
 L = DBM:GetModLocalization("BWDTrash")
 
 L:SetGeneralLocalization({

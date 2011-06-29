@@ -542,11 +542,12 @@ function DrDamage:PlayerData()
 				[1] = { 0 },
 		},
 		--FROST
+		--HOTFIX 4.1: Obliterate has been reduced from 160% to 150% base weapon damage.
 		[GetSpellInfo(49020)] = {
 				["Name"] = "Obliterate",
 				["ID"] = 49020,
-				["Data"] = { 0.578 * 1.6 },
-				[0] = { Melee = true, WeaponDamage = 1.6 },
+				["Data"] = { 0.578 * 1.5 },
+				[0] = { Melee = true, WeaponDamage = 1.5 },
 				[1] = { 0 },
 		},
 		[GetSpellInfo(49143)] = {
@@ -576,18 +577,19 @@ function DrDamage:PlayerData()
 				[0] = { School = { "Frost", "Disease", "Spell" }, Melee = true, APBonus_extra = 0.055 * 1.15, Hits_extra = 7, E_eDuration = 21, E_Ticks = 3, E_canCrit = true, SpellHit = true, SpellCrit = "Frost", },
 				[1] = { 0, 0 },
 		},
+		--HOTFIX 4.1: Howling Blast has been reduced by approxomately 8-9%.
 		[GetSpellInfo(49184)] = {
 				["Name"] = "Howling Blast",
 				["ID"] = 49184,
-				["Data"] = { 1.281, 0.1 },
+				["Data"] = { 1.281 * 0.915, 0.0996 },
 				--NOTE: Marked as Disease and E_eDuration for Glyph
-				[0] = { School = { "Frost", "Disease", "Spell" }, Melee = true, APBonus = 0.4, Hits_extra = 7, E_eDuration = 21, E_Ticks = 3, E_canCrit = true, SpellHit = true, SpellCrit = "Frost", AoE = true, E_AoE = true, MixedAoE = true },
+				[0] = { School = { "Frost", "Disease", "Spell" }, Melee = true, APBonus = 0.48 * 0.915, Hits_extra = 7, E_eDuration = 21, E_Ticks = 3, E_canCrit = true, SpellHit = true, SpellCrit = "Frost", AoE = true, E_AoE = true, MixedAoE = true },
 				[1] = { 0, 0 },
 		},
 		[GetSpellInfo(85948)] = {
 				["Name"] = "Festering Strike",
 				["ID"] = 85948,
-				["Data"] = { 0.498 * 1.5 },
+				["Data"] = { 0.498 --[[* 1.5--]] },
 				[0] = { Melee = true, WeaponDamage = 1.5 },
 				[1] = { 0 },
 		},
@@ -621,7 +623,7 @@ function DrDamage:PlayerData()
 				["Text2"] = GetSpellInfo(37455),
 				["ID"] = 47541,
 				["Data"] = { 0.876 * 3.5 },
-				[0] = { School = { "Shadow", "Healing" }, APBonus = 0.27 * 0.85 * 3.5 },
+				[0] = { School = { "Shadow", "Healing" }, APBonus = 0.27 * 3.5 },
 				[1] = { 0, 0 },
 			},
 		},
@@ -668,7 +670,7 @@ function DrDamage:PlayerData()
 		--Threat of Thassarian 4.0
 		[GetSpellInfo(65661)] = {	[1] = { Effect = { 0.3, 0.6, 1 }, Spells = { "Death Strike", "Obliterate", "Plague Strike", "Blood Strike", "Frost Strike", "Rune Strike" }, ModType = "Threat of Thassarian" }, },
 		--Might of the Frozen Wastes
-		[GetSpellInfo(81135)] = { 	[1] = { Effect = 0.04, Spells = { "Death Coil", "Blood Boil", "Death and Decay", "Plague Strike", "Howling Blast", "Icy Touch", "Chains of Ice" }, ModType = "Might of the Frozen Wastes" }, NoManual = true },
+		[GetSpellInfo(81135)] = { 	[1] = { Effect = 0.04, Spells = { "Death Coil", "Blood Boil", "Death and Decay", "Plague Strike", "Howling Blast", "Icy Touch", "Chains of Ice", "Festering Strike" }, ModType = "Might of the Frozen Wastes" }, NoManual = true },
 	--UNHOLY
 		--Virulence 4.0.6
 		[GetSpellInfo(48962)] = {	[1] = { Effect = 0.1, Spells = { "Icy Touch", "Chains of Ice", "Howling Blast", "Plague Strike" }, ModType = "dmgM_Extra_Add" }, },

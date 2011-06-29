@@ -134,14 +134,8 @@ function PowaAuras:AddMainAnimation(aura, frame)
 	local animationGroup = frame:CreateAnimationGroup("Main");
 	animationGroup.aura = aura;
 	
-	--animationGroup:SetScript("OnPlay",
-	--function(self)
-	--	PowaAuras:ShowText("Main OnPlay ", self:GetName(), " aura=", self.aura.id);
-	--end);
-	animationGroup:SetScript("OnFinished",
-	function(self, forced)
-		self:Play();
-	end);
+	-- Use normal repeat type.
+	animationGroup:SetLooping("REPEAT");
 	
 	local speed = 1.0;
 	if (aura.isSecondary) then
@@ -158,8 +152,8 @@ function PowaAuras:AddMainAnimation(aura, frame)
 		self:AddScale(animationGroup, 1.2, 1.2, duration * 3, 1);
 		self:AddAlpha(animationGroup, -math.min(aura.alpha,0.99), duration * 3, 1);
 	elseif (aura.anim1==PowaAuras.AnimationTypes.Pulse) then
-		self:AddScale(animationGroup, 1.1, 1.1, duration, 1);
-		self:AddScale(animationGroup, 0.9/1.1, 0.9/1.1, duration, 2);
+		self:AddScale(animationGroup, 1.08, 1.08, duration, 1);
+		self:AddScale(animationGroup, 0.9259, 0.9259, duration, 2);
 	elseif (aura.anim1==PowaAuras.AnimationTypes.Shrinking) then
 		self:AddAlpha(animationGroup, -math.min(aura.alpha,0.99), duration, 1);
 		self:AddScale(animationGroup, 1.3, 1.3, 0, 2);
@@ -284,6 +278,7 @@ function PowaAuras:AddScale(animationGroup, xscaleTo, yscaleTo, duration, order)
 	scale:SetOrder(order);
 	scale:SetDuration(duration);
 	scale:SetScale(xscaleTo, yscaleTo);
+	scale:SetSmoothing("IN_OUT");
 end
 
 function PowaAuras:AddAlpha(animationGroup, alphaTo, duration, order)

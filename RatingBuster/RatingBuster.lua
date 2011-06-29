@@ -1,10 +1,10 @@
 --[[
 Name: RatingBuster
 Description: Converts combat ratings in tooltips into normal percentages.
-Revision: $Revision: 342 $
+Revision: $Revision: 346 $
 Author: Whitetooth
 Email: hotdogee [at] gmail [dot] com
-LastUpdate: $Date: 2011-04-25 16:24:20 +0000 (Mon, 25 Apr 2011) $
+LastUpdate: $Date: 2011-05-07 01:59:00 +0000 (Sat, 07 May 2011) $
 ]]
 
 ---------------
@@ -25,8 +25,8 @@ local BI = LibStub("LibBabble-Inventory-3.0"):GetLookupTable()
 --------------------
 -- AceAddon Initialization
 RatingBuster = LibStub("AceAddon-3.0"):NewAddon("RatingBuster", "AceConsole-3.0", "AceEvent-3.0")
-RatingBuster.version = "1.6.0 (r"..gsub("$Revision: 342 $", "$Revision: (%d+) %$", "%1")..")"
-RatingBuster.date = gsub("$Date: 2011-04-25 16:24:20 +0000 (Mon, 25 Apr 2011) $", "^.-(%d%d%d%d%-%d%d%-%d%d).-$", "%1")
+RatingBuster.version = "1.6.4 (r"..gsub("$Revision: 346 $", "$Revision: (%d+) %$", "%1")..")"
+RatingBuster.date = gsub("$Date: 2011-05-07 01:59:00 +0000 (Sat, 07 May 2011) $", "^.-(%d%d%d%d%-%d%d%-%d%d).-$", "%1")
 
 
 -----------
@@ -92,7 +92,7 @@ local profileDefaults = {
 	hideBlizzardComparisons = true,
 	colorizeItemLevel = true,
   showAllItemLevel = false,
-	showItemID = true,
+	showItemID = false,
 	itemLevelTextColor = {r = 1.0, g = 0.82,  b = 0, hex = "|cffffd100"},
 	useRequiredLevel = true,
 	customLevel = 0,
@@ -2334,7 +2334,7 @@ end
 ------------------
 function RatingBuster:ADDON_LOADED(event, name)
 	if name ~= "Blizzard_ReforgingUI" then return end
-	print("Blizzard_ReforgingUI Loaded")
+	--print("Blizzard_ReforgingUI Loaded")
   local reforgeToRating = {
     [13] = CR_DODGE, -- Dodge Rating
     [14] = CR_PARRY, -- Parry Rating

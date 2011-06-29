@@ -18,7 +18,7 @@ PowaAuras = {
 	TextureCount = 238;
 	
 	DebugEvents = false;
-	--DebugAura = 3;
+	--DebugAura = 110;
 	
 	-- Internal counters
 	DebugTimer = 0;
@@ -245,6 +245,7 @@ PowaAuras = {
 		
 		GTFO = false,
 		UnitMatch = false,
+		PetStance = false,
 
 		-- true if any type should be checked
 		CheckIt = false,
@@ -278,6 +279,7 @@ PowaAuras = {
 		Tracking=24,
 		TypeBuff=25,
 		UnitMatch=26,
+		PetStance=27,
 		GTFO=50,
 	};
 
@@ -637,6 +639,7 @@ PowaAuras:RegisterAuraType('Items');
 PowaAuras:RegisterAuraType('Tracking');
 
 PowaAuras:RegisterAuraType('UnitMatch');
+PowaAuras:RegisterAuraType("PetStance");
 		
 PowaAuras:RegisterAuraType('GTFOHigh');
 PowaAuras:RegisterAuraType('GTFOLow');
@@ -1080,7 +1083,7 @@ function PowaAuras:Different(o1, o2)
 	local t1 = type(t1);
 	local t2 = type(t2);
 	if (t1~=t2 or t1 == "string" or t2 == "string") then
-		return tostring(o1)~=tostring(o1);
+		return tostring(o1)~=tostring(o2);
 	end
 	if (t1=="number") then
 		return math.abs(o1-o2) > 1e-9;

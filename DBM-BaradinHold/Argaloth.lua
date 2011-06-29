@@ -1,8 +1,10 @@
+--local mod	= DBM:NewMod(139, "DBM-BaradinHold", nil, 74)
 local mod	= DBM:NewMod("Argaloth", "DBM-BaradinHold")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5617 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6017 $"):sub(12, -3))
 mod:SetCreatureID(47120)
+mod:SetModelID(35426)
 mod:SetZone()
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 

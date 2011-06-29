@@ -62,18 +62,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart		= "La batalla comezara en", 
 	TimerTower		= "%s",
 	TimerGY			= "%s"
 })
 
-L:SetMiscLocalization({
-	BgStart60		= "1 minuto para que dé comienzo la batalla por el Valle de Alterac.",
-	BgStart30		= "30 segundos para que dé comienzo la batalla por el Valle de Alterac."
-})
-
 L:SetOptionLocalization({
-	TimerStart		= "Mostrar tiempo para que comienze la Batalla.",
 	TimerTower		= "Mostrar tiempo para conquistar las Torres.",
 	TimerGY			= "Mostrar tiempo para conquistar los Cementerios.",
 	AutoTurnIn		= "Completar automaticamente las misiones de entregar piezas."
@@ -89,8 +82,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60		= "La batalla comenzará en 1 minuto.",
-	BgStart30		= "La batalla comenzará en 30 segundos.",
 	ScoreExpr 		= "(%d+)/1600",
 	Alliance 		= "Alianza",
 	Horde 			= "Horda",
@@ -100,12 +91,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart 		= "¡La batalla va Comenzar!", 
 	TimerCap 		= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerStart  		= "Mostrar tiempo para que comienze la Batalla.",
 	TimerWin 		= "Mostrar tiempo para que una faccion Gane la Batalla.",
 	TimerCap 		= "Mostrar tiempo que tarda en conquistar Banderas.",
 	ShowAbEstimatedPoints	= "Mostrar recursos estimados a ganar.",
@@ -122,8 +111,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60		= "¡La batalla comienza en un minuto!",
-	BgStart30		= "¡La batalla comienza en treinta segundos!",
 	ZoneName		= "Ojo de la Tormenta",
 	ScoreExpr		= "(%d+)/1600",
 	Alliance 		= "Alianza",
@@ -137,12 +124,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart 		= "¡La batalla va a Comenzar!", 
 	TimerFlag 		= "Bandera Restablecida"
 })
 
 L:SetOptionLocalization({
-	TimerStart  		= "Mostrar tiempo para que comienze la Batalla.",
 	TimerWin 		= "Mostrar tiempo para que una faccion Gane la Batalla.",
 	TimerFlag 		= "Mostrar tiempo que tarda en restablecer la Bandera.",
 	ShowPointFrame 		= "Ver puntos que dara la bandera."
@@ -273,8 +258,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60		= "La batalla comenzará en 1 minuto.",
-	BgStart30		= "La batalla comenzará en 30 segundos.",
 	ScoreExpr 		= "(%d+)/2000",
 	Alliance 		= "Alianza",
 	Horde 			= "Horda",
@@ -284,12 +267,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart 		= "¡La batalla va Comenzar!", 
 	TimerCap 		= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerStart  			= "Mostrar tiempo para que comienze la Batalla.",
 	TimerWin 			= "Mostrar tiempo para que una faccion Gane la Batalla.",
 	TimerCap 			= "Mostrar tiempo que tarda en conquistar Banderas.",
 	ShowGilneasEstimatedPoints	= "Mostrar recursos estimados a ganar.",

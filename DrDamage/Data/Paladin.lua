@@ -111,6 +111,9 @@ function DrDamage:PlayerData()
 			if calculation.healingSpell then
 				--Passive: Walk in the Light
 				calculation.dmgM = calculation.dmgM * 1.1
+				if calculation.spellName == "Word of Glory" then
+					calculation.cooldown = 0
+				end
 			end
 			if calculation.mastery > 0 then
 				if calculation.healingSpell and calculation.spellName ~= "Holy Radiance" and calculation.spellName ~= "Light of Dawn" then
@@ -460,7 +463,6 @@ function DrDamage:PlayerData()
 		calculation.extraDamageSP = calculation.extraDamageSP * number
 		calculation.extraName = number .. "x" .. censure_icon
 		if ActiveAuras["Censure"] then
-			--BUG: Does 15% weapon damage at max level
 			calculation.WeaponDamage = (calculation.WeaponDamage or 0) + number * 0.03
 			calculation.WeaponDPS = true
 		end
@@ -619,12 +621,11 @@ function DrDamage:PlayerData()
 					[0] = { School = "Holy", APBonus = 0.344, SPBonus = 0.344, },
 					[1] = { 0, 0, },
 		},
-		--TODO: Blizzard tooltip at level 80 shows 30 too much base damage, check later
 		[GetSpellInfo(2812)] = {
 					--150% crit, Spell hit
 					["Name"] = "Holy Wrath",
 					["ID"] = 2812,
-					["Data"] = { 2.333 --[[2.366--]] },
+					["Data"] = { 2.333 },
 					[0] = { School = "Holy", SPBonus = 0.61, Cooldown = 15 },
 					[1] = { 0, 0 },
 		},
@@ -672,7 +673,7 @@ function DrDamage:PlayerData()
 					["Name"] = "Word of Glory",
 					["ID"] = 85673,
 					["Data"] = { 2.072, 0.108, 0.209, ["c_scale"] = 0.25 },
-					[0] = { School = { "Holy", "Healing" }, APBonus = 0.198 },
+					[0] = { School = { "Holy", "Healing" }, APBonus = 0.198, Cooldown = 20 },
 					[1] = { 0, 0 },
 		},
 		[GetSpellInfo(82326)] = {

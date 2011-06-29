@@ -38,7 +38,7 @@
 --
 --
 
-local revision =("$Revision: 5581 $"):sub(12, -3) 
+local revision =("$Revision: 6024 $"):sub(12, -3) 
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -47,7 +47,7 @@ setmetatable(PanelPrototype, {__index = DBM_GUI})
 
 local L = DBM_GUI_Translations
 
-local usemodelframe = false		-- very beta
+local usemodelframe = true		-- very beta
 
 function DBM_GUI:ShowHide(forceshow)
 	if forceshow == true then
@@ -278,6 +278,11 @@ do
 		local spellName = GetSpellInfo(spellId) or DBM_CORE_UNKNOWN
 		return ("|cff71d5ff|Hspell:%d|h%s|h|r"):format(spellId, spellName)
 	end
+
+	local function replaceJournalLinks(id)
+		local title = EJ_GetSectionInfo(id)
+		return ("|cff71d5ff%s|r"):format(title)
+	end
 	
 	function PanelPrototype:CreateCheckButton(name, autoplace, textleft, dbmvar, dbtvar)
 		if not name then
@@ -292,6 +297,9 @@ do
 		-- font strings do not support hyperlinks, so check if we need one...
 		if name:find("%$spell:") then
 			name = name:gsub("%$spell:(%d+)", replaceSpellLinks)
+		end
+		if name:find("%$journal:") then
+			name = name:gsub("%$journal:(%d+)", replaceJournalLinks)
 		end
 		if name and name:find("|H") then -- ...and replace it with a SimpleHTML frame
 			_G[button:GetName().."Text"] = CreateFrame("SimpleHTML", button:GetName().."Text", button)
@@ -592,6 +600,7 @@ function PanelPrototype:SetMyOwnHeight()
 			need_height = need_height +  child.myheight
 		end
 	end
+	self.frame.actualHeight = need_height -- HACK: work-around for some strange bug, panels that are overriden (e.g. stats panels when the mod is loaded) are behaving strange since 4.1. GetHeight() will always return the height of the old panel and not of the new...
 	self.frame:SetHeight(need_height)
 end
 
@@ -921,10 +930,11 @@ do
 		container.displayedFrame = frame
 
 		DBM_GUI_OptionsFramePanelContainerHeaderText:SetText( frame.name )
+				
+		local mymax = (frame.actualHeight or frame:GetHeight()) - container:GetHeight()
 		
-		local mymax = frame:GetHeight() - container:GetHeight()
 		if mymax <= 0 then mymax = 0 end
-
+		
 		if mymax > 0 then
 			_G[container:GetName().."FOV"]:Show()
 			_G[container:GetName().."FOV"]:SetScrollChild(frame)
@@ -936,7 +946,7 @@ do
 				for i=1, select("#", frame:GetChildren()), 1 do
 					local child = select(i, frame:GetChildren())
 					if child.mytype == "area" then
-						child:SetWidth( child:GetWidth() - listwidth )
+						child:SetWidth( child:GetWidth() - listwidth - 1 )
 					end
 				end
 			end
@@ -959,7 +969,7 @@ do
 		end
 		frame:Show();
 
-		if usemodelframe then
+		if DBM.Options.EnableModels then
 			DBM_BossPreview.enabled = false
 			DBM_BossPreview:Hide()
 			for _, mod in ipairs(DBM.Mods) do
@@ -974,23 +984,50 @@ end
 
 function UpdateAnimationFrame(mod)
 	DBM_BossPreview.currentMod = mod
+	local displayId = nil
+
+--[[ This way will break the Encounter Journal GUI .. needs a "fix" before activating
+	if mod.encounterId and mod.instanceId then
+		EJ_SetDifficulty(true, true)
+		EncounterJournal.instanceID = mod.instanceId
+		EncounterJournal_Refresh(EncounterJournal.encounter)
+		EncounterJournal.encounterID = mod.encounterId
+		EncounterJournal_Refresh(EncounterJournal.encounter)
+		displayId = EncounterJournal.encounter["creatureButton1"].displayInfo
+	end]]
 
 	DBM_BossPreview:Show()
 	DBM_BossPreview:ClearModel()
-	DBM_BossPreview:SetCreature(mod.modelId or mod.creatureId or 0)
+	DBM_BossPreview:SetDisplayInfo(displayId or mod.modelId or 0)
+	DBM_BossPreview:SetSequence(4)
+	if DBM.Options.ModelSoundValue == "Short" then
+		if DBM.Options.UseMasterVolume then
+			PlaySoundFile(mod.modelSoundShort or 0, "Master")
+		else
+			PlaySoundFile(mod.modelSoundShort or 0)
+		end
+	elseif DBM.Options.ModelSoundValue == "Long" then
+		if DBM.Options.UseMasterVolume then
+			PlaySoundFile(mod.modelSoundLong or 0, "Master")
+		else
+			PlaySoundFile(mod.modelSoundLong or 0)
+		end
+	end
+
+--[[	** FANCY STUFF WE DO NOT USE FOR NOW **
 	DBM_BossPreview:SetModelScale(mod.modelScale or 0.5)
 
 	DBM_BossPreview.atime = 0 
 	DBM_BossPreview.apos = 0
 	DBM_BossPreview.rotation = 0
-	DBM_BossPreview.modelRotation = mod.modelRotation or -90
+	DBM_BossPreview.modelRotation = mod.modelRotation or -60
 	DBM_BossPreview.modelOffsetX = mod.modelOffsetX or 0
 	DBM_BossPreview.modelOffsetY = mod.modelOffsetY or 0
 	DBM_BossPreview.modelOffsetZ = mod.modelOffsetZ or 0
 	DBM_BossPreview.modelscale = mod.modelScale or 0.5
 	DBM_BossPreview.modelMoveSpeed = mod.modelMoveSpeed or 1
-	DBM_BossPreview.pos_x = 1
-	DBM_BossPreview.pos_y = 0
+	DBM_BossPreview.pos_x = 0.5
+	DBM_BossPreview.pos_y = 0.1
 	DBM_BossPreview.pos_z = 0
 	DBM_BossPreview.alpha = 1
 	DBM_BossPreview.scale = 0
@@ -1002,15 +1039,19 @@ function UpdateAnimationFrame(mod)
 		DBM_BossPreview.pos_x + DBM_BossPreview.modelOffsetX, 
 		DBM_BossPreview.pos_y + DBM_BossPreview.modelOffsetY)
 	DBM_BossPreview.enabled = true
-
-	DBM_BossPreview:SetSequence(4)
+--]]
 end
 
 local function CreateAnimationFrame()
 	local mobstyle = CreateFrame('PlayerModel', "DBM_BossPreview", DBM_GUI_OptionsFramePanelContainer)
 	mobstyle:SetPoint("BOTTOMRIGHT", DBM_GUI_OptionsFramePanelContainer, "BOTTOMRIGHT", -5, 5)
-	mobstyle:SetWidth( DBM_GUI_OptionsFramePanelContainer:GetWidth()-10 )
-	mobstyle:SetHeight( DBM_GUI_OptionsFramePanelContainer:GetHeight()-10 )
+	mobstyle:SetWidth( 300 )
+	mobstyle:SetHeight( 230 )
+	mobstyle:SetPortraitZoom(0.4)
+	mobstyle:SetRotation(0)
+	mobstyle:SetClampRectInsets(0, 0, 24, 0)
+
+--[[    ** FANCY STUFF WE DO NOT USE FOR NOW **
 
 	mobstyle.playlist = { 	-- start animation outside of our fov    
 				{set_y = 0, set_x = 1.1, set_z = 0, setfacing = -90, setalpha = 1},
@@ -1020,10 +1061,10 @@ local function CreateAnimationFrame()
 
 				-- move in the fov and to waypoint #1
 				{animation = 4, time = 1500, move_x = -0.7},
-				--{animation = 0, time = 10, endfacing = -90 }, -- rotate in an animation
+				{animation = 0, time = 10, endfacing = -90 }, -- rotate in an animation
 
 				-- stay on waypoint #1 
-				{setfacing = 0},
+				{setfacing = -90},
 				{animation = 0, time = 10000},
 				--{animation = 0, time = 2000, randomanimation = {45,46,47}},	-- play a random emote
 
@@ -1035,7 +1076,7 @@ local function CreateAnimationFrame()
 				{setfacing = 0},
 				{animation = 0, time = 10000,},
 				 
-				--[[
+				
 				-- move to the horizont
 				{setfacing = 180},
 				{animation = 4, time = 10000, toscale=0.005},
@@ -1043,30 +1084,25 @@ local function CreateAnimationFrame()
 				-- die and despawn
 				{animation = 1, time = 5000},
 				{animation = 6, time = 2000, toalpha = 0},
-				--]]
+
 				-- we want so sleep a little while on animation end
 				{mintime = 1000, maxtime = 3000},
 	} 
 
+	mobstyle.animationTypes = {1, 4, 5, 14, 40} -- die, walk, run, kneel?, swim/fly
+	mobstyle.animation = 3
 	mobstyle:SetScript("OnUpdate", function(self, e)
 		if not self.enabled then return end
 		
 		self.atime = self.atime + e*1000
-		if self.pos_x < -2.5 then
-			self.pos_x = 1
+
+		if self.atime >= 10000 then
+			mobstyle.animation = floor(math.random(1, #mobstyle.animationTypes))
+			self.atime = 0
 		end
-		self.pos_x = self.pos_x - 0.005
-		self:SetSequenceTime(4,  self.atime) 
-		self:SetPosition(
-					self.pos_z + self.modelOffsetZ, 
-					self.pos_x + self.modelOffsetX, 
-					self.pos_y + self.modelOffsetY
-				)
-		--DBM:AddMsg("X = "..self.pos_x)
-
+		self:SetSequenceTime(mobstyle.animationTypes[mobstyle.animation], self.atime) 
 	end)
-
-	--[[
+	
 	mobstyle:SetScript("OnUpdate", function(self, e)
 		--if true then return end
 		if not self.enabled then return end
@@ -1124,7 +1160,7 @@ local function CreateAnimationFrame()
 
 			self.atime = 0
 			self.playlist[self.apos].animation = self.playlist[self.apos].animation or 0
-			self:SetSequence(self.playlist[self.apos].animation)
+			self:SetSequenceTime(self.playlist[self.apos].animation, self.atime)
 		end
 
 		if self.playlist[self.apos].animation > 0 then
@@ -1163,7 +1199,7 @@ local function CreateAnimationFrame()
 			if self.scale < 0 then self.scale = 0.0001 end
 			self:SetModelScale(self.scale)
 		end
-	end) --]]
+	end)--]]
 	return mobstyle
 end
 
@@ -1195,18 +1231,16 @@ local function CreateOptionsMenu()
 		----------------------------------------------
 		--             General Options              --
 		----------------------------------------------
-		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 280, true)
+		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 230, true)
 	
 		local enabledbm = generaloptions:CreateCheckButton(L.EnableDBM, true)
 		enabledbm:SetScript("OnShow",  function() enabledbm:SetChecked(DBM:IsEnabled()) end)
 		enabledbm:SetScript("OnClick", function() if DBM:IsEnabled() then DBM:Disable() else DBM:Enable() end end)
 	
 		local StatusEnabled				= generaloptions:CreateCheckButton(L.EnableStatus, true, nil, "StatusEnabled")
-		local AutoRespond				= generaloptions:CreateCheckButton(L.AutoRespond,  true, nil, "AutoRespond")
-		local MiniMapIcon				= generaloptions:CreateCheckButton(L.EnableMiniMapIcon,  true)
-		local FixCLEUOnCombatStart		= generaloptions:CreateCheckButton(L.FixCLEUOnCombatStart,  true, nil, "FixCLEUOnCombatStart")
-		local SetCurrentMapOnPull		= generaloptions:CreateCheckButton(L.SetCurrentMapOnPull,  true, nil, "SetCurrentMapOnPull")
-		local UseMasterVolume			= generaloptions:CreateCheckButton(L.UseMasterVolume,  true, nil, "UseMasterVolume")--Needs someone smarter then me to hide/disable this option if not 4.0.6+
+		local AutoRespond				= generaloptions:CreateCheckButton(L.AutoRespond, true, nil, "AutoRespond")
+		local MiniMapIcon				= generaloptions:CreateCheckButton(L.EnableMiniMapIcon, true)
+		local UseMasterVolume			= generaloptions:CreateCheckButton(L.UseMasterVolume, true, nil, "UseMasterVolume")
 		MiniMapIcon:SetScript("OnClick", function(self)
 			DBM:ToggleMinimapButton()
 			self:SetChecked( DBM.Options.ShowMinimapButton )
@@ -1215,9 +1249,9 @@ local function CreateOptionsMenu()
 			self:SetChecked( DBM.Options.ShowMinimapButton )
 		end)
 		generaloptions:CreateCheckButton(L.SKT_Enabled, true, nil, "AlwaysShowSpeedKillTimer")
-	
+
 		local bmrange  = generaloptions:CreateButton(L.Button_RangeFrame)
-		bmrange:SetPoint('TOPLEFT', MiniMapIcon, "BOTTOMLEFT", 0, -95)
+		bmrange:SetPoint('TOPLEFT', MiniMapIcon, "BOTTOMLEFT", 0, -50)
 		bmrange:SetScript("OnClick", function(self) 
 			if DBM.RangeCheck:IsShown() then
 				DBM.RangeCheck:Hide()
@@ -1235,9 +1269,27 @@ local function CreateOptionsMenu()
      	latencySlider:HookScript("OnShow", function(self) self:SetValue(DBM.Options.LatencyThreshold) end)
 		latencySlider:HookScript("OnValueChanged", function(self) DBM.Options.LatencyThreshold = self:GetValue() end)
 
+		--Model viewer options
+		local modelarea = DBM_GUI_Frame:CreateArea(L.ModelOptions, nil, 85)
+		modelarea.frame:SetPoint('TOPLEFT', generaloptions.frame, "BOTTOMLEFT", 0, -20)
+		
+		local enablemodels	= modelarea:CreateCheckButton(L.EnableModels,  true, nil, "EnableModels")--Needs someone smarter then me to hide/disable this option if not 4.0.6+
+
+		local modelSounds = {
+			{	text	= L.NoSound,			value	= "" },
+			{	text	= L.ModelSoundShort,	value 	= "Short"},
+			{	text	= L.ModelSoundLong,		value 	= "Long"},
+		}
+		local ModelSoundDropDown = generaloptions:CreateDropdown(L.ModelSoundOptions, modelSounds, 
+		DBM.Options.ModelSoundValue, function(value) 
+			DBM.Options.ModelSoundValue = value
+		end
+		)
+		ModelSoundDropDown:SetPoint("TOPLEFT", modelarea.frame, "TOPLEFT", 0, -50)
+
 		-- Pizza Timer (create your own timer menu)
 		local pizzaarea = DBM_GUI_Frame:CreateArea(L.PizzaTimer_Headline, nil, 85)
-		pizzaarea.frame:SetPoint('TOPLEFT', generaloptions.frame, "BOTTOMLEFT", 0, -20)
+		pizzaarea.frame:SetPoint('TOPLEFT', modelarea.frame, "BOTTOMLEFT", 0, -20)
 	
 		local textbox = pizzaarea:CreateEditBox(L.PizzaTimer_Title, "Pizza!", 175)
 		local hourbox = pizzaarea:CreateEditBox(L.PizzaTimer_Hours, "0", 25)
@@ -1285,7 +1337,7 @@ local function CreateOptionsMenu()
 		--            Raid Warning Colors            --
 		-----------------------------------------------
 		local RaidWarningPanel = DBM_GUI_Frame:CreateNewPanel(L.Tab_RaidWarning, "option")
-		local raidwarnoptions = RaidWarningPanel:CreateArea(L.RaidWarning_Header, nil, 165, true)
+		local raidwarnoptions = RaidWarningPanel:CreateArea(L.RaidWarning_Header, nil, 200, true)
 
 		local ShowWarningsInChat 	= raidwarnoptions:CreateCheckButton(L.ShowWarningsInChat, true, nil, "ShowWarningsInChat")
 		local ShowFakedRaidWarnings 	= raidwarnoptions:CreateCheckButton(L.ShowFakedRaidWarnings,  true, nil, "ShowFakedRaidWarnings")
@@ -1313,6 +1365,18 @@ local function CreateOptionsMenu()
 		)
 		RaidWarnSoundDropDown:SetPoint("TOPLEFT", WarningIconRight, "BOTTOMLEFT", 20, -10)
 
+		local countSounds = {
+			{	text	= "Mosh (Male)",	value 	= "Mosh"},
+			{	text	= "Corsica (Female)",value 	= "Corsica"},
+		}
+		local CountSoundDropDown = raidwarnoptions:CreateDropdown(L.CountdownVoice, countSounds, 
+		DBM.Options.CountdownVoice, function(value) 
+			DBM.Options.CountdownVoice = value
+		end
+		)
+		CountSoundDropDown:SetPoint("TOPLEFT", WarningIconRight, "BOTTOMLEFT", 20, -50)
+
+		--Raid Warning Colors 
 		local raidwarncolors = RaidWarningPanel:CreateArea(L.RaidWarnColors, nil, 175, true)
 	
 		local color1 = raidwarncolors:CreateColorSelect(64)
@@ -1644,8 +1708,9 @@ local function CreateOptionsMenu()
 
 	do
 		local specPanel = DBM_GUI_Frame:CreateNewPanel(L.Panel_SpecWarnFrame, "option")
-		local specArea = specPanel:CreateArea(L.Area_SpecWarn, nil, 230, true)
+		local specArea = specPanel:CreateArea(L.Area_SpecWarn, nil, 250, true)
 		specArea:CreateCheckButton(L.SpecWarn_Enabled, true, nil, "ShowSpecialWarnings")
+		specArea:CreateCheckButton(L.SpecWarn_LHFrame, true, nil, "ShowLHFrame")
 
 		local showbutton = specArea:CreateButton(L.SpecWarn_DemoButton, 120, 16)
 		showbutton:SetPoint('TOPRIGHT', specArea.frame, "TOPRIGHT", -5, -5)
@@ -1660,7 +1725,7 @@ local function CreateOptionsMenu()
 		movemebutton:SetScript("OnClick", function() DBM:MoveSpecialWarning() end)
 
 		local fontSizeSlider = specArea:CreateSlider(L.SpecWarn_FontSize, 8, 40, 1)
-		fontSizeSlider:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 20, -55)
+		fontSizeSlider:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 20, -75)
 		do
 			local firstshow = true
 			fontSizeSlider:SetScript("OnShow", function(self) 
@@ -1676,7 +1741,7 @@ local function CreateOptionsMenu()
 		end
 
 		local color1 = specArea:CreateColorSelect(64)
-		color1:SetPoint('TOPLEFT', specArea.frame, "TOPLEFT", 20, -105)		
+		color1:SetPoint('TOPLEFT', specArea.frame, "TOPLEFT", 20, -125)		
 		local color1text = specArea:CreateText(L.SpecWarn_FontColor, 80)
 		color1text:SetPoint("BOTTOM", color1, "TOP", 5, 4)
 		local color1reset = specArea:CreateButton(L.Reset, 64, 10, nil, GameFontNormalSmall)
@@ -1724,7 +1789,7 @@ local function CreateOptionsMenu()
 				DBM:ShowTestSpecialWarning()
 			end
 		)
-		FontDropDown:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 130, -100)
+		FontDropDown:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 130, -120)
 
 		-- SpecialWarn Sound
 		local Sounds = {
@@ -1746,14 +1811,14 @@ local function CreateOptionsMenu()
 				DBM.Options.SpecialWarningSound = value
 			end
 		)
-		SpecialWarnSoundDropDown:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 130, -150)
+		SpecialWarnSoundDropDown:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 130, -160)
 		
 		local SpecialWarnSoundDropDown2 = specArea:CreateDropdown(L.SpecialWarnSound2, Sounds, 
 			DBM.Options.SpecialWarningSound2, function(value) 
 				DBM.Options.SpecialWarningSound2 = value
 			end
 		)
-		SpecialWarnSoundDropDown2:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 130, -190)
+		SpecialWarnSoundDropDown2:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 130, -200)
 
 
 		local resetbutton = specArea:CreateButton(L.SpecWarn_ResetMe, 120, 16)
@@ -1881,7 +1946,7 @@ do
 		ptext:SetPoint('TOPLEFT', panel.frame, "TOPLEFT", 10, -10)
 
 		local bossstats = 0 
-		local area = panel:CreateArea(nil, nil, 0)
+		local area = panel:CreateArea(nil, panel.frame:GetWidth() - 20, 0)
 		area.frame:SetPoint("TOPLEFT", 10, -25)
 		area.onshowcall = {}
 
@@ -1976,7 +2041,7 @@ do
 				table.insert(area.onshowcall, OnShowGetStats(mod.stats, party, bossvalue1, bossvalue2, bossvalue3, boss25value1, boss25value2, boss25value3, bossvalue4, bossvalue5, bossvalue6, boss25value4, boss25value5, boss25value6))
 			end
 		end
-		area.frame:SetScript("OnShow", function(self) 
+		area.frame:SetScript("OnShow", function(self)
 			for _,v in pairs(area.onshowcall) do
 				v()
 			end

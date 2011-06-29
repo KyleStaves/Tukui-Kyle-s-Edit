@@ -5,6 +5,7 @@ local L
 --------------------------
 --  Halfus Wyrmbreaker  --
 --------------------------
+--L= DBM:GetModLocalization(156)
 L = DBM:GetModLocalization("HalfusWyrmbreaker")
 
 L:SetGeneralLocalization({
@@ -27,6 +28,7 @@ L:SetMiscLocalization({
 ---------------------------
 --  Valiona & Theralion  --
 ---------------------------
+--L= DBM:GetModLocalization(157)
 L = DBM:GetModLocalization("ValionaTheralion")
 
 L:SetGeneralLocalization({
@@ -56,6 +58,7 @@ L:SetMiscLocalization({
 ----------------------------------
 --  Twilight Ascendant Council  --
 ----------------------------------
+--L= DBM:GetModLocalization(158)
 L = DBM:GetModLocalization("AscendantCouncil")
 
 L:SetGeneralLocalization({
@@ -103,6 +106,7 @@ L:SetMiscLocalization({
 ----------------
 --  Cho'gall  --
 ----------------
+--L= DBM:GetModLocalization(167)
 L = DBM:GetModLocalization("Chogall")
 
 L:SetGeneralLocalization({
@@ -130,6 +134,7 @@ L:SetMiscLocalization({
 ----------------
 --  Sinestra  --
 ----------------
+--L= DBM:GetModLocalization(168)
 L = DBM:GetModLocalization("Sinestra")
 
 L:SetGeneralLocalization({
@@ -138,11 +143,13 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarnDragon			= "Twilight Whelp Spawned",
-	WarnOrbsSoon		= "Twilight Orbs in %d sec!",
+	WarnOrbSoon			= "Orbs in %d sec!",
 	WarnEggWeaken		= "Twilight Carapace dissipated on Egg",
-	SpecWarnOrbs		= "Twilight Orbs soon!",
+	SpecWarnOrbs		= "Orbs coming! Watch Out!",
 	warnWrackJump		= "%s jumped to >%s<",
 	WarnWrackCount5s	= "%d sec elapsed since last Wrack",
+	warnAggro			= ">%s< have Aggro (Orbs candidate)",
+	SpecWarnAggroOnYou	= "You have Aggro! Watch Orbs!",
 	SpecWarnDispel		= "%d sec elapsed since last Wrack - Dispel Now!",
 	SpecWarnEggWeaken	= "Twilight Carapace dissipated - Dps EGG Now!",
 	SpecWarnEggShield	= "Twilight Capapace Regenerated!"
@@ -151,23 +158,27 @@ L:SetWarningLocalization({
 L:SetTimerLocalization({
 	TimerDragon			= "Next Twilight Whelps",
 	TimerEggWeakening	= "Twilight Carapace dissipates",
-	TimerEggWeaken		= "Twilight Capapace Regeneration"
-})	
+	TimerEggWeaken		= "Twilight Capapace Regeneration",
+	TimerOrbs			= "Next Orbs"
+})
 
 L:SetOptionLocalization({
 	WarnDragon			= "Show warning when Twilight Whelp Spawns",
-	WarnOrbsSoon		= "Show pre-warning for $spell:92954 (Before 5s, Every 1s)\n(Expected warning. may not be accurate. Can be spammy.)",
+	WarnOrbSoon			= "Show pre-warning for Orbs (Before 5s, Every 1s)\n(Expected warning. may not be accurate. Can be spammy.)",
 	WarnEggWeaken		= "Show pre-warning for when $spell:87654 dissipates",
 	warnWrackJump		= "Announce $spell:92955 jump targets",
 	WarnWrackCount5s	= "Announce $spell:92955 elapsed player duration at 10, 15, 20 seconds",
-	SpecWarnOrbs		= "Show special warning for $spell:92954\n(Expected warning. may not be accurate)",
+	warnAggro			= "Announce players who have Aggro when Orbs spawn (Can be target of Orbs)",
+	SpecWarnAggroOnYou	= "Show special warning if you have Aggro when Orbs spawn\n(Can be target of Orbs)",
+	SpecWarnOrbs		= "Show special warning when Orbs spawn (Expected warning)",
 	SpecWarnDispel		= "Show special warning to dispel $spell:92955\n(after certain time elapsed from casted/jumped)",
 	SpecWarnEggWeaken	= "Show special warning when $spell:87654 dissipates",
 	SpecWarnEggShield	= "Show special warning when $spell:87654 regenerated",
 	TimerDragon			= "Show timer for new Twilight Whelp",
 	TimerEggWeakening	= "Show timer for when $spell:87654 dissipates",
 	TimerEggWeaken		= "Show timer for $spell:87654 regeneration",
-	SetIconOnOrbs		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92954)
+	TimerOrbs			= "Show timer for next Orbs (Expected timer. may not be accurate)",
+	SetIconOnOrbs		= "Set icons on players who have Aggro when Orbs spawn\n(Can be target of Orbs)"
 })
 
 L:SetMiscLocalization({
@@ -175,9 +186,9 @@ L:SetMiscLocalization({
 	YellEgg				= "You mistake this for weakness?  Fool!"
 })
 
---------------------------
+-------------------------------------
 --  The Bastion of Twilight Trash  --
---------------------------
+-------------------------------------
 L = DBM:GetModLocalization("BoTrash")
 
 L:SetGeneralLocalization({

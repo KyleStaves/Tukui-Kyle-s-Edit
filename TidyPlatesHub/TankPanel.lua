@@ -413,6 +413,9 @@ local function CreateInterfacePanel( panelName, panelTitle, heading, parentTitle
 						{ text = "Text Only", notCheckable = 1 } , 
 						{ text = "Bars during Combat", notCheckable = 1 } , 
 						{ text = "Bars on Active/Damaged Units", notCheckable = 1 } , 
+						{ text = "Bars on Elite Units", notCheckable = 1 } , 
+						{ text = "Bars on Marked Units", notCheckable = 1 } , 
+						{ text = "Bars on Players", notCheckable = 1 } , 
 						}						
 	
 	

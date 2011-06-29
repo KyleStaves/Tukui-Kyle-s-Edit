@@ -73,13 +73,13 @@ function DrDamage:PlayerData()
 		elseif spec == 3 then
 			if mastery > 0 and mastery ~= masteryLast then
 				if calculation.healingSpell then
-					if ActiveAuras["Rejuvenation"] or ActiveAuras["Regrowth"] or ActiveAuras["Lifebloom"] or ActiveAuras["Wild Growth"] or ActiveAuras["Tranquility"] then
+					if baseSpell.DirectHeal or ActiveAuras["Harmony"] then
 						local masteryBonus = calculation.masteryBonus
 						if masteryBonus then
 							calculation.dmgM = calculation.dmgM / masteryBonus
 						end
-						--Mastery: Symbiosis
-						local bonus = 1 + mastery * 0.01 * 1.45
+						--Mastery: Harmony
+						local bonus = 1 + mastery * 0.01 * 1.25
 						calculation.dmgM = calculation.dmgM * bonus
 						calculation.masteryLast = mastery
 						calculation.masteryBonus = bonus
@@ -117,9 +117,7 @@ function DrDamage:PlayerData()
 			if not calculation.healingSpell then
 				if (calculation.school == "Nature" or calculation.school == "Arcane" or calculation.school == "Spellstorm") then
 					--Passive: Moonfury
-					--HOTFIX: Moonfury (Balance druid passive) now increases Arcane and Nature damage by 10%, down from 15%. More information can be found here.
 					calculation.dmgM = calculation.dmgM * 1.1
-					--BUG? -- IS and the MF DoT gets 1.25?
 				end
 				if moonfury[calculation.spellName] then
 					calculation.critM = calculation.critM + 0.5
@@ -217,11 +215,14 @@ function DrDamage:PlayerData()
 			calculation.critPerc_dot = (calculation.critPerc_dot or 0) + 5
 		end
 	end
-	self.Calculation["Entangling Roots"] = function( calculation )
+	self.Calculation["Entangling Roots"] = function( calculation, ActiveAuras )
 		--Glyph of Entangling Roots - 4.0
 		if self:HasGlyph(54760) then
 			calculation.cooldown = calculation.cooldown + 5
 		end
+		if ActiveAuras["Tree of Life"] then
+			calculation.dmgM = calculation.dmgM * 2
+		end		
 	end
 	self.Calculation["Typhoon"] = function( calculation )
 		--Glyph of Monsoon - 4.0
@@ -260,7 +261,7 @@ function DrDamage:PlayerData()
 			calculation.eDuration = 7
 			calculation.sTicks = 1
 			calculation.aoe = 3
-			calculation.NoCrits = true
+			calculation.hybridCanCrit = false
 			if Talents["Master Shapeshifter"] and (GetShapeshiftForm() == 0 or ActiveAuras["Tree of Life"]) then
 				calculation.dmgM_dot = calculation.dmgM_dot * 1.04
 			end
@@ -291,13 +292,16 @@ function DrDamage:PlayerData()
 			calculation.hits = nil
 		end
 	end
-	self.Calculation["Wild Growth"] = function( calculation )
+	self.Calculation["Wild Growth"] = function( calculation, ActiveAuras )
 		--Glyph of Wild Growth - 4.0
 		if self:HasGlyph(62970) then
 			calculation.aoe = calculation.aoe + 1
 		end
 		if self:GetSetAmount("T10 Resto") >= 2 then
 			calculation.bDmgM = calculation.bDmgM * (79/70)
+		end
+		if ActiveAuras["Tree of Life"] then
+			calculation.aoe = calculation.aoe + 2
 		end
 	end
 	self.Calculation["Moonfire"] = function( calculation, _, Talents )
@@ -342,6 +346,9 @@ function DrDamage:PlayerData()
 			calculation.extraChanceCrit = true
 			calculation.extraTicks = 2
 			calculation.extraName = "4T10"
+		end
+		if ActiveAuras["Tree of Life"] then
+			calculation.dmgM = calculation.dmgM * 1.3
 		end
 	end
 	self.Calculation["Starfire"] = function( calculation, ActiveAuras, Talents, spell )
@@ -394,7 +401,7 @@ function DrDamage:PlayerData()
 		local energy = math_min(35,UnitPower("player", 3) - calculation.actionCost)
 		--Glyph of Ferocious Bite - 4.0
 		if energy > 0 and not self:HasGlyph(67598) then
-			calculation.dmgM = calculation.dmgM * (1 + energy/35)
+			calculation.dmgM = calculation.dmgM * (1 + energy/25)
 			calculation.actionCost = calculation.actionCost + energy
 		end
 	end
@@ -528,13 +535,13 @@ function DrDamage:PlayerData()
 	--Moonkin form - 4.0
 	self.PlayerAura[GetSpellInfo(24858)] = { ActiveAura = "Moonkin Form", ID = 25868, NoManual = true }
 	--Tree of Life - 4.0
-	self.PlayerAura[GetSpellInfo(33891)] = { School = "Healing", ActiveAura = "Tree of Life", ID = 33891, NoManual = true }
+	self.PlayerAura[GetSpellInfo(33891)] = { ActiveAura = "Tree of Life", ID = 33891, NoManual = true }
 	--Cat Form - 4.0
 	self.PlayerAura[GetSpellInfo(768)] = { ActiveAura = "Cat Form", ID = 768, NoManual = true }
 	--Bear Form - 4.0
 	self.PlayerAura[GetSpellInfo(5487)] = { ActiveAura = "Bear Form", ID = 5487, NoManual = true }
 	--Lunar shower - 4.0 (Moonfire, Sunfire - needs spellIDs to get paired up correctly)
-	self.PlayerAura[GetSpellInfo(81006)] = { Spells = { 8921, 93402 }, Apps = 3, Ranks = 3, ID = 81006, Value = 0.15, Multiply = true, ModType = "dmgM_dd", Mods = { ["manaCost"] = -0.3 } }
+	self.PlayerAura[GetSpellInfo(81006)] = { Spells = { 8921, 93402 }, Apps = 3, Ranks = 3, ID = 81006, Value = 0.15, Multiply = true, ModType = "dmgM_dd", Mods = { ["manaCost"] = -0.1 } }
 	--Fury of Stormrage - 4.0
 	self.PlayerAura[GetSpellInfo(81093)] = { Update = true, Spells = "Starfire" }
 	--Nature's Bounty
@@ -557,14 +564,14 @@ function DrDamage:PlayerData()
 	self.PlayerAura[GetSpellInfo(70721)] = { School = { "Nature", "Arcane", "Spellstorm" }, Value = 0.15, ID = 70721, NoManual = true }
 	--Astral Alignment - 4.0 (4p proc from T11 Moonkin)
 	self.PlayerAura[GetSpellInfo(90164)] = { School = "All", Apps = 3, Value = 33, ModType = "critPerc", ID = 90164, NoManual = true }
-	--Savage Roar 4.0 - (needs to be divided out of spell modifiers)
+	--Savage Roar 4.0
 	self.PlayerAura[GetSpellInfo(52610)] = { School = "All", Melee = true, NoManual = true, ModType =
 		function( calculation, _, _, index )
 			if index then
 				--Glyph of Savage Roar - 4.0
-				calculation.wDmgM = calculation.wDmgM * (1.5 + (self:HasGlyph(63055) and 0.05 or 0))
+				calculation.wDmgM = calculation.wDmgM * (1.8 + (self:HasGlyph(63055) and 0.05 or 0))
 				if calculation.spellName == "Attack" then
-					calculation.dmgM = calculation.dmgM * (1.5 + (self:HasGlyph(63055) and 0.05 or 0))
+					calculation.dmgM = calculation.dmgM * (1.8 + (self:HasGlyph(63055) and 0.05 or 0))
 				end
 			end
 		end
@@ -594,7 +601,7 @@ function DrDamage:PlayerData()
 		end
 	}
 	--Nature's Swiftness 4.1
-	self.PlayerAura[GetSpellInfo(17116)] = { Spells = { "Nourish", "Healing Touch", "Regrowth", "Wrath" }, Value = .5, ID = 17116, NoManual = true }
+	self.PlayerAura[GetSpellInfo(17116)] = { Spells = { "Nourish", "Healing Touch", "Regrowth" }, Value = 0.5, ID = 17116, NoManual = true }
 	
 --Target
 	--Rejuvenation - 4.0
@@ -636,7 +643,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(5176)] = {
 			["Name"] = "Wrath",
 			["ID"] = 5176,
-			["Data"] = { 0.728, 0.12, 0.714, ["ct_min"] = 1500, ["ct_max"] = 2500 },
+			["Data"] = { 0.896, 0.12, 0.714, ["ct_min"] = 1500, ["ct_max"] = 2500 },
 			[0] = { School = "Nature", },
 			[1] = { 0, 0 },
 		},
@@ -662,6 +669,7 @@ function DrDamage:PlayerData()
 			[1] = { 0, 0, hybridDotDmg = 0 },
 		},
 		[GetSpellInfo(93402)] = {
+			--Sunfire
 			["Name"] = "Moonfire",
 			["ID"] = 93402,
 			["Data"] = { 0.221, 0.2, 0.18, 0.095, 0, 0.18 },
@@ -671,15 +679,8 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(2912)] = {
 			["Name"] = "Starfire",
 			["ID"] = 2912,
-			["Data"] = { 1.124, 0.22, 1, ["ct_min"] = 3500, ["ct_max"] = 3200 },
+			["Data"] = { 1.383, 0.22, 1, ["ct_min"] = 3500, ["ct_max"] = 3200 },
 			[0] = { School = "Arcane", },
-			[1] = { 0, 0, },
-		},
-		[GetSpellInfo(339)] = {
-			["Name"] = "Entangling Roots",
-			["ID"] = 339,
-			["Data"] = { 0.038, 0, 0.1 },
-			[0] = { School = "Nature", Hits = 10, eDot = true, eDuration = 30, sTicks = 3, },
 			[1] = { 0, 0, },
 		},
 		[GetSpellInfo(467)] = {
@@ -748,7 +749,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(33763)] = {
 			["Name"] = "Lifebloom",
 			["ID"] = 33763,
-			["Data"] = { 1.8729, 0, 0.284, 0.2314, 0, 0.0234 },
+			["Data"] = { 1.87292, 0, 0.284, 0.2314, 0, 0.0234 },
 			[0] = { School = { "Nature", "Healing" }, Hits_dot = 10, eDuration = 10, sTicks = 1, DotStacks = 3, },
 			[1] = { 0, 0, hybridDotDmg = 0, },
 		},
@@ -775,11 +776,11 @@ function DrDamage:PlayerData()
 		},
 		--Feral
 		[GetSpellInfo(16857)] = {
-					["Name"] = "Faerie Fire (Feral)",
-					["ID"] = 16857,
-					--["Data"] = { , },
-					[0] = { Melee = true, School = "Nature", SpellCrit = "Nature", SpellHit = true, APBonus = 0.15 },
-					[1] = { 1 },
+			["Name"] = "Faerie Fire (Feral)",
+			["ID"] = 16857,
+			--["Data"] = { , },
+			[0] = { Melee = true, School = "Nature", SpellCrit = "Nature", SpellHit = true, APBonus = 0.108 },
+			[1] = { 1 },
 		},
 		[GetSpellInfo(1082)] = {
 			["Name"] = "Claw",
@@ -798,35 +799,35 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(5221)] = {
 			["Name"] = "Shred",
 			["ID"] = 5221,
-			["Data"] = { 0.335, ["weaponDamageM"] = true, ["weaponDamage"] = 3.43, ["PPL_start"] = 46, ["PPL"] = 3.148 },
+			["Data"] = { 0.057, ["weaponDamageM"] = true, ["weaponDamage"] = 4.25, ["PPL_start"] = 46, ["PPL"] = 3.383 },
 			[0] = { Melee = true, requiresForm = 3, Bleed = true, Armor = true },
 			[1] = { 0 },
 		},
 		[GetSpellInfo(1822)] = {
 			["Name"] = "Rake",
 			["ID"] = 1822,
-			["Data"] = { 0.277, ["extra"] = 0.565 },
+			["Data"] = { 0.057, ["extra"] = 0.057 },
 			[0] = { Melee = true, APBonus = 0.0207, Hits_extra = 3, APBonus_extra = 0.378 / 3, E_eDuration = 9, E_Ticks = 3, E_canCrit = true, requiresForm = 3, Bleed = true, BleedExtra = true },
 			[1] = { 0, Extra = 0 },
 		},
 		[GetSpellInfo(22568)] = {
 			["Name"] = "Ferocious Bite",
 			["ID"] = 22568,
-			["Data"] = { 0.333, 0.74, --[[["APBonus"] = 0.109,--]] ["perCombo"] = 0.508, ["c_scale"] = 0.439 },
+			["Data"] = { 0.383, 0.74, --[[["APBonus"] = 0.109,--]] ["perCombo"] = 0.584, ["c_scale"] = 0.439 },
 			[0] = { Melee = true, APBonus = 0.109, ComboPoints = true, requiresForm = 3 },
 			[1] = { 0, 0, PerCombo = 0 },
 		},
 		[GetSpellInfo(6785)] = {
 			["Name"] = "Ravage",
 			["ID"] = 6785,
-			["Data"] = { 0.335, ["weaponDamageM"] = true, ["weaponDamage"] = 5.05, ["PPL_start"] = 22, ["PPL"] = 5.949 },
+			["Data"] = { 0.057, ["weaponDamageM"] = true, ["weaponDamage"] = 6.25, ["PPL_start"] = 22, ["PPL"] = 5.949 },
 			[0] = { Melee = true, requiresForm = 3 },
 			[1] = { 0 },
 		},
 		[GetSpellInfo(81170)] = {
 			["Name"] = "Ravage!",
 			["ID"] = 81170,
-			["Data"] = { 0.335, ["weaponDamageM"] = true, ["weaponDamage"] = 5.05, ["PPL_start"] = 22, ["PPL"] = 5.949 },
+			["Data"] = { 0.335, ["weaponDamageM"] = true, ["weaponDamage"] = 5.05, ["PPL_start"] = 22, ["PPL"] = 5.604 },
 			[0] = { Melee = true, requiresForm = 3 },
 			[1] = { 0 },
 		},		
@@ -857,14 +858,14 @@ function DrDamage:PlayerData()
 		["Swipe (Bear)"] = {
 			["Name"] = "Swipe (Bear)",
 			["ID"] = 779,
-			["Data"] = { 0.1741 },
-			[0] = { Melee = true, APBonus = 0.114, requiresForm = 1, AoE = true, Cooldown = 3 },
+			["Data"] = { 0.942 },
+			[0] = { Melee = true, APBonus = 0.123, requiresForm = 1, AoE = true, Cooldown = 3 },
 			[1] = { 0 },
 		},
 		["Swipe (Cat)"] = {
 			["Name"] = "Swipe (Cat)",
 			["ID"] = 62078,
-			["Data"] = { 0, ["weaponDamage"] = 4.64, ["PPL_start"] = 36, ["PPL"] = 4.682 },
+			["Data"] = { 0, ["weaponDamage"] = 4.15, ["PPL_start"] = 36, ["PPL"] = 4.210 },
 			[0] = { Melee = true, requiresForm = 3, AoE = true },
 			[1] = { 0 },
 		},		
@@ -888,15 +889,14 @@ function DrDamage:PlayerData()
 		["Mangle (Bear)"] = {
 					["Name"] = "Mangle (Bear)",
 					["ID"] = 33878,
-					--HOTFIX: Mangle (Bear) and Maul (Bear) damage has been increased by approximately 10%.
-					["Data"] = { 0.294, ["weaponDamageM"] = true, ["weaponDamage"] = 0.63 * 1.1, ["PPL_start"] = 10, ["PPL"] = 2.458 * 1.1,  },
+					["Data"] = { 1.764, ["weaponDamageM"] = true, ["weaponDamage"] = 0.5, ["PPL_start"] = 10, ["PPL"] = 2.0,  },
 					[0] = { Melee = true, requiresForm = 1, Cooldown = 6 },
 					[1] = { 0 },
 		},
 		["Mangle (Cat)"] = {
 					["Name"] = "Mangle (Cat)",
 					["ID"] = 33876,
-					["Data"] = { 0.32, ["weaponDamageM"] = true, ["weaponDamage"] = 2.35, ["PPL_start"] = 10, ["PPL"] = 3.215,  },
+					["Data"] = { 0.32, ["weaponDamageM"] = true, ["weaponDamage"] = 2.85, ["PPL_start"] = 10, ["PPL"] = 3.643,  },
 					[0] = { Melee = true, requiresForm = 3, },
 					[1] = { 0 },
 		},
@@ -904,12 +904,11 @@ function DrDamage:PlayerData()
 					["Name"] = "Maul",
 					["ID"] = 6807,
 					--NOTE: Blizzard data tables have set a base damage scaler for some reason
-					--["Data"] = { --[[0.474,--]] },
-					--HOTFIX: Mangle (Bear) and Maul (Bear) damage has been increased by approximately 10%.
-					[0] = { Melee = true, APBonus = 0.24 * 1.1, requiresForm = 1, Bleed = true, Armor = true, Cooldown = 3 },
+					--["Data"] = { --[[0.521,--]] },
+					[0] = { Melee = true, APBonus = 0.19, requiresForm = 1, Bleed = true, Armor = true, Cooldown = 3 },
 					[1] = { 7 },
 		},		
-		--TODO: Blizzard tooltip values for base and combo are too low. Real values seem to be increased by about 155%. Check when Blizzard upates tooltip
+		--BUG: Blizzard tooltip values for base and combo are too low. Real values seem to be increased by about 155%. Check when Blizzard upates tooltip
 		[GetSpellInfo(22570)] = {
 					["Name"] = "Maim",
 					["ID"] = 22570,
@@ -920,21 +919,21 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(33745)] = {
 					["Name"] = "Lacerate",
 					["ID"] = 33745,
-					["Data"] = { 2.117, ["extra"] = 0.016 },
-					[0] = { Melee = true, APBonus = 0.0766, Hits_extra = 5, APBonus_extra = 0.00512, E_eDuration = 15, E_Ticks = 3, E_canCrit = true, BleedExtra = true, requiresForm = 1 },
+					["Data"] = { 3.657, ["extra"] = 0.07 },
+					[0] = { Melee = true, APBonus = 0.0552, Hits_extra = 5, APBonus_extra = 0.0369, E_eDuration = 15, E_Ticks = 3, E_canCrit = true, BleedExtra = true, requiresForm = 1 },
 					[1] = { 0, Extra = 0 },
 		},
 		[GetSpellInfo(77758)] = {
 					["Name"] = "Thrash",
 					["ID"] = 77758,
-					["Data"] = { 0.344, 0.21, ["extra"] = 0.192 },
-					[0] = { Melee = true, APBonus = 0.154, Hits_extra = 3, APBonus_extra = 0.026, E_eDuration = 6, E_Ticks = 2, E_canCrit = true, requiresForm = 1, Cooldown = 6, E_AoE = true },
+					["Data"] = { 1.056, 0.21, ["extra"] = 0.589 },
+					[0] = { Melee = true, APBonus = 0.0982, Hits_extra = 3, APBonus_extra = 0.0167, E_eDuration = 6, E_Ticks = 2, E_canCrit = true, requiresForm = 1, Cooldown = 6, E_AoE = true },
 					[1] = { 0, 0, Extra = 0 },
 		},
 		[GetSpellInfo(80313)] = {
 					["Name"] = "Pulverize",
 					["ID"] = 80313,
-					["Data"] = { 0.457, ["weaponDamageM"] = true, ["weaponDamage"] = 0.8 },
+					["Data"] = { 2.743, ["weaponDamageM"] = true, ["weaponDamage"] = 0.6 },
 					[0] = { Melee = true, requiresForm = 1, },
 					[1] = { 0 },
 		},
@@ -998,14 +997,10 @@ function DrDamage:PlayerData()
 									[2] = { Effect = 0.05, Caster = true, Spells = "Regrowth", ModType = "dmgM_dd_Add" }, },
 		--Efflorescense
 		[GetSpellInfo(34151)] = { 	[1] = { Effect = 0.28, Caster = true, Spells = "Swiftmend", ModType = "Efflorescence", }, },
-
 		--Gift of the Earthmother (multiplicative - 4.0)
 		[GetSpellInfo(51179)] = { 	[1] = { Effect = 0.05, Caster = true, Spells = "Lifebloom", Multiply = true, ModType = "dmgM_dd" },
 									[2] = { Effect = 0.05, Caster = true, Spells = "Rejuvenation", ModType = "Gift of the Earthmother" }, },
 		--Swift Rejuvenation
 		[GetSpellInfo(33886)] = { 	[1] = { Effect = -0.5, Caster = true, Spells = "Rejuvenation", ModType = "castTime" }, },
-
-		--Nature's Swiftness
-		[GetSpellInfo(17116)] = { 	[1] = { Effect = 0.5, Caster = true, Spells = { "Nourish", "Healing Touch", "Regrowth", "Wrath" }, Manual = "Nature's Swiftness" }, },
 	}
 end

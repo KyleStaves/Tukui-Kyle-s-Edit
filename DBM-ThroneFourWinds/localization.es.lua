@@ -5,6 +5,7 @@ local L
 ------------------------
 --  Conclave of Wind  --
 ------------------------
+--L = DBM:GetModLocalization(154)
 L = DBM:GetModLocalization("Conclave")
 
 L:SetGeneralLocalization({
@@ -41,6 +42,7 @@ L:SetMiscLocalization({
 ---------------
 --  Al'Akir  --
 ---------------
+--L = DBM:GetModLocalization(155)
 L = DBM:GetModLocalization("AlAkir")
 
 L:SetGeneralLocalization({
@@ -61,10 +63,11 @@ L:SetOptionLocalization({
 	LightningRodIcon= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(89668),
 	TimerFeedback	= "Mostrar tiempo para la duración de $spell:87904",
 	WarnAdd			= "Mostrar un aviso cuando salga una Tormentilla",
-	TimerAddCD		= "Mostrar tiempo para nuevo add"
+	TimerAddCD		= "Mostrar tiempo para nuevo add",
+	RangeFrame		= "Mostrar distancia (20) cuando te afecte $spell:89668"
 })
 
 L:SetMiscLocalization({
-	summonSquall=	"¡Tormentas! ¡Os convoco a mi lado!",
+	summonAdd	=	"¡Tormentas! ¡Os convoco a mi lado!",
 	phase3		=	"¡Basta! ¡No permitiré que se me contenga más tiempo!"
 })

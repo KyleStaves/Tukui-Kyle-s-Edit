@@ -22,7 +22,6 @@ local moduleName = "AtlasLoot_WorldEvents"
 --- Reaccouring Events
 ---- Bash'ir Landing Skyguard Raid
 ---- Darkmoon Faire
----- Elemental Invasion
 ---- Gurubashi Arena Booty Run
 ---- Stranglethorn Fishing Extravaganza
 --- One-Time Events
@@ -42,170 +41,118 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["ArgentTournament"] = {
 		["Normal_A"] = {
 			{
-				{ 2, 45714, "", "=q2=Darnassus Commendation Badge", "=ds=1 #champwrit#"};
-				{ 3, 45715, "", "=q2=Exodar Commendation Badge", "=ds=1 #champwrit#"};
-				{ 4, 45716, "", "=q2=Gnomeregan Commendation Badge", "=ds=1 #champwrit#"};
-				{ 5, 45717, "", "=q2=Ironforge Commendation Badge", "=ds=1 #champwrit#"};
-				{ 6, 45718, "", "=q2=Stormwind Commendation Badge", "=ds=1 #champwrit#"};
-				{ 8, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
-				{ 9, 46843, "", "=q1=Argent Crusader's Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 10, 46874, "", "=q3=Argent Crusader's Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 14, 46114, "", "=q1=Champion's Writ", "=ds=#m17#"};
-				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
-				{ 17, 45021, "", "=q1=Darnassus Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 18, 45020, "", "=q1=Exodar Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 19, 45019, "", "=q1=Gnomeregan Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 20, 45018, "", "=q1=Ironforge Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 21, 45011, "", "=q1=Stormwind Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 22, 45579, "", "=q1=Darnassus Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 23, 45580, "", "=q1=Exodar Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 24, 45578, "", "=q1=Gnomeregan Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 25, 45577, "", "=q1=Ironforge Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 26, 45574, "", "=q1=Stormwind Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 27, 46817, "", "=q1=Silver Covenant Tabard", "=ds=#s7#", "50 #champseal#"};
+				{ 2, 45156, "", "=q3=Sash of Shattering Hearts", "=ds=#s10#, #a1#", "#CHAMPSEAL:10#" };
+				{ 3, 45181, "", "=q3=Wrap of the Everliving Tree", "=ds=#s10#, #a2#", "#CHAMPSEAL:10#" };
+				{ 4, 45159, "", "=q3=Treads of Nimble Evasion", "=ds=#s12#, #a2#", "#CHAMPSEAL:10#" };
+				{ 5, 45184, "", "=q3=Cinch of Bonded Servitude", "=ds=#s10#, #a3#", "#CHAMPSEAL:10#" };
+				{ 6, 45183, "", "=q3=Treads of the Glorious Spirit", "=ds=#s12#, #a3#", "#CHAMPSEAL:10#" };
+				{ 7, 45182, "", "=q3=Gauntlets of Shattered Pride", "=ds=#s9#, #a4#", "#CHAMPSEAL:10#" };
+				{ 8, 45160, "", "=q3=Girdle of Valorous Defeat", "=ds=#s10#, #a4#", "#CHAMPSEAL:10#" };
+				{ 9, 45163, "", "=q3=Stanchions of Unseatable Furor", "=ds=#s12#, #a4#", "#CHAMPSEAL:10#" };
+				{ 10, 45153, "", "=q3=Susurrating Shell Necklace", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 11, 45155, "", "=q3=Choker of Spiral Focus", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 12, 45154, "", "=q3=Necklace of Valiant Blood", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 13, 45152, "", "=q3=Pendant of Azure Dreams", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 14, 45131, "", "=q3=Jouster's Fury", "=ds=#s14#", "#CHAMPSEAL:10#" };
+				{ 17, 45078, "", "=q4=Dagger of Lunar Purity", "=ds=#h3#, #w4#", "#CHAMPSEAL:25#" };
+				{ 18, 45077, "", "=q4=Dagger of the Rising Moon", "=ds=#h1#, #w4#", "#CHAMPSEAL:25#" };
+				{ 19, 45129, "", "=q4=Gnomeregan Bonechopper", "=ds=#h3#, #w10#", "#CHAMPSEAL:25#" };
+				{ 20, 45074, "", "=q4=Claymore of the Prophet", "=ds=#h2#, #w10#", "#CHAMPSEAL:25#" };
+				{ 21, 45076, "", "=q4=Teldrassil Protector", "=ds=#h1#, #w1#", "#CHAMPSEAL:25#" };
+				{ 22, 45075, "", "=q4=Ironforge Smasher", "=ds=#h1#, #w6#", "#CHAMPSEAL:25#" };
+				{ 23, 45128, "", "=q4=Silvery Sylvan Stave", "=ds=#w9#", "#CHAMPSEAL:25#" };
+				{ 24, 45130, "", "=q4=Blunderbuss of Khaz Modan", "=ds=#w5#", "#CHAMPSEAL:25#" };
 			};
 			{
-				{ 2, 45156, "", "=q3=Sash of Shattering Hearts", "=ds=#s10#, #a1#", "10 #champseal#" };
-				{ 3, 45181, "", "=q3=Wrap of the Everliving Tree", "=ds=#s10#, #a2#", "10 #champseal#" };
-				{ 4, 45159, "", "=q3=Treads of Nimble Evasion", "=ds=#s12#, #a2#", "10 #champseal#" };
-				{ 5, 45184, "", "=q3=Cinch of Bonded Servitude", "=ds=#s10#, #a3#", "10 #champseal#" };
-				{ 6, 45183, "", "=q3=Treads of the Glorious Spirit", "=ds=#s12#, #a3#", "10 #champseal#" };
-				{ 7, 45182, "", "=q3=Gauntlets of Shattered Pride", "=ds=#s9#, #a4#", "10 #champseal#" };
-				{ 8, 45160, "", "=q3=Girdle of Valorous Defeat", "=ds=#s10#, #a4#", "10 #champseal#" };
-				{ 9, 45163, "", "=q3=Stanchions of Unseatable Furor", "=ds=#s12#, #a4#", "10 #champseal#" };
-				{ 10, 45153, "", "=q3=Susurrating Shell Necklace", "=ds=#s2#", "10 #champseal#" };
-				{ 11, 45155, "", "=q3=Choker of Spiral Focus", "=ds=#s2#", "10 #champseal#" };
-				{ 12, 45154, "", "=q3=Necklace of Valiant Blood", "=ds=#s2#", "10 #champseal#" };
-				{ 13, 45152, "", "=q3=Pendant of Azure Dreams", "=ds=#s2#", "10 #champseal#" };
-				{ 14, 45131, "", "=q3=Jouster's Fury", "=ds=#s14#", "10 #champseal#" };
-				{ 17, 45078, "", "=q4=Dagger of Lunar Purity", "=ds=#h3#, #w4#", "25 #champseal#" };
-				{ 18, 45077, "", "=q4=Dagger of the Rising Moon", "=ds=#h1#, #w4#", "25 #champseal#" };
-				{ 19, 45129, "", "=q4=Gnomeregan Bonechopper", "=ds=#h3#, #w10#", "25 #champseal#" };
-				{ 20, 45074, "", "=q4=Claymore of the Prophet", "=ds=#h2#, #w10#", "25 #champseal#" };
-				{ 21, 45076, "", "=q4=Teldrassil Protector", "=ds=#h1#, #w1#", "25 #champseal#" };
-				{ 22, 45075, "", "=q4=Ironforge Smasher", "=ds=#h1#, #w6#", "25 #champseal#" };
-				{ 23, 45128, "", "=q4=Silvery Sylvan Stave", "=ds=#w9#", "25 #champseal#" };
-				{ 24, 45130, "", "=q4=Blunderbuss of Khaz Modan", "=ds=#w5#", "25 #champseal#" };
-				{ 26, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
-			};
-			{
-				{ 2, 44998, "", "=q3=Argent Squire", "=ds=#m4#"};
-				{ 3, 44984, "", "=q3=Ammen Vale Lashling", "=ds=#e13#", "40 #champseal#"};
-				{ 4, 44965, "", "=q3=Teldrassil Sproutling", "=ds=#e13#", "40 #champseal#"};
-				{ 5, 44970, "", "=q3=Dun Morogh Cub", "=ds=#e13#", "40 #champseal#"};
-				{ 6, 44974, "", "=q3=Elwynn Lamb", "=ds=#e13#", "40 #champseal#"};
-				{ 7, 45002, "", "=q3=Mechanopeep", "=ds=#e13#", "40 #champseal#"};
-				{ 8, 46820, "", "=q3=Shimmering Wyrmling", "=ds=#e13#", "40 #champseal#"};
+				{ 2, 44998, "", "=q3=Argent Squire", "=ds=#e13#", "=ds=#m4#"};
+				{ 3, 44984, "", "=q3=Ammen Vale Lashling", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 4, 44965, "", "=q3=Teldrassil Sproutling", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 5, 44970, "", "=q3=Dun Morogh Cub", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 6, 44974, "", "=q3=Elwynn Lamb", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 7, 45002, "", "=q3=Mechanopeep", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 8, 46820, "", "=q3=Shimmering Wyrmling", "=ds=#e13#", "#CHAMPSEAL:40#"};
 				{ 10, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
-				{ 11, 47541, "", "=q3=Argent Pony Bridle", "=ds=", "150 #champseal#"};
-				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
-				{ 17, 45591, "", "=q4=Darnassian Nightsaber", "=ds=#e26#", "100 #champseal#"};
-				{ 18, 45590, "", "=q4=Exodar Elekk", "=ds=#e26#", "100 #champseal#"};
-				{ 19, 45589, "", "=q4=Gnomeregan Mechanostrider", "=ds=#e26#", "100 #champseal#"};
-				{ 20, 45586, "", "=q4=Ironforge Ram", "=ds=#e26#", "100 #champseal#"};
-				{ 21, 45125, "", "=q4=Stormwind Steed", "=ds=#e26#", "100 #champseal#"};
-				{ 22, 46745, "", "=q4=Great Red Elekk", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 23, 46752, "", "=q4=Swift Gray Steed", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 24, 46744, "", "=q4=Swift Moonsaber", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 25, 46748, "", "=q4=Swift Violet Ram", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 26, 46747, "", "=q4=Turbostrider", "=ds=#e26#", "500 #gold# 5 #champseal#"};
+				{ 11, 47541, "", "=q3=Argent Pony Bridle", "=ds=", "1#CHAMPSEAL:50#"};
+				{ 17, 45591, "", "=q4=Darnassian Nightsaber", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 18, 45590, "", "=q4=Exodar Elekk", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 19, 45589, "", "=q4=Gnomeregan Mechanostrider", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 20, 45586, "", "=q4=Ironforge Ram", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 21, 45125, "", "=q4=Stormwind Steed", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 22, 46745, "", "=q4=Great Red Elekk", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 23, 46752, "", "=q4=Swift Gray Steed", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 24, 46744, "", "=q4=Swift Moonsaber", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 25, 46748, "", "=q4=Swift Violet Ram", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 26, 46747, "", "=q4=Turbostrider", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
 			};
 			{
 				{ 1, 0, "inv_misc_tabardpvp_01", "=q6="..BabbleFaction["The Silver Covenant"], "=ec1=#m7#"};
-				{ 2, 46815, "", "=q4=Quel'dorei Steed", "=ds=#e26#", "100 #champseal#"};
-				{ 3, 46813, "", "=q4=Silver Covenant Hippogryph", "=ds=#e27#", "150 #champseal#"};
+				{ 2, 46815, "", "=q4=Quel'dorei Steed", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 3, 46813, "", "=q4=Silver Covenant Hippogryph", "=ds=#e27#", "1#CHAMPSEAL:50#"};
 				{ 5, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
-				{ 6, 47179, "", "=q4=Argent Charger", "=ds=#e26#", "100 #champseal#"};
-				{ 7, 47180, "", "=q4=Argent Warhorse", "=ds=#e26#", "100 #champseal#"};
-				{ 8, 45725, "", "=q4=Argent Hippogryph", "=ds=#e27#", "150 #champseal#"};
-				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
+				{ 6, 47179, "", "=q4=Argent Charger", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 7, 47180, "", "=q4=Argent Warhorse", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 8, 45725, "", "=q4=Argent Hippogryph", "=ds=#e27#", "1#CHAMPSEAL:50#"};
 				{ 16, 0, "inv_misc_tabardpvp_02", "=q6="..BabbleFaction["The Sunreavers"], "=ec1=#m6#"};
-				{ 17, 46816, "", "=q4=Sunreaver Hawkstrider", "=ds=#e26#", "100 #champseal#"};
-				{ 18, 46814, "", "=q4=Sunreaver Dragonhawk", "=ds=#e27#", "150 #champseal#"};
+				{ 17, 46816, "", "=q4=Sunreaver Hawkstrider", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 18, 46814, "", "=q4=Sunreaver Dragonhawk", "=ds=#e27#", "1#CHAMPSEAL:50#"};
 			};
 		};
 		["Normal_H"] = {
 			{
-				{ 2, 45719, "", "=q2=Orgrimmar Commendation Badge", "=ds=1 #champwrit#"};
-				{ 3, 45723, "", "=q2=Undercity Commendation Badge", "=ds=1 #champwrit#"};
-				{ 4, 45722, "", "=q2=Thunder Bluff Commendation Badge", "=ds=1 #champwrit#"};
-				{ 5, 45720, "", "=q2=Sen'jin Commendation Badge", "=ds=1 #champwrit#"};
-				{ 6, 45721, "", "=q2=Silvermoon Commendation Badge", "=ds=1 #champwrit#"};
-				{ 8, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
-				{ 9, 46843, "", "=q1=Argent Crusader's Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 10, 46874, "", "=q3=Argent Crusader's Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 14, 46114, "", "=q1=Champion's Writ", "=ds=#m17#"};
-				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
-				{ 17, 45014, "", "=q1=Orgrimmar Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 18, 45016, "", "=q1=Undercity Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 19, 45013, "", "=q1=Thunder Bluff Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 20, 45015, "", "=q1=Sen'jin Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 21, 45017, "", "=q1=Silvermoon City Banner", "=ds=#e14#", "15 #champseal#"};
-				{ 22, 45581, "", "=q1=Orgrimmar Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 23, 45583, "", "=q1=Undercity Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 24, 45584, "", "=q1=Thunder Bluff Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 25, 45582, "", "=q1=Darkspear Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 26, 45585, "", "=q1=Silvermoon City Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 27, 46818, "", "=q1=Sunreaver Tabard", "=ds=#s7#", "50 #champseal#"};
+				{ 2, 45209, "", "=q3=Sash of Trumpeted Pride", "=ds=#s10#, #a1#", "#CHAMPSEAL:10#" };
+				{ 3, 45211, "", "=q3=Waistguard of Equine Fury", "=ds=#s10#, #a2#", "#CHAMPSEAL:10#" };
+				{ 4, 45220, "", "=q3=Treads of the Earnest Squire", "=ds=#s12#, #a2#", "#CHAMPSEAL:10#" };
+				{ 5, 45215, "", "=q3=Links of Unquenched Savagery", "=ds=#s10#, #a3#", "#CHAMPSEAL:10#" };
+				{ 6, 45221, "", "=q3=Treads of Whispering Dreams", "=ds=#s12#, #a3#", "#CHAMPSEAL:10#" };
+				{ 7, 45216, "", "=q3=Gauntlets of Mending Touch", "=ds=#s9#, #a4#", "#CHAMPSEAL:10#" };
+				{ 8, 45217, "", "=q3=Clinch of Savage Fury", "=ds=#s10#, #a4#", "#CHAMPSEAL:10#" };
+				{ 9, 45218, "", "=q3=Blood-Caked Stompers", "=ds=#s12#, #a4#", "#CHAMPSEAL:10#" };
+				{ 10, 45206, "", "=q3=Choker of Feral Fury", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 11, 45207, "", "=q3=Necklace of Stolen Skulls", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 12, 45213, "", "=q3=Pendant of Emerald Crusader", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 13, 45223, "", "=q3=Razor's Edge Pendant", "=ds=#s2#", "#CHAMPSEAL:10#" };
+				{ 14, 45219, "", "=q3=Jouster's Fury", "=ds=#s14#", "#CHAMPSEAL:10#" };
+				{ 17, 45214, "", "=q4=Scalpel of the Royal Apothecary", "=ds=#h3#, #w4#", "#CHAMPSEAL:25#" };
+				{ 18, 45222, "", "=q4=Spinal Destroyer", "=ds=#h1#, #w4#", "#CHAMPSEAL:25#" };
+				{ 19, 45208, "", "=q4=Blade of the Keening Banshee", "=ds=#h3#, #w10#", "#CHAMPSEAL:25#" };
+				{ 20, 45205, "", "=q4=Greatsword of the Sin'dorei", "=ds=#h2#, #w10#", "#CHAMPSEAL:25#" };
+				{ 21, 45204, "", "=q4=Axe of the Sen'jin Protector", "=ds=#h1#, #w1#", "#CHAMPSEAL:25#" };
+				{ 22, 45203, "", "=q4=Grimhorn Crusher", "=ds=#h1#, #w6#", "#CHAMPSEAL:25#" };
+				{ 23, 45212, "", "=q4=Staff of Feral Furies", "=ds=#w9#", "#CHAMPSEAL:25#" };
+				{ 24, 45210, "", "=q4=Sen'jin Beakblade Longrifle", "=ds=#w5#", "#CHAMPSEAL:25#" };
 			};
 			{
-				{ 2, 45209, "", "=q3=Sash of Trumpeted Pride", "=ds=#s10#, #a1#", "10 #champseal#" };
-				{ 3, 45211, "", "=q3=Waistguard of Equine Fury", "=ds=#s10#, #a2#", "10 #champseal#" };
-				{ 4, 45220, "", "=q3=Treads of the Earnest Squire", "=ds=#s12#, #a2#", "10 #champseal#" };
-				{ 5, 45215, "", "=q3=Links of Unquenched Savagery", "=ds=#s10#, #a3#", "10 #champseal#" };
-				{ 6, 45221, "", "=q3=Treads of Whispering Dreams", "=ds=#s12#, #a3#", "10 #champseal#" };
-				{ 7, 45216, "", "=q3=Gauntlets of Mending Touch", "=ds=#s9#, #a4#", "10 #champseal#" };
-				{ 8, 45217, "", "=q3=Clinch of Savage Fury", "=ds=#s10#, #a4#", "10 #champseal#" };
-				{ 9, 45218, "", "=q3=Blood-Caked Stompers", "=ds=#s12#, #a4#", "10 #champseal#" };
-				{ 10, 45206, "", "=q3=Choker of Feral Fury", "=ds=#s2#", "10 #champseal#" };
-				{ 11, 45207, "", "=q3=Necklace of Stolen Skulls", "=ds=#s2#", "10 #champseal#" };
-				{ 12, 45213, "", "=q3=Pendant of Emerald Crusader", "=ds=#s2#", "10 #champseal#" };
-				{ 13, 45223, "", "=q3=Razor's Edge Pendant", "=ds=#s2#", "10 #champseal#" };
-				{ 14, 45219, "", "=q3=Jouster's Fury", "=ds=#s14#", "10 #champseal#" };
-				{ 17, 45214, "", "=q4=Scalpel of the Royal Apothecary", "=ds=#h3#, #w4#", "25 #champseal#" };
-				{ 18, 45222, "", "=q4=Spinal Destroyer", "=ds=#h1#, #w4#", "25 #champseal#" };
-				{ 19, 45208, "", "=q4=Blade of the Keening Banshee", "=ds=#h3#, #w10#", "25 #champseal#" };
-				{ 20, 45205, "", "=q4=Greatsword of the Sin'dorei", "=ds=#h2#, #w10#", "25 #champseal#" };
-				{ 21, 45204, "", "=q4=Axe of the Sen'jin Protector", "=ds=#h1#, #w1#", "25 #champseal#" };
-				{ 22, 45203, "", "=q4=Grimhorn Crusher", "=ds=#h1#, #w6#", "25 #champseal#" };
-				{ 23, 45212, "", "=q4=Staff of Feral Furies", "=ds=#w9#", "25 #champseal#" };
-				{ 24, 45210, "", "=q4=Sen'jin Beakblade Longrifle", "=ds=#w5#", "25 #champseal#" };
-				{ 26, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
-			};
-			{
-				{ 2, 45022, "", "=q3=Argent Gruntling", "=ds=#m4#"};
-				{ 3, 44980, "", "=q3=Mulgore Hatchling", "=ds=#e13#", "40 #champseal#"};
-				{ 4, 45606, "", "=q3=Sen'jin Fetish", "=ds=#e13#", "40 #champseal#"};
-				{ 5, 44971, "", "=q3=Tirisfal Batling", "=ds=#e13#", "40 #champseal#"};
-				{ 6, 44973, "", "=q3=Durotar Scorpion", "=ds=#e13#", "40 #champseal#"};
-				{ 7, 44982, "", "=q3=Enchanted Broom", "=ds=#e13#", "40 #champseal#"};
-				{ 8, 46821, "", "=q3=Shimmering Wyrmling", "=ds=#e13#", "40 #champseal#"};
+				{ 2, 45022, "", "=q3=Argent Gruntling", "=ds=#e13#", "=ds=#m4#"};
+				{ 3, 44980, "", "=q3=Mulgore Hatchling", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 4, 45606, "", "=q3=Sen'jin Fetish", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 5, 44971, "", "=q3=Tirisfal Batling", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 6, 44973, "", "=q3=Durotar Scorpion", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 7, 44982, "", "=q3=Enchanted Broom", "=ds=#e13#", "#CHAMPSEAL:40#"};
+				{ 8, 46821, "", "=q3=Shimmering Wyrmling", "=ds=#e13#", "#CHAMPSEAL:40#"};
 				{ 10, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
-				{ 11, 47541, "", "=q3=Argent Pony Bridle", "=ds=", "150 #champseal#"};
-				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
-				{ 17, 45593, "", "=q4=Darkspear Raptor", "=ds=#e26#", "100 #champseal#"};
-				{ 18, 45597, "", "=q4=Forsaken Warhorse", "=ds=#e26#", "100 #champseal#"};
-				{ 19, 45595, "", "=q4=Orgrimmar Wolf", "=ds=#e26#", "100 #champseal#"};
-				{ 20, 45596, "", "=q4=Silvermoon Hawkstrider", "=ds=#e26#", "100 #champseal#"};
-				{ 21, 45592, "", "=q4=Thunder Bluff Kodo", "=ds=#e26#", "100 #champseal#"};
-				{ 23, 46750, "", "=q4=Great Golden Kodo", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 24, 46749, "", "=q4=Swift Burgundy Wolf", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 25, 46743, "", "=q4=Swift Purple Raptor", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 26, 46751, "", "=q4=Swift Red Hawkstrider", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 27, 46746, "", "=q4=White Skeletal Warhorse", "=ds=#e26#", "500 #gold# 5 #champseal#"};
+				{ 11, 47541, "", "=q3=Argent Pony Bridle", "=ds=", "1#CHAMPSEAL:50#"};
+				{ 17, 45593, "", "=q4=Darkspear Raptor", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 18, 45597, "", "=q4=Forsaken Warhorse", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 19, 45595, "", "=q4=Orgrimmar Wolf", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 20, 45596, "", "=q4=Silvermoon Hawkstrider", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 21, 45592, "", "=q4=Thunder Bluff Kodo", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 23, 46750, "", "=q4=Great Golden Kodo", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 24, 46749, "", "=q4=Swift Burgundy Wolf", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 25, 46743, "", "=q4=Swift Purple Raptor", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 26, 46751, "", "=q4=Swift Red Hawkstrider", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
+				{ 27, 46746, "", "=q4=White Skeletal Warhorse", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
 			};
 			{
 				{ 2, 0, "inv_misc_tabardpvp_01", "=q6="..BabbleFaction["The Silver Covenant"], "=ec1=#m7#"};
-				{ 3, 46815, "", "=q4=Quel'dorei Steed", "=ds=#e26#", "100 #champseal#"};
-				{ 4, 46813, "", "=q4=Silver Covenant Hippogryph", "=ds=#e27#", "150 #champseal#"};
+				{ 3, 46815, "", "=q4=Quel'dorei Steed", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 4, 46813, "", "=q4=Silver Covenant Hippogryph", "=ds=#e27#", "1#CHAMPSEAL:50#"};
 				{ 6, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
-				{ 7, 47179, "", "=q4=Argent Charger", "=ds=#e26#", "100 #champseal#"};
-				{ 8, 47180, "", "=q4=Argent Warhorse", "=ds=#e26#", "100 #champseal#"};
-				{ 9, 45725, "", "=q4=Argent Hippogryph", "=ds=#e27#", "150 #champseal#"};
+				{ 7, 47179, "", "=q4=Argent Charger", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 8, 47180, "", "=q4=Argent Warhorse", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 9, 45725, "", "=q4=Argent Hippogryph", "=ds=#e27#", "1#CHAMPSEAL:50#"};
 				{ 17, 0, "inv_misc_tabardpvp_02", "=q6="..BabbleFaction["The Sunreavers"], "=ec1=#m6#"};
-				{ 18, 46816, "", "=q4=Sunreaver Hawkstrider", "=ds=#e26#", "100 #champseal#"};
-				{ 19, 46814, "", "=q4=Sunreaver Dragonhawk", "=ds=#e27#", "150 #champseal#"};
-				{ 21, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
+				{ 18, 46816, "", "=q4=Sunreaver Hawkstrider", "=ds=#e26#", "#CHAMPSEAL:100#"};
+				{ 19, 46814, "", "=q4=Sunreaver Dragonhawk", "=ds=#e27#", "1#CHAMPSEAL:50#"};
 			};
 		};
 		info = {
@@ -217,29 +164,28 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["ATHeirlooms"] = {
 		["Normal"] = {
 			{
-				{ 1, 42985, "", "=q7=Tattered Dreadmist Mantle", "=ds=#s3#, #a1#",  "60 #champseal#"};
-				{ 2, 42984, "", "=q7=Preened Ironfeather Shoulders", "=ds=#s3#, #a2#", "60 #champseal#"};
-				{ 3, 42952, "", "=q7=Stained Shadowcraft Spaulders", "=ds=#s3#, #a2#", "60 #champseal#"};
-				{ 4, 42950, "", "=q7=Champion Herod's Shoulder", "=ds=#s3#, #a3#", "60 #champseal#"};
-				{ 5, 42951, "", "=q7=Mystical Pauldrons of Elements", "=ds=#s3#, #a3#", "60 #champseal#"};
-				{ 6, 42949, "", "=q7=Polished Spaulders of Valor", "=ds=#s3#, #a4#", "60 #champseal#"};
-				{ 8, 48691, "", "=q7=Tattered Dreadmist Robe", "=ds=#s5#, #a1#", "60 #champseal#"};
-				{ 9, 48687, "", "=q7=Preened Ironfeather Breastplate", "=ds=#s5#, #a2#", "60 #champseal#"};
-				{ 10, 48689, "", "=q7=Stained Shadowcraft Tunic", "=ds=#s5#, #a2#", "60 #champseal#"};
-				{ 11, 48677, "", "=q7=Champion's Deathdealer Breastplate", "=ds=#s5#, #a3#", "60 #champseal#"};
-				{ 12, 48683, "", "=q7=Mystical Vest of Elements", "=ds=#s5#, #a3#", "60 #champseal#"};
-				{ 13, 48685, "", "=q7=Polished Breastplate of Valor", "=ds=#s5#, #a4#", "60 #champseal#"};
-				{ 16, 42992, "", "=q7=Discerning Eye of the Beast", "=ds=#s14#", "75 #champseal#"};
-				{ 17, 42991, "", "=q7=Swift Hand of Justice", "=ds=#s14#", "75 #champseal#"};
-				{ 19, 42944, "", "=q7=Balanced Heartseeker", "=ds=#h1#, #w4#", "60 #champseal#"};
-				{ 20, 42945, "", "=q7=Venerable Dal'Rend's Sacred Charge", "=ds=#h3#, #w10#", "60 #champseal#"};
-				{ 21, 42943, "", "=q7=Bloodied Arcanite Reaper", "=ds=#h2#, #w1#", "95 #champseal#"};
-				{ 22, 42948, "", "=q7=Devout Aurastone Hammer", "=ds=#h3#, #w6#", "75 #champseal#"};
-				{ 23, 48716, "", "=q7=Venerable Mass of McGowan", "=ds=#h1#, #w6#", "75 #champseal#"};
-				{ 24, 48718, "", "=q7=Repurposed Lava Dredger", "=ds=#h2#, #w6#", "95 #champseal#"};
-				{ 25, 42947, "", "=q7=Dignified Headmaster's Charge", "=ds=#w9#", "95 #champseal#"};
-				{ 26, 42946, "", "=q7=Charmed Ancient Bone Bow", "=ds=#w2#", "95 #champseal#"};
-				{ 28, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
+				{ 1, 42985, "", "=q7=Tattered Dreadmist Mantle", "=ds=#s3#, #a1#",  "#CHAMPSEAL:60#"};
+				{ 2, 42984, "", "=q7=Preened Ironfeather Shoulders", "=ds=#s3#, #a2#", "#CHAMPSEAL:60#"};
+				{ 3, 42952, "", "=q7=Stained Shadowcraft Spaulders", "=ds=#s3#, #a2#", "#CHAMPSEAL:60#"};
+				{ 4, 42950, "", "=q7=Champion Herod's Shoulder", "=ds=#s3#, #a3#", "#CHAMPSEAL:60#"};
+				{ 5, 42951, "", "=q7=Mystical Pauldrons of Elements", "=ds=#s3#, #a3#", "#CHAMPSEAL:60#"};
+				{ 6, 42949, "", "=q7=Polished Spaulders of Valor", "=ds=#s3#, #a4#", "#CHAMPSEAL:60#"};
+				{ 8, 48691, "", "=q7=Tattered Dreadmist Robe", "=ds=#s5#, #a1#", "#CHAMPSEAL:60#"};
+				{ 9, 48687, "", "=q7=Preened Ironfeather Breastplate", "=ds=#s5#, #a2#", "#CHAMPSEAL:60#"};
+				{ 10, 48689, "", "=q7=Stained Shadowcraft Tunic", "=ds=#s5#, #a2#", "#CHAMPSEAL:60#"};
+				{ 11, 48677, "", "=q7=Champion's Deathdealer Breastplate", "=ds=#s5#, #a3#", "#CHAMPSEAL:60#"};
+				{ 12, 48683, "", "=q7=Mystical Vest of Elements", "=ds=#s5#, #a3#", "#CHAMPSEAL:60#"};
+				{ 13, 48685, "", "=q7=Polished Breastplate of Valor", "=ds=#s5#, #a4#", "#CHAMPSEAL:60#"};
+				{ 16, 42992, "", "=q7=Discerning Eye of the Beast", "=ds=#s14#", "#CHAMPSEAL:75#"};
+				{ 17, 42991, "", "=q7=Swift Hand of Justice", "=ds=#s14#", "#CHAMPSEAL:75#"};
+				{ 19, 42944, "", "=q7=Balanced Heartseeker", "=ds=#h1#, #w4#", "#CHAMPSEAL:60#"};
+				{ 20, 42945, "", "=q7=Venerable Dal'Rend's Sacred Charge", "=ds=#h3#, #w10#", "#CHAMPSEAL:60#"};
+				{ 21, 42943, "", "=q7=Bloodied Arcanite Reaper", "=ds=#h2#, #w1#", "#CHAMPSEAL:95#"};
+				{ 22, 42948, "", "=q7=Devout Aurastone Hammer", "=ds=#h3#, #w6#", "#CHAMPSEAL:75#"};
+				{ 23, 48716, "", "=q7=Venerable Mass of McGowan", "=ds=#h1#, #w6#", "#CHAMPSEAL:75#"};
+				{ 24, 48718, "", "=q7=Repurposed Lava Dredger", "=ds=#h2#, #w6#", "#CHAMPSEAL:95#"};
+				{ 25, 42947, "", "=q7=Dignified Headmaster's Charge", "=ds=#w9#", "#CHAMPSEAL:95#"};
+				{ 26, 42946, "", "=q7=Charmed Ancient Bone Bow", "=ds=#w2#", "#CHAMPSEAL:95#"};
 			};
 		};
 		info = {
@@ -259,34 +205,34 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Brewfest"] = {
 		["Normal"] = {
 			{
-				{ 1, 33047, "", "=q1=Belbi's Eyesight Enhancing Romance Goggles", "=ds=#s1#", "100 #brewfest#"};
-				{ 2, 34008, "", "=q1=Blix's Eyesight Enhancing Romance Goggles", "=ds=#s1#", "100 #brewfest#"};
-				{ 3, 33968, "", "=q1=Blue Brewfest Hat", "=ds=#s1#", "50 #brewfest#"};
-				{ 4, 33864, "", "=q1=Brown Brewfest Hat", "=ds=#s1#", "50 #brewfest#"};
-				{ 5, 33967, "", "=q1=Green Brewfest Hat", "=ds=#s1#", "50 #brewfest#"};
-				{ 6, 33969, "", "=q1=Purple Brewfest Hat", "=ds=#s1#", "50 #brewfest#"};
-				{ 7, 33863, "", "=q1=Brewfest Dress", "=ds=#s5#", "200 #brewfest#"};
-				{ 8, 33862, "", "=q1=Brewfest Regalia", "=ds=#s5#", "200 #brewfest#"};
-				{ 9, 33868, "", "=q1=Brewfest Boots", "=ds=#s12#", "100 #brewfest#"};
-				{ 10, 33966, "", "=q1=Brewfest Slippers", "=ds=#s12#", "100 #brewfest#"};
-				{ 12, 37829, "", "=q2=Brewfest Prize Token", "=ds=#m17#"};
-				{ 16, 33927, "", "=q3=Brewfest Pony Keg", "=ds=#m20#", "100 #brewfest#"};
-				{ 17, 46707, "", "=q3=Pint-Sized Pink Pachyderm", "=ds=#e13#", "100 #brewfest#"};
+				{ 1, 33047, "", "=q1=Belbi's Eyesight Enhancing Romance Goggles", "=ds=#s1#", "#BREWFEST:100#"};
+				{ 2, 34008, "", "=q1=Blix's Eyesight Enhancing Romance Goggles", "=ds=#s1#", "#BREWFEST:100#"};
+				{ 3, 33968, "", "=q1=Blue Brewfest Hat", "=ds=#s1#", "#BREWFEST:50#"};
+				{ 4, 33864, "", "=q1=Brown Brewfest Hat", "=ds=#s1#", "#BREWFEST:50#"};
+				{ 5, 33967, "", "=q1=Green Brewfest Hat", "=ds=#s1#", "#BREWFEST:50#"};
+				{ 6, 33969, "", "=q1=Purple Brewfest Hat", "=ds=#s1#", "#BREWFEST:50#"};
+				{ 7, 33863, "", "=q1=Brewfest Dress", "=ds=#s5#", "#BREWFEST:200#"};
+				{ 8, 33862, "", "=q1=Brewfest Regalia", "=ds=#s5#", "#BREWFEST:200#"};
+				{ 9, 33868, "", "=q1=Brewfest Boots", "=ds=#s12#", "#BREWFEST:100#"};
+				{ 10, 33966, "", "=q1=Brewfest Slippers", "=ds=#s12#", "#BREWFEST:100#"};
+				{ 16, 33927, "", "=q3=Brewfest Pony Keg", "=ds=#m20#", "#BREWFEST:100#"};
+				{ 17, 46707, "", "=q3=Pint-Sized Pink Pachyderm", "=ds=#e13#", "#BREWFEST:100#"};
 				{ 18, 32233, "", "=q3=Wolpertinger's Tankard", "=ds=#e13#", "40 #silver#"};
-				{ 19, 37599, "", "=q1=\"Brew of the Month\" Club Membership Form", "=ds=#m2#", "200 #brewfest#"};
-				{ 21, 37816, "", "=q2=Preserved Brewfest Hops", "=ds=#m20#", "20 #brewfest#"};
-				{ 22, 37750, "", "=q1=Fresh Brewfest Hops", "=ds=#m20#", "2 #brewfest#"};
+				{ 19, 37599, "", "=q1=\"Brew of the Month\" Club Membership Form", "=ds=#m2#", "#BREWFEST:200#"};
+				{ 21, 37816, "", "=q2=Preserved Brewfest Hops", "=ds=#m20#", "#BREWFEST:20#"};
+				{ 22, 37750, "", "=q1=Fresh Brewfest Hops", "=ds=#m20#", "#BREWFEST:2#"};
 				{
-					{ 23, 39477, "", "=q1=Fresh Dwarven Brewfest Hops", "=ec1=#m6# =ds=#m20#", "5 #brewfest#"};
-					{ 23, 39476, "", "=q1=Fresh Goblin Brewfest Hops", "=ec1=#m7# =ds=#m20#", "5 #brewfest#"};
+					{ 23, 39477, "", "=q1=Fresh Dwarven Brewfest Hops", "=ec1=#m6# =ds=#m20#", "#BREWFEST:5#"};
+					{ 23, 39476, "", "=q1=Fresh Goblin Brewfest Hops", "=ec1=#m7# =ds=#m20#", "#BREWFEST:5#"};
 				};
 			};
 			{
-				{ 1, 37892, "", "=q3=Green Brewfest Stein", "=ec1=2009,2010 =q1=#m34#: =ds=#h1#"};
-				{ 2, 33016, "", "=q3=Blue Brewfest Stein", "=ec1=2008 =q1=#m34#: =ds=#h1#"};
-				{ 3, 32912, "", "=q3=Yellow Brewfest Stein", "=ec1=2007 =q1=#m34#: =ds=#h1#"};
-				{ 4, 34140, "", "=q3=Dark Iron Tankard", "=ec1=2007 =q1=#m34#: =ds=#s15#"};
-				{ 6, 33976, "", "=q3=Brewfest Ram", "=ec1=2007 =q1=#m34#: =ds=#e26#"};
+			--[[{ 1, 56836, "", "=q3=?? Brewfest Stein", "=ec1=2011 =q1=#m34#: =ds=#h1#"};]]--Not confirmed yet
+				{ 1, 37892, "", "=q3=Green Brewfest Stein", "=ec1=2009,2010 =q1=#m4#: =ds=#h1#"};
+				{ 2, 33016, "", "=q3=Blue Brewfest Stein", "=ec1=2008 =q1=#m4#: =ds=#h1#"};
+				{ 3, 32912, "", "=q3=Yellow Brewfest Stein", "=ec1=2007 =q1=#m4#: =ds=#h1#"};
+				{ 4, 34140, "", "=q3=Dark Iron Tankard", "=ec1=2007 =q1=#m4#: =ds=#s15#"};
+				{ 6, 33976, "", "=q3=Brewfest Ram", "=ec1=2007 =q1=#m4#: =ds=#e26#"};
 				{ 16, 33929, "", "=q1=Brewfest Brew", "=ds=#e4#"};
 				{ 17, 34063, "", "=q1=Dried Sausage", "=ds=#e3#"};
 				{ 18, 33024, "", "=q1=Pickled Sausage", "=ds=#e3#"};
@@ -299,23 +245,23 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 25, 33026, "", "=q1=The Golden Link", "=ds=#e3#"};
 			};
 			{
-				{ 1, 0, "INV_Cask_04", "=q6=#n131#", ""};
+				{ 1, 0, "INV_Cask_04", "=q6="..AL["Barleybrew Brewery"], ""};
 				{ 2, 33030, "", "=q1=Barleybrew Clear", "=ds=#e4#"};
 				{ 3, 33028, "", "=q1=Barleybrew Light", "=ds=#e4#"};
 				{ 4, 33029, "", "=q1=Barleybrew Dark", "=ds=#e4#"};
-				{ 6, 0, "INV_Cask_04", "=q6=#n132#", ""};
+				{ 6, 0, "INV_Cask_04", "=q6="..AL["Thunderbrew Brewery"], ""};
 				{ 7, 33031, "", "=q1=Thunder 45", "=ds=#e4#"};
 				{ 8, 33032, "", "=q1=Thunderbrew Ale", "=ds=#e4#"};
 				{ 9, 33033, "", "=q1=Thunderbrew Stout", "=ds=#e4#"};
-				{ 11, 0, "INV_Cask_04", "=q6=#n133#", ""};
+				{ 11, 0, "INV_Cask_04", "=q6="..AL["Gordok Brewery"], ""};
 				{ 12, 33034, "", "=q1=Gordok Grog", "=ds=#e4#"};
 				{ 13, 33036, "", "=q1=Mudder's Milk", "=ds=#e4#"};
 				{ 14, 33035, "", "=q1=Ogre Mead", "=ds=#e4#"};
-				{ 16, 0, "INV_Cask_04", "=q6=#n134#", ""};
+				{ 16, 0, "INV_Cask_04", "=q6="..AL["Drohn's Distillery"], ""};
 				{ 17, 34017, "", "=q1=Small Step Brew", "=ds=#e4#"};
 				{ 18, 34018, "", "=q1=Long Stride Brew", "=ds=#e4#"};
 				{ 19, 34019, "", "=q1=Path of Brew", "=ds=#e4#"};
-				{ 21, 0, "INV_Cask_04", "=q6=#n135#", ""};
+				{ 21, 0, "INV_Cask_04", "=q6="..AL["T'chali's Voodoo Brewery"], ""};
 				{ 22, 34020, "", "=q1=Jungle River Water", "=ds=#e4#"};
 				{ 23, 34021, "", "=q1=Brewdoo Magic", "=ds=#e4#"};
 				{ 24, 34022, "", "=q1=Stout Shrunken Head", "=ds=#e4#"};
@@ -353,16 +299,16 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["CorenDirebrew"] = {
 		["Normal"] = {
 			{
-				{ 1, 49078, "", "=q4=Ancient Pickled Egg", "=ds=#s14#"};
-				{ 2, 49118, "", "=q4=Bubbling Brightbrew Charm", "=ds=#s14#"};
-				{ 3, 49116, "", "=q4=Bitter Balebrew Charm", "=ds=#s14#"};
-				{ 4, 49080, "", "=q4=Brawler's Souvenir", "=ds=#s14#"};
-				{ 5, 49074, "", "=q4=Coren's Chromium Coaster", "=ds=#s14#"};
-				{ 6, 49076, "", "=q4=Mithril Pocketwatch", "=ds=#s14#"};
+				{ 1, 71336, "", "=q4=Petrified Pickled Egg", "=ds=#s14#"};
+				{ 2, 71334, "", "=q4=Bubblier Brightbrew Charm", "=ds=#s14#"};
+				{ 3, 71333, "", "=q4=Bitterer Balebrew Charm", "=ds=#s14#"};
+				{ 4, 71338, "", "=q4=Brawler's Trophy", "=ds=#s14#"};
+				{ 5, 71335, "", "=q4=Coren's Chilled Chromium Coaster", "=ds=#s14#"};
+				{ 6, 71337, "", "=q4=Mithril Stopwatch", "=ds=#s14#"};
 				{ 8, 38281, "", "=q1=Direbrew's Dire Brew", "=ds=#m2#"};
 				{ 16, 54535, "", "=q3=Keg-Shaped Treasure Chest", "=q5="..AL["Daily Reward"]};
-				{ 17, 49120, "", "=q4=Direbrew's Bloody Shanker", "=ds=#h1#, #w4#"};
-				{ 18, 48663, "", "=q4=Tankard O' Terror", "=ds=#h1#, #w6#"};
+				{ 17, 71331, "", "=q4=Direbrew's Bloodied Shanker", "=ds=#h1#, #w4#"};
+				{ 18, 71332, "", "=q4=Tremendous Tankard O' Terror", "=ds=#h1#, #w6#"};
 				{ 19, 37828, "", "=q4=Great Brewfest Kodo", "=ds=#e26#"};
 				{ 20, 33977, "", "=q4=Swift Brewfest Ram", "=ds=#e26#"};
 				{ 22, 37863, "", "=q3=Direbrew's Remote", "=ds="};
@@ -381,18 +327,18 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["ChildrensWeek"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#z24#", "=q5="..BabbleZone["Stormwind"].." / "..BabbleZone["Orgrimmar"]};
+				{ 1, 0, "INV_Box_01", "=q6="..BabbleZone["Azeroth"], "=q5="..BabbleZone["Stormwind"].." / "..BabbleZone["Orgrimmar"]};
 				{ 2, 23007, "", "=q1=Piglet's Collar", "=ds=#e13#"};
 				{ 3, 23015, "", "=q1=Rat Cage", "=ds=#e13#"};
 				{ 4, 66073, "", "=q1=Snail Shell", "=ds=#e13#"};
 				{ 5, 23002, "", "=q1=Turtle Box", "=ds=#e13#"};
 				{ 6, 23022, "", "=q1=Curmudgeon's Payoff", "=ds="};
-				{ 8, 0, "INV_Box_01", "=q6=#z25#", "=q5="..BabbleZone["Shattrath"]};
+				{ 8, 0, "INV_Box_01", "=q6="..BabbleZone["Outland"], "=q5="..BabbleZone["Shattrath"]};
 				{ 9, 32616, "", "=q3=Egbert's Egg", "=ds=#e13#"};
 				{ 10, 32622, "", "=q3=Elekk Training Collar", "=ds=#e13#"};
 				{ 11, 69648, "", "=q3=Legs", "=ds=#e13#"};
 				{ 12, 32617, "", "=q3=Sleepy Willy", "=ds=#e13#"};
-				{ 16, 0, "INV_Box_01", "=q6=#z40#", "=q5="..BabbleZone["Dalaran"]};
+				{ 16, 0, "INV_Box_01", "=q6="..BabbleZone["Northrend"], "=q5="..BabbleZone["Dalaran"]};
 				{ 17, 46545, "", "=q3=Curious Oracle Hatchling", "=ds=#e13#"};
 				{ 18, 46544, "", "=q3=Curious Wolvar Pup", "=ds=#e13#"};
 			};
@@ -416,8 +362,8 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 5, 46690, "", "=q1=Candy Skull", "=ds=#m20#, 5 #copper#"};
 				{ 6, 46711, "", "=q1=Spirit Candle", "=ds=#m20#, 30 #copper#"};
 				{ 7, 46718, "", "=q1=Orange Marigold", "=ds=#m20#, 10 #copper#"};
-				{ 9, 46710, "", "=q1=Recipe: Bread of the Dead", "=ds=#p3# (1), 20 #silver#"};
-				{ 10, 46691, "", "=q1=Bread of the Dead", "=ds=#e3#"};
+				{ 16, 46710, "", "=q1=Recipe: Bread of the Dead", "=ds=#p3# (1), 20 #silver#"};
+				{ 17, 46691, "", "=q1=Bread of the Dead", "=ds=#e3#"};
 			};
 		};
 		info = {
@@ -433,14 +379,14 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Winterviel"] = {
 		["Normal"] = {
 			{
-				{ 1, 21525, "", "=q2=Green Winter Hat", "=ds=#s1# =q2=#z7#"};
-				{ 2, 21524, "", "=q2=Red Winter Hat", "=ds=#s1# =q2=#z7#"};
+				{ 1, 21525, "", "=q2=Green Winter Hat", "=ds=#s1# =q2="..AL["Various Locations"]};
+				{ 2, 21524, "", "=q2=Red Winter Hat", "=ds=#s1# =q2="..AL["Various Locations"]};
 				{ 3, 17712, "", "=q1=Winter Veil Disguise Kit", "=q1=#m4#: =ds=#m20#"};
 				{ 4, 17202, "", "=q1=Snowball", "=ds=#m20#"};
 				{ 5, 34191, "", "=q1=Handful of Snowflakes", "=ds=#m20#"};
 				{ 6, 21212, "", "=q1=Fresh Holly", "=ds=#m20#"};
 				{ 7, 21519, "", "=q1=Mistletoe", "=ds=#m20#"};
-				{ 9, 0, "INV_Holiday_Christmas_Present_01", "=q6=#n129#", ""};
+				{ 9, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Smokywood Pastures Vendor"], ""};
 				{ 10, 34262, "", "=q2=Pattern: Winter Boots", "=ds=#p7# (285)"};
 				{ 11, 34319, "", "=q2=Pattern: Red Winter Clothes", "=ds=#p8# (250)"};
 				{ 12, 34261, "", "=q2=Pattern: Green Winter Clothes", "=ds=#p8# (250)"};
@@ -509,8 +455,8 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Halloween"] = {
 		["Normal"] = {
 			{
-				{ 1, 33117, "", "=q3=Jack-o'-Lantern", "=ds=#m14# #e1# =q2=#z7#"};
-				{ 2, 20400, "", "=q2=Pumpkin Bag", "=ds=#m13# #e1# =q2=#z7#"};
+				{ 1, 33117, "", "=q3=Jack-o'-Lantern", "=ds=#e1# =q2="..AL["Various Locations"]};
+				{ 2, 20400, "", "=q2=Pumpkin Bag", "=ds=#e1# =q2="..AL["Various Locations"]};
 				{ 4, 33189, "", "=q2=Rickety Magic Broom", "=ds=#e12#", "", ""};
 				{ 6, 18633, "", "=q1=Styleen's Sour Suckerpop", "=ds=#e3#"};
 				{ 7, 18632, "", "=q1=Moonbrook Riot Taffy", "=ds=#e3#"};
@@ -537,27 +483,30 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 29, 20390, "", "=q1=Candy Bar", "=ds=#e3#"};
 			};
 			{
-				{ 1, 0, "INV_Misc_Bag_11", "=q6="..AL["Treat Bag"], ""};
-				{ 2, 34003, "", "=q1=Flimsy Male Draenei Mask", "=ds=#s1#"};
-				{ 3, 20561, "", "=q1=Flimsy Male Dwarf Mask", "=ds=#s1#"};
-				{ 4, 20391, "", "=q1=Flimsy Male Gnome Mask", "=ds=#s1#"};
-				{ 5, 20566, "", "=q1=Flimsy Male Human Mask", "=ds=#s1#"};
-				{ 6, 20564, "", "=q1=Flimsy Male Night Elf Mask", "=ds=#s1#"};
-				{ 7, 34002, "", "=q1=Flimsy Male Blood Elf Mask", "=ds=#s1#"};
-				{ 8, 20570, "", "=q1=Flimsy Male Orc Mask", "=ds=#s1#"};
-				{ 9, 20572, "", "=q1=Flimsy Male Tauren Mask", "=ds=#s1#"};
-				{ 10, 20568, "", "=q1=Flimsy Male Troll Mask", "=ds=#s1#"};
-				{ 11, 20573, "", "=q1=Flimsy Male Undead Mask", "=ds=#s1#"};
-				{ 17, 34001, "", "=q1=Flimsy Female Draenei Mask", "=ds=#s1#"};
-				{ 18, 20562, "", "=q1=Flimsy Female Dwarf Mask", "=ds=#s1#"};
-				{ 19, 20392, "", "=q1=Flimsy Female Gnome Mask", "=ds=#s1#"};
-				{ 20, 20565, "", "=q1=Flimsy Female Human Mask", "=ds=#s1#"};
-				{ 21, 20563, "", "=q1=Flimsy Female Night Elf Mask", "=ds=#s1#"};
-				{ 22, 34000, "", "=q1=Flimsy Female Blood Elf Mask", "=ds=#s1#"};
-				{ 23, 20569, "", "=q1=Flimsy Female Orc Mask", "=ds=#s1#"};
-				{ 24, 20571, "", "=q1=Flimsy Female Tauren Mask", "=ds=#s1#"};
-				{ 25, 20567, "", "=q1=Flimsy Female Troll Mask", "=ds=#s1#"};
-				{ 26, 20574, "", "=q1=Flimsy Female Undead Mask", "=ds=#s1#"};
+				{ 2, 34003, "", "=q1=Draenei Male Mask", "=ds=#s1#"};
+				{ 3, 20561, "", "=q1=Dwarf Male Mask", "=ds=#s1#"};
+				{ 4, 20391, "", "=q1=Gnome Male Mask", "=ds=#s1#"};
+				{ 5, 49210, "", "=q1=Goblin Male Mask", "=ds=#s1#"};
+				{ 6, 20566, "", "=q1=Human Male Mask", "=ds=#s1#"};
+				{ 7, 20564, "", "=q1=Night Elf Male Mask", "=ds=#s1#"};
+				{ 8, 34002, "", "=q1=Blood Elf Male Mask", "=ds=#s1#"};
+				{ 9, 20570, "", "=q1=Orc Male Mask", "=ds=#s1#"};
+				{ 10, 20572, "", "=q1=Tauren Male Mask", "=ds=#s1#"};
+				{ 11, 20568, "", "=q1=Troll Male Mask", "=ds=#s1#"};
+				{ 12, 20573, "", "=q1=Undead Male Mask", "=ds=#s1#"};
+				{ 13, 49216, "", "=q1=Worfen Male Mask", "=ds=#s1#"};
+				{ 17, 34001, "", "=q1=Draenei Female Mask", "=ds=#s1#"};
+				{ 18, 20562, "", "=q1=Dwarf Female Mask", "=ds=#s1#"};
+				{ 19, 20392, "", "=q1=Gnome Female Mask", "=ds=#s1#"};
+				{ 20, 49212, "", "=q1=Goblin Female Mask", "=ds=#s1#"};
+				{ 21, 20565, "", "=q1=Human Female Mask", "=ds=#s1#"};
+				{ 22, 20563, "", "=q1=Night Elf Female Mask", "=ds=#s1#"};
+				{ 23, 34000, "", "=q1=Blood Elf Female Mask", "=ds=#s1#"};
+				{ 24, 20569, "", "=q1=Orc Female Mask", "=ds=#s1#"};
+				{ 25, 20571, "", "=q1=Tauren Female Mask", "=ds=#s1#"};
+				{ 26, 20567, "", "=q1=Troll Female Mask", "=ds=#s1#"};
+				{ 27, 20574, "", "=q1=Undead Female Mask", "=ds=#s1#"};
+				{ 28, 49215, "", "=q1=Worfen Female Mask", "=ds=#s1#"};
 			};
 		};
 		info = {
@@ -569,18 +518,19 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["HeadlessHorseman"] = {
 		["Normal"] = {
 			{
-				{ 1, 49126, "", "=q4=The Horseman's Horrific Helm", "=ds=#s1#, #a4#"};
-				{ 2, 49121, "", "=q4=Ring of Ghoulish Glee", "=ds=#s13#"};
-				{ 3, 49123, "", "=q4=The Horseman's Seal", "=ds=#s13#"};
-				{ 4, 49124, "", "=q4=Wicked Witch's Band", "=ds=#s13#"};
+				{ 1, 71327, "", "=q4=Band of Ghoulish Glee", "=ds=#s13#"};
+				{ 2, 71330, "", "=q4=Seal of the Petrified Pumpkin", "=ds=#s13#"};
+				{ 3, 71328, "", "=q4=The Horseman's Signet", "=ds=#s13#"};
+				{ 4, 71329, "", "=q4=Wicked Witch's Ring", "=ds=#s13#"};
 				{ 6, 34068, "", "=q1=Weighted Jack-o'-Lantern", "=ds=#m20#", "", "100%"};
 				{ 7, 33226, "", "=q1=Tricky Treat", "=ds=#m20#"};
 				{ 16, 54516, "", "=q3=Loot-Filled Pumpkin", "=q5="..AL["Daily Reward"]};
-				{ 17, 49128, "", "=q4=The Horseman's Baleful Blade", "=ds=#h3#, #w10#"};
-				{ 18, 37012, "", "=q4=The Horseman's Reins", "=ds=#e12#"};
-				{ 19, 33292, "", "=q3=Hallowed Helm", "=ds=#s1#, #a1#"};
-				{ 20, 37011, "", "=q3=Magic Broom", "=ds=#e12#"};
-				{ 21, 33154, "", "=q3=Sinister Squashling", "=ds=#e13#"};
+				{ 17, 71326, "", "=q4=The Horseman's Horrific Helmet", "=ds=#s1#, #a4#"};
+				{ 18, 71325, "", "=q4=The Horseman's Sinister Saber", "=ds=#h3#, #w10#"};
+				{ 19, 37012, "", "=q4=The Horseman's Reins", "=ds=#e12#"};
+				{ 20, 33292, "", "=q3=Hallowed Helm", "=ds=#s1#, #a1#"};
+				{ 21, 37011, "", "=q3=Magic Broom", "=ds=#e12#"};
+				{ 22, 33154, "", "=q3=Sinister Squashling", "=ds=#e13#"};
 			};
 		};
 		info = {
@@ -618,29 +568,28 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Valentineday"] = {
 		["Normal"] = {
 			{
-				{ 1, 34480, "", "=q3=Romantic Picnic Basket", "=ds=#m20#", "10 #valentineday#"};
+				{ 1, 34480, "", "=q3=Romantic Picnic Basket", "=ds=#m20#", "#VALENTINEDAY:10#"};
 				{ 2, 21815, "", "=q1=Love Token", "=ds=#m20#", "1 #valentineday2#"};
-				{ 3, 50163, "", "=q1=Lovely Rose", "=ds=#m20#", "5 #valentineday#"};
-				{ 4, 22218, "", "=q1=Handful of Rose Petals", "=ds=#m20#", "2 #valentineday#"};
-				{ 5, 22200, "", "=q1=Silver Shafted Arrow", "=ds=#e13#", "5 #valentineday#"};
-				{ 6, 22235, "", "=q1=Truesilver Shafted Arrow", "=ds=#e13#", "40 #valentineday#"};
-				{ 7, 21813, "", "=q1=Bag of Heart Candies", "=ds=#m20#", "2 #valentineday#"};
-				{ 8, 21812, "", "=q1=Box of Chocolates", "=ds=#m20#", "10 #valentineday#"};
-				{ 9, 50160, "", "=q1=Lovely Dress Box", "=ds=#m20#", "20 #valentineday#"};
-				{ 10, 50161, "", "=q1=Dinner Suit Box", "=ds=#m20#", "20 #valentineday#"};
-				{ 11, 34258, "", "=q1=Love Rocket", "=ds=#e23#", "5 #valentineday#"};
-				{ 12, 22261, "", "=q1=Love Fool", "=ds=#e22#", "10 #valentineday#"};
-				{ 16, 49859, "", "=q1=\"Bravado\" Cologne", "=ds=#m20#", "1 #valentineday#"};
-				{ 17, 49861, "", "=q1=\"STALWART\" Cologne", "=ds=#m20#", "1 #valentineday#"};
-				{ 18, 49860, "", "=q1=\"Wizardry\" Cologne", "=ds=#m20#", "1 #valentineday#"};
-				{ 19, 49856, "", "=q1=\"VICTORY\" Perfume", "=ds=#m20#", "1 #valentineday#"};
-				{ 20, 49858, "", "=q1=\"Forever\" Perfume", "=ds=#m20#", "1 #valentineday#"};
-				{ 21, 49857, "", "=q1=\"Enchantress\" Perfume", "=ds=#m20#", "1 #valentineday#"};
-				{ 23, 21815, "", "=q1=Love Token", "=ds=#m17#"};
+				{ 3, 50163, "", "=q1=Lovely Rose", "=ds=#m20#", "#VALENTINEDAY:5#"};
+				{ 4, 22218, "", "=q1=Handful of Rose Petals", "=ds=#m20#", "#VALENTINEDAY:2#"};
+				{ 5, 22200, "", "=q1=Silver Shafted Arrow", "=ds=#e13#", "#VALENTINEDAY:5#"};
+				{ 6, 22235, "", "=q1=Truesilver Shafted Arrow", "=ds=#e13#", "#VALENTINEDAY:40#"};
+				{ 7, 21813, "", "=q1=Bag of Heart Candies", "=ds=#m20#", "#VALENTINEDAY:2#"};
+				{ 8, 21812, "", "=q1=Box of Chocolates", "=ds=#m20#", "#VALENTINEDAY:10#"};
+				{ 9, 50160, "", "=q1=Lovely Dress Box", "=ds=#m20#", "#VALENTINEDAY:20#"};
+				{ 10, 50161, "", "=q1=Dinner Suit Box", "=ds=#m20#", "#VALENTINEDAY:20#"};
+				{ 11, 34258, "", "=q1=Love Rocket", "=ds=#e23#", "#VALENTINEDAY:5#"};
+				{ 12, 22261, "", "=q1=Love Fool", "=ds=#e22#", "#VALENTINEDAY:10#"};
+				{ 16, 49859, "", "=q1=\"Bravado\" Cologne", "=ds=#m20#", "#VALENTINEDAY:1#"};
+				{ 17, 49861, "", "=q1=\"STALWART\" Cologne", "=ds=#m20#", "#VALENTINEDAY:1#"};
+				{ 18, 49860, "", "=q1=\"Wizardry\" Cologne", "=ds=#m20#", "#VALENTINEDAY:1#"};
+				{ 19, 49856, "", "=q1=\"VICTORY\" Perfume", "=ds=#m20#", "#VALENTINEDAY:1#"};
+				{ 20, 49858, "", "=q1=\"Forever\" Perfume", "=ds=#m20#", "#VALENTINEDAY:1#"};
+				{ 21, 49857, "", "=q1=\"Enchantress\" Perfume", "=ds=#m20#", "#VALENTINEDAY:1#"};
 				{ 24, 49916, "", "=q1=Lovely Charm Bracelet", "=ds=#m17#"};
 			};
 			{
-				{ 1, 0, "INV_Box_02", "=q6="..AL["Lovely Dress Box"], ""};
+				{ 1, 0, "INV_Box_02", "=q6="..AL["Lovely Dress Box"], "#ACHIEVEMENTID:1694#"};
 				{ 2, 22279, "", "=q1=Lovely Black Dress", "=ds=#s5#"};
 				{ 3, 22276, "", "=q1=Lovely Red Dress", "=ds=#s5#"};
 				{ 4, 22278, "", "=q1=Lovely Blue Dress", "=ds=#s5#"};
@@ -649,12 +598,12 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 8, 22277, "", "=q1=Red Dinner Suit", "=q1=#m4#: =ds=#s5#"};
 				{ 9, 22281, "", "=q1=Blue Dinner Suit", "=q1=#m4#: =ds=#s5#"};
 				{ 10, 22282, "", "=q1=Purple Dinner Suit", "=q1=#m4#: =ds=#s5#"};	
-				{ 16, 0, "INV_ValentinesBoxOfChocolates02", "=q6="..AL["Box of Chocolates"], ""};
+				{ 16, 0, "INV_ValentinesBoxOfChocolates02", "=q6="..AL["Box of Chocolates"], "#ACHIEVEMENTID:1702#"};
 				{ 17, 22237, "", "=q1=Dark Desire", "=ds=#e3#"};
 				{ 18, 22238, "", "=q1=Very Berry Cream", "=ds=#e3#"};
 				{ 19, 22236, "", "=q1=Buttermilk Delight", "=ds=#e3#"};
 				{ 20, 22239, "", "=q1=Sweet Surprise ", "=ds=#e3#"};		
-				{ 22, 0, "inv_valentinescandysack", "=q6="..AL["Bag of Heart Candies"], ""};
+				{ 22, 0, "inv_valentinescandysack", "=q6="..AL["Bag of Heart Candies"], "#ACHIEVEMENTID:1696#"};
 				{ 23, 21816, "", "=q1=Heart Candy", "=ds=#m20#"};
 				{ 24, 21817, "", "=q1=Heart Candy", "=ds=#m20#"};
 				{ 25, 21818, "", "=q1=Heart Candy", "=ds=#m20#"};
@@ -806,18 +755,18 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Noblegarden"] = {
 		["Normal"] = {
 			{
-				{ 2, 44793, "", "=q3=Tome of Polymorph: Rabbit", "=ds=#e10#", "100 #noblegarden#"};
-				{ 3, 44794, "", "=q3=Spring Rabbit's Foot", "=ds=#e13#", "100 #noblegarden#"};
-				{ 4, 45073, "", "=q1=Spring Flowers", "=ds=#h1#", "50 #noblegarden#"};
-				{ 5, 44792, "", "=q1=Blossoming Branch", "=ds=", "10 #noblegarden#"};
-				{ 6, 44818, "", "=q1=Noblegarden Egg", "=ds=", "5 #noblegarden#"};
+				{ 2, 44793, "", "=q3=Tome of Polymorph: Rabbit", "=ds=#e10#", "#NOBLEGARDEN:100#"};
+				{ 3, 44794, "", "=q3=Spring Rabbit's Foot", "=ds=#e13#", "#NOBLEGARDEN:100#"};
+				{ 4, 45073, "", "=q1=Spring Flowers", "=ds=#h1#", "#NOBLEGARDEN:50#"};
+				{ 5, 44792, "", "=q1=Blossoming Branch", "=ds=", "#NOBLEGARDEN:10#"};
+				{ 6, 44818, "", "=q1=Noblegarden Egg", "=ds=", "#NOBLEGARDEN:5#"};
 				{ 8, 45067, "", "=q1=Egg Basket", "=q1=#m4#: =ds=#s15#"};
 				{ 9, 44791, "", "=q1=Noblegarden Chocolate", "=ds=#e3#"};
-				{ 17, 44803, "", "=q1=Spring Circlet", "=ds=#s1#", "50 #noblegarden#"};
-				{ 18, 19028, "", "=q1=Elegant Dress", "=ds=#s5#", "50 #noblegarden#"};
-				{ 19, 44800, "", "=q1=Spring Robes", "=ds=#s5#", "50 #noblegarden#"};
-				{ 20, 6833, "", "=q1=White Tuxedo Shirt", "=ds=#s6#", "25 #noblegarden#"};
-				{ 21, 6835, "", "=q1=Black Tuxedo Pants", "=ds=#s11#", "25 #noblegarden#"};
+				{ 17, 44803, "", "=q1=Spring Circlet", "=ds=#s1#", "#NOBLEGARDEN:50#"};
+				{ 18, 19028, "", "=q1=Elegant Dress", "=ds=#s5#", "#NOBLEGARDEN:50#"};
+				{ 19, 44800, "", "=q1=Spring Robes", "=ds=#s5#", "#NOBLEGARDEN:50#"};
+				{ 20, 6833, "", "=q1=White Tuxedo Shirt", "=ds=#s6#", "#NOBLEGARDEN:25#"};
+				{ 21, 6835, "", "=q1=Black Tuxedo Pants", "=ds=#s11#", "#NOBLEGARDEN:25#"};
 			};
 		};
 		info = {
@@ -896,19 +845,19 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["BashirLanding"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#j16#", "=q1=#n112#"};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Phase 1"], "=q1="..AL["Aether-tech Assistant"]};
 				{ 2, 32596, "", "=q1=Unstable Flask of the Elder", "=ds=#e2#", "", ""};
 				{ 3, 32600, "", "=q1=Unstable Flask of the Physician", "=ds=#e2#", "", ""};
 				{ 4, 32599, "", "=q1=Unstable Flask of the Bandit", "=ds=#e2#", "", ""};
 				{ 5, 32597, "", "=q1=Unstable Flask of the Soldier", "=ds=#e2#", "", ""};
-				{ 7, 0, "INV_Box_01", "=q6=#j17#", "=q1=#n113#"};
+				{ 7, 0, "INV_Box_01", "=q6="..AL["Phase 2"], "=q1="..AL["Aether-tech Adept"]};
 				{ 8, 32634, "", "=q3=Shifting Amethyst", "=ds=#e7#", "", ""};
 				{ 9, 32637, "", "=q3=Deadly Citrine", "=ds=#e7#", "", ""};
 				{ 10, 32638, "", "=q3=Reckless Citrine", "=ds=#e7#", "", ""};
 				{ 11, 32635, "", "=q3=Timeless Peridot", "=ds=#e7#", "", ""};
 				{ 12, 32636, "", "=q3=Purified Sapphire", "=ds=#e7#", "", ""};
 				{ 13, 32639, "", "=q3=Jagged Mossjewel", "=ds=#e7#", "", ""};
-				{ 16, 0, "INV_Box_01", "=q6=#j18#", "=q1=#n114#"};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["Phase 3"], "=q1="..AL["Aether-tech Master"]};
 				{ 17, 32641, "", "=q3=Imbued Unstable Diamond", "=ds=#e7#", "", ""};
 				{ 18, 32640, "", "=q3=Tense Unstable Diamond", "=ds=#e7#", "", ""};
 				{ 19, 32759, "", "=q1=Accelerator Module", "=ds=", "", ""};
@@ -1013,35 +962,6 @@ local moduleName = "AtlasLoot_WorldEvents"
 		};
 	};
 
-		--------------------------
-		--- Elemental Invasion ---
-		--------------------------
-
-	AtlasLoot_Data["ElementalInvasion"] = {
-		["Normal"] = {
-			{
-				{ 2, 0, "INV_Box_01", "=q6=#n108#", "=q1=#j19#, #z20#"};
-				{ 3, 18671, "", "=q3=Baron Charr's Sceptre", "=ds=#h1#, #w6#", "", "12.18%"};
-				{ 4, 19268, "", "=q3=Ace of Elementals", "=ds=#e16#", "", "10.14%"};
-				{ 5, 18672, "", "=q2=Elemental Ember", "=ds=#s15#", "", "53.31%"};
-				{ 7, 0, "INV_Box_01", "=q6=#n109#", "=q1=#j20#, #z21#"};
-				{ 8, 18678, "", "=q3=Tempestria's Frozen Necklace", "=ds=#s2#", "", "12.33%"};
-				{ 9, 19268, "", "=q3=Ace of Elementals", "=ds=#e16#", "", "5.24%"};
-				{ 10, 21548, "", "=q3=Pattern: Stormshroud Gloves", "=ds=#p7# (300)", "", "25.00%"};
-				{ 11, 18679, "", "=q2=Frigid Ring", "=ds=#s13#", "", "51.01%"};
-				{ 17, 0, "INV_Box_01", "=q6=#n111#", "=q1=#j21#, #z23#"};
-				{ 18, 18676, "", "=q3=Sash of the Windreaver", "=ds=#s10#, #a3#", "", "16.76%"};
-				{ 19, 19268, "", "=q3=Ace of Elementals", "=ds=#e16#", "", "9.76%"};
-				{ 20, 21548, "", "=q3=Pattern: Stormshroud Gloves", "=ds=#p7# (300)", "", "36.28%"};
-				{ 21, 18677, "", "=q2=Zephyr Cloak", "=ds=#s4#", "", "52.47%"};
-			};
-		};
-		info = {
-			name = AL["Elemental Invasion"],
-			module = moduleName, menu = "WORLDEVENTMENU"
-		};
-	};
-
 		---------------------------------
 		--- Gurubashi Arena Booty Run ---
 		---------------------------------
@@ -1070,15 +990,15 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["FishingExtravaganza"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#j24#", "=q1=#j23#"};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["First Prize"], "=q1="..AL["Master Angler"]};
 				{ 2, 19970, "", "=q3=Arcanite Fishing Pole", "=ds=#e20#"};
 				{ 3, 19979, "", "=q3=Hook of the Master Angler", "=ds=#s14#"};
-				{ 5, 0, "INV_Box_01", "=q6=#j26#", ""};
+				{ 5, 0, "INV_Box_01", "=q6="..AL["Rare Fish"], ""};
 				{ 6, 19805, "", "=q2=Keefer's Angelfish", "=ds=#e21#", "", ""};
 				{ 7, 19803, "", "=q2=Brownell's Blue Striped Racer", "=ds=#e21#", "", ""};
 				{ 8, 19806, "", "=q2=Dezian Queenfish", "=ds=#e21#", "", ""};
 				{ 9, 19808, "", "=q2=Rockhide Strongfish", "=ds=#h1#, #w6#", "", ""};
-				{ 20, 0, "INV_Box_01", "=q6=#j25#", ""};
+				{ 20, 0, "INV_Box_01", "=q6="..AL["Rare Fish Rewards"], ""};
 				{ 21, 19972, "", "=q2=Lucky Fishing Hat", "=ds=#s1#, #a1#"};
 				{ 22, 19969, "", "=q2=Nat Pagle's Extreme Anglin' Boots", "=ds=#s12#, #a1#"};
 				{ 23, 19971, "", "=q2=High Test Eternium Fishing Line", "=ds=#e20# #e17#"};
@@ -1105,22 +1025,22 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Templars"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#n96#", "=q1=#j19#"};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Crimson Templar"], "=q1=#j19#"};
 				{ 2, 20657, "", "=q3=Crystal Tipped Stiletto", "=ds=#h1#, #w4#", "", "2.31%"};
 				{ 3, 20655, "", "=q2=Abyssal Cloth Handwraps", "=ds=#s9#, #a1#", "", "13.03%"};
 				{ 4, 20656, "", "=q2=Abyssal Mail Sabatons", "=ds=#s12#, #a3#", "", "12.89%"};
 				{ 5, 20513, "", "=q2=Abyssal Crest", "=ds=#m3#", "", "100%"};
-				{ 7, 0, "INV_Box_01", "=q6=#n97#", "=q1=#j20#"};
+				{ 7, 0, "INV_Box_01", "=q6="..AL["Azure Templar"], "=q1=#j20#"};
 				{ 8, 20654, "", "=q3=Amethyst War Staff", "=ds=#w9#", "", "2.38%"};
 				{ 9, 20652, "", "=q2=Abyssal Cloth Slippers", "=ds=#s12#, #a1#", "", "12.94%"};
 				{ 10, 20653, "", "=q2=Abyssal Plate Gauntlets", "=ds=#s9#, #a4#", "", "13.61%"};
 				{ 11, 20513, "", "=q2=Abyssal Crest", "=ds=#m3#", "", "100%"};
-				{ 16, 0, "INV_Box_01", "=q6=#n98#", "=q1=#j21#"};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["Hoary Templar"], "=q1=#j21#"};
 				{ 17, 20660, "", "=q3=Stonecutting Glaive", "=ds=#w7#", "", "2.22%"};
 				{ 18, 20658, "", "=q2=Abyssal Leather Boots", "=ds=#s12#, #a2#", "", "13.16%"};
 				{ 19, 20659, "", "=q2=Abyssal Mail Handguards", "=ds=#s9#, #a3#", "", "12.64%"};
 				{ 20, 20513, "", "=q2=Abyssal Crest", "=ds=#m3#", "", "100%"};
-				{ 22, 0, "INV_Box_01", "=q6=#n99#", "=q1=#j22#"};
+				{ 22, 0, "INV_Box_01", "=q6="..AL["Earthen Templar"], "=q1=#j22#"};
 				{ 23, 20663, "", "=q3=Deep Strike Bow", "=ds=#w2#", "", "2.55%"};
 				{ 24, 20661, "", "=q2=Abyssal Leather Gloves", "=ds=#s9#, #a2#", "", "13.16%"};
 				{ 25, 20662, "", "=q2=Abyssal Plate Greaves", "=ds=#s12#, #a4#", "", "12.93%"};
@@ -1136,23 +1056,23 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Dukes"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#n100#", "=q1=#j19#"};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["The Duke of Cynders"], "=q1=#j19#"};
 				{ 2, 20665, "", "=q3=Abyssal Leather Leggings", "=ds=#s11#, #a2#", "", "22.50%"};
 				{ 3, 20666, "", "=q3=Hardened Steel Warhammer", "=ds=#h3#, #w6#", "", "30.47%"};
 				{ 4, 20514, "", "=q3=Abyssal Signet", "=ds=#m3#", "", "100%"};
 				{ 5, 20664, "", "=q2=Abyssal Cloth Sash", "=ds=#s10#, #a1#", "", "27.08%"};
 				{ 6, 21989, "", "=q1=Cinder of Cynders", "=ds=#m3#", "", "100%"};
-				{ 8, 0, "INV_Box_01", "=q6=#n101#", "=q1=#j20#"};
+				{ 8, 0, "INV_Box_01", "=q6="..AL["The Duke of Fathoms"], "=q1=#j20#"};
 				{ 9, 20668, "", "=q3=Abyssal Mail Legguards", "=ds=#s11#, #a3#", "", "22.40%"};
 				{ 10, 20669, "", "=q3=Darkstone Claymore", "=ds=#h2#, #w10#", "", "29.62%"};
 				{ 11, 20514, "", "=q3=Abyssal Signet", "=ds=#m3#", "", "100%"};
 				{ 12, 20667, "", "=q2=Abyssal Leather Belt", "=ds=#s10#, #a2#", "", "29.04%"};
-				{ 16, 0, "INV_Box_01", "=q6=#n102#", "=q1=#j21#"};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["The Duke of Zephyrs"], "=q1=#j21#"};
 				{ 17, 20674, "", "=q3=Abyssal Cloth Pants", "=ds=#s11#, #a1#", "", "21.83%"};
 				{ 18, 20675, "", "=q3=Soulrender", "=ds=#h1#, #w1#", "", "29.73%"};
 				{ 19, 20514, "", "=q3=Abyssal Signet", "=ds=#m3#", "", "100%"};
 				{ 20, 20673, "", "=q2=Abyssal Plate Girdle", "=ds=#s10#, #a4#", "", "27.11%"};
-				{ 23, 0, "INV_Box_01", "=q6=#n103#", "=q1=#j22#"};
+				{ 23, 0, "INV_Box_01", "=q6="..AL["The Duke of Shards"], "=q1=#j22#"};
 				{ 24, 20671, "", "=q3=Abyssal Plate Legplates", "=ds=#s11#, #a4#", "", "22.63%"};
 				{ 25, 20672, "", "=q3=Sparkling Crystal Wand", "=ds=#w12#", "", "28.90%"};
 				{ 26, 20514, "", "=q3=Abyssal Signet", "=ds=#m3#", "", "100%"};
@@ -1168,22 +1088,22 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["HighCouncil"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#n104#", "=q1=#j19#"};
+				{ 1, 0, "INV_Box_01", "=q6="..BabbleBoss["Prince Skaldrenox"], "=q1=#j19#"};
 				{ 2, 20682, "", "=q4=Elemental Focus Band", "=ds=#s13#", "", "22.83%"};
 				{ 3, 20515, "", "=q4=Abyssal Scepter", "=ds=#m3#", "", "100%"};
 				{ 4, 20681, "", "=q3=Abyssal Leather Bracers", "=ds=#s8#, #a2#", "", "24.70%"};
 				{ 5, 20680, "", "=q3=Abyssal Mail Pauldrons", "=ds=#s3#, #a3#", "", "24.21%"};
-				{ 7, 0, "INV_Box_01", "=q6=#n105#", "=q1=#j20#"};
+				{ 7, 0, "INV_Box_01", "=q6="..BabbleBoss["Lord Skwol"], "=q1=#j20#"};
 				{ 8, 20685, "", "=q4=Wavefront Necklace", "=ds=#s2#", "", "24.48%"};
 				{ 9, 20515, "", "=q4=Abyssal Scepter", "=ds=#m3#", "", "100%"};
 				{ 10, 20684, "", "=q3=Abyssal Mail Armguards", "=ds=#s8#, #a3#", "", "27.68%"};
 				{ 11, 20683, "", "=q3=Abyssal Plate Epaulets", "=ds=#s3#, #a4#", "", "21.52%"};
-				{ 16, 0, "INV_Box_01", "=q6=#n106#", "=q1=#j21#"};
+				{ 16, 0, "INV_Box_01", "=q6="..BabbleBoss["High Marshal Whirlaxis"], "=q1=#j21#"};
 				{ 17, 20691, "", "=q4=Windshear Cape", "=ds=#s4#", "", "22.08%"};
 				{ 18, 20515, "", "=q4=Abyssal Scepter", "=ds=#m3#", "", "100%"};
 				{ 19, 20690, "", "=q3=Abyssal Cloth Wristbands", "=ds=#s8#, #a1#", "", "23.60%"};
 				{ 20, 20689, "", "=q3=Abyssal Leather Shoulders", "=ds=#s3#, #a3#", "", "23.40%"};
-				{ 22, 0, "INV_Box_01", "=q6=#n107#", "=q1=#j22#"};
+				{ 22, 0, "INV_Box_01", "=q6="..BabbleBoss["Baron Kazum"], "=q1=#j22#"};
 				{ 23, 20688, "", "=q4=Earthen Guard", "=ds=#w8#", "", "20.64%"};
 				{ 24, 20515, "", "=q4=Abyssal Scepter", "=ds=#m3#", "", "100%"};
 				{ 25, 20686, "", "=q3=Abyssal Cloth Amice", "=ds=#s3#, #a1#", "", "23.96%"};
@@ -1364,19 +1284,19 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["BashirStasisChambers"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#n118#", ""};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Trelopades"], ""};
 				{ 2, 32522, "", "=q3=Demonic Bulwark", "=ds=#w8#", "", ""};
 				{ 3, 31941, "", "=q2=Mark of the Nexus-King", "=ds=#m3#", "", ""};
-				{ 5, 0, "INV_Box_01", "=q6=#n119#", ""};
+				{ 5, 0, "INV_Box_01", "=q6="..AL["King Dorfbruiser"], ""};
 				{ 6, 31577, "", "=q3=Slatesteel Shoulders", "=ds=#s3#, #a4#", "", ""};
 				{ 7, 31941, "", "=q2=Mark of the Nexus-King", "=ds=#m3#", "", ""};
-				{ 9, 0, "INV_Box_01", "=q6=#n120#", ""};
+				{ 9, 0, "INV_Box_01", "=q6="..AL["Gorgolon the All-seeing"], ""};
 				{ 10, 31569, "", "=q3=Mistshroud Shoulders", "=ds=#s3#, #a3#", "", ""};
 				{ 11, 31941, "", "=q2=Mark of the Nexus-King", "=ds=#m3#", "", ""};
-				{ 16, 0, "INV_Box_01", "=q6=#n121#", ""};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["Matron Li-sahar"], ""};
 				{ 17, 31553, "", "=q3=Windchanneller's Mantle", "=ds=#s3#, #a1#", "", ""};
 				{ 18, 31941, "", "=q2=Mark of the Nexus-King", "=ds=#m3#", "", ""};
-				{ 20, 0, "INV_Box_01", "=q6=#n122#", ""};
+				{ 20, 0, "INV_Box_01", "=q6="..AL["Solus the Eternal"], ""};
 				{ 21, 31561, "", "=q3=Skystalker's Shoulders", "=ds=#s3#, #a2#", "", ""};
 				{ 22, 31941, "", "=q2=Mark of the Nexus-King", "=ds=#m3#", "", ""};
 			};

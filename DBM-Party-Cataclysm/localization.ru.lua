@@ -331,7 +331,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization{
-	RangeFrame	= "Окно проверки дистанции (5 м)"
+	RangeFrame	= "Окно проверки дистанции (5м)"
 }
 
 ----------
@@ -444,7 +444,7 @@ L:SetOptionLocalization({
 	TimerEmerge		= "Показывать таймер до появления",
 	TimerSubmerge	= "Показывать таймер до погружения",
 	CrystalArrow	= "Показать стрелку DBM когда $spell:81634 около вас",
-	RangeFrame		= "Окно проверки дистанции (5 м)"
+	RangeFrame		= "Окно проверки дистанции (5м)"
 })
 
 -----------
@@ -605,12 +605,14 @@ L:SetOptionLocalization{
 	WarnNormal		= "Показывать предупреждения для обычного облика",
 	WarnNormalSoon	= "Показывать предупреждение о скорой смене облика на обычный",
 	TimerBear		= "Показывать таймер облика медведя",
-	TimerNormal		= "Показывать таймер обычного облика"
+	TimerNormal		= "Показывать таймер обычного облика",
+	InfoFrame		= "Показывать игроков без $spell:42402"
 }
 
 L:SetMiscLocalization{
-	YellBear 	= "Если вызвать чудовище, то мало не покажется, точно говорю!",
-	YellNormal	= "Пропустите Налоракка!"
+	YellBear 		= "Хотели разбудить во мне зверя? Вам это удалось.",
+	YellNormal		= "C дороги!",
+	PlayerDebuffs	= "Без дебаффа"
 }
 
 ---------------
@@ -630,7 +632,9 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	StormIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(43648),
-	RangeFrame	= "Окно проверки дистанции (10 м)"
+	RangeFrame	= "Окно проверки дистанции (10м)",
+	StormArrow	= "Показывать стрелку DBM для $spell:97300",
+	SetIconOnEagle	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97318)
 }
 
 L:SetMiscLocalization{
@@ -656,8 +660,9 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellBomb	= "Сгиньте в огне!",
-	YellAdds	= "Где мои Наседки? Пора за яйца приниматься!"
+	YellBomb	= "Щас я вас сожгу!",
+	YellHatchAll= "Я покажу вам… что такое численное превосходство!",
+	YellAdds	= "Эй, хранители! Займитесь яйцами!"
 }
 
 --------------
@@ -683,8 +688,8 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellSpirit	= "Со мною дикий дух...",
-	YellNormal	= "О дух, вернись ко мне!"
+	YellSpirit	= "Мы с моим духом уничтожим вас!",
+	YellNormal	= "Дух мой, вернись ко мне!"
 }
 
 -----------------------
@@ -708,6 +713,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	YellPull	= "Сегодня духи попируют на славу!"
 }
 
 -------------
@@ -723,13 +729,18 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
+	timerNextForm	= "Смена формы"
 }
 
 L:SetOptionLocalization{
+	timerNextForm	= "Отсчет времени до следующей смены формы",
+	InfoFrame		= "Показывать игроков без $spell:42402",
+	ThrowIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97639),
+	ClawRageIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97672)
 }
 
 L:SetMiscLocalization{
-	SetIconOnThrow		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97639)
+	PlayerDebuffs	= "Без дебаффа"
 }
 
 -----------------
@@ -750,15 +761,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477)
+	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477),
+	LinkArrow			= "Показывать стрелку DBM, когда на вас $spell:96477"
 }
 
 L:SetMiscLocalization{
 }
 
-------------
--- Zanzil --
-------------
+------------------------
+-- Bloodlord Mandokir --
+------------------------
 L = DBM:GetModLocalization("Mandokir")
 
 L:SetGeneralLocalization{
@@ -775,7 +787,8 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnRevive		= "Показывать количество оставшихся духов",
-	SpecWarnOhgan	= "Предупреждение, когда Оган возрождается" -- check this, i'm not good at English
+	SpecWarnOhgan	= "Предупреждение, когда Оган возрождается", -- check this, i'm not good at English
+	SetIconOnOhgan	= "Устанавливать метку на Огана, когда он возрождается"
 }
 
 L:SetMiscLocalization{
@@ -792,16 +805,20 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
+	SpecWarnToxic	= "Воспользуйтесь зелёным котлом!"
 }
 
 L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
+	SpecWarnToxic	= "Спец-предупреждение, когда на вас нет $spell:96328",
+	InfoFrame		= "Показывать игроков без $spell:96328",
 	SetIconOnGaze	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96342)
 }
 
 L:SetMiscLocalization{
+	PlayerDebuffs	= "Без зелёного дебаффа"
 }
 
 ----------------------------
@@ -842,9 +859,10 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnBarrierDown	= "Предупреждение, кода спадает барьер над цепями Хаккара"
+	WarnBarrierDown	= "Предупреждение, кода спадает барьер над цепями Хаккара",
+	BodySlamIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97198)
 }
 
 L:SetMiscLocalization{
-	Kill			= "Нет! НЕЕЕЕТ!" -- temporarily
+	Kill			= "Ты перешел все границы, Джин'до. Ты играешь с силами, которые тебе неподвластны. Ты забыл, кто я? Забыл, что я могу с тобой сделать?!" -- temporarily
 }

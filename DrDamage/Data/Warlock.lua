@@ -507,7 +507,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(686)] = {
 					["Name"] = "Shadow Bolt",
 					["ID"] = 686,
-					["Data"] = { 0.62, 0.11, 0.754, ["range"] = 5, ["ct_min"] = 1700, ["ct_max"] = 3000  },
+					["Data"] = { 0.62, 0.11, 0.754, ["ct_min"] = 1700, ["ct_max"] = 3000  },
 					[0] = { School = { "Shadow", "Destruction" } },
 					[1] = { 0, 0 },
 		},
@@ -545,10 +545,11 @@ function DrDamage:PlayerData()
 					[0] = { School = { "Shadow", "Affliction", "Leech" }, Cooldown = 120, Leech = 3, NoDoom = true, },
 					[1] = { 0, 0, },
 		},
+		--HOTFIX 4.1: Drain Life now deals 25% less damage.
 		[GetSpellInfo(689)] = {
 					["Name"] = "Drain Life",
 					["ID"] = 689,
-					["Data"] = { 0.114, 0, 0.172  },
+					["Data"] = { 0.114 * 0.75, 0, 0.172 * 0.75  },
 					[0] = { School = { "Shadow", "Affliction" }, Hits = 3, sTicks = 1, Channeled = 3, Drain = true },
 					[1] = { 0, 0, },
 		},
@@ -576,7 +577,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(17877)] = {
 					["Name"] = "Shadowburn",
 					["ID"] = 17877,
-					["Data"] = { 0.714, 0.11, 1.056, ["PPL"] = 1.2 },
+					["Data"] = { 0.714, 0.11, 1.056 },
 					[0] = { School = { "Shadow", "Destruction" }, Cooldown = 15, },
 					[1] = { 0, 0, },
 		},
@@ -590,7 +591,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(1949)] = {
 					["Name"] = "Hellfire",
 					["ID"] = 1949,
-					["Data"] = { 0.332, 0, 0.095, ["PPL"] = 0.4 },
+					["Data"] = { 0.332, 0, 0.095, },
 					[0] = { School = { "Fire", "Destruction" }, Hits = 15, Channeled = 15, sTicks = 1, AoE = true },
 					[1] = { 0, 0, },
 		},
@@ -598,7 +599,7 @@ function DrDamage:PlayerData()
 			-- Checked in 4.1
 					["Name"] = "Rain of Fire",
 					["ID"] = 5740,
-					["Data"] = { 0.797, 0, 0.238, ["PPL"] = 0.3 },
+					["Data"] = { 0.797, 0, 0.238, },
 					[0] = { School = { "Fire", "Destruction" }, Hits = 4, Channeled = 8, sTicks = 2, AoE = true },
 					[1] = { 0, 0, },
 		},
@@ -619,10 +620,10 @@ function DrDamage:PlayerData()
 			-- Checked in 4.1
 					["Name"] = "Seed of Corruption",
 					["ID"] = 27243,
-					["Data"] = { 0.766, 0.15, 0.229, 0.302, 0, 0.3  },
+					["Data"] = { 0.7656, 0.15, 0.2292, 0.3024, 0, 0.3  },
 					["Data2"] = function(baseSpell, spell, playerLevel)
-						baseSpell.Cap = 1.761 * self.Scaling[playerLevel]
-						baseSpell.Cap_SPBonus = 0.143
+						baseSpell.Cap = 2.113 * self.Scaling[playerLevel]
+						baseSpell.Cap_SPBonus = 0.1716
 					end,
 					[0] = { School = { "Shadow", "Affliction", }, Hits_dot = 6, eDuration = 18, sTicks = 3, NoDotAverage = true, AoE = true },
 					[1] = { 0, 0, hybridDotDmg = 0 },
@@ -630,7 +631,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(30283)] = {
 					["Name"] = "Shadowfury",
 					["ID"] = 30283,
-					["Data"] = { 0.783, 0.175, 0.214, ["PPL"] = 1.6, ["range"] = 65 },
+					["Data"] = { 0.783, 0.175, 0.214, },
 					[0] = { School = { "Shadow", "Destruction" }, Cooldown = 20, AoE = true },
 					[1] = { 0, 0, },
 		},
@@ -644,7 +645,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(47897)] = {
 					["Name"] = "Shadowflame",
 					["ID"] = 47987,
-					["Data"] = { 0.727, 0.09, 0.102, ["PPL"] = 2 },
+					["Data"] = { 0.727, 0.09, 0.102, },
 					[0] = { School = { "Shadow", "Destruction" }, Cooldown = 12, },
 					[1] = { 0, 0, },
 			["Secondary"] = {
@@ -658,21 +659,21 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(48181)] = {
 					["Name"] = "Haunt",
 					["ID"] = 48181,
-					["Data"] = { 0.958, 0, nil },
-					[0] = { School = { "Shadow", "Affliction" }, SPBonus = 0.53625, Cooldown = 8 },
+					["Data"] = { 0.9581, 0, 0.5577 * 1.25 },
+					[0] = { School = { "Shadow", "Affliction" }, Cooldown = 8 },
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(50796)] = {
 					["Name"] = "Chaos Bolt",
 					["ID"] = 50796,
-					["Data"] = { 1.547, 0.238, 0.628, ["range"] = 225 },
+					["Data"] = { 1.547, 0.238, 0.628, },
 					[0] = { School = { "Fire", "Destruction" }, Unresistable = true, Cooldown = 12, },
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(50589)] = {
 					["Name"] = "Immolation Aura",
 					["ID"] = 50589,
-					["Data"] = { 0.589, 0, 0.1 },
+					["Data"] = { 0.589, 0, 0.1, },
 					[0] = { School = "Fire", Channeled = 15, Hits = 15, sTicks = 1, Cooldown = 30, AoE = true, },
 					[1] = { 0, 0, },
 		},
@@ -697,7 +698,7 @@ function DrDamage:PlayerData()
 					--Tooltip displays wrong base values, range is halved
 					-- ["Data"] = { 0.163, 0.35 / 2 }, (4.0.3 values)
 					["Data"] = { 0.326, 0.35 / 2 },
-					[0] = { School = { "Shadow", "Pet" }, SPBonus = 0.614, Cooldown = 6, NoGlobalMod = true, NoManaCalc = true, NoNext = true, NoMPS = true, NoDPM = true, },
+					[0] = { School = { "Shadow", "Pet" }, SPBonus = 1.228, Cooldown = 6, NoGlobalMod = true, NoManaCalc = true, NoNext = true, NoMPS = true, NoDPM = true, },
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(7814)] = {
@@ -720,7 +721,7 @@ function DrDamage:PlayerData()
 					["Name"] = "Hand of Gul'Dan",
 					["ID"] = 71521,
 					["Data"] = { 1.593, 0.166, 0.968 },
-					[0] = { School = "Shadow", Cooldown = 12, AoE = true },
+					[0] = { School = "Shadowflame", Double = { "Shadow", "Fire" }, Cooldown = 12, AoE = true },
 					[1] = { 0, 0, },
 		},
 		[GetSpellInfo(77799)] = {

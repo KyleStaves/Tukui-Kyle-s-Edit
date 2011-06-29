@@ -239,15 +239,14 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(19434)] = {
 			["Name"] = "Aimed Shot",
 			["ID"] = 19434,
-			["Data"] = { 0.73, 0.11, ["weaponDamage"] = 1.25, ["PPL_start"] = 10, ["PPL"] = 0.5 },
+			["Data"] = { 0.73, 0.11, ["weaponDamage"] = 1.32, ["PPL_start"] = 10, ["PPL"] = 0.4 },
 			[0] = { School = { "Physical", "Ranged", "Shot" }, APBonus = 0.724, BleedExtra = true, },
 			[1] = { 0 },
 		},
 		[GetSpellInfo(82928)] = {
 			["Name"] = "Aimed Shot!",
 			["ID"] = 82928,
-			--HOTFIX: Aimed Shot damage has been decreased to approximately 160% weapon damage (at level 80+), down from 200%.
-			["Data"] = { 0.73, 0.11, ["weaponDamage"] = 1.25, ["PPL_start"] = 10, ["PPL"] = 0.5 },
+			["Data"] = { 0.73, 0.11, ["weaponDamage"] = 1.32, ["PPL_start"] = 10, ["PPL"] = 0.4 },
 			[0] = { School = { "Physical", "Ranged", "Shot" }, APBonus = 0.724, BleedExtra = true, },
 			[1] = { 0 },
 		},		
@@ -381,7 +380,7 @@ function DrDamage:PlayerData()
 		--Toxicology
 		[GetSpellInfo(82832)] = {	[1] = { Effect = 0.25, Spells = { "Serpent Sting", "Black Arrow" }, ModType = "critM" }, },
 		--Noxious Stings (multiplicative - 3.3.3)
-		[GetSpellInfo(53295)] = { 	[1] = { Effect = 0.05, Spells = "All", ModType = "Noxious Stings" }, },
+		[GetSpellInfo(53295)] = { 	[1] = { Effect = 0.05, Spells = "Ranged", ModType = "Noxious Stings" }, },
 		--Hunting Party
 		[GetSpellInfo(53290)] = { 	[1] = { Effect = 0.02, Spells = "All", ModType = "Hunting Party", Multiply = true, ModType = "agiM" }, },
 		--Sniper Training (Kill Shot bonus only, rest handled elsewhere)

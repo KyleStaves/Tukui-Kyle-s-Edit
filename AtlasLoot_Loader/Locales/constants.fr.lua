@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 3372 2011-04-29 11:18:45Z trasher $
+﻿-- $Id: constants.fr.lua 3455 2011-06-19 12:55:09Z trasher $
 --[[
 constants.fr.lua --- Traduction frFR par Trasher. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -23,6 +23,48 @@ if AL then
 	-- #########
 	-- UI things
 	-- #########
+	-- compare frame
+	AL["Compare Frame"] = "Frame comparative";
+	AL["Show in Compare Frame"] = "Afficher dans la frame comparative";
+	AL["Name"] = "Nom";
+	AL["ItemLvl"] = "Niveau d'objet";
+	--AL["Normal"] = true;
+	AL["%d items"] = "%d objets";
+	AL["All"] = "Tous";
+	--AL["Stats"] = true;
+	--AL["Show \"Base Stats list\""] = true;
+	--AL["Show \"Extra Stats list\""] = true;
+	--AL["Base Stats list"] = true;
+	--AL["Extra Stats list"] = true;	
+	AL["Add Stats list"] = "Ajouter une liste de stats";
+	AL["Are you sure you want to delete Sort list |cff1eff00%s|r?"] = "Êtes-vous sûr de vouloir supprimer la liste  |cff1eff00%s|r ?";
+	AL["Delete Stats list"] = "Supprimer la liste de stats";
+	AL["Stats color"] = "Couleur des stats";
+	--AL["Stats list name:"] = true;
+	--AL["Select Stats list"] = true;
+	--AL["You cant set more then %d item stats."] = true;
+
+	-- Stats short
+	--AL["iLvl"] = true;	-- Item lvl
+	AL["str"] = "résist";	-- Strength
+	--AL["agi"] = true;	-- Agility
+	AL["sta"] = "endu";	-- Stamina
+	AL["int"] = "intel";	-- Intellect
+	AL["spi"] = "esp";	-- Spirit
+	--AL["Crit"] = true;	-- Crit Rating
+	AL["Dodge"] = "Esquive";	-- Dodge Rating
+	--AL["Exp"] = true;	-- Expertise Rating
+	AL["Hit"] = "Toucher";	-- Hit Rating
+	AL["Haste"] = "Hâte";	-- Haste Rating
+	AL["Parry"] = "Parade";	-- Parry Rating
+	AL["Spell"] = "Sort";	-- Spell Power
+	AL["Resi"] = "Rési";	-- Resilience Rating
+	AL["Mast"] = "Maîtrise";	-- Mastery
+
+	-- Stats
+	AL["Resilience Rating"] = "Score de résilience";
+	--AL["Base Stats"] = true;
+	--AL["Extra Stats"] = true;
 
 	-- Loader
 	AL["Load AtlasLoot"] = "Charger AtlasLoot";
@@ -39,9 +81,8 @@ if AL then
 	AL["Show itemIDs"] = "Afficher les IDs des objets";
 	AL["Show Droprates"] = "Afficher les pourcentages de drop";
 	AL["Safe Chat Links"] = "Liens sûrs, sur le canal";
-	AL["Comparison TT"] = "Bulles d'aides";
-	AL["Show Comparison Tooltips"] = "Afficher les bulles d'aides comparatives";
-	AL["Supress item query text"] = "Supprimer la requête serveur sur l'objet";
+	AL["Comparison TT"] = "Info-bulles comparatives";
+	AL["Show Comparison Tooltips"] = "Afficher les info-bulles comparatives";
 	--AL["Opaque"] = true;
 	AL["Make Loot Table Opaque"] = "Fond de liste opaque";
 	AL["Treat Crafted Items:"] = "Traiter les objets fabriqués :";
@@ -90,8 +131,9 @@ if AL then
 	--AL["DKP"] = true;
 	AL["Priority:"] = "Priorité :";
 	AL["Show price and slot if possible"] = "Voir le prix et le slot, si possible";
-	--AL["Use GameTooltip"] = true; -- à traduire
-	--AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = true; -- à traduire
+	AL["Use GameTooltip"] = "Utilisez l'info-bulle du jeu";
+	AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = "Utilisez l'info-bulle standard du jeu au lieu de celle personnalisée d'AtlasLoot";
+	AL["%d / %d ( Bank: %d )"] = "%d / %d ( Banque : %d)";
 	-- Unsafe Item
 	AL["Item Unavailable"] = "Objet indisponible";
 	AL["|cff0070ddItemID: %d |r\nThis item is unsafe.  To view this item without the risk of disconnection, you need to have first seen it in the game world.\n\nYou can right-click to attempt to query the server.  You may be disconnected."] = "|cff0070ddItemID: %d |r\nCet objet n'est pas fiable.  Pour regarder cet objet sans risque de déconnection, vous devez déjà l'avoir vu au moins une fois dans le jeu.\n\nVous pouvez faire un Clic-Droit pour tenter d'interroger le serveur.  Vous pouvez être déconnecté.";
@@ -134,6 +176,8 @@ if AL then
 	AL["Table Sort"] = "Tri des tables";
 	AL["Table Sort:"] = "Tri des tables :";
 	AL["Item Sort:"] = "Tri des objets :";
+	--AL["Show own wishlists"] = true; -- à traduire
+	AL["Show all wishlists"] = "Afficher toutes les listes de souhaits";
 
 	-- Filter
 	AL["Filter"] = "Filtre";
@@ -197,6 +241,8 @@ if AL then
 	AL["Location"] = "Lieu";
 	--AL["ilvl 359"] = true;
 	--AL["ilvl 372"] = true;
+	--AL["ilvl 378"] = true;
+	--AL["ilvl 391"] = true;
 
 	-- #######################################
 	-- UI things END
@@ -232,14 +278,14 @@ if AL then
 	AL["Hide Text"] = "Masquer le texte";
 	AL["Hide Icon"] = "Masquer l'icône";
 	AL["Minimap Button Options"] = "Options du boutton de la mini-carte";
-	
+
 	-- Text for Options Panel
 	AL["Atlasloot Options"] = "Options d'Atlasloot";
-	AL["Default Tooltips"] = "Bulles d'aide par défault";
-	AL["Lootlink Tooltips"] = "Bulles d'aide Lootlink";
-	AL["|cff9d9d9dLootlink Tooltips|r"] = "|cff9d9d9dBulles d'aide Lootlink";
-	AL["ItemSync Tooltips"] = "Bulles d'aide ItemSync";
-	AL["|cff9d9d9dItemSync Tooltips|r"] = "|cff9d9d9dBulles d'aide ItemSync";
+	AL["Default Tooltips"] = "Info-bulles par défault";
+	AL["Lootlink Tooltips"] = "Info-bulles de Lootlink";
+	AL["|cff9d9d9dLootlink Tooltips|r"] = "|cff9d9d9dInfo-bulles de Lootlink";
+	AL["ItemSync Tooltips"] = "Info-bulles d'ItemSync";
+	AL["|cff9d9d9dItemSync Tooltips|r"] = "|cff9d9d9dInfo-bulles d'ItemSync";
 	AL["Use EquipCompare"] = "Utiliser EquipCompare";
 	AL["|cff9d9d9dUse EquipCompare|r"] = "|cff9d9d9dUtiliser EquipCompare";
 	AL["Show itemIDs at all times"] = "Toujours afficher l'ID sur les objets";
@@ -287,8 +333,7 @@ if AL then
 	--AL["Sets"] = true;
 	--AL["Set"] = true;
 	AL["Justice Points"] = "Point de justice";
-	AL["Valor Points"] = "Point de valeur";
-	AL["Badge of Justice"] = "Ecusson de justice"; --should be removed
+	AL["Valor Points"] = "Point de vaillance";
 	AL["Emblem Rewards"] = "Récompenses des emblèmes"; --should be removed
 	AL["Emblem of Valor"] = "Emblème de vaillance"; --should be removed
 	AL["Emblem of Heroism"] = "Emblème d'héroïsme"; --should be removed
@@ -303,10 +348,9 @@ if AL then
 	--AL["Tier 3 Set"] = true;
 	--AL["Tier 4/5/6 Set"] = true;
 	--AL["Tier 7/8 Set"] = true;
-	--AL["Tier 8 Set"] = true;
 	--AL["Tier 9 Set"] = true;
 	--AL["Tier 10 Set"] = true;
-	--AL["Tier 11 Set"] = true;
+	--AL["Tier 11/12 Set"] = true;
 	AL["TCG Items"] = "Objets des cartes à jouer"; -- Trading Card Game Items
 	AL["Transformation Items"] = "Objets de transformation";
 
@@ -317,10 +361,8 @@ if AL then
 	AL["PvP Weapons"] = "Armes JcJ";
 	AL["PvP Non-Set Epics"] = "Hors sets épiques JcJ";
 	AL["PvP Reputation Sets"] = "Sets réputation JcJ";
-	AL["Arena PvP Weapons"] = "Armes d'arène JcJ";
 	AL["PvP Misc"] = "Objets divers JcJ";
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = "Gemmes / Enchantements / Dessins de Joaillerie JcJ";
-	AL["PvP Class Items"] = "Objets JcJ de classe";
 	AL["PvP Trinkets"] = "Bijoux JcJ";
 	AL["NOT AVAILABLE ANYMORE"] = "N'EST PLUS DISPONIBLE";
 
@@ -331,7 +373,6 @@ if AL then
 	AL["Brewfest"] = "La fête des Brasseurs";
 	AL["Children's Week"] = "La Semaine des enfants";
 	AL["Day of the Dead"] = "Jour des morts";
-	AL["Elemental Invasion"] = "Invasions élémentaires";
 	AL["Ethereum Prison"] = "Prison de l'Ethereum";
 	AL["Feast of Winter Veil"] = "La fête du Voile d'hiver";
 	AL["Gurubashi Arena Booty Run"] = "Le coffre pirate de Gurubashi";
@@ -345,7 +386,6 @@ if AL then
 	--AL["Skettis"] = true,
 	AL["Stranglethorn Fishing Extravaganza"] = "Concours de pêche de Strangleronce";
 	AL["Kalu'ak Fishing Derby"] = "Tournoi de pêche kalu'ak";
-	AL["Elemental Unrest"] = "L'invasion des élementaires";
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00Clic-Gauche|r Parcours des Listes d'Objets";
@@ -391,15 +431,12 @@ if AL then
 	AL["Banner"] = "Etendard";
 	--AL["Set"] = true,
 	AL["Token"] = "Insigne";
-	AL["Tokens"] = "Insignes";
-	--AL["Token Hand-Ins"] = true; -- à traduire
-	AL["Skinning Knife"] = "Couteau à dépecer";
 	AL["Combat Pet"] = "Animal de compagnie de combat";
 	AL["Fireworks"] = "Feux d'artifice";
 	AL["Transformation Item"] = "Objet de transformation";
 	AL["Keys"] = "Clés";
 
-	--Extra inventory stuff
+	-- Extra inventory stuff
 	AL["Cloak"] = "Cape";
 
 	-- Alchemy
@@ -415,7 +452,7 @@ if AL then
 	AL["Guild"] = "Guilde";
 
 	-- Blacksmithing
-	AL["Cataclysm Vendor Sold Plans"] = "Vendeur de plans à Catalysm"
+	AL["Cataclysm Vendor Sold Plans"] = "Vendeur de plans à Cataclysme"
 	AL["Armor Enhancements"] = "Améliorations d'armure";
 	AL["Weapon Enhancements"] = "Améliorations d'arme";
 
@@ -429,7 +466,7 @@ if AL then
 	AL["Enchant Shield"] = "Enchantement Bouclier";
 	AL["Enchant 2H Weapon"] = "Enchantement Arme à deux mains";
 	AL["Enchant Weapon"] = "Enchantement Arme";
-	AL["Cataclysm Vendor Sold Formulas"] = "Vendeur de formules à Catalysm";
+	AL["Cataclysm Vendor Sold Formulas"] = "Vendeur de formules à Cataclysme";
 
 	-- Engineering
 	AL["Tinker"] = "Objets bricolés";
@@ -460,7 +497,7 @@ if AL then
 	AL["Cloth Armor"] = "Armure en tissu";
 	AL["Shirts"] = "Chemises";
 	AL["Bags"] = "Sacs";
-	AL["Cataclysm Vendor Sold Patterns"] = "Vendeur de patrons à Cataclysm";
+	AL["Cataclysm Vendor Sold Patterns"] = "Vendeur de patrons à Cataclysme";
 
 	-- Labels for loot descriptions
 	AL["Classes:"] = "Classes :";
@@ -470,16 +507,9 @@ if AL then
 	AL["Quest Reward"] = "Récompense de quête";
 	AL["Old Quest Reward"] = "Ancienne récompense de quête";
 	AL["Shared"] = "Partagé";
-	--AL["Unique"] = true,
 	AL["Right Half"] = "Moitié droite";
 	AL["Left Half"] = "Moitié gauche";
-	AL["28 Slot Soul Shard"] = "28 emplacements Pierre d'âme";
-	AL["20 Slot"] = "20 emplacements";
-	AL["18 Slot"] = "18 emplacements";
-	AL["16 Slot"] = "16 emplacements";
-	AL["10 Slot"] = "10 emplacements";
 	AL["Currency"] = "Monnaie";
-	AL["Conjured Item"] = "Objet conjuré";
 	AL["Used to summon boss"] = "Utilisé pour invoquer un boss";
 	AL["Tradable for sunmote + item above"] = "Echangeable contre une Granule de soleil + l'objet du dessus";
 	AL["Card Game Item"] = "Objet du jeu de carte";
@@ -488,8 +518,6 @@ if AL then
 	AL["Random Heroic Reward"] = "Récompense héroique aléatoire";
 	AL["Fishing Daily Reward"] = "Réc. journa. de pêche";
 	AL["Collector's Edition"] = "Edition Collector";
-	--AL["Blizzcon"] = true;
-	AL["WoW Anniversary Celebration"] = "Célébration de l'anniversaire de WoW";
 	AL["Daily Reward"] = "Récompense journalière";
 	AL["No Longer Available"] = "N'est plus disponible";
 
@@ -514,6 +542,7 @@ if AL then
 	--AL["Tier 9"] = true;
 	--AL["Tier 10"] = true;
 	--AL["Tier 11"] = true;
+	--AL["Tier 12"] = true;
 	AL["10 Man"] = "10 Joueurs";
 	AL["10/25 Man"] = "10 / 25 Joueurs";
 	AL["Epic Set"] = "Set épique";
@@ -527,6 +556,7 @@ if AL then
 	AL["Season 7"] = "Saison 7";
 	AL["Season 8"] = "Saison 8";
 	AL["Season 9"] = "Saison 9";
+	AL["Season 10"] = "Saison 10";
 	AL["Fire"] = "Feu";
 	AL["Water"] = "Eau";
 	AL["Wind"] = "Vent";
@@ -537,12 +567,11 @@ if AL then
 	AL["Nature Resistance Gear"] = "Equipements de Résistance à la Nature";
 	AL["Frost Resistance Gear"] = "Equipements de Résistance au Froid";
 	AL["Shadow Resistance Gear"] = "Equipements de Résistance à l'Ombre";
-	AL["Classic Sets"] = "Sets classique";
 
 	-- Labels for loot table sections
 	AL["Additional Heroic Loot"] = "Loot héroïque additionnel";
-	AL["Heroic Mode"] = "Mode Héroïque";
-	AL["Normal Mode"] = "Mode Normal";
+	AL["Heroic Mode"] = "Mode héroïque";
+	AL["Normal Mode"] = "Mode normal";
 	--AL["Raid"] = true;
 	AL["Hard Mode"] = "Mode difficile";
 	AL["Bonus Loot"] = "Bonus de loot";
@@ -557,20 +586,18 @@ if AL then
 	AL["Heirloom"] = "Héritage";
 	AL["Weapons"] = "Armes";
 	AL["Accessories"] = "Accessoires";
-	AL["Low Level"] = "Bas niveau";
-	AL["High Level"] = "Haut niveau";
 	--AL["Rare"] = true;
 	AL["Specializations"] = "Spécialisations";
 
 	-- Loot Table Names
-	--AL["Level 30-39"] = true;
-	--AL["Level 40-49"] = true;
-	--AL["Level 50-60"] = true;
+	AL["Level 30-39"] = "Niveau 30-39";
+	AL["Level 40-49"] = "Niveau 40-49";
+	AL["Level 50-60"] = "Niveau 50-60";
 	AL["Summon"] = "Invocation";
 	AL["Random"] = "Aléatoire";
 	AL["Brew of the Month Club"] = "Le club de la Bière du mois";
 
-	-- Profession descriptions -- à traduire
+	-- Profession descriptions
 	--AL["Buff"] = true;
 	AL["Agility"] = "Agilité";
 	AL["Intellect"] = "Intelligence";
@@ -627,24 +654,10 @@ if AL then
 	--AL["Proc"] = true;
 
 	-- Extra Text in Boss lists
-	AL["Set: Embrace of the Viper"] = "Set: Etreinte de la vipère";
-	AL["Set: Defias Leather"] = "Set: Cuir défias";
-	AL["Set: The Gladiator"] = "Set: Le Gladiateur";
-	AL["Set: Chain of the Scarlet Crusade"] = "Set: Cotte de mailles de la croisade écarlate";
-	AL["Set: The Postmaster"] = "Set: Le Maître de poste";
-	AL["Set: Necropile Raiment"] = "Set: Grande tenue nécropile";
-	AL["Set: Cadaverous Garb"] = "Set: Atours cadavériques";
-	AL["Set: Bloodmail Regalia"] = "Set: Tenue de parade en mailles sanglantes";
-	AL["Set: Deathbone Guardian"] = "Set: Gardien des ossements";
-	AL["Set: Dal'Rend's Arms"] = "Set: Armes de Dal'Rend";
-	AL["Set: Spider's Kiss"] = "Baiser de l'araignée";
 	AL["AQ20 Class Sets"] = "Sets de Classe AQ20";
 	AL["AQ Enchants"] = "Enchantements AQ";
 	AL["AQ40 Class Sets"] = "Sets de Classe AQ40";
 	AL["AQ Opening Quest Chain"] = "Quêtes d'ouverture d'AQ";
-	AL["ZG Class Sets"] = "Sets de Classe ZG";
-	AL["ZG Enchants"] = "Enchantements ZG";
-	AL["Class Books"] = "Livres de classe";
 	AL["Tribute Run"] = "Tribut du Roi";
 	AL["Dire Maul Books"] = "Livres de Hache Tripes";
 	AL["Random Boss Loot"] = "Objets aléatoires des boss";
@@ -841,7 +854,6 @@ if AL then
 	AL["Venture Bay"] = "Baie de la KapitalRisk";
 
 	-- Karazhan Opera Event Headings
-	AL["Shared Drops"] = "Objets en commun";
 	AL["Wizard of Oz"] = "Le Magicien d'Oz";
 	AL["Red Riding Hood"] = "Petit Chaperon Rouge";
 
@@ -849,17 +861,6 @@ if AL then
 	AL["Spider"] = "Araignée";
 	AL["Darkhound"] = "Sombredogue";
 	AL["Bat"] = "Chauve-souris";
-
-	-- ZG Tokens
-	AL["Primal Hakkari Kossack"] = "Casaque primordiale hakkari";
-	AL["Primal Hakkari Shawl"] = "Châle primordial hakkari";
-	AL["Primal Hakkari Bindings"] = "Manchettes primordiales hakkari";
-	AL["Primal Hakkari Sash"] = "Echarpe primordiale hakkari";
-	AL["Primal Hakkari Stanchion"] = "Etançon primordial hakkari";
-	AL["Primal Hakkari Aegis"] = "Egide primordiale hakkari";
-	AL["Primal Hakkari Girdle"] = "Ceinturon primordial hakkari";
-	AL["Primal Hakkari Armsplint"] = "Brachiales primordiales hakkari";
-	AL["Primal Hakkari Tabard"] = "Tabard primordial hakkari";
 
 	-- AQ20 Tokens
 	AL["Qiraji Ornate Hilt"] = "Manche orné qiraji";
@@ -879,10 +880,6 @@ if AL then
 	AL["Husk of the Old God"] = "Peau du Grand ver des sables";
 	AL["Carapace of the Old God"] = "Carapace du Dieu très ancien";
 
-	-- Classic WoW Sets
-	AL["Zul'Gurub Rings"] = "Anneaux Zul'Gurub";
-
-
 	-- Recipe origin strings
 	AL["Trainer"] = "Entraineur";
 	AL["Discovery"] = "Découverte";
@@ -890,9 +887,6 @@ if AL then
 	--AL["Drop"] = true;
 	AL["Vendor"] = "Vendeur";
 	AL["Crafted"] = "Créer";
-
-	-- Level 80 PvP Weapons
-	AL["Wrathful Gladiator\'s Weapons"] = "Armes du gladiateur courroucé";
 
 	-- Months
 	AL["January"] = "Janvier";
@@ -924,13 +918,6 @@ if AL then
 	--AL["Destruction"] = true;
 	--AL["Tanking"] = true;
 	--AL["DPS"] = true;
-
-	-- Naxx Zones
-	AL["Construct Quarter"] = "Le quartier des Assemblages";
-	AL["Arachnid Quarter"] = "Le quartier des Arachnides";
-	AL["Military Quarter"] = "Le quartier Militaire";
-	AL["Plague Quarter"] = "Le quartier de la Peste";
-	AL["Frostwyrm Lair"] = "Repaire de la Wyrm des glaces";
 
 	-- NPCs missing from BabbleBoss
 	--AL["Trash Mobs"] = true,
@@ -1049,32 +1036,28 @@ if AL then
 	AL["Jadefang"] = "Jadecroc";
 	--AL["Aeonaxx"] = true;
 	--AL["Prince Sarsarun"] = true;
-	-- AL["Highlord Kruul"] = true; -- added until decided if the set gets removed -- à traduire
 	AL["Dormus the Camel-Hoarder"] = "Dormus le Collectionneur de dromadaires";
 	AL["The Behemoth"] = "Le Béhémoth";
 	AL["Master Elemental Shaper Krixix"] = "Maître élémentaire Krixix le Sculpteur";
+	--AL["Zen'Vorka"] = true; -- à traduire
+	--AL["Ayla Shadowstorm"] = true; -- à traduire
+	--AL["Damek Bloombeard"] = true; -- à traduire
+	--AL["Varlan Highbough"] = true; -- à traduire
+	--AL["Firestone Vendor"] = true; -- à traduire
 
 	-- Zones
-	--AL["World Drop"] = true,
 	AL["Trial of the Grand Crusader"] = "L'épreuve du grand croisé";
 	AL["Crusader's Square"] = "Place des Croisés";
 	AL["The Gauntlet"] = "Le Défi";
 
 	-- Shortcuts for Bossname files
-	--AL["LBRS"] = true,
-	--AL["UBRS"] = true,
-	AL["CoT1"] = "GDT1";
-	AL["CoT2"] = "GDT2";
-	--AL["Scholo"] = true,
-	--AL["Strat"] = true,
-	AL["Serpentshrine"] = "SCC";
 	--AL["Avatar"] = true; -- Avatar of the Martyred
 
 	-- Chests, etc
-	--AL["Ring of Law"] = true;
-	--AL["Monument of Franclorn Forgewright"] = true;
-	--AL["The Grim Guzzler"] = true;
-	--AL["Summoner's Tomb"] = true;
+	--AL["Ring of Law"] = true; -- à traduire
+	AL["Monument of Franclorn Forgewright"] = "Monument de Franclorn Le Forgebusier";
+	--AL["The Grim Guzzler"] = true; -- à traduire
+	--AL["Summoner's Tomb"] = true; -- à traduire
 	AL["The Secret Safe"] = "Coffre à relique";
 	AL["The Vault"] = "La Chambre forte";
 	AL["Ogre Tannin Basket"] = "Panier Ogre de tannin";
@@ -1156,7 +1139,7 @@ if AL then
 	-- Need a big dataset for searching
 	AL["Loading available tables for searching"] = "Chargement des tables disponibles pour la recherche";
 
- 	-- All Available modules loaded
+	-- All Available modules loaded
 	AL["All Available Modules Loaded"] = "Tous les modules disponibles sont chargés.";
 
 	-- First time user

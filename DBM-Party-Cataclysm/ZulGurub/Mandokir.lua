@@ -1,9 +1,11 @@
 local mod	= DBM:NewMod("Mandokir", "DBM-Party-Cataclysm", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision$"):sub(12, -3))
+mod:SetRevision(("$Revision: 5749 $"):sub(12, -3))
 mod:SetCreatureID(52151, 52157)
+mod:SetModelID(37816)
 mod:SetZone()
+mod:SetUsedIcons(8)
 
 mod:SetBossHealthInfo(
 	52151, L.name,
@@ -36,10 +38,27 @@ local timerOhgan			= mod:NewCastTimer(96724)
 local specWarnSlam			= mod:NewSpecialWarningSpell(96740)
 local specWarnOhgan			= mod:NewSpecialWarning("SpecWarnOhgan")
 
+mod:AddBoolOption("SetIconOnOhgan", false)
+
 local reviveCounter = 8
+local ohganGUID = nil
+
+mod:RegisterOnUpdateHandler(function(self)
+	if self.Options.SetIconOnOhgan and ohganGUID then
+		for i = 1, GetNumPartyMembers() do
+			local uId = "party"..i.."target"
+			local guid = UnitGUID(uId)
+			if guid == ohganGUID then
+				SetRaidTarget(uId, 8)
+				ohganGUID = nil
+			end
+		end
+	end
+end, 1)
 
 function mod:OnCombatStart(delay)
 	reviveCounter = 8
+	ohganGUID = nil
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -68,7 +87,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(96684) then
-		warnDecapitate:Show(args.destName) -- yes, this works according to combatlog
+		warnDecapitate:Show(args.destName)
 		timerDecapitate:Start()
 	end
 end
@@ -76,6 +95,7 @@ end
 function mod:SPELL_HEAL(args)
 	if args:IsSpellID(96724) then
 		specWarnOhgan:Show()
+		ohganGUID = args.destGUID
 	end
 end
 
@@ -83,12 +103,6 @@ function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.sourceGUID)
 	if cid == 52156 then
 		reviveCounter = reviveCounter - 1
-		warnRevive:Show(reviveCounter)	-- Temporary, need to make it better localized
+		warnRevive:Show(reviveCounter)
 	end
 end
-
---[[
-There are 8 ghosts that can resurrect people who died from Decapitate
-If a ghost revives a person, it dies(?) and cannot revive a 2nd person (doesn't show in combatlog)
-Ohgan also tries to kill the ghosts, if he succeed a ghost dies (shown in combatlog)
-]]--

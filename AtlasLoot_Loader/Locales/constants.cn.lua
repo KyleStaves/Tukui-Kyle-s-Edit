@@ -1,4 +1,4 @@
-﻿-- $Id: constants.cn.lua 3347 2011-04-17 10:11:38Z hegarol $
+﻿-- $Id: constants.cn.lua 3474 2011-06-28 03:47:10Z zhTW $
 --[[
 constants.cn.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -8,6 +8,8 @@ back to the English translation.
 The AL["text"] = true; shortcut can ONLY be used for English (the root translation).
 ]]
 
+--Table holding all loot tables is initialised here as it loads early
+--AtlasLoot_Data = {};
 
 	-- Create the library instance
 	local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
@@ -20,6 +22,48 @@ if AL then
 	-- #########
 	-- UI things
 	-- #########
+	-- compare frame
+	AL["Compare Frame"] = "比较窗口";
+	AL["Show in Compare Frame"] = "在比较窗口显示";
+	AL["Name"] = "名称";
+	AL["ItemLvl"] = "物品等级";
+	AL["Normal"] = "普通";
+	AL["%d items"] = "%d 物品";
+	AL["All"] = "全部";
+	AL["Stats"] = "属性";
+	AL["Show \"Base Stats list\""] = "显示 \"基本属性列表\"";
+	AL["Show \"Extra Stats list\""] = "显示 \"附加属性列表\"";
+	AL["Base Stats list"] = "基本属性列表";
+	AL["Extra Stats list"] = "附加属性列表";	
+	AL["Add Stats list"] = "新增属性列表";
+	AL["Are you sure you want to delete Sort list |cff1eff00%s|r?"] = "你确定要删除列表排序|cff1eff00%s|r?";
+	AL["Delete Stats list"] = "删除属性列表";
+	AL["Stats color"] = "属性颜色";
+	AL["Stats list name:"] = "属性列表名称:";
+	AL["Select Stats list"] = "选择属性列表";
+	AL["You cant set more then %d item stats."] = "您可以设定多达 %d 个物品状态.";
+
+	-- Stats short
+	AL["iLvl"] = "等级";	-- Item lvl
+	AL["str"] = "力";	-- Strength
+	AL["agi"] = "敏";	-- Agility
+	AL["sta"] = "耐";	-- Stamina
+	AL["int"] = "智";	-- Intellect
+	AL["spi"] = "精";	-- Spirit
+	AL["Crit"] = "致命";	-- Crit Rating
+	AL["Dodge"] = "闪躲";	-- Dodge Rating
+	AL["Exp"] = "熟练";	-- Expertise Rating
+	AL["Hit"] = "命中";	-- Hit Rating
+	AL["Haste"] = "加速";	-- Haste Rating
+	AL["Parry"] = "招架";	-- Parry Rating
+	AL["Spell"] = "法能";	-- Spell Power
+	AL["Resi"] = "韧性";	-- Resilience Rating
+	AL["Mast"] = "精通";	-- Mastery
+
+	-- Stats
+	AL["Resilience Rating"] = "韧性等级";
+	AL["Base Stats"] = "基本属性";
+	AL["Extra Stats"] = "附加属性";
 
 	-- Loader
 	AL["Load AtlasLoot"] = "加载 AtlasLoot";
@@ -38,7 +82,6 @@ if AL then
 	AL["Safe Chat Links"] = "使用安全物品连接";
 	AL["Comparison TT"] = "装备对比";
 	AL["Show Comparison Tooltips"] = "显示装备对比";
-	AL["Supress item query text"] = "关闭物品文字查询";
 	AL["Opaque"] = "不透明";
 	AL["Make Loot Table Opaque"] = "禁用掉落表格背景透明";
 	AL["Treat Crafted Items:"] = "交易技能呈现方式：";
@@ -131,6 +174,8 @@ if AL then
 	AL["Table Sort"] = "表格排序";
 	AL["Table Sort:"] = "表格排序：";
 	AL["Item Sort:"] = "物品排序：";
+	AL["Show own wishlists"] = "显示自己愿望清单";
+	AL["Show all wishlists"] = "显示全部愿望清单";
 
 	-- Filter
 	AL["Filter"] = "筛选";
@@ -192,6 +237,10 @@ if AL then
 	AL["Show Price"] = "显示价格";
 	AL["Skill"] = "技能";
 	AL["Location"] = "位置";
+	AL["ilvl 359"] = "ilvl 359";
+	AL["ilvl 372"] = "ilvl 372";
+	AL["ilvl 378"] = "ilvl 378";
+	AL["ilvl 391"] = "ilvl 391";
 
 	-- #######################################
 	-- UI things END
@@ -283,7 +332,6 @@ if AL then
 	AL["Set"] = "套装";
 	AL["Justice Points"] = "Justice Points";
 	AL["Valor Points"] = "Valor Points";
-	AL["Badge of Justice"] = "公正徽章";
 	AL["Emblem Rewards"] = "纹章奖励"; --should be removed
 	AL["Emblem of Valor"] = "勇气纹章";
 	AL["Emblem of Heroism"] = "英雄纹章";
@@ -298,10 +346,9 @@ if AL then
 	AL["Tier 3 Set"] = "等级3套装";
 	AL["Tier 4/5/6 Set"] = "等级4/5/6套装";
 	AL["Tier 7/8 Set"] = "等级7/8套装";
-	AL["Tier 8 Set"] = "等级8套装";
 	AL["Tier 9 Set"] = "等级9套装";
 	AL["Tier 10 Set"] = "等级10套装";
-	AL["Tier 11 Set"] = "等级11套装";
+	AL["Tier 11/12 Set"] = "等级11/12套装";
 	AL["TCG Items"] = "Upper Deck 集换卡游戏物品";
 	AL["Transformation Items"] = "变形物品";
 
@@ -312,10 +359,8 @@ if AL then
 	AL["PvP Weapons"] = "PvP 武器";
 	AL["PvP Non-Set Epics"] = "PvP 非套装史诗级部件";
 	AL["PvP Reputation Sets"] = "PvP 声望套装";
-	AL["Arena PvP Weapons"] = "竞技场 PvP 武器";
 	AL["PvP Misc"] = "PvP 其它";
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = "PvP 宝石/附魔/珠宝设计";
-	AL["PvP Class Items"] = "PvP 职业物品";
 	AL["PvP Trinkets"] = "PvP 饰品";
 	AL["NOT AVAILABLE ANYMORE"] = "*不再可用*";
 
@@ -326,7 +371,6 @@ if AL then
 	AL["Brewfest"] = "美酒节";
 	AL["Children's Week"] = "儿童周";
 	AL["Day of the Dead"] = "悼念日";
-	AL["Elemental Invasion"] = "元素入侵";
 	AL["Ethereum Prison"] = "复仇军监狱";
 	AL["Feast of Winter Veil"] = "冬幕节";
 	AL["Gurubashi Arena Booty Run"] = "古拉巴什竞技场";
@@ -340,7 +384,6 @@ if AL then
 	AL["Skettis"] = "斯克提斯";
 	AL["Stranglethorn Fishing Extravaganza"] = "荆棘谷钓鱼大赛";
 	AL["Kalu'ak Fishing Derby"] = "卡亚鲁克钓鱼大赛";
-	AL["Elemental Unrest"] = "Elemental Unrest";
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00单击|r浏览掉落表格";
@@ -386,9 +429,6 @@ if AL then
 	AL["Banner"] = "旗帜";
 	AL["Set"] = "套装";
 	AL["Token"] = "兑换物";
-	AL["Tokens"] = "兑换物";
-	AL["Token Hand-Ins"] = "兑换物缴付";
-	AL["Skinning Knife"] = "剥皮刀";
 	AL["Combat Pet"] = "战斗宠物";
 	AL["Fireworks"] = "焰火";
 	AL["Transformation Item"] = "变形物品";
@@ -465,16 +505,9 @@ if AL then
 	AL["Quest Reward"] = "任务奖励";
 	AL["Old Quest Reward"] = "旧任务奖励";
 	AL["Shared"] = "已分享";
-	AL["Unique"] = "唯一";
 	AL["Right Half"] = "右半部分";
 	AL["Left Half"] = "左半部分";
-	AL["28 Slot Soul Shard"] = "28格灵魂袋";
-	AL["20 Slot"] = "20格";
-	AL["18 Slot"] = "18格";
-	AL["16 Slot"] = "16格";
-	AL["10 Slot"] = "10格";
 	AL["Currency"] = "购买";
-	AL["Conjured Item"] = "魔法制造的物品";
 	AL["Used to summon boss"] = "用以召唤首领";
 	AL["Tradable for sunmote + item above"] = "太阳之尘与上面物品兑换";
 	AL["Card Game Item"] = "集换卡游戏物品";
@@ -483,8 +516,6 @@ if AL then
 	AL["Random Heroic Reward"] = "随机英雄奖励";
 	AL["Fishing Daily Reward"] = "钓鱼日常奖励";
 	AL["Collector's Edition"] = "典藏版";
-	AL["Blizzcon"] = "暴雪嘉年华";
-	AL["WoW Anniversary Celebration"] = "魔兽世界周年庆典";
 	AL["Daily Reward"] = "日常奖励";
 	AL["No Longer Available"] = "已绝版";
 
@@ -498,17 +529,18 @@ if AL then
 	AL["Dungeon Set 2"] = "地下城套装2";
 	AL["Dungeon Set 1/2"] = "地下城套装1/2";
 	AL["Dungeon Set 3"] = "地下城套装3";
-	AL["Tier 1"] = "等级1";
-	AL["Tier 2"] = "等级2";
-	AL["Tier 3"] = "等级3";
-	AL["Tier 4"] = "等级4";
-	AL["Tier 5"] = "等级5";
-	AL["Tier 6"] = "等级6";
-	AL["Tier 7"] = "等级7";
-	AL["Tier 8"] = "等级8";
-	AL["Tier 9"] = "等级9";
-	AL["Tier 10"] = "等级10";
-	AL["Tier 11"] = "等级11";
+	AL["Tier 1"] = "T1";
+	AL["Tier 2"] = "T2";
+	AL["Tier 3"] = "T3";
+	AL["Tier 4"] = "T4";
+	AL["Tier 5"] = "T5";
+	AL["Tier 6"] = "T6";
+	AL["Tier 7"] = "T7";
+	AL["Tier 8"] = "T8";
+	AL["Tier 9"] = "T9";
+	AL["Tier 10"] = "T10";
+	AL["Tier 11"] = "T11";
+	AL["Tier 12"] = "T12";
 	AL["10 Man"] = "10人";
 	AL["10/25 Man"] = "10/25人";
 	AL["Epic Set"] = "史诗套装";
@@ -522,6 +554,7 @@ if AL then
 	AL["Season 7"] = "第7季";
 	AL["Season 8"] = "第8季";
 	AL["Season 9"] = "第9季";
+	AL["Season 10"] = "第10季";
 	AL["Fire"] = "火";
 	AL["Water"] = "水";
 	AL["Wind"] = "风";
@@ -532,7 +565,6 @@ if AL then
 	AL["Nature Resistance Gear"] = "自然抗性装备";
 	AL["Frost Resistance Gear"] = "冰霜抗性装备";
 	AL["Shadow Resistance Gear"] = "暗影抗性装备";
-	AL["Classic Sets"] = "经典旧世套装";
 
 	-- Labels for loot table sections
 	AL["Additional Heroic Loot"] = "英雄难度额外掉落";
@@ -552,8 +584,6 @@ if AL then
 	AL["Heirloom"] = "传家宝";
 	AL["Weapons"] = "武器";
 	AL["Accessories"] = "附件";
-	AL["Low Level"] = "低等级";
-	AL["High Level"] = "高等级";
 	AL["Rare"] = "稀有";
 	AL["Specializations"] = "特殊";
 
@@ -619,26 +649,13 @@ if AL then
 	AL["Resilience"] = "韧性";
 	AL["Professions"] = "专业技能";
 	AL["Damage"] = "伤害";
+--	AL["Proc"] = true;
 
 	-- Extra Text in Boss lists
-	AL["Set: Embrace of the Viper"] = "套装：毒蛇的拥抱";
-	AL["Set: Defias Leather"] = "套装：迪菲亚皮甲";
-	AL["Set: The Gladiator"] = "套装：角斗士";
-	AL["Set: Chain of the Scarlet Crusade"] = "套装：血色十字军链甲";
-	AL["Set: The Postmaster"] = "套装：邮差";
-	AL["Set: Necropile Raiment"] = "套装：骨堆";
-	AL["Set: Cadaverous Garb"] = "套装：苍白";
-	AL["Set: Bloodmail Regalia"] = "套装：血链";
-	AL["Set: Deathbone Guardian"] = "套装：亡者之骨";
-	AL["Set: Dal'Rend's Arms"] = "套装：雷德双刀";
-	AL["Set: Spider's Kiss"] = "套装：蜘蛛之吻";
 	AL["AQ20 Class Sets"] = "安其拉废墟职业套装";
 	AL["AQ Enchants"] = "安其拉附魔";
 	AL["AQ40 Class Sets"] = "安其拉神殿职业套装";
 	AL["AQ Opening Quest Chain"] = "安其拉开门任务链";
-	AL["ZG Class Sets"] = "祖尔格拉布职业套装";
-	AL["ZG Enchants"] = "祖尔格拉布附魔";
-	AL["Class Books"] = "职业书籍";
 	AL["Tribute Run"] = "贡品";
 	AL["Dire Maul Books"] = "厄运之槌书籍";
 	AL["Random Boss Loot"] = "首领随机掉落";
@@ -786,6 +803,12 @@ if AL then
 	AL["Grim Campfire"] = "Grim Campfire";
 	AL["Landro's Lil' XT"] = "Landro's Lil' XT";
 
+	-- Fourteenth set
+--	AL["War of the Elements"] = true;
+
+	-- Fifteenth set
+--	AL["Twilight of the Dragons"] = true;
+
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "旧 PvP 奖励";
 	AL["BG/Open PvP Rewards"] = "燃烧的远征/野外 PvP 奖励";
@@ -829,7 +852,6 @@ if AL then
 	AL["Venture Bay"] = "风险湾";
 
 	-- Karazhan Opera Event Headings
-	AL["Shared Drops"] = "共享掉落";
 	AL["Wizard of Oz"] = "绿野仙踪";
 	AL["Red Riding Hood"] = "小红帽";
 
@@ -837,17 +859,6 @@ if AL then
 	AL["Spider"] = "蜘蛛";
 	AL["Darkhound"] = "黑暗猎犬";
 	AL["Bat"] = "蝙蝠";
-
-	-- ZG Tokens
-	AL["Primal Hakkari Kossack"] = "原始哈卡莱套索";
-	AL["Primal Hakkari Shawl"] = "原始哈卡莱披肩";
-	AL["Primal Hakkari Bindings"] = "原始哈卡莱护腕";
-	AL["Primal Hakkari Sash"] = "原始哈卡莱腰带";
-	AL["Primal Hakkari Stanchion"] = "原始哈卡莱直柱";
-	AL["Primal Hakkari Aegis"] = "原始哈卡莱之盾";
-	AL["Primal Hakkari Girdle"] = "原始哈卡莱束带";
-	AL["Primal Hakkari Armsplint"] = "原始哈卡莱护臂";
-	AL["Primal Hakkari Tabard"] = "原始哈卡莱徽章";
 
 	-- AQ20 Tokens
 	AL["Qiraji Ornate Hilt"] = "其拉装饰刀柄";
@@ -867,9 +878,6 @@ if AL then
 	AL["Husk of the Old God"] = "上古之神的外鞘";
 	AL["Carapace of the Old God"] = "上古之神的甲壳";
 
-	-- Classic WoW Sets
-	AL["Zul'Gurub Rings"] = "祖尔格拉布戒指";
-
 	-- Recipe origin strings
 	AL["Trainer"] = "训练师";
 	AL["Discovery"] = "领悟";
@@ -877,9 +885,6 @@ if AL then
 	AL["Drop"] = "掉落";
 	AL["Vendor"] = "商人";
 	AL["Crafted"] = "制造";
-
-	-- Level 80 PvP Weapons
-	AL["Wrathful Gladiator\'s Weapons"] = "暴怒角斗士武器";
 
 	-- Months
 	AL["January"] = "一月";
@@ -911,13 +916,6 @@ if AL then
 	AL["Destruction"] = "毁灭";
 	AL["Tanking"] = "坦克";
 	AL["DPS"] = "DPS";
-
-	-- Naxx Zones
-	AL["Construct Quarter"] = "构造区";
-	AL["Arachnid Quarter"] = "蜘蛛区";
-	AL["Military Quarter"] = "军事区";
-	AL["Plague Quarter"] = "瘟疫区";
-	AL["Frostwyrm Lair"] = "冰霜巨龙的巢穴";
 
 	-- NPCs missing from BabbleBoss
 	AL["Trash Mobs"] = "普通怪物";
@@ -1036,25 +1034,21 @@ if AL then
 	AL["Jadefang"] = "Jadefang";
 	AL["Aeonaxx"] = "Aeonaxx";
 	AL["Prince Sarsarun"] = "Prince Sarsarun";
-	AL["Highlord Kruul"] = "魔王库鲁尔"; -- added until decided if the set gets removed
 	AL["Dormus the Camel-Hoarder"] = "Dormus the Camel-Hoarder";
 	AL["The Behemoth"] = "贝哈默斯";
 	AL["Master Elemental Shaper Krixix"] = "大元素师克里希克";
+--	AL["Zen'Vorka"] = true;
+--	AL["Ayla Shadowstorm"] = true;
+--	AL["Damek Bloombeard"] = true;
+--	AL["Varlan Highbough"] = true;
+--	AL["Firestone Vendor"] = true;
 
 	-- Zones
-	AL["World Drop"] = "世界掉落";
 	AL["Trial of the Grand Crusader"] = "大十字军的试炼";
 	AL["Crusader's Square"] = "十字军广场";
 	AL["The Gauntlet"] = "街巷";
 
 	-- Shortcuts for Bossname files
-	AL["LBRS"] = "黑下";
-	AL["UBRS"] = "黑上";
-	AL["CoT1"] = "救萨尔";
-	AL["CoT2"] = "18波";
-	AL["Scholo"] = "通灵";
-	AL["Strat"] = "斯坦索姆";
-	AL["Serpentshrine"] = "毒蛇";
 	AL["Avatar"] = "殉难者的化身";
 
 	-- Chests, etc

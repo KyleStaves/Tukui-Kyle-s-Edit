@@ -5,6 +5,7 @@ local L
 --------------------------
 --  Halfus Wyrmbreaker  --
 --------------------------
+--L= DBM:GetModLocalization(156)
 L = DBM:GetModLocalization("HalfusWyrmbreaker")
 
 L:SetGeneralLocalization({
@@ -27,6 +28,7 @@ L:SetMiscLocalization({
 ---------------------------
 --  Valiona & Theralion  --
 ---------------------------
+--L= DBM:GetModLocalization(157)
 L = DBM:GetModLocalization("ValionaTheralion")
 
 L:SetGeneralLocalization({
@@ -56,6 +58,7 @@ L:SetMiscLocalization({
 ----------------------------------
 --  Twilight Ascendant Council  --
 ----------------------------------
+--L= DBM:GetModLocalization(158)
 L = DBM:GetModLocalization("AscendantCouncil")
 
 L:SetGeneralLocalization({
@@ -78,6 +81,8 @@ L:SetOptionLocalization({
 	SpecWarnSearingWinds	= "Спец-предупреждение, когда у вас не хватает ауры $spell:83500\n(~10сек перед началом применения)",
 	timerTransition			= "Показывать таймер перехода в другую фазу",
 	RangeFrame				= "Автоматически показывать окно проверки дистанции при надобности",
+	yellScrewed				= "Кричать, когда на вас одновременно $spell:83099 и $spell:92307",	
+	InfoFrame				= "Показывать игроков без $spell:83581 или $spell:83500",
 	HeartIceIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(82665),
 	BurningBloodIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(82660),
 	LightningRodIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(83099),
@@ -97,12 +102,15 @@ L:SetMiscLocalization({
 	Arion					= "Аэрон",
 	Terrastra				= "Террастра",
 	Monstrosity				= "Элементиевое чудовище",
-	Kill					= "Невозможно...."
+	Kill					= "Невозможно....",
+	blizzHatesMe			= "Сфера и громотвод на МНЕ! С ДОРОГИ!!!",--You're probably fucked, and gonna kill half your raid if this happens, but worth a try anyways :).
+	WrongDebuff				= "Отсутствует %s"
 })
 
 ----------------
 --  Cho'gall  --
 ----------------
+--L= DBM:GetModLocalization(167)
 L = DBM:GetModLocalization("Chogall")
 
 L:SetGeneralLocalization({
@@ -130,6 +138,7 @@ L:SetMiscLocalization({
 ----------------
 --  Sinestra  --
 ----------------
+--L= DBM:GetModLocalization(168)
 L = DBM:GetModLocalization("Sinestra")
 
 L:SetGeneralLocalization({
@@ -138,14 +147,12 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarnDragon			= "Появились сумеречные дракончики",
-	WarnOrbsSoon		= "Сферы через %d сек!",
+	WarnOrbSoon			= "Сферы через %d сек!",
 	WarnEggWeaken		= "С яиц убран сумеречный панцирь",
 	SpecWarnOrbs		= "Скоро появятся сферы!",
 	warnWrackJump		= "%s прыгнуло на >%s<",
-	WarnWrackCount5s	= "%d сек прошло после последнего Смятия",
-	warnAggro			= "На %s АГРО (возможные цели сфер)",
+	warnAggro			= "На >%s< АГРО (возможные цели сфер)",
 	SpecWarnAggroOnYou	= "На вас АГРО! Смотрите за сферами!",
-	SpecWarnDispel		= "%d сек прошло после последнего Смятия - рассейте!",
 	SpecWarnEggWeaken	= "Панцирь снят - весь урон в яйца!",
 	SpecWarnEggShield	= "Панцирь восстановился!"
 })
@@ -154,36 +161,37 @@ L:SetTimerLocalization({
 	TimerDragon			= "След. дракончики",
 	TimerEggWeakening	= "Снятие зашиты с яиц",
 	TimerEggWeaken		= "Восст. Сумеречного панциря",
-	TimerOrbs			= "Следующие сферы"
+	TimerOrbs			= "Восст. Сферы Тьмы"
 })
 
 L:SetOptionLocalization({
 	WarnDragon			= "Предупреждение, когда появляются сумеречные дракончики",
-	WarnOrbsSoon		= "Предупреждение о появлении сфер (за 5с до начала, каждую 1с)\n(Предупреждение может быть неточным!)",
+	WarnOrbSoon			= "Предупреждение о появлении сфер (за 5с до начала, каждую 1с)\n(Предупреждение может быть неточным!)",
 	WarnEggWeaken		= "Предупреждение, когда спадает $spell:87654",
 	warnWrackJump		= "Показывать цели, на которые прыгает $spell:92955",
-	WarnWrackCount5s	= "Предупреждение, когда $spell:92955 висит на игроке 10, 15, 20 секунд",	
 	warnAggro			= "Показывать игроков, имеющих агро от сфер (возможные цели сфер)",
 	SpecWarnAggroOnYou	= "Спец-предупреждение, если на вас есть агро при появлении сфер",
 	SpecWarnOrbs		= "Спец-предупреждение при появлении сфер\n(Предупреждение может быть неточным)",
-	SpecWarnDispel		= "Спец-предупреждение для рассеивания $spell:92955\n(После нескольких секунд, прошедших с момента произнесения/прыжка)",
 	SpecWarnEggWeaken	= "Спец-предупреждение, когда спадает $spell:87654",
 	SpecWarnEggShield	= "Спец-предупреждение, когда восстанавливается $spell:87654",
 	TimerDragon			= "Отсчет времени до новых сумеречных дракончиков",
 	TimerEggWeakening	= "Отсчет времени до снятия $spell:87654",
 	TimerEggWeaken		= "Отсчет времени восстановления $spell:87654",
 	TimerOrbs			= "Отсчет времени до следующих сфер (таймер может быть неточным)",
-	SetIconOnOrbs		= "Устанавливать метки на игроков, имеющих агро от сфер\n(Предполагаемые цели сфер)"
+	SetIconOnOrbs		= "Устанавливать метки на игроков, имеющих агро от сфер\n(Предполагаемые цели сфер)",
+	OrbsCountdown		= "Звуковой отсчет перед появлением сфер",
+	InfoFrame			= "Показывать список игроков, имеющих агро"
 })
 
 L:SetMiscLocalization({
 	YellDragon			= "Ешьте, дети мои! Пусть их мясо насытит вас!",
-	YellEgg				= "Ты так в этом уверен? Глупец!"   
+	YellEgg				= "Ты так в этом уверен? Глупец!",
+	HasAggro			= "Имеют агро"
 })
 
---------------------------
+-------------------------------------
 --  The Bastion of Twilight Trash  --
---------------------------
+-------------------------------------
 L = DBM:GetModLocalization("BoTrash")
 
 L:SetGeneralLocalization({

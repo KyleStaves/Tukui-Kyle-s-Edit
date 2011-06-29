@@ -603,12 +603,14 @@ L:SetOptionLocalization{
 	WarnNormal		= "Show warning for Normal form",
 	WarnNormalSoon	= "Show pre-warning for Normal form",
 	TimerBear		= "Show timer for Bear form",
-	TimerNormal		= "Show timer for Normal form"
+	TimerNormal		= "Show timer for Normal form",
+	InfoFrame		= "Show info frame for players not affected by $spell:42402"
 }
 
 L:SetMiscLocalization{
-	YellBear 	= "You call on da beast, you gonna get more dan you bargain for!",
-	YellNormal	= "Make way for Nalorakk!"
+	YellBear 		= "You call on da beast, you gonna get more dan you bargain for!",
+	YellNormal		= "Make way for Nalorakk!",
+	PlayerDebuffs	= "No Surge Debuff"
 }
 
 --------------
@@ -627,8 +629,10 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	StormIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(43648),
-	RangeFrame	= "Show range frame (10 yards)"
+	StormIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97300),
+	RangeFrame	= "Show range frame (10 yards)",
+	StormArrow	= "Show DBM Arrow for $spell:97300",
+	SetIconOnEagle	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97318)
 }
 
 L:SetMiscLocalization{
@@ -655,6 +659,7 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	YellBomb	= "I burn ya now!",
+	YellHatchAll= "I show you strength... in numbers.",
 	YellAdds	= "Where ma hatcha? Get to work on dem eggs!"
 }
 
@@ -706,6 +711,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	YellPull	= "Da shadow gonna fall on you...."
 }
 
 -------------
@@ -721,13 +727,18 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
+	timerNextForm	= "Next Form Change"
 }
 
 L:SetOptionLocalization{
+	timerNextForm	= "Show timer for form changes.",
+	InfoFrame		= "Show info frame for players not affected by $spell:42402",
+	ThrowIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97639),
+	ClawRageIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97672)
 }
 
 L:SetMiscLocalization{
-	SetIconOnThrow		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97639)
+	PlayerDebuffs	= "No Surge Debuff"
 }
 
 -----------------
@@ -748,15 +759,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477)
+	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477),
+	LinkArrow			= "Show DBM arrow when you are affected by $spell:96477"
 }
 
 L:SetMiscLocalization{
 }
 
-------------
--- Zanzil --
-------------
+------------------------
+-- Bloodlord Mandokir --
+------------------------
 L = DBM:GetModLocalization("Mandokir")
 
 L:SetGeneralLocalization{
@@ -764,7 +776,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnRevive		= "Ghost Revive - %d left",
+	WarnRevive		= "%d ghosts remaining",
 	SpecWarnOhgan	= "Ohgan revived! Attack now!" -- check this, i'm not good at English
 }
 
@@ -773,7 +785,8 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnRevive		= "Announce how many ghost revive remaining",
-	SpecWarnOhgan	= "Show warning when Ohgan is revived" -- check this, i'm not good at English
+	SpecWarnOhgan	= "Show warning when Ohgan is revived", -- check this, i'm not good at English
+	SetIconOnOhgan	= "Put an icon on Ohgan when he revives" 
 }
 
 L:SetMiscLocalization{
@@ -790,16 +803,20 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
+	SpecWarnToxic	= "Get Toxic Torment"
 }
 
 L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
+	SpecWarnToxic	= "Show special warning when you are missing $spell:96328 debuff",
+	InfoFrame		= "Show info frame for players not affected by $spell:96328",
 	SetIconOnGaze	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96342)
 }
 
 L:SetMiscLocalization{
+	PlayerDebuffs	= "No Toxic Torment"
 }
 
 ----------------------------
@@ -840,9 +857,10 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnBarrierDown	= "Announce when Hakkar's Chains barrier down"
+	WarnBarrierDown	= "Announce when Hakkar's Chains barrier down",
+	BodySlamIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97198)
 }
 
 L:SetMiscLocalization{
-	Kill			= "Oh no, Hakkar's spirit is free!" -- temporarily
+	Kill			= "You overstepped your bounds, Jin'do. You toy with powers that are beyond you. Have you forgotten who I am? Have you forgotten what I can do?!"
 }

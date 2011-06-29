@@ -63,18 +63,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart = "战斗即将开始", 
 	TimerTower = "%s",
 	TimerGY = "%s",
 })
 
-L:SetMiscLocalization({
-	BgStart60 = "奥特兰克山谷的战斗将在1分钟之后开始。",
-	BgStart30 = "奥特兰克山谷的战斗将在30秒之后开始。"
-})
-
 L:SetOptionLocalization({
-	TimerStart  = "显示开始计时",
 	TimerTower = "显示哨塔占领计时",
 	TimerGY = "显示墓地占领计时",
 	AutoTurnIn = "自动递交任务物品"
@@ -90,8 +83,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60 = "阿拉希盆地的战斗将在1分钟后开始。",
-	BgStart30 = "阿拉希盆地的战斗将在30秒后开始。",
 	ScoreExpr = "(%d+)/1600",
 	Alliance = "联盟",
 	Horde = "部落",
@@ -101,12 +92,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart = "战斗即将开始", 
 	TimerCap = "%s",
 })
 
 L:SetOptionLocalization({
-	TimerStart  = "显示开始计时",
 	TimerWin = "显示获胜计时",
 	TimerCap = "显示占领计时",
 	ShowAbEstimatedPoints = "显示战斗结束时双方资源统计",
@@ -123,8 +112,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60 = "战斗将在1分钟后开始！",
-	BgStart30 = "战斗将在30秒后开始！",
 	ZoneName = "风暴之眼",
 	ScoreExpr = "(%d+)/1600",
 	Alliance = "联盟",
@@ -138,12 +125,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart = "战斗即将开始", 
 	TimerFlag = "旗帜重置",
 })
 
 L:SetOptionLocalization({
-	TimerStart  = "显示开始计时",
 	TimerWin = "显示获胜计时",
 	TimerFlag = "显示旗帜重置计时",
 	ShowPointFrame = "显示旗帜携带着和获胜计时",
@@ -239,8 +224,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60 = "阿拉希盆地的战斗将在1分钟后开始。",
-	BgStart30 = "阿拉希盆地的战斗将在30秒后开始。",
 	ScoreExpr = "(%d+)/2000",
 	Alliance = "联盟",
 	Horde = "部落",
@@ -250,12 +233,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart = "战斗即将开始", 
 	TimerCap = "%s",
 })
 
 L:SetOptionLocalization({
-	TimerStart  = "显示开始计时",
 	TimerWin = "显示获胜计时",
 	TimerCap = "显示占领计时",
 	ShowGilneasEstimatedPoints = "显示战斗结束时双方资源统计",

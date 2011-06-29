@@ -1,10 +1,15 @@
+--local mod	= DBM:NewMod(158, "DBM-BastionTwilight", nil, 72)
 local mod	= DBM:NewMod("AscendantCouncil", "DBM-BastionTwilight")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5636 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6022 $"):sub(12, -3))
 mod:SetCreatureID(43686, 43687, 43688, 43689, 43735)
+mod:SetModelID(34822)
 mod:SetZone()
 mod:SetUsedIcons(3, 4, 5, 6, 7, 8)
+mod:SetModelSound("Sound\\Creature\\Chogall\\VO_BT_Chogall_BotEvent14.wav", "Sound\\Creature\\Terrastra\\VO_BT_Terrastra_Event02.wav")
+--Long: Brothers of Twilight! The Hammer calls to you! Fire, water, earth, air! Leave your mortal shell behind! Fire, water, earth, air! Embrace your new forms, for here and ever after... Burn and drown and crush and sufficate!...and use your gifts to destroy the unbelievers! Burn and drown and crush and sufficate!
+--Short: We will handle them!
 
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.Kill)
@@ -16,7 +21,7 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"CHAT_MSG_MONSTER_YELL",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"RAID_BOSS_EMOTE",
 	"UNIT_HEALTH"
 )
 
@@ -53,14 +58,15 @@ local warnFrostBeacon		= mod:NewTargetAnnounce(92307, 4)--Heroic Phase 2 ablity
 local specWarnHeartIce		= mod:NewSpecialWarningYou(82665, false)
 local specWarnGlaciate		= mod:NewSpecialWarningRun(82746, mod:IsMelee())
 local specWarnWaterLogged	= mod:NewSpecialWarningYou(82762)
-local specWarnHydroLance	= mod:NewSpecialWarningInterrupt(92509, false)
+local specWarnHydroLance	= mod:NewSpecialWarningInterrupt(92509, mod:IsMelee())
 --Ignacious
 local specWarnBurningBlood	= mod:NewSpecialWarningYou(82660, false)
 local specWarnAegisFlame	= mod:NewSpecialWarningSpell(82631, nil, nil, nil, true)
 local specWarnRisingFlames	= mod:NewSpecialWarningInterrupt(82636)
 --Terrastra
+local specWarnEruption		= mod:NewSpecialWarningSpell(83675, false)
 local specWarnSearingWinds	= mod:NewSpecialWarning("SpecWarnSearingWinds")
-local specWarnHardenedSkin	= mod:NewSpecialWarningInterrupt(83718, false)
+local specWarnHardenedSkin	= mod:NewSpecialWarningInterrupt(83718, mod:IsMelee())
 --Arion
 local specWarnGrounded		= mod:NewSpecialWarning("SpecWarnGrounded")
 local specWarnLightningBlast= mod:NewSpecialWarningInterrupt(83070, false)
@@ -72,6 +78,8 @@ local yellGravityCore		= mod:NewYell(92075)
 local specWarnStaticOverload= mod:NewSpecialWarningYou(92067)--Heroic
 local yellStaticOverload	= mod:NewYell(92067)
 local specWarnFrostBeacon	= mod:NewSpecialWarningYou(92307)--Heroic
+local yellFrostbeacon		= mod:NewYell(92307)
+local yellScrewed			= mod:NewYell(92307, L.blizzHatesMe, true, "yellScrewed", "YELL")--Amusing but effective.
 
 local specWarnBossLow		= mod:NewSpecialWarning("specWarnBossLow")
 
@@ -94,7 +102,7 @@ local timerQuakeCast		= mod:NewCastTimer(3, 83565)
 --Arion
 local timerLightningRod		= mod:NewBuffActiveTimer(15, 83099)
 local timerDisperse			= mod:NewCDTimer(30, 83087)
-local timerLightningBlast	= mod:NewCastTimer(4, 83070)
+local timerLightningBlast	= mod:NewCastTimer(4, 83070, nil, false)
 local timerThundershockCD	= mod:NewNextTimer(33, 83067)
 local timerThundershockCast	= mod:NewCastTimer(3, 83067)
 --Elementium Monstrosity
@@ -109,6 +117,7 @@ local timerFlameStrikeCD	= mod:NewNextTimer(20, 92212)--Heroic Phase 2 ablity
 local timerFrostBeaconCD	= mod:NewNextTimer(20, 92307)--Heroic Phase 2 ablity
 
 local soundGlaciate			= mod:NewSound(82746, nil, mod:IsTank())
+local soundLightingRod		= mod:NewSound(83099)
 local soundBeacon			= mod:NewSound(92307)
 
 mod:AddBoolOption("HealthFrame", true)
@@ -120,16 +129,20 @@ mod:AddBoolOption("FrostBeaconIcon")
 mod:AddBoolOption("StaticOverloadIcon")
 mod:AddBoolOption("GravityCoreIcon")
 mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("InfoFrame")
 
 local frozenTargets = {}
 local lightningRodTargets = {}
 local gravityCrushTargets = {}
 local lightningRodIcon = 8
 local gravityCrushIcon = 8
-local sendedLowHP = {}
+local sentLowHP = {}
 local warnedLowHP = {}
 local frozenCount = 0
 local lastBeacon = 0
+local isBeacon = false
+local isRod = false
+local infoFrameUpdated = false
 
 local function showFrozenWarning()
 	warnFrozen:Show(table.concat(frozenTargets, "<, >"))
@@ -155,11 +168,21 @@ local function checkGrounded()
 	if not UnitDebuff("player", GetSpellInfo(83581)) and not UnitIsDeadOrGhost("player") then
 		specWarnGrounded:Show()
 	end
+	if mod.Options.InfoFrame and not infoFrameUpdated then
+		infoFrameUpdated = true
+		DBM.InfoFrame:SetHeader(L.WrongDebuff:format(GetSpellInfo(83581)))
+		DBM.InfoFrame:Show(5, "playerdebuff", 83581)
+	end
 end
 
 local function checkSearingWinds()
 	if not UnitDebuff("player", GetSpellInfo(83500)) and not UnitIsDeadOrGhost("player") then
 		specWarnSearingWinds:Show()
+	end
+	if mod.Options.InfoFrame and not infoFrameUpdated then
+		infoFrameUpdated = true
+		DBM.InfoFrame:SetHeader(L.WrongDebuff:format(GetSpellInfo(83500)))
+		DBM.InfoFrame:Show(5, "playerdebuff", 83500)
 	end
 end
 
@@ -197,7 +220,7 @@ do
 		return math.max(1, math.floor(absorbRemaining / maxAbsorb * 100))
 	end
 	frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	frame:SetScript("OnEvent", function(self, event, timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+	frame:SetScript("OnEvent", function(self, event, timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
 		if shieldedMob == destGUID then
 			local absorbed
 			if subEvent == "SWING_MISSED" then 
@@ -229,12 +252,15 @@ function mod:OnCombatStart(delay)
 	table.wipe(frozenTargets)
 	table.wipe(lightningRodTargets)
 	table.wipe(gravityCrushTargets)
-	table.wipe(sendedLowHP)
+	table.wipe(sentLowHP)
 	table.wipe(warnedLowHP)
 	lightningRodIcon = 8
 	gravityCrushIcon = 8
 	frozenCount = 0
 	lastBeacon = 0
+	isBeacon = false
+	isRod = false
+	infoFrameUpdated = false
 	timerGlaciate:Start(30-delay)
 	timerWaterBomb:Start(15-delay)
 	timerHeartIceCD:Start(18-delay)--could be just as flakey as it is in combat though.
@@ -252,6 +278,9 @@ end
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
 	end
 end
 
@@ -282,8 +311,14 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(83099) then
 		lightningRodTargets[#lightningRodTargets + 1] = args.destName
 		if args:IsPlayer() then
+			isRod = true
 			specWarnLightningRod:Show()
-			yellLightningRod:Yell()
+			soundLightingRod:Play()
+			if isBeacon then--You have lighting rod and frost beacon at same time.
+				yellScrewed:Yell()
+			else--You only have rod so do normal yell
+				yellLightningRod:Yell()
+			end
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(10)
 			end
@@ -308,10 +343,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnAegisFlame:Show()
 		showShieldHealthBar(self, args.destGUID, shieldname, shieldValues[args.spellId] or 0)
 		self:Schedule(20, hideShieldHealthBar)
-	elseif args:IsSpellID(83718, 92541, 92542, 92543) then--Harden Skin
+--[[	elseif args:IsSpellID(83718, 92541, 92542, 92543) then--Harden Skin (doesn't work, dumb thing doesn't use absorb events it tracks as damage done to boss, even though the boss isn't taking damage, shield is.
 		local shieldname = GetSpellInfo(92543)
 		showShieldHealthBar(self, args.destGUID, shieldname, shieldValues[args.spellId] or 0)
-		self:Schedule(30, hideShieldHealthBar)
+		self:Schedule(30, hideShieldHealthBar)--]]
 	elseif args:IsSpellID(82762) and args:IsPlayer() then
 		specWarnWaterLogged:Show()
 	elseif args:IsSpellID(84948, 92486, 92487, 92488) then
@@ -330,17 +365,23 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(92307) then
 		warnFrostBeacon:Show(args.destName)
 		if args:IsPlayer() then
+			isBeacon = true
 			specWarnFrostBeacon:Show()
 			soundBeacon:Play()
+			if isRod then--You have lighting rod and frost beacon at same time.
+				yellScrewed:Yell()
+			else--You only have beacon so do normal yell
+				yellFrostbeacon:Yell()
+			end
 		end
 		if self.Options.FrostBeaconIcon then
 			self:SetIcon(args.destName, 3)
 		end
-		if GetTime() - lastBeacon >= 18 then -- sometimes Frost Beacon change targets unreasonally, show only new Frost orbs.
+		if GetTime() - lastBeacon >= 18 then -- sometimes Frost Beacon change targets, show only new Frost orbs.
 			timerFrostBeaconCD:Start()
 			lastBeacon = GetTime()
 		end
-	elseif args:IsSpellID(92067) then--All other spell IDs are jump spellids, do not add them in or we'll have to scan source target and filter them. Since jump warnings are gone that's no longer nessesary
+	elseif args:IsSpellID(92067) then--All other spell IDs are jump spellids, do not add them in or we'll have to scan source target and filter them.
 		warnStaticOverload:Show(args.destName)
 		timerStaticOverloadCD:Start()
 		if self.Options.StaticOverloadIcon then
@@ -353,7 +394,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(92075) then
 		warnGravityCore:Show(args.destName)
 		timerGravityCoreCD:Start()
-		if self.Options.GravityCoreIcon then--Only set icons on original, not really sure how to handle jump icons. Not really enough icons for that.
+		if self.Options.GravityCoreIcon then
 			self:SetIcon(args.destName, 5)
 		end
 		if args:IsPlayer() then
@@ -372,7 +413,14 @@ function mod:SPELL_AURA_REFRESH(args)--We do not combine refresh with applied ca
 	elseif args:IsSpellID(83099) then
 		lightningRodTargets[#lightningRodTargets + 1] = args.destName
 		if args:IsPlayer() then
+			isRod = true
 			specWarnLightningRod:Show()
+			soundLightingRod:Play()
+			if isBeacon then--You have lighting rod and frost beacon at same time.
+				yellScrewed:Yell()
+			else--You only have rod so do normal yell
+				yellLightningRod:Yell()
+			end
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(10)
 			end
@@ -405,12 +453,19 @@ function mod:SPELL_AURA_REFRESH(args)--We do not combine refresh with applied ca
 	elseif args:IsSpellID(92307) then
 		warnFrostBeacon:Show(args.destName)
 		if args:IsPlayer() then
+			isBeacon = true
 			specWarnFrostBeacon:Show()
+			soundBeacon:Play()
+			if isRod then--You have lighting rod and frost beacon at same time.
+				yellScrewed:Yell()
+			else--You only have beacon so do normal yell
+				yellFrostbeacon:Yell()
+			end
 		end
 		if self.Options.FrostBeaconIcon then
 			self:SetIcon(args.destName, 3)
 		end
-	elseif args:IsSpellID(92067) then--All other spell IDs are jump spellids, do not add them in or we'll have to scan source target and filter them. Since jump warnings are gone that's no longer nessesary
+	elseif args:IsSpellID(92067) then--All other spell IDs are jump spellids, do not add them in or we'll have to scan source target and filter them.
 		warnStaticOverload:Show(args.destName)
 		timerStaticOverloadCD:Start()
 		if self.Options.StaticOverloadIcon then
@@ -451,6 +506,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif args:IsSpellID(83099) then
 		timerLightningRod:Cancel(args.destName)
+		if args:IsPlayer() then
+			isRod = false
+		end
 		if self.Options.LightningRodIcon then
 			self:SetIcon(args.destName, 0)
 		end
@@ -460,6 +518,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args:IsSpellID(92307) then
+		if args:IsPlayer() then
+			isBeacon = false
+		end
 		if self.Options.FrostBeacondIcon then
 			self:SetIcon(args.destName, 0)
 		end
@@ -474,12 +535,12 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args:IsSpellID(82631, 92512, 92513, 92514) then	-- Shield Removed
 		self:Unschedule(hideShieldHealthBar)
 		hideShieldHealthBar()
-		if self:GetUnitCreatureId("target") == 43686 or self:GetUnitCreatureId("focus") == 43686 then
-			specWarnRisingFlames:Show()
+		if self:IsMelee() and (self:GetUnitCreatureId("target") == 43686 or self:GetUnitCreatureId("focus") == 43686) or not self:IsMelee() then
+			specWarnRisingFlames:Show()--Only warn for melee targeting him or exclicidly put him on focus, else warn regardless if he's your target/focus or not if you aren't a melee
 		end
-	elseif args:IsSpellID(83718, 92541, 92542, 92543) then--Harden Skin Removed
+--[[	elseif args:IsSpellID(83718, 92541, 92542, 92543) then--Harden Skin Removed
 		self:Unschedule(hideShieldHealthBar)
-		hideShieldHealthBar()
+		hideShieldHealthBar()-]]
 	end
 end
 
@@ -492,23 +553,30 @@ function mod:SPELL_CAST_START(args)
 			soundGlaciate:Play()
 		end
 	elseif args:IsSpellID(82752, 92509, 92510, 92511) then
-		specWarnHydroLance:Show()
+		if self:IsMelee() and (self:GetUnitCreatureId("target") == 43687 or self:GetUnitCreatureId("focus") == 43687) or not self:IsMelee() then
+			specWarnHydroLance:Show()--Only warn for melee targeting him or exclicidly put him on focus, else warn regardless if he's your target/focus or not if you aren't a melee
+		end
 		timerHydroLanceCD:Show()
 	elseif args:IsSpellID(82699) then
 		warnWaterBomb:Show()
 		timerWaterBomb:Start()
 	elseif args:IsSpellID(83675) then
 		warnEruption:Show()
+		specWarnEruption:Show()
 		timerEruptionCD:Start()
 	elseif args:IsSpellID(83718, 92541, 92542, 92543) then
 		warnHardenSkin:Show()
 		timerHardenSkinCD:Start()
-		specWarnHardenedSkin:Show()
+		if self:IsMelee() and (self:GetUnitCreatureId("target") == 43689 or self:GetUnitCreatureId("focus") == 43689) or not self:IsMelee() then
+			specWarnHardenedSkin:Show()--Only warn for melee targeting him or exclicidly put him on focus, else warn regardless if he's your target/focus or not if you aren't a melee
+		end
 	elseif args:IsSpellID(83565, 92544, 92545, 92546) then
+		infoFrameUpdated = false
 		warnQuake:Show()
 		timerQuakeCD:Cancel()
 		timerQuakeCast:Start()
 		timerThundershockCD:Start()
+		self:Schedule(5, checkGrounded)
 	elseif args:IsSpellID(83087) then
 		warnDisperse:Show()
 		timerDisperse:Start()
@@ -517,10 +585,12 @@ function mod:SPELL_CAST_START(args)
 		timerLightningBlast:Start()
 		specWarnLightningBlast:Show()
 	elseif args:IsSpellID(83067, 92469, 92470, 92471) then
+		infoFrameUpdated = false
 		warnThundershock:Show()
 		timerThundershockCD:Cancel()
 		timerThundershockCast:Start()
 		timerQuakeCD:Start()
+		self:Schedule(5, checkSearingWinds)
 	elseif args:IsSpellID(84913) then
 		warnLavaSeed:Show()
 		timerLavaSeedCD:Start()
@@ -556,6 +626,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerFlameStrikeCD:Start(30)
 		end
 		timerQuakeCD:Start()
+		self:Schedule(5, checkSearingWinds)
 	elseif msg == L.Phase3 or msg:find(L.Phase3) then
 		updateBossFrame(3)
 		timerQuakeCD:Cancel()
@@ -575,27 +646,28 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(10)
 		end
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:Hide()
+		end
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.Quake or msg:find(L.Quake) then
 		timerQuakeCD:Update(23, 33)
 		warnQuakeSoon:Show()
 		checkSearingWinds()
 		if mod:IsDifficulty("heroic10", "heroic25") then
-			self:Schedule(3, checkSearingWinds)
-			self:Schedule(6, checkSearingWinds)
-			self:Schedule(8, checkSearingWinds)
+			self:Schedule(3.3, checkSearingWinds)
+			self:Schedule(6.6, checkSearingWinds)
 		end
 	elseif msg == L.Thundershock or msg:find(L.Thundershock) then
 		timerThundershockCD:Update(23, 33)
 		warnThundershockSoon:Show()
 		checkGrounded()
 		if mod:IsDifficulty("heroic10", "heroic25") then
-			self:Schedule(3, checkGrounded)
-			self:Schedule(6, checkGrounded)
-			self:Schedule(8, checkGrounded)
+			self:Schedule(3.3, checkGrounded)
+			self:Schedule(6.6, checkGrounded)
 		end
 	end
 end
@@ -604,8 +676,8 @@ function mod:UNIT_HEALTH(uId)
 	if (uId == "boss1" or uId == "boss2" or uId == "boss3" or uId == "boss4") and self:IsInCombat() then
 		if UnitHealth(uId)/UnitHealthMax(uId) <= 0.30 then
 			local cid = self:GetUnitCreatureId(uId)
-			if (cid == 43686 or cid == 43687 or cid == 43688 or cid == 43689) and not sendedLowHP[cid] then
-				sendedLowHP[cid] = true
+			if (cid == 43686 or cid == 43687 or cid == 43688 or cid == 43689) and not sentLowHP[cid] then
+				sentLowHP[cid] = true
 				self:SendSync("lowhealth", UnitName(uId))
 			end
 		end

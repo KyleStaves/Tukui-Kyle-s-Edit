@@ -12,7 +12,6 @@ Arathi:RegisterEvents(
 	"UPDATE_WORLD_STATES"
 )
 
-local startTimer 	= Arathi:NewTimer(62, "TimerStart", 2457)
 local winTimer 		= Arathi:NewTimer(30, "TimerWin", "Interface\\Icons\\INV_Misc_PocketWatch_01")
 local capTimer 		= Arathi:NewTimer(63, "TimerCap", "Interface\\Icons\\Spell_Misc_HellifrePVPHonorHoldFavor")
 
@@ -107,8 +106,8 @@ local function get_basecount()
 end
 local function get_score()
 	if not bgzone then return 0,0 end
-	local AllyScore		= tonumber(string.match((select(3, GetWorldStateUIInfo(1)) or ""), L.ScoreExpr)) or 0
-	local HordeScore	= tonumber(string.match((select(3, GetWorldStateUIInfo(2)) or ""), L.ScoreExpr)) or 0
+	local AllyScore		= tonumber(string.match((select(4, GetWorldStateUIInfo(1)) or ""), L.ScoreExpr)) or 0
+	local HordeScore	= tonumber(string.match((select(4, GetWorldStateUIInfo(2)) or ""), L.ScoreExpr)) or 0
 	return AllyScore, HordeScore
 end
 
@@ -199,16 +198,7 @@ do
 	Arathi.CHAT_MSG_BG_SYSTEM_ALLIANCE = schedule_check
 	Arathi.CHAT_MSG_BG_SYSTEM_HORDE = schedule_check
 	Arathi.CHAT_MSG_RAID_BOSS_EMOTE = schedule_check
-
-	function Arathi:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
-		if not bgzone then return end
-		if arg1 == L.BgStart60 then
-			startTimer:Start()
-		elseif arg1 == L.BgStart30  then		
-			startTimer:Update(31, 62)
-		end
-		schedule_check(self)
-	end
+	Arathi.CHAT_MSG_BG_SYSTEM_NEUTRAL = schedule_check
 end
 
 do

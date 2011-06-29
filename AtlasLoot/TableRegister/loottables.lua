@@ -52,156 +52,171 @@ AtlasLoot_LootTableRegister = {
 ---------------------------
 
 	---- Dungeons
-	
 		["BlackrockCaverns"] = {
 			["Bosses"] = {
-				{ "BlackrockCavernsRomogg", 2 },
-				{ "BlackrockCavernsCorla", 3 },
-				{ "BlackrockCavernsSteelbender", 4 },
-				{ "BlackrockCavernsBeauty", 5 },
-				{ "BlackrockCavernsLordObsidius", 6 },
+				{ "BlackrockCavernsRomogg", 2, EncounterJournalID = 105 },
+				{ "BlackrockCavernsCorla", 3, EncounterJournalID = 106 },
+				{ "BlackrockCavernsSteelbender", 4, EncounterJournalID = 107 },
+				{ "BlackrockCavernsBeauty", 5, EncounterJournalID = 108 },
+				{ "BlackrockCavernsLordObsidius", 6, EncounterJournalID = 109 },
 				{ "BlackrockCavernsTrash", 11 },
 			},
-			["Info"] = { BabbleZone["Blackrock Caverns"], "AtlasLootCataclysm", mapname = "BlackrockCaverns" },
+			["Info"] = { BabbleZone["Blackrock Caverns"], "AtlasLootCataclysm", mapname = "BlackrockCaverns", EncounterJournalID = 66 },
 		},
 
 		["ThroneOfTheTides"] = {
 			["Bosses"] = {
-				{ "ToTNazjar", 5 },
-				{ "ToTUlthok",  6 },
-				{ "ToTStonespeaker", 7 },
-				{ "ToTOzumat", 8 },
+				{ "ToTNazjar", 5, EncounterJournalID = 101 },
+				{ "ToTUlthok",  6, EncounterJournalID = 102 },
+				{ "ToTMindbender", 7, EncounterJournalID = 103 },
+				{ "ToTOzumat", 8, EncounterJournalID = 104 },
 				{ "ToTTrash", 12 },
 			},
-			["Info"] = { BabbleZone["Throne of the Tides"], "AtlasLootCataclysm", mapname = "ThroneOfTheTides" },
+			["Info"] = { BabbleZone["Throne of the Tides"], "AtlasLootCataclysm", mapname = "ThroneOfTheTides", EncounterJournalID = 65 },
 		},
 
 		["TheStonecore"] = {
 			["Bosses"] = {
-				{ "StonecoreCorborus", 4 },
-				{ "StonecoreSlabhide", 5 },
-				{ "StonecoreOzruk", 6 },
-				{ "StonecoreAzil", 7 },
+				{ "StonecoreCorborus", 4, EncounterJournalID = 110 },
+				{ "StonecoreSlabhide", 5, EncounterJournalID = 111 },
+				{ "StonecoreOzruk", 6, EncounterJournalID = 112 },
+				{ "StonecoreAzil", 7, EncounterJournalID = 113 },
 				{ "StonecoreTrash", 10 },
 			},
-			["Info"] = { BabbleZone["The Stonecore"], "AtlasLootCataclysm", mapname = "TheStonecore" },
+			["Info"] = { BabbleZone["The Stonecore"], "AtlasLootCataclysm", mapname = "TheStonecore", EncounterJournalID = 67 },
 		},
 
 		["TheVortexPinnacle"] = {
 			["Bosses"] = {
-				{ "VPErtan", 3 },
-				{ "VPAltairus", 4 },
-				{ "VPAsaad", 5 },
+				{ "VPErtan", 3, EncounterJournalID = 114 },
+				{ "VPAltairus", 4 , EncounterJournalID = 115},
+				{ "VPAsaad", 5, EncounterJournalID = 116 },
 				{ "VPTrash", 9 },
 			},
-			["Info"] = { BabbleZone["The Vortex Pinnacle"], "AtlasLootCataclysm", mapname = "SkywallDungeon" },
+			["Info"] = { BabbleZone["The Vortex Pinnacle"], "AtlasLootCataclysm", mapname = "SkywallDungeon", EncounterJournalID = 68 },
 		},
 
 		["LostCityOfTolvir"] = {
 			["Bosses"] = {
-				{ "LostCityHusam", 3 },
-				{ "LostCityLockmaw", {4,5} },
-				{ "LostCityBarim", 6 },
-				{ "LostCitySiamat", 7 },
+				{ "LostCityHusam", 3, EncounterJournalID = 117 },
+				{ "LostCityLockmaw", {4,5}, EncounterJournalID = 118 },
+				{ "LostCityBarim", 6, EncounterJournalID = 119 },
+				{ "LostCitySiamat", 7, EncounterJournalID = 122 },
 				{ "LostCityTrash", 10 },
 			},
-			["Info"] = { BabbleZone["Lost City of the Tol'vir"], "AtlasLootCataclysm", mapname = "LostCityofTolvir" },
+			["Info"] = { BabbleZone["Lost City of the Tol'vir"], "AtlasLootCataclysm", mapname = "LostCityofTolvir", EncounterJournalID = 69 },
 		},
 
 		["GrimBatol"] = {
 			["Bosses"] = {
-				{ "GBUmbriss", 2 },
-				{ "GBThrongus", 3 },
-				{ "GBDrahga", 4 },
-				{ "GBErudax", 5 },
+				{ "GBUmbriss", 2, EncounterJournalID = 131 },
+				{ "GBThrongus", 3, EncounterJournalID = 132 },
+				{ "GBDrahga", 4, EncounterJournalID = 133 },
+				{ "GBErudax", 5, EncounterJournalID = 134 },
 				{ "GBTrash", 10 },
 			},
-			["Info"] = { BabbleZone["Grim Batol"], "AtlasLootCataclysm", mapname = "GrimBatol" },
+			["Info"] = { BabbleZone["Grim Batol"], "AtlasLootCataclysm", mapname = "GrimBatol", EncounterJournalID = 71 },
 		},
 
 		["HallsOfOrigination"] = {
 			["Bosses"] = {
-				{ "HoOAnhuur", 2 },
-				{ "HoOPtah", 3 },
-				{ "HoOAnraphet", 4 },
-				{ "HoOIsiset", 5 },
-				{ "HoOAmmunae", 6 },
-				{ "HoOSetesh", 7 },
-				{ "HoORajh", 8 },
+				{ "HoOAnhuur", 2, EncounterJournalID = 124 },
+				{ "HoOPtah", 3, EncounterJournalID = 125 },
+				{ "HoOAnraphet", 4, EncounterJournalID = 126 },
+				{ "HoOIsiset", 5, EncounterJournalID = 127 },
+				{ "HoOAmmunae", 6, EncounterJournalID = 128 },
+				{ "HoOSetesh", 7, EncounterJournalID = 129 },
+				{ "HoORajh", 8, EncounterJournalID = 130 },
 				{ "HoOTrash", 13 },
 			},
-			["Info"] = { BabbleZone["Halls of Origination"], "AtlasLootCataclysm", mapname = "HallsOfOrigination" },
+			["Info"] = { BabbleZone["Halls of Origination"], "AtlasLootCataclysm", mapname = "HallsOfOrigination", EncounterJournalID = 70 },
 		},
 
 		["ZulAman"] = {
 			["Bosses"] = {
-				{ "ZA85AkilZon", 6 },
-				{ "ZA85Nalorakk", 3 },
-				{ "ZA85JanAlai", 8 },
-				{ "ZA85Halazzi", 10 },
-				{ "ZA85Malacrass", 12 },
-				{ "ZA85Daakara", 21 },
-				{ "ZA85TimedChest", 34 },
-				{ "ZA85Trash", 35 },
+				{ "ZA85AkilZon", 6, EncounterJournalID = 186 },
+				{ "ZA85Nalorakk", 8, EncounterJournalID = 187 },
+				{ "ZA85JanAlai", 11, EncounterJournalID = 188 },
+				{ "ZA85Halazzi", 13, EncounterJournalID = 189 },
+				{ "ZA85Malacrass", 15, EncounterJournalID = 190 },
+				{ "ZA85Daakara", 24, EncounterJournalID = 191 },
+				{ "ZA85TimedChest", 40 },
+				{ "ZA85Trash", 41 },
 			},
-			["Info"] = { BabbleZone["Zul'Aman"].." ", "AtlasLootCataclysm" },
+			["Info"] = { BabbleZone["Zul'Aman"].." ", "AtlasLootCataclysm", EncounterJournalID = 77 },
 		},
 
 		["ZulGurub"] = {
 			["Bosses"] = {
-				{ "ZGVenoxis", 15 },
-				{ "ZGMandokir", 20 },
-				{ "ZGMadness", 24 },
-				{ "ZGKilnara", 31 },
-				{ "ZGZanzil", 32 },
-				{ "ZGJindo", 36 },
-				{ "ZGTrash", 38 },
+				{ "ZGVenoxis", 17, EncounterJournalID = 175 },
+				{ "ZGMandokir", 22, EncounterJournalID = 176 },
+				{ "ZGMadness", 26, EncounterJournalID = { 177, 178, 179, 180 } },
+				{ "ZGKilnara", 34, EncounterJournalID = 181 },
+				{ "ZGZanzil", 36, EncounterJournalID = 184 },
+				{ "ZGJindo", 40, EncounterJournalID = 185 },
+				{ "ZGTrash", 42 },
 			},
-			["Info"] = { BabbleZone["Zul'Gurub"], "AtlasLootCataclysm" },
+			["Info"] = { BabbleZone["Zul'Gurub"], "AtlasLootCataclysm", EncounterJournalID = 76 },
 		},
 
 	---- Raids
 
 		["TheBastionOfTwilight"] = {
 			["Bosses"] = {
-				{ "BoTWyrmbreaker", 3 },
-				{ "BoTValionaTheralion", 4 },
-				{ "BoTCouncil", 5 },
-				{ "BoTChogall", 6  },
+				{ "BoTWyrmbreaker", 3, EncounterJournalID = 156 },
+				{ "BoTValionaTheralion", 4, EncounterJournalID = 157 },
+				{ "BoTCouncil", 5, EncounterJournalID = 158 },
+				{ "BoTChogall", 6, EncounterJournalID = 167  },
 				{ "BoTSinestra", 7 },
 				{ "BoTTrash", 9 },
 			},
-			["Info"] = { BabbleZone["The Bastion of Twilight"], "AtlasLootCataclysm", mapname = "TheBastionofTwilight" },
+			["Info"] = { BabbleZone["The Bastion of Twilight"], "AtlasLootCataclysm", mapname = "TheBastionofTwilight", raid = true, EncounterJournalID = 72 },
 		},
 
 		["BlackwingDescent"] = {
 			["Bosses"] = {
-				{ "BDMagmaw", 2 },
-				{ "BDOmnotron", 3 },
-				{ "BDChimaeron", 4 },
-				{ "BDMaloriak", 5 },
-				{ "BDAtramedes", 6 },
-				{ "BDNefarian", 7 },
+				{ "BDMagmaw", 2, EncounterJournalID = 170 },
+				{ "BDOmnotron", 3, EncounterJournalID = 169 },
+				{ "BDChimaeron", 4, EncounterJournalID = 172 },
+				{ "BDMaloriak", 5, EncounterJournalID = 173 },
+				{ "BDAtramedes", 6, EncounterJournalID = 171 },
+				{ "BDNefarian", 7, EncounterJournalID = 174 },
 				{ "BDTrash", 9 },
 			},
-			["Info"] = { BabbleZone["Blackwing Descent"], "AtlasLootCataclysm", mapname = "BlackwingDescent" },
+			["Info"] = { BabbleZone["Blackwing Descent"], "AtlasLootCataclysm", mapname = "BlackwingDescent", raid = true, EncounterJournalID = 73 },
 		},
 
 		["BaradinHold"] = {
 			["Bosses"] = {
 				{ "BaradinsWardens", 1, hide = true },
 				{ "HellscreamsReach", 2, hide = true },
-				{ "Argaloth", 4 },
+				{ "ARGALOTH", 4, EncounterJournalID = 139 },
+				{ "OCCUTHAR", 5, EncounterJournalID = 140 },
 			},
-			["Info"] = { BabbleZone["Baradin Hold"], "AtlasLootCataclysm", mapname = "Baradinhold" },
+			["Info"] = { BabbleZone["Baradin Hold"], "AtlasLootCataclysm", mapname = "Baradinhold", raid = true, disableCompare = true, EncounterJournalID = 75 },
+		},
+
+		["Firelands"] = {
+			["Bosses"] = {
+				{ "FirelandsBethtilac", 3, EncounterJournalID = 192 },
+				{ "FirelandsRhyolith", 4, EncounterJournalID = 193 },
+				{ "FirelandsAlysrazor", 5, EncounterJournalID = 194 },
+				{ "FirelandsShannox", 6, EncounterJournalID = 195 },
+				{ "FirelandsBaleroc", 7, EncounterJournalID = 196 },
+				{ "FirelandsStaghelm", 8, EncounterJournalID = 197 },
+				{ "FirelandsRagnaros", 9, EncounterJournalID = 198 },
+				{ "FirelandsTrash", 12 },
+				{ "FirelandsFirestone", 13 },
+			},
+			["Info"] = { BabbleZone["Firelands"], "AtlasLootCataclysm", mapname = "Firelands", raid = true, EncounterJournalID = 78 },
 		},
 
 		["ThroneOfTheFourWinds"] = {
 			["Bosses"] = {
-				{ "TFWConclave", 2 },
-				{ "TFWAlAkir", 3 },
+				{ "TFWConclave", 2, EncounterJournalID = 154 },
+				{ "TFWAlAkir", 3, EncounterJournalID = 155 },
 			},
-			["Info"] = { BabbleZone["Throne of the Four Winds"], "AtlasLootCataclysm", mapname = "Throneofthefourwinds" },
+			["Info"] = { BabbleZone["Throne of the Four Winds"], "AtlasLootCataclysm", mapname = "Throneofthefourwinds", raid = true, EncounterJournalID = 74 },
 		},
 
 -----------------------
@@ -380,15 +395,14 @@ AtlasLoot_LootTableRegister = {
 
 		["VioletHold"] = {
 			["Bosses"] = {
-				{ "WrathKeys", 1, hide = true },
-				{ "VioletHoldErekem", 3 },
-				{ "VioletHoldZuramat", 4 },
-				{ "VioletHoldXevozz", 5 },
-				{ "VioletHoldIchoron", 6 },
-				{ "VioletHoldMoragg", 7 },
-				{ "VioletHoldLavanthor", 8 },
-				{ "VioletHoldCyanigosa", 9 },
-				{ "VioletHoldTrash", 11 },
+				{ "VioletHoldErekem", 2 },
+				{ "VioletHoldZuramat", 3 },
+				{ "VioletHoldXevozz", 4 },
+				{ "VioletHoldIchoron", 5 },
+				{ "VioletHoldMoragg", 6 },
+				{ "VioletHoldLavanthor", 7 },
+				{ "VioletHoldCyanigosa", 8 },
+				{ "VioletHoldTrash", 10 },
 			},
 			["Info"] = { BabbleZone["The Violet Hold"], "AtlasLootWotLK", mapname = "VioletHold" },
 		},
@@ -423,7 +437,7 @@ AtlasLoot_LootTableRegister = {
 				{ "ICCLichKing", 3},
 				{ "ICCTrash", 5},
 			},
-			["Info"] = { BabbleZone["Icecrown Citadel"], "AtlasLootWotLK", sortOrder = { "IcecrownCitadelA", "IcecrownCitadelB", "IcecrownCitadelC" }, mapname = "IcecrownCitadel" },
+			["Info"] = { BabbleZone["Icecrown Citadel"], "AtlasLootWotLK", sortOrder = { "IcecrownCitadelA", "IcecrownCitadelB", "IcecrownCitadelC" }, mapname = "IcecrownCitadel", raid = true },
 		},
 
 		["Naxxramas"] = {
@@ -446,36 +460,35 @@ AtlasLoot_LootTableRegister = {
 				{ "Naxx80Trash", 33 },
 				{ "T7T8SET", 34, hide = true },
 			},
-			["Info"] = { BabbleZone["Naxxramas"], "AtlasLootWotLK", mapname = "IcecrownCitadel", mapname = "Naxxramas" },
+			["Info"] = { BabbleZone["Naxxramas"], "AtlasLootWotLK", mapname = "IcecrownCitadel", mapname = "Naxxramas", raid = true },
 		},
 
 		["ObsidianSanctum"] = {
 			["Bosses"] = {
 				{ "Sartharion", 6 },
 			},
-			["Info"] = { BabbleZone["The Obsidian Sanctum"], "AtlasLootWotLK", mapname = "TheObsidianSanctum" },
+			["Info"] = { BabbleZone["The Obsidian Sanctum"], "AtlasLootWotLK", mapname = "TheObsidianSanctum", raid = true },
 		},
 
 		["OnyxiasLair"] = {
 			["Bosses"] = {
 				{ "Onyxia", 2 },
 			},
-			["Info"] = { BabbleZone["Onyxia's Lair"], "AtlasLootWotLK", mapname = "OnyxiasLair" },
+			["Info"] = { BabbleZone["Onyxia's Lair"], "AtlasLootWotLK", mapname = "OnyxiasLair", raid = true },
 		},
 
 		["RubySanctum"] = {
 			["Bosses"] = {
 				{ "Halion", 6 },
 			},
-			["Info"] = { BabbleZone["The Ruby Sanctum"], "AtlasLootWotLK", mapname = "TheRubySanctum" },
+			["Info"] = { BabbleZone["The Ruby Sanctum"], "AtlasLootWotLK", mapname = "TheRubySanctum", raid = true },
 		},
 
 		["TheEyeOfEternity"] = {
 			["Bosses"] = {
-				{ "WrathKeys", 1, hide = true },
-				{ "Malygos", 3 },
+				{ "Malygos", 2 },
 			},
-			["Info"] = { BabbleZone["The Eye of Eternity"], "AtlasLootWotLK", mapname = "TheEyeOfEternity" },
+			["Info"] = { BabbleZone["The Eye of Eternity"], "AtlasLootWotLK", mapname = "TheEyeOfEternity", raid = true },
 		},
 
 		["TrialOfTheCrusader"] = {
@@ -487,7 +500,7 @@ AtlasLoot_LootTableRegister = {
 				{ "TrialoftheCrusaderAnubarak", 14 },
 				{ "TrialoftheCrusaderPatterns", 16 },
 			},
-			["Info"] = { BabbleZone["Trial of the Crusader"], "AtlasLootWotLK", mapname = "TheArgentColiseum" },
+			["Info"] = { BabbleZone["Trial of the Crusader"], "AtlasLootWotLK", mapname = "TheArgentColiseum", raid = true },
 		},
 
 		["UlduarA"] = "Ulduar",
@@ -506,13 +519,12 @@ AtlasLoot_LootTableRegister = {
 				{ "T7T8SET", 18 , hide = true},
 			},
 			["UlduarB"] = {
-				{ "WrathKeys", 1, hide = true },
-				{ "UlduarIronCouncil", 4 },
-				{ "UlduarKologarn", 8 },
-				{ "UlduarAlgalon", 9 },
-				{ "UlduarPatterns", 15, hide = true },
-				{ "UlduarTrash", 14, hide = true },
-				{ "T7T8SET", 16, hide = true },
+				{ "UlduarIronCouncil", 3 },
+				{ "UlduarKologarn", 7 },
+				{ "UlduarAlgalon", 8 },
+				{ "UlduarTrash", 13, hide = true },
+				{ "UlduarPatterns", 14, hide = true },
+				{ "T7T8SET", 15, hide = true },
 			},
 			["UlduarC"] = {
 				{ "UlduarAuriaya", 4 },
@@ -536,17 +548,17 @@ AtlasLoot_LootTableRegister = {
 				{ "UlduarPatterns", 8 },
 				{ "T7T8SET", 9, hide = true },
 			},
-			["Info"] = { BabbleZone["Ulduar"], "AtlasLootWotLK", sortOrder = { "UlduarA", "UlduarB", "UlduarC", "UlduarD", "UlduarE" }, mapname = "Ulduar" },
+			["Info"] = { BabbleZone["Ulduar"], "AtlasLootWotLK", sortOrder = { "UlduarA", "UlduarB", "UlduarC", "UlduarD", "UlduarE" }, mapname = "Ulduar", raid = true },
 		},
 
 		["VaultOfArchavon"] = {
 			["Bosses"] = {
-				{ "VaultofArchavonArchavon", 2 },
-				{ "VaultofArchavonEmalon", 3 },
-				{ "VaultofArchavonKoralon", 4 },
-				{ "VaultofArchavonToravon", 5 },
+				{ "ARCHAVON", 2 },
+				{ "EMALON", 3 },
+				{ "KORALON", 4 },
+				{ "TORAVON", 5 },
 			},
-			["Info"] = { BabbleZone["Vault of Archavon"], "AtlasLootWotLK", mapname = "VaultofArchavon" },
+			["Info"] = { BabbleZone["Vault of Archavon"], "AtlasLootWotLK", mapname = "VaultofArchavon", raid = true, disableCompare = true },
 		},
 
 --------------------
@@ -558,11 +570,10 @@ AtlasLoot_LootTableRegister = {
 		["AuchAuchenaiCrypts"] = {
 			["Bosses"] = {
 				{ "LowerCity", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "AuchCryptsShirrak", 4 },
-				{ "AuchCryptsExarch", 5 },
-				{ "AuchCryptsAvatar", 6 },
-				{ "AuchTrash", 9 },
+				{ "AuchCryptsShirrak", 3 },
+				{ "AuchCryptsExarch", 4 },
+				{ "AuchCryptsAvatar", 5 },
+				{ "AuchTrash", 8 },
 			},
 			["Info"] = { BabbleZone["Auchenai Crypts"], "AtlasLootBurningCrusade" },
 		},
@@ -570,12 +581,11 @@ AtlasLoot_LootTableRegister = {
 		["AuchManaTombs"] = {
 			["Bosses"] = {
 				{ "Consortium", 1, hide = true },
-				{ "BCKeys", {2,3}, hide = true },
-				{ "AuchManaPandemonius", 5 },
-				{ "AuchManaTavarok", 7 },
-				{ "AuchManaNexusPrince", 8 },
-				{ "AuchManaYor", 9 },
-				{ "AuchTrash", 14 },
+				{ "AuchManaPandemonius", 4 },
+				{ "AuchManaTavarok", 6 },
+				{ "AuchManaNexusPrince", 7 },
+				{ "AuchManaYor", 8 },
+				{ "AuchTrash", 13 },
 			},
 			["Info"] = { BabbleZone["Mana-Tombs"], "AtlasLootBurningCrusade" },
 		},
@@ -583,12 +593,11 @@ AtlasLoot_LootTableRegister = {
 		["AuchSethekkHalls"] = {
 			["Bosses"] = {
 				{ "LowerCity", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "AuchSethekkDarkweaver", 4 },
-				{ "AuchSethekkRavenGod", 6 },
-				{ "AuchTrash", 7, hide = true },
-				{ "AuchSethekkTalonKing", 8 },
-				{ "AuchTrash", 10 },
+				{ "AuchSethekkDarkweaver", 3 },
+				{ "AuchSethekkRavenGod", 5 },
+				{ "AuchTrash", 6, hide = true },
+				{ "AuchSethekkTalonKing", 7 },
+				{ "AuchTrash", 9 },
 			},
 			["Info"] = { BabbleZone["Sethekk Halls"], "AtlasLootBurningCrusade" },
 		},
@@ -596,13 +605,12 @@ AtlasLoot_LootTableRegister = {
 		["AuchShadowLabyrinth"] = {
 			["Bosses"] = {
 				{ "LowerCity", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "AuchShadowHellmaw", 4 },
-				{ "AuchShadowBlackheart", 5 },
-				{ "AuchShadowGrandmaster", 6 },
-				{ "AuchShadowMurmur", 8 },
-				{ "AuchTrash", 10, hide = true },
-				{ "AuchTrash", 13 },
+				{ "AuchShadowHellmaw", 3 },
+				{ "AuchShadowBlackheart", 4 },
+				{ "AuchShadowGrandmaster", 5 },
+				{ "AuchShadowMurmur", 7 },
+				{ "AuchTrash", 9, hide = true },
+				{ "AuchTrash", 12 },
 			},
 			["Info"] = { BabbleZone["Shadow Labyrinth"], "AtlasLootBurningCrusade" },
 		},
@@ -610,12 +618,11 @@ AtlasLoot_LootTableRegister = {
 		["CoTOldHillsbrad"] = {
 			["Bosses"] = {
 				{ "KeepersofTime", 3, hide = true },
-				{ "BCKeys", 4, hide = true },
-				{ "CoTHillsbradDrake", 11 },
-				{ "CoTHillsbradSkarloc", 13 },
-				{ "CoTHillsbradHunter", 16 },
-				{ "CoTTrash", {19,21,22}, hide = true },
-				{ "CoTTrash", 26 },
+				{ "CoTHillsbradDrake", 10 },
+				{ "CoTHillsbradSkarloc", 12 },
+				{ "CoTHillsbradHunter", 15 },
+				{ "CoTTrash", {18,20,21}, hide = true },
+				{ "CoTTrash", 25 },
 			},
 			["Info"] = { BabbleZone["Old Hillsbrad Foothills"], "AtlasLootBurningCrusade" },
 		},
@@ -623,11 +630,10 @@ AtlasLoot_LootTableRegister = {
 		["CoTBlackMorass"] = {
 			["Bosses"] = {
 				{ "KeepersofTime", 3, hide = true },
-				{ "BCKeys", 4, hide = true },
-				{ "CoTMorassDeja", 8 },
-				{ "CoTMorassTemporus", 9 },
-				{ "CoTMorassAeonus", 10 },
-				{ "CoTTrash", 14 },	
+				{ "CoTMorassDeja", 7 },
+				{ "CoTMorassTemporus", 8 },
+				{ "CoTMorassAeonus", 9 },
+				{ "CoTTrash", 13 },	
 			},
 			["Info"] = { BabbleZone["The Black Morass"], "AtlasLootBurningCrusade" },
 		},
@@ -635,11 +641,10 @@ AtlasLoot_LootTableRegister = {
 		["CFRTheSlavePens"] = {
 			["Bosses"] = {
 				{ "CExpedition", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "CFRSlaveMennu", 4 },
-				{ "CFRSlaveRokmar", 5 },
-				{ "CFRSlaveQuagmirran", 6 },
-				{ "LordAhune", 7, hide = true },
+				{ "CFRSlaveMennu", 3 },
+				{ "CFRSlaveRokmar", 4 },
+				{ "CFRSlaveQuagmirran", 5 },
+				{ "LordAhune", 6, hide = true },
 			},
 			["Info"] = { BabbleZone["The Slave Pens"], "AtlasLootBurningCrusade" },
 		},
@@ -647,12 +652,11 @@ AtlasLoot_LootTableRegister = {
 		["CFRTheSteamvault"] = {
 			["Bosses"] = {
 				{ "CExpedition", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "CFRSteamThespia", 4 },
-				{ "CFRSteamSteamrigger", 6 },
-				{ "CFRSteamWarlord", 8 },
-				{ "CFRSteamTrash", 10, hide = true },
-				{ "CFRSteamTrash", 12 },
+				{ "CFRSteamThespia", 3 },
+				{ "CFRSteamSteamrigger", 5 },
+				{ "CFRSteamWarlord", 7 },
+				{ "CFRSteamTrash", 9, hide = true },
+				{ "CFRSteamTrash", 11 },
 			},
 			["Info"] = { BabbleZone["The Steamvault"], "AtlasLootBurningCrusade" },
 		},
@@ -660,11 +664,10 @@ AtlasLoot_LootTableRegister = {
 		["CFRTheUnderbog"] = {
 			["Bosses"] = {
 				{ "CExpedition", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "CFRUnderHungarfen", 4 },
-				{ "CFRUnderGhazan", 6 },
-				{ "CFRUnderSwamplord", 7 },
-				{ "CFRUnderStalker", 9 },
+				{ "CFRUnderHungarfen", 3 },
+				{ "CFRUnderGhazan", 5 },
+				{ "CFRUnderSwamplord", 6 },
+				{ "CFRUnderStalker", 8 },
 			},
 			["Info"] = { BabbleZone["The Underbog"], "AtlasLootBurningCrusade" },
 		},
@@ -673,10 +676,9 @@ AtlasLoot_LootTableRegister = {
 			["Bosses"] = {
 				{ "HonorHold", 1, hide = true },
 				{ "Thrallmar", 2, hide = true },
-				{ "BCKeys", 3, hide = true },
-				{ "HCRampWatchkeeper", 5 },
-				{ "HCRampOmor", 6 },
-				{ "HCRampVazruden", {7,9} },
+				{ "HCRampWatchkeeper", 4 },
+				{ "HCRampOmor", 5 },
+				{ "HCRampVazruden", {6,8} },
 			},
 			["Info"] = { BabbleZone["Hellfire Ramparts"], "AtlasLootBurningCrusade" },
 		},
@@ -685,10 +687,9 @@ AtlasLoot_LootTableRegister = {
 			["Bosses"] = {
 				{ "HonorHold", 1, hide = true },
 				{ "Thrallmar", 2, hide = true },
-				{ "BCKeys", 3, hide = true },
-				{ "HCFurnaceMaker", 5 },
-				{ "HCFurnaceBroggok", 6 },
-				{ "HCFurnaceBreaker", 7 },
+				{ "HCFurnaceMaker", 4 },
+				{ "HCFurnaceBroggok", 5 },
+				{ "HCFurnaceBreaker", 6 },
 			},
 			["Info"] = { BabbleZone["The Blood Furnace"], "AtlasLootBurningCrusade" },
 		},
@@ -697,13 +698,12 @@ AtlasLoot_LootTableRegister = {
 			["Bosses"] = {
 				{ "HonorHold", 1, hide = true },
 				{ "Thrallmar", 2, hide = true },
-				{ "BCKeys", 3, hide = true },
-				{ "HCHallsNethekurse", 5 },
-				{ "HCHallsPorung", 6 },
-				{ "HCHallsOmrogg", 7 },
-				{ "HCHallsKargath", 8 },
-				{ "HCHallsTrash", 9, hide = true },
-				{ "HCHallsTrash", 19 },
+				{ "HCHallsNethekurse", 4 },
+				{ "HCHallsPorung", 5 },
+				{ "HCHallsOmrogg", 6 },
+				{ "HCHallsKargath", 7 },
+				{ "HCHallsTrash", 8, hide = true },
+				{ "HCHallsTrash", 18 },
 			},
 			["Info"] = { BabbleZone["The Shattered Halls"], "AtlasLootBurningCrusade" },
 		},
@@ -723,13 +723,12 @@ AtlasLoot_LootTableRegister = {
 		["TempestKeepArcatraz"] = {
 			["Bosses"] = {
 				{ "Shatar", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "TKArcUnbound", 4 },
-				{ "TKArcDalliah", 5 },
-				{ "TKArcScryer", 6 },
-				{ "TKArcHarbinger", 7 },
-				{ "TKTrash", 11, hide = true },
-				{ "TKTrash", 14 },
+				{ "TKArcUnbound", 3 },
+				{ "TKArcDalliah", 4 },
+				{ "TKArcScryer", 5 },
+				{ "TKArcHarbinger", 6 },
+				{ "TKTrash", 10, hide = true },
+				{ "TKTrash", 13 },
 			},
 			["Info"] = { BabbleZone["The Arcatraz"], "AtlasLootBurningCrusade" },
 		},
@@ -737,13 +736,12 @@ AtlasLoot_LootTableRegister = {
 		["TempestKeepBotanica"] = {
 			["Bosses"] = {
 				{ "Shatar", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "TKBotSarannis", 5 },
-				{ "TKBotFreywinn", 6 },
-				{ "TKBotThorngrin", 7 },
-				{ "TKBotLaj", 8 },
-				{ "TKBotSplinter", 9 },
-				{ "TKTrash", 11 },
+				{ "TKBotSarannis", 4 },
+				{ "TKBotFreywinn", 5 },
+				{ "TKBotThorngrin", 6 },
+				{ "TKBotLaj", 7 },
+				{ "TKBotSplinter", 8 },
+				{ "TKTrash", 10 },
 			},
 			["Info"] = { BabbleZone["The Botanica"], "AtlasLootBurningCrusade" },
 		},
@@ -751,15 +749,12 @@ AtlasLoot_LootTableRegister = {
 		["TempestKeepMechanar"] = {
 			["Bosses"] = {
 				{ "Shatar", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "TKMechCacheoftheLegion", 5, hide = true },
-				{ "TKMechCacheoftheLegion", 6, hide = true },
-				{ "TKMechCapacitus", 7 },
-				{ "TKTrash", 8, hide = true },
-				{ "TKMechSepethrea", 9 },
-				{ "TKMechCalc", 10 },
-				{ "TKMechCacheoftheLegion", 11 },
-				{ "TKTrash", 13 },
+				{ "TKMechCapacitus", 6 },
+				{ "TKTrash", 7, hide = true },
+				{ "TKMechSepethrea", 8 },
+				{ "TKMechCalc", 9 },
+				{ "TKMechCacheoftheLegion", 10 },
+				{ "TKTrash", 12 },
 			},
 			["Info"] = { BabbleZone["The Mechanar"], "AtlasLootBurningCrusade" },
 		},
@@ -794,7 +789,7 @@ AtlasLoot_LootTableRegister = {
 				{ "BTTrash", 12 },
 				{ "BTPatterns", 13 },
 			},
-			["Info"] = { BabbleZone["Black Temple"], "AtlasLootBurningCrusade", sortOrder = { "BlackTempleStart", "BlackTempleBasement", "BlackTempleTop" } },
+			["Info"] = { BabbleZone["Black Temple"], "AtlasLootBurningCrusade", sortOrder = { "BlackTempleStart", "BlackTempleBasement", "BlackTempleTop" }, raid = true },
 		},
 
 		["CoTHyjalEnt"] = "CoTHyjalEaI",
@@ -812,7 +807,7 @@ AtlasLoot_LootTableRegister = {
 				{ "MountHyjalArchimonde", 13 },
 				{ "MountHyjalTrash", 15 },
 			},
-			["Info"] = { BabbleZone["Hyjal"], "AtlasLootBurningCrusade", sortOrder = { "CoTHyjalEnt", "CoTHyjal" } },
+			["Info"] = { BabbleZone["Hyjal"], "AtlasLootBurningCrusade", sortOrder = { "CoTHyjalEnt", "CoTHyjal" }, raid = true },
 		},
 
 		["CFRSerpentshrineCavern"] = {
@@ -826,7 +821,7 @@ AtlasLoot_LootTableRegister = {
 				{ "CFRSerpentVashj", 9 },
 				{ "CFRSerpentTrash", 11 },
 			},
-			["Info"] = { BabbleZone["Serpentshrine Cavern"], "AtlasLootBurningCrusade" },
+			["Info"] = { BabbleZone["Serpentshrine Cavern"], "AtlasLootBurningCrusade", raid = true },
 		},
 
 		["GruulsLair"] = {
@@ -834,14 +829,14 @@ AtlasLoot_LootTableRegister = {
 				{ "GruulsLairHighKingMaulgar", 2 },
 				{ "GruulGruul", 7 },
 			},
-			["Info"] = { BabbleZone["Gruul's Lair"], "AtlasLootBurningCrusade" },
+			["Info"] = { BabbleZone["Gruul's Lair"], "AtlasLootBurningCrusade", raid = true },
 		},
 
 		["HCMagtheridonsLair"] = {
 			["Bosses"] = {
 				{ "HCMagtheridon", 2 },
 			},
-			["Info"] = { BabbleZone["Magtheridon's Lair"], "AtlasLootBurningCrusade" },
+			["Info"] = { BabbleZone["Magtheridon's Lair"], "AtlasLootBurningCrusade", raid = true },
 		},
 
 		["KarazhanEnt"] = "KarazhanEaI",
@@ -853,28 +848,26 @@ AtlasLoot_LootTableRegister = {
 			},
 			["KarazhanStart"] = {
 				{ "VioletEye", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "KaraAttumen", 5 },
-				{ "KaraMoroes", 7 },
-				{ "KaraMaiden", 14 },
-				{ "KaraOperaEvent", 15 },
-				{ "KaraNightbane", 28 },
-				{ "KaraNamed", {30,31,32,33} },
-				{ "KaraTrash", 39, hide = true },
-				{ "KaraTrash", 44, hide = true },
+				{ "KaraAttumen", 4 },
+				{ "KaraMoroes", 6 },
+				{ "KaraMaiden", 13 },
+				{ "KaraOperaEvent", 14 },
+				{ "KaraNightbane", 27 },
+				{ "KaraNamed", {29,30,31,32} },
+				{ "KaraTrash", 38, hide = true },
+				{ "KaraTrash", 43, hide = true },
 			},
 			["KarazhanEnd"] = {
 				{ "VioletEye", 1, hide = true },
-				{ "BCKeys", 2, hide = true },
-				{ "KaraCurator", 11 },
-				{ "KaraIllhoof", 12 },
-				{ "KaraAran", 14 },
-				{ "KaraNetherspite", 15 },
-				{ "KaraChess", {16,17} },
-				{ "KaraPrince", 18 },
-				{ "KaraTrash", 25 },
+				{ "KaraCurator", 10 },
+				{ "KaraIllhoof", 11 },
+				{ "KaraAran", 13 },
+				{ "KaraNetherspite", 14 },
+				{ "KaraChess", {15,16} },
+				{ "KaraPrince", 17 },
+				{ "KaraTrash", 24 },
 			},
-			["Info"] = { BabbleZone["Karazhan"], "AtlasLootBurningCrusade", sortOrder = { "KarazhanEnt", "KarazhanStart", "KarazhanEnd" } },
+			["Info"] = { BabbleZone["Karazhan"], "AtlasLootBurningCrusade", sortOrder = { "KarazhanEnt", "KarazhanStart", "KarazhanEnd" }, raid = true },
 		},
 
 		["SunwellPlateau"] = {
@@ -888,7 +881,7 @@ AtlasLoot_LootTableRegister = {
 				{ "SPTrash", 14 },
 				{ "SPPatterns", 15 },
 			},
-			["Info"] = { BabbleZone["Sunwell Plateau"], "AtlasLootBurningCrusade" },
+			["Info"] = { BabbleZone["Sunwell Plateau"], "AtlasLootBurningCrusade", raid = true },
 		},
 
 		["TempestKeepTheEye"] = {
@@ -900,22 +893,8 @@ AtlasLoot_LootTableRegister = {
 				{ "TKEyeKaelthas", 6 },
 				{ "TKEyeTrash", 12 },
 			},
-			["Info"] = { BabbleZone["The Eye"], "AtlasLootBurningCrusade" },
+			["Info"] = { BabbleZone["The Eye"], "AtlasLootBurningCrusade", raid = true },
 		},
-
---[[	["ZulAman70"] = {
-			["Bosses"] = {
-				{ "ZANalorakk", 3 },
-				{ "ZAAkilZon", 6 },
-				{ "ZAJanAlai", 8 },
-				{ "ZAHalazzi", 10 },
-				{ "ZAMalacrass", 12 },
-				{ "ZAZuljin", 21 },
-				{ "ZATimedChest", 34 },
-				{ "ZATrash", 35 },	
-			},
-			["Info"] = { BabbleZone["Zul'Aman"], "AtlasLootBurningCrusade" },
-		},--]]
 
 -------------------------
 --- Classic Instances ---
@@ -1027,7 +1006,7 @@ AtlasLoot_LootTableRegister = {
 				{ "BWLTrashMobs",  17 },
 				{ "T1T2T3SET", 18, hide = true },
 			},
-			["Info"] = { BabbleZone["Blackwing Lair"], "AtlasLootClassicWoW", mapname = "BlackwingLair" },
+			["Info"] = { BabbleZone["Blackwing Lair"], "AtlasLootClassicWoW", mapname = "BlackwingLair", raid = true },
 		},
 
 		["DireMaulEnt"] = {
@@ -1068,7 +1047,7 @@ AtlasLoot_LootTableRegister = {
 
 		["DireMaulWest"] = {
 			["Bosses"] = {
-				{ "OldKeys", 1, hide = true },
+				{ "OldKeys", 1 },
 				{ "DMWTendrisWarpwood", 4 },
 				{ "DMWMagisterKalendris", 5 },
 				{ "DMWIllyannaRavenoak", 6 },
@@ -1095,52 +1074,49 @@ AtlasLoot_LootTableRegister = {
 		["Uldaman"] = {
 			["Bosses"] = {
 				{ "UldShovelphlange", },
-				{ "OldKeys", 1, hide = true },
-				{ "UldBaelog", {5,6,7,8} },
-				{ "UldRevelosh", 9 },
-				{ "UldIronaya", 10 },
-				{ "UldObsidianSentinel", 11 },
-				{ "UldAncientStoneKeeper", 12 },
-				{ "UldGalgannFirehammer", 13 },
-				{ "UldGrimlok", 14 },
-				{ "UldArchaedas", 15 },
-				{ "UldTrash", 25 },
+				{ "UldBaelog", {4,5,6,7} },
+				{ "UldRevelosh", 8 },
+				{ "UldIronaya", 9 },
+				{ "UldObsidianSentinel", 10 },
+				{ "UldAncientStoneKeeper", 11 },
+				{ "UldGalgannFirehammer", 12 },
+				{ "UldGrimlok", 13 },
+				{ "UldArchaedas", 14 },
+				{ "UldTrash", 24 },
 			},
 			["Info"] = { BabbleZone["Uldaman"], "AtlasLootClassicWoW", mapname = "Uldaman" },
 		},
 
 		["StratholmeCrusader"] = {
 			["Bosses"] = {
-				{ "STRATStratholmeCourier", {1,12}, hide = true },
-				{ "STRATTheUnforgiven", 6 },
-				{ "STRATTimmytheCruel", 7 },
-				{ "STRATWilleyHopebreaker", 9 },
-				{ "STRATInstructorGalford", 10 },
-				{ "STRATBalnazzar", 11 },
-				{ "STRATSkull", 13 },
-				{ "STRATFrasSiabi", 14 },
-				{ "STRATHearthsingerForresten", 15 },
-				{ "STRATRisenHammersmith", {16,17} },
-				{ "LunarFestival", 20, hide = true },
-				{ "STRATTrash", 24 },
-				{ "VWOWSets#2", {18,19,21,22}, hide = true },
+				{ "STRATTheUnforgiven", 5 },
+				{ "STRATTimmytheCruel", 6 },
+				{ "STRATWilleyHopebreaker", 8 },
+				{ "STRATInstructorGalford", 9 },
+				{ "STRATBalnazzar", 10 },
+				{ "STRATSkull", 12 },
+				{ "STRATFrasSiabi", 13 },
+				{ "STRATHearthsingerForresten", 14 },
+				{ "STRATRisenHammersmith", {15,16} },
+				{ "LunarFestival", 19, hide = true },
+				{ "STRATTrash", 23 },
+				{ "VWOWSets#2", {17,18,20,21}, hide = true },
 			},
 			["Info"] = { BabbleZone["Stratholme"].." - "..AL["Crusader's Square"], "AtlasLootClassicWoW", mapname = "Stratholme" },
 		},
 
 		["StratholmeGauntlet"] = {
 			["Bosses"] = {
-				{ "STRATStratholmeCourier", 1, hide = true },
-				{ "STRATBaronessAnastari", 4 },
-				{ "STRATNerubenkan", 5 },
-				{ "STRATMalekithePallid", 6 },
-				{ "STRATMagistrateBarthilas", 7},
-				{ "STRATRamsteintheGorger", 8 },
-				{ "STRATLordAuriusRivendare", 9 },
-				{ "STRATBlackGuardSwordsmith", {10,11} },
+				{ "STRATBaronessAnastari", 3 },
+				{ "STRATNerubenkan", 4 },
+				{ "STRATMalekithePallid", 5 },
+				{ "STRATMagistrateBarthilas", 6 },
+				{ "STRATRamsteintheGorger", 7 },
+				{ "STRATLordAuriusRivendare", 8 },
+				{ "STRATBlackGuardSwordsmith", {9,10} },
 				{ "STRATStonespine", },
-				{ "STRATTrash", 18 },
-				{ "VWOWSets#2", 12, hide = true },
+				{ "STRATTrash", 17 },
+				{ "VWOWSets#2", 11, hide = true },
 			},
 			["Info"] = { BabbleZone["Stratholme"].." - "..AL["The Gauntlet"], "AtlasLootClassicWoW", mapname = "Stratholme" },
 		},
@@ -1197,7 +1173,7 @@ AtlasLoot_LootTableRegister = {
 				{ "MCRANDOMBOSSDROPPS", 16 },
 				{ "MCTrashMobs", 17 },
 			},
-			["Info"] = { BabbleZone["Molten Core"], "AtlasLootClassicWoW", mapname = "MoltenCore" },
+			["Info"] = { BabbleZone["Molten Core"], "AtlasLootClassicWoW", mapname = "MoltenCore", raid = true },
 		},
 
 		["TheTempleofAhnQiraj"] = {
@@ -1216,20 +1192,20 @@ AtlasLoot_LootTableRegister = {
 				{ "AQ40Sets", 27, hide = true },
 				{ "AQEnchants", 28 },
 			},
-			["Info"] = { BabbleZone["Temple of Ahn'Qiraj"], "AtlasLootClassicWoW", mapname = "TempleofAhnQiraj" },
+			["Info"] = { BabbleZone["Temple of Ahn'Qiraj"], "AtlasLootClassicWoW", mapname = "TempleofAhnQiraj", raid = true },
 		},
 
 		["ShadowfangKeep"] = {
 			["Bosses"] = {
-				{ "ShadowfangAshbury", 3 },
-				{ "ShadowfangSilverlaine", 4 },
-				{ "ShadowfangSpringvale", 8 },
-				{ "ShadowfangWalden", 9 },
-				{ "ShadowfangGodfrey", 10 },
-				{ "Valentineday#3", 11, hide = true },
-				{ "ShadowfangTrash", 20 },
+				{ "ShadowfangAshbury", 3, EncounterJournalID = 96 },
+				{ "ShadowfangSilverlaine", 4, EncounterJournalID = 97 },
+				{ "ShadowfangSpringvale", 9, EncounterJournalID = 98 },
+				{ "ShadowfangWalden", 10, EncounterJournalID = 99 },
+				{ "ShadowfangGodfrey", 11, EncounterJournalID = 100 },
+				{ "Valentineday#3", 12, hide = true },
+				{ "ShadowfangTrash", 21 },
 			},
-			["Info"] = { BabbleZone["Shadowfang Keep"], {"AtlasLootClassicWoW", "AtlasLootCataclysm"}, mapname = "ShadowfangKeep" },
+			["Info"] = { BabbleZone["Shadowfang Keep"], {"AtlasLootClassicWoW", "AtlasLootCataclysm"}, mapname = "ShadowfangKeep", EncounterJournalID = 64 },
 		},
 
 		["Gnomeregan"] = {
@@ -1308,24 +1284,29 @@ AtlasLoot_LootTableRegister = {
 				{ "DeadminesEntrance", {4,5}, hide = true },
 			},
 			["TheDeadmines"] = {
-				{ "DeadminesGlubtok", 3 },
-				{ "DeadminesGearbreaker", 5 },
-				{ "DeadminesFoeReaper", 6 },
-				{ "DeadminesRipsnarl", 7 },
-				{ "DeadminesCookie", 8 },
+				{ "DeadminesGlubtok", 3, EncounterJournalID = 89 },
+				{ "DeadminesGearbreaker", 5, EncounterJournalID = 90 },
+				{ "DeadminesFoeReaper", 6, EncounterJournalID = 91 },
+				{ "DeadminesRipsnarl", 7, EncounterJournalID = 92 },
+				{ "DeadminesCookie", 8, EncounterJournalID = 93 },
 				{ "DeadminesVanessa", 9 },
 				{ "DeadminesTrash", 18 },
 			},
-			["Info"] = { BabbleZone["The Deadmines"], {"AtlasLootClassicWoW", "AtlasLootCataclysm"}, sortOrder = { "TheDeadminesEnt", "TheDeadmines" }, mapname = "TheDeadmines" },
+			["Info"] = { BabbleZone["The Deadmines"], {"AtlasLootClassicWoW", "AtlasLootCataclysm"}, sortOrder = { "TheDeadminesEnt", "TheDeadmines" }, mapname = "TheDeadmines", EncounterJournalID = 63 },
 		},
 
-		["WailingCaverns"] = {
-			["Bosses"] = {
-				{ "WailingCavernsLoot#1", {2,3,4,5,6} },
-				{ "WailingCavernsLoot#2", {7,8,10,11}, hide = true },
-				{ "VWOWSets#1", 15, hide = true },
+		["WailingCavernsEnt"] = "WailingCavernsEaI",
+		["WailingCaverns"] = "WailingCavernsEaI",
+		["WailingCavernsEaI"] = {
+			["WailingCavernsEnt"] = {
+				{ "WailingCavernsLoot#1", 3, hide = true },
 			},
-			["Info"] = { BabbleZone["Wailing Caverns"], "AtlasLootClassicWoW", mapname = "WailingCaverns" },
+			["WailingCaverns"] = {
+				{ "WailingCavernsLoot#1", {2,3,4,5} },
+				{ "WailingCavernsLoot#2", {6,7,8,10,11}, hide = true },
+				{ "VWOWSets#1", 16, hide = true },
+			},
+			["Info"] = { BabbleZone["Wailing Caverns"], "AtlasLootClassicWoW", sortOrder = { "WailingCavernsEnt", "WailingCaverns" }, mapname = "WailingCaverns" },
 		},
 
 		["TheStockade"] = {
@@ -1348,7 +1329,7 @@ AtlasLoot_LootTableRegister = {
 				{ "AQ20Sets", 21, hide = true },
 				{ "AQEnchants", 22 },
 			},
-			["Info"] = { BabbleZone["Ruins of Ahn'Qiraj"], "AtlasLootClassicWoW", mapname = "RuinsofAhnQiraj" },
+			["Info"] = { BabbleZone["Ruins of Ahn'Qiraj"], "AtlasLootClassicWoW", mapname = "RuinsofAhnQiraj", raid = true },
 		},
 
 		["ZulFarrak"] = {
@@ -1376,7 +1357,7 @@ AtlasLoot_LootTableRegister = {
 
 		["AlteracValleyNorth"] = {
 			["Bosses"] = {
-				{ "AlteracFactions", 1 },
+				{ "MiscFactions", 1 },
 				{ "AVMisc", 48 },
 				{ "AVBlue", 49 },
 			},
@@ -1385,7 +1366,7 @@ AtlasLoot_LootTableRegister = {
 
 		["AlteracValleySouth"] = {
 			["Bosses"] = {
-				{ "AlteracFactions", 1 },
+				{ "MiscFactions", 1 },
 				{ "AVMisc", 31 },
 				{ "AVBlue", 32 },
 			},
@@ -1464,7 +1445,7 @@ AtlasLoot_LootTableRegister = {
 		["DoomLordKazzak"] = {
 			["Bosses"] = {
 				{ "WorldBossesBC", 1 },
-				{ "Thrallmar", 5 },
+				{ "Thrallmar", 5, hide = true },
 			},
 			["Info"] = { BabbleBoss["Doom Lord Kazzak"], "AtlasLootBurningCrusade" },
 		},

@@ -1,15 +1,16 @@
 local mod	= DBM:NewMod("GrandVizierErtan", "DBM-Party-Cataclysm", 8)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5371 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6022 $"):sub(12, -3))
 mod:SetCreatureID(43878)
+mod:SetModelID(35181)
 mod:SetZone()
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_START",
-	"CHAT_MSG_RAID_BOSS_EMOTE"
+	"RAID_BOSS_EMOTE"
 )
 
 local warnSummonTempest		= mod:NewSpellAnnounce(86340, 2)
@@ -28,7 +29,7 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.Retract or msg:find(L.Retract) then
 		timerShield:Start()
 	end

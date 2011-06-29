@@ -1,10 +1,15 @@
+--local mod	= DBM:NewMod(172, "DBM-BlackwingDescent", nil, 73)
 local mod	= DBM:NewMod("Chimaeron", "DBM-BlackwingDescent")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5572 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6017 $"):sub(12, -3))
 mod:SetCreatureID(43296)
+mod:SetModelID(33308)
 mod:SetZone()
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
+mod:SetModelSound("Sound\\Creature\\Nefarian\\VO_BD_Nefarian_ChimaronIntro01.wav", nil)
+--Long: Ah, Chimaeron, truly a living testament to my scientific prowess. I reworked and twisted his form countless times over the years, and the final result is truly something to behold.
+--Short: There isn't one
 
 mod:RegisterCombat("combat")
 
@@ -28,7 +33,7 @@ local warnPhase2Soon		= mod:NewPrePhaseAnnounce(2, 3)
 local warnPhase2			= mod:NewPhaseAnnounce(2)
 
 local specWarnFailure		= mod:NewSpecialWarningSpell(88853, nil, nil, nil, true)
-local specWarnMassacre		= mod:NewSpecialWarningSpell(82848, mod:IsHealer(), nil, nil, true)
+local specWarnMassacre		= mod:NewSpecialWarningSpell(82848, mod:IsHealer())
 local specWarnDoubleAttack	= mod:NewSpecialWarningSpell(88826, mod:IsTank())
 
 local timerBreak			= mod:NewTargetTimer(60, 82881)

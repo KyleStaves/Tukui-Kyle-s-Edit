@@ -52,7 +52,7 @@ DBM_CORE_UPDATEREMINDER_NOTAGAIN	= "Всплывающее сообщение п
 DBM_CORE_MOVABLE_BAR				= "Перетащите!"
 
 DBM_PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h транслирует DBM Timer: '%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[Отменить этот DBM Timer]|r|h  |HDBM:ignore:%2$s:%1$s|h|cff3588ff[Игнорировать DBM Timer от %1$s]|r|h"
-DBM_PIZZA_CONFIRM_IGNORE			= "Вы действительно хотите проигнорировать DBM Timer данного сеанса от %s?"
+DBM_PIZZA_CONFIRM_IGNORE			= "Игнорировать DBM Timer во время текущего сеанса от %s?"
 DBM_PIZZA_ERROR_USAGE				= "Использование: /dbm [broadcast] timer <time> <text>"
 
 DBM_CORE_ERROR_DBMV3_LOADED			= "Deadly Boss Mods запущен дважды, поскольку установлены DBMv3 и DBMv4 и включены!\nНажмите кнопку \"ОК\" для отключения DBMv3 и перезагрузки интерфейса.\nНаведите порядок в вашей папке AddOns, удалите старые папки DBMv3."
@@ -62,18 +62,27 @@ DBM_CORE_MINIMAP_TOOLTIP_FOOTER		= "Shift+щелчок или щелкните �
 
 DBM_CORE_RANGECHECK_HEADER			= "Проверка дистанции (%d м)"
 DBM_CORE_RANGECHECK_SETRANGE		= "Настройка дистанции"
-DBM_CORE_RANGECHECK_SOUNDS			= "Звуки"
-DBM_CORE_RANGECHECK_SOUND_OPTION_1	= "Звуковой сигнал, когда игрок находится в диапазоне"
-DBM_CORE_RANGECHECK_SOUND_OPTION_2	= "Звуковой сигнал для всех остальных игроков в диапазоне"
+DBM_CORE_RANGECHECK_SOUNDS			= "Звуковой сигнал"
+DBM_CORE_RANGECHECK_SOUND_OPTION_1	= "Один из игроков подошел к вам слишком близко"
+DBM_CORE_RANGECHECK_SOUND_OPTION_2	= "Несколько человек находятся около вас"
 DBM_CORE_RANGECHECK_SOUND_0			= "Без звука"
 DBM_CORE_RANGECHECK_SOUND_1			= "По умолчанию"
 DBM_CORE_RANGECHECK_SOUND_2			= "Раздражающий звуковой сигнал"
 DBM_CORE_RANGECHECK_HIDE			= "Скрыть"
 DBM_CORE_RANGECHECK_SETRANGE_TO		= "%d м"
-DBM_CORE_RANGECHECK_LOCK			= "Закрепить полосу"
+DBM_CORE_RANGECHECK_LOCK			= "Закрепить окно"
+DBM_CORE_RANGECHECK_OPTION_FRAMES	= "Фреймы"
+DBM_CORE_RANGECHECK_OPTION_RADAR	= "Показывать радар"
+DBM_CORE_RANGECHECK_OPTION_TEXT		= "Показывать текстовый фрейм"
+DBM_CORE_RANGECHECK_OPTION_BOTH		= "Показывать оба фрейма"
+DBM_CORE_RANGECHECK_OPTION_SPEED	= "Частота обновления (необх. reloadui)"
+DBM_CORE_RANGECHECK_OPTION_SLOW		= "Медленная (не нагружает CPU)"
+DBM_CORE_RANGECHECK_OPTION_AVERAGE	= "Средняя"
+DBM_CORE_RANGECHECK_OPTION_FAST		= "Быстрая (в реальном времени)"
+DBM_CORE_RANGERADAR_HEADER			= "Радар (%d ярдов)"
 
 DBM_CORE_INFOFRAME_HIDE				= "Скрыть"
-DBM_CORE_INFOFRAME_LOCK				= "Закрепить полосу"
+DBM_CORE_INFOFRAME_LOCK				= "Закрепить окно"
 
 DBM_LFG_INVITE						= "Приглашение в подземелье"
 
@@ -188,6 +197,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT		= "Устанавливать метки на цели заклинания $spell:%d"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT		= "Звуковой сигнал при $spell:%d"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT	= "Звуковой отчест для $spell:%d"
 DBM_CORE_AUTO_YELL_OPTION_TEXT		= "Кричать, когда на вас $spell:%d"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT	= "На МНЕ - %s!"
 
@@ -217,9 +227,11 @@ DBM_ERROR_NO_RAID					= "Вы должны состоять в рейдовой 
 DBM_INSTANCE_INFO_REQUESTED			= "Отослан запрос на просмотр текущих сохранений подземелий у членов рейда.\nОбратите внимание, что игроки будут уведомлены об этом и могут отклонить ваш запрос."
 DBM_INSTANCE_INFO_STATUS_UPDATE		= "На запрос ответили %d игроков из %d пользователей DBM: %d послали данные, %d отклонили запрос. Ожидание ответа продлено на %d секунд..."
 DBM_INSTANCE_INFO_ALL_RESPONSES		= "Получен ответ ото всех членов рейда"
+DBM_INSTANCE_INFO_DETAIL_DEBUG		= "Игрок: %s ТипРезультата: %s Название: %s ID: %s Сложность: %d Размер: %d Прогресс: %s"
 DBM_INSTANCE_INFO_DETAIL_HEADER		= "%s (%d), сложность %d:"
 DBM_INSTANCE_INFO_DETAIL_INSTANCE	= "    ID %s, прогресс %d: %s"
 DBM_INSTANCE_INFO_STATS_DENIED		= "Отклонили запрос: %s"
 DBM_INSTANCE_INFO_STATS_AWAY		= "Отошли от компьютера: %s"
 DBM_INSTANCE_INFO_STATS_NO_RESPONSE	= "Установлена устаревшая версия DBM: %s"
 DBM_INSTANCE_INFO_RESULTS			= "Результаты сканирования сохранений."
+DBM_INSTANCE_INFO_SHOW_RESULTS		= "Не все игроки ещё ответили: %s\n|HDBM:showRaidIdResults|h|cff3588ff[Показать текущие результаты]|r|h"

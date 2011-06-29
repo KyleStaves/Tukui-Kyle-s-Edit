@@ -323,7 +323,11 @@ function DrDamage:CasterCalc( name, rank, tooltip, modify, debug )
 		calculation.critM = 1
 		calculation.critPerc = GetCritChance()
 	else
-		calculation.critM = 0.5
+		if healingSpell then
+			calculation.critM = 1
+		else
+			calculation.critM = 0.5
+		end
 		calculation.critPerc = baseSpell.Double and math_max(GetSpellCritChance(schoolTable[baseSpell.Double[1]]), GetSpellCritChance(schoolTable[baseSpell.Double[2]])) or GetSpellCritChance(schoolTable[calculation.school] or 1)
 	end
 

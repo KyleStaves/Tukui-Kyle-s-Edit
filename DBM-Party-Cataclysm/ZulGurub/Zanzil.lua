@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Zanzil", "DBM-Party-Cataclysm", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision$"):sub(12, -3))
+mod:SetRevision(("$Revision: 5817 $"):sub(12, -3))
 mod:SetCreatureID(52053)
+mod:SetModelID(37813)
 mod:SetZone()
 
 mod:RegisterCombat("combat")
@@ -12,31 +13,29 @@ mod:RegisterEvents(
 	"SPELL_CAST_START"
 )
 
---local warnCauldronRed		= mod:NewSpellAnnounce(96486, 3)
---local warnCauldronGreen	= mod:NewSpellAnnounce(96487, 3)
---local warnCauldronBlue	= mod:NewSpellAnnounce(96488, 3)
 local warnZanzilElixir		= mod:NewSpellAnnounce(96316, 4)
 local warnZanzilFire		= mod:NewSpellAnnounce(96914, 3)
 local warnZanzilGas			= mod:NewSpellAnnounce(96338, 3)
 local warnGaze				= mod:NewTargetAnnounce(96342, 3)
 
 local specWarnGaze			= mod:NewSpecialWarningYou(96342)
+local specWarnToxic			= mod:NewSpecialWarning("SpecWarnToxic")
 
 local timerZanzilGas		= mod:NewBuffActiveTimer(7, 96338)
 local timerGaze				= mod:NewTargetTimer(17, 96342)
---local timerZanzilElixir	= mod:NewCDTimer(30, 96316) -- this spell not have cooldown, seeming ramdomly.
+local timerZanzilElixir		= mod:NewCDTimer(30, 96316)
 
-local soundGaze			= mod:NewSound(96342)
+local soundGaze				= mod:NewSound(96342)
 
 mod:AddBoolOption("SetIconOnGaze")
+mod:AddBoolOption("InfoFrame", mod:IsHealer())--on by default for healers, so they know what numpties to heal through gas
 
 function mod:GazeTarget()
 	local targetname = self:GetBossTarget(52054)
 	if not targetname then return end
-
 	warnGaze:Show(targetname)
 	timerGaze:Start(targetname)
-	if self.Options.SetIconOnIcon then
+	if self.Options.SetIconOnGaze then
 		self:SetIcon(targetname, 8, 17)
 	end
 	if targetname == UnitName("player") then
@@ -46,6 +45,16 @@ function mod:GazeTarget()
 end
 
 function mod:OnCombatStart(delay)
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:SetHeader(L.PlayerDebuffs)
+		DBM.InfoFrame:Show(5, "playerdebuff", 96328)
+	end
+end
+
+function mod:OnCombatEnd()
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -53,27 +62,26 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerZanzilGas:Start()
 	elseif args:IsSpellID(96316) then
 		warnZanzilElixir:Show()
---		timerZanzilElixir:Start()
+		timerZanzilElixir:Start()
 	end
 end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(96914) then
 		warnZanzilFire:Show()
-		-- no target exists.
 	elseif args:IsSpellID(96338) then
 		warnZanzilGas:Show()
+		if not UnitDebuff("player", GetSpellInfo(96328)) and not UnitIsDeadOrGhost("player") then
+			specWarnToxic:Show()
+		end
 	elseif args:IsSpellID(96342) and self:IsInCombat() then
-		self:ScheduleMethod(0.15, "GazeTarget")
+		self:ScheduleMethod(0.2, "GazeTarget")
 	end
 end
 
---[[function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(96486) then
-		warnCauldronRed:Show()
-	elseif args:IsSpellID(96487) then
-		warnCauldronGreen:Show()
-	elseif args:IsSpellID(96488) then
-		warnCauldronBlue:Show()
-	end
-end]] -- removed. Zanzil do not use these spells while combat, only use this spell not pulled. It's just spam
+--[[
+SPELL_AURA_APPLIED:  96316 - "Zanzil's Resurrection Elixir"
+19:25:47.165
+19:26:17.697
+19:26:48.624
+--]]

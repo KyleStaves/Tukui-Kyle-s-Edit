@@ -1,4 +1,4 @@
-﻿-- $Id: constants.es.lua 3347 2011-04-17 10:11:38Z hegarol $
+﻿-- $Id: constants.es.lua 3454 2011-06-19 09:14:22Z hegarol $
 --[[
 constants.es.lua --- Traduction ES por maqjav
 This file defines an AceLocale table for all the various text strings needed
@@ -29,7 +29,6 @@ if AL then
 	AL["Safe Chat Links"] = "Enlaces seguros en el chat";
 	AL["Comparison TT"] = "Comparaciones";
 	AL["Show Comparison Tooltips"] = "Mostrar bocadillos comparar";
-	AL["Supress item query text"] = "Suprimir texto petición objetos";
 	AL["Opaque"] = "Opaco";
 	AL["Make Loot Table Opaque"] = "Hacer opaca tabla botines";
 	AL["Treat Crafted Items:"] = "Tratar objetos creados";
@@ -274,7 +273,6 @@ if AL then
 	AL["Set"] = "Conjunto";
 	AL["Justice Points"] = "Puntos de justicia";
 	AL["Valor Points"] = "Puntos de valor";
-	AL["Badge of Justice"] = "Distintivo de justicia"; --should be removed
 	AL["Emblem Rewards"] = "Recompensas por emblemas"; --should be removed
 	AL["Emblem of Valor"] = "Emblema de valor"; --should be removed
 	AL["Emblem of Heroism"] = "Emblema de heroísmo"; --should be removed
@@ -289,10 +287,8 @@ if AL then
 	AL["Tier 3 Set"] = "Conjunto 3";
 	AL["Tier 4/5/6 Set"] = "Conjunto 4/5/6";
 	AL["Tier 7/8 Set"] = "Conjunto 7/8";
-	AL["Tier 8 Set"] = "Conjunto 8";
 	AL["Tier 9 Set"] = "Conjunto 9";
 	AL["Tier 10 Set"] = "Conjunto 10";
-	AL["Tier 11 Set"] = "Conjunto 11";
 	AL["TCG Items"] = "Objetos TCG"; -- Trading Card Game Items
 	AL["Transformation Items"] = "Objetos de transformación";
 
@@ -303,10 +299,8 @@ if AL then
 	AL["PvP Weapons"] = "Armas JcJ";
 	AL["PvP Non-Set Epics"] = "Épicos JcJ No-Conjuntos";
 	AL["PvP Reputation Sets"] = "Conjuntos JcJ por reputación"
-	AL["Arena PvP Weapons"] = "Armas de Arenas JcJ";
 	AL["PvP Misc"] = "Diseños Joyería JcJ";
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = "Diseños Gemas/Encantamientos/Joyería JcJ";
-	AL["PvP Class Items"] = "Objetos de clase JcJ";
 	--AL["NOT AVAILABLE ANYMORE"] = true;
 
 	-- World Events
@@ -316,7 +310,6 @@ if AL then
 	AL["Brewfest"] = "Fiesta de la Cerveza";
 	AL["Children's Week"] = "Semana de los niños";
 	AL["Day of the Dead"] = "Festividad de los Muertos";
-	AL["Elemental Invasion"] = "Invasión de elementales";
 	AL["Ethereum Prison"] = "Prisión de los Etereum";
 	AL["Feast of Winter Veil"] = "Festival de Invierno";
 	AL["Gurubashi Arena Booty Run"] = "El cofre pirata de Gurubashi";
@@ -329,7 +322,6 @@ if AL then
 	AL["Pilgrim's Bounty"] = "Generosidad del Peregrino";
 	AL["Skettis"] = "Skettis";
 	AL["Stranglethorn Fishing Extravaganza"] = "Concurso de Pesca";
-	AL["Elemental Unrest"] = "Evento de los elementales";
 
 	--Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00Click-izdo|r Navegar por las tablas de botines";
@@ -375,9 +367,6 @@ if AL then
 	AL["Banner"] = "Estandarte";
 	AL["Set"] = "Conjunto";
 	AL["Token"] = "Insignia";
-	AL["Tokens"] = "Insignias";	
-	--AL["Token Hand-Ins"] = true; --FALTA
-	AL["Skinning Knife"] = "Cuchillo para desollar";
 	AL["Combat Pet"] = "Mascota de combate"; --Comprobar
 	AL["Fireworks"] = "Fuegos artificiales";
 	AL["Transformation Item"] = "Objeto de transformación";
@@ -436,16 +425,9 @@ if AL then
 	AL["Quest Reward"] = "Recompensa de misión";
 	AL["Old Quest Reward"] = "Recompensas viejas de misiones";
 	AL["Shared"] = "Compartido";
-	AL["Unique"] = "Único";
 	AL["Right Half"] = "Parte derecha";
 	AL["Left Half"] = "Parte izquierda";
-	AL["28 Slot Soul Shard"] = "28 huecos para fragmentos de alma";
-	AL["20 Slot"] = "20 huecos";
-	AL["18 Slot"] = "18 huecos";
-	AL["16 Slot"] = "16 huecos";
-	AL["10 Slot"] = "10 huecos";
 	AL["Currency"] = "Utiliza recompensas para comprarlo";
-	AL["Conjured Item"] = "Objetos conjurados";
 	AL["Used to summon boss"] = "Utilizados para invocar jefe";
 	AL["Tradable for sunmote + item above"] = "Intercambiable";
 	AL["Card Game Item"] = "Juego de cartas";
@@ -454,8 +436,6 @@ if AL then
 	--AL["Random Heroic Reward"] = true;
 	--AL["Fishing Daily Reward"] = true;
 	--AL["Collector's Edition"] = true;
-	--AL["Blizzcon"] = true;
-	--AL["WoW Anniversary Celebration"] = true;
 	--AL["Daily Reward"] = true;
 
 	-- Minor Labels for loot table descriptions
@@ -502,7 +482,6 @@ if AL then
 	AL["Nature Resistance Gear"] = "Equipamientos con resistencia a la naturaleza";
 	AL["Frost Resistance Gear"] = "Equipamientos con resistencia al hielo";
 	AL["Shadow Resistance Gear"] = "Equipamientos con resistencia a las sombras";
-	AL["Classic Sets"] = "Conjuntos clásicos";
 
 	-- Labels for loot table sections
 	AL["Additional Heroic Loot"] = "Botin heróico adicional";
@@ -522,8 +501,6 @@ if AL then
 	AL["Heirloom"] = "Reliquia";
 	AL["Weapons"] = "Armas";
 	AL["Accessories"] = "Accesorios";
-	AL["Low Level"] = "Nivel bajo";
-	AL["High Level"] = "Nivel alto";
 	AL["Rare"] = "Raras";
 
 	-- Loot Table Names
@@ -568,24 +545,10 @@ if AL then
 	AL["Feasts"] = "Festividades";
 
 	-- Extra Text in Boss lists
-	AL["Set: Embrace of the Viper"] = "Conjunto: Abrazo de la víbora";
-	AL["Set: Defias Leather"] = "Conjunto: Cuero Defias";
-	AL["Set: The Gladiator"] = "Conjunto: El Gladiador";
-	AL["Set: Chain of the Scarlet Crusade"] = "Conjunto: Cadena de la Cruzada Escarlata";
-	AL["Set: The Postmaster"] = "Conjunto: El jefe de correos";
-	AL["Set: Necropile Raiment"] = "Conjunto: Vestiduras necrópilas";
-	AL["Set: Cadaverous Garb"] = "Conjunto: Atuendo de cadáver";
-	AL["Set: Bloodmail Regalia"] = "Conjunto: Atavío mallasangre";
-	AL["Set: Deathbone Guardian"] = "Conjunto: Guardia de hueso de muerto";
-	AL["Set: Dal'Rend's Arms"] = "Conjunto: Armas de Dal'Rend";
-	AL["Set: Spider's Kiss"] = "Beso de la araña";
 	AL["AQ20 Class Sets"] = "Conjuntos por Clase de AQ20";
 	AL["AQ Enchants"] = "Encantamientos AQ";
 	AL["AQ40 Class Sets"] = "Conjuntos por Clase de AQ40";
 	AL["AQ Opening Quest Chain"] = "Apertura de la misión de la cadena AQ";
-	AL["ZG Class Sets"] = "Conjuntos por Clase de ZG";
-	AL["ZG Enchants"] = "Encantamientos ZG";
-	AL["Class Books"] = "Libros de clase";
 	AL["Tribute Run"] = "Homenaje de carrera";
 	AL["Dire Maul Books"] = "Libros de La Masacre";
 	AL["Random Boss Loot"] = "Botín de jefes aleatorios";
@@ -772,7 +735,6 @@ if AL then
 	AL["Venture Bay"] = "Bahía Aventura"; --Check
 
 	--Karazhan Opera Event Headings
-	AL["Shared Drops"] = "Objetos compartidos";
 	AL["Wizard of Oz"] = "El mago de Oz";
 	AL["Red Riding Hood"] = "Caperucita roja";
 
@@ -780,17 +742,6 @@ if AL then
 	AL["Spider"] = "Araña";
 	AL["Darkhound"] = "Can oscuro";
 	AL["Bat"] = "Murciélago";
-
-	--ZG Tokens
-	AL["Primal Hakkari Kossack"] = "Casaca Hakkari primigenia";
-	AL["Primal Hakkari Shawl"] = "Primal Hakkari Shawl";
-	AL["Primal Hakkari Bindings"] = "Ataduras Hakkari primigenias";
-	AL["Primal Hakkari Sash"] = "Fajín Hakkari primigenio";
-	AL["Primal Hakkari Stanchion"] = "Puntal Hakkari primigenio";
-	AL["Primal Hakkari Aegis"] = "Égida Hakkari primigenia";
-	AL["Primal Hakkari Girdle"] = "Faja Hakkari primigenia";
-	AL["Primal Hakkari Armsplint"] = "Cabestrillo Hakkari primigenio";
-	AL["Primal Hakkari Tabard"] = "Tabardo Hakkari primigenio";
 
 	-- AQ20 Tokens
 	AL["Qiraji Ornate Hilt"] = "Empuñadura qiraji ornamentada";
@@ -810,9 +761,6 @@ if AL then
 	AL["Husk of the Old God"] = "Colmillo del dios antiguo";
 	AL["Carapace of the Old God"] = "Caparazón del dios antiguo";
 
-	-- Classic WoW Sets
-	AL["Zul'Gurub Rings"] = "Anillos de Zul'Gurub";
-
 	--Recipe origin strings
 	AL["Trainer"] = "Instructor";
 	AL["Discovery"] = "Descubierto";
@@ -820,9 +768,6 @@ if AL then
 	AL["Drop"] = "Botín"; 
 	AL["Vendor"] = "Vendedor";
 	AL["Crafted"] = "Fabricado";
-
-	--Level 80 PvP Weapons
-	AL["Wrathful Gladiator\'s Weapons"] = "Armas del Gladiador colérico";
 
 	-- Months
 	AL["January"] = "Enero";
@@ -979,25 +924,16 @@ if AL then
 	AL["Jadefang"] = "Colmillo de Jade";
 	--AL["Aeonaxx"] = true;
 	AL["Prince Sarsarun"] = "Príncipe Sarsarun";
-	--AL["Highlord Kruul"] = true; -- added until decided if the set gets removed
 	AL["Dormus the Camel-Hoarder"] = "Dormus el Acaparacamellos";
 	AL["The Behemoth"] = "El Behemoth";
 	AL["Master Elemental Shaper Krixix"] = "Maestro de los elementos Formacio Krixix";
 
 	--Zones
-	AL["World Drop"] = "Hallazgos del Mundo";
 	AL["Trial of the Grand Crusader"] = "Prueba del Gran Cruzado";
 	AL["Crusader's Square"] = "Plaza de los Cruzados";
 	AL["The Gauntlet"] = "El reto"; -- Comprobar
 
 	--Shortcuts for Bossname files
-	AL["LBRS"] = "CRNI";
-	AL["UBRS"] = "CRNS";
-	AL["CoT1"] = "CdT1";
-	AL["CoT2"] = "CdT2";
-	--  AL["Scholo"] = true,
-	--  AL["Strat"] = true,
-	AL["Serpentshrine"] = "Serpiente";
 	--AL["Avatar"] = true,	
 
 	--Chests, etc

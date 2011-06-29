@@ -19,7 +19,7 @@ IsleOfConquest:RemoveOption("SpeedKillTimer")
 local warnSiegeEngine 		= IsleOfConquest:NewAnnounce("WarnSiegeEngine", 3)
 local warnSiegeEngineSoon 	= IsleOfConquest:NewAnnounce("WarnSiegeEngineSoon", 2) 
 
-local startTimer 		= IsleOfConquest:NewTimer(62, "TimerStart", 2457)
+--local startTimer 		= IsleOfConquest:NewTimer(62, "TimerStart", 2457)
 local POITimer 			= IsleOfConquest:NewTimer(61, "TimerPOI", "Interface\\Icons\\Spell_Misc_HellifrePVPHonorHoldFavor")	-- point of interest
 local timerSiegeEngine 	= IsleOfConquest:NewTimer(180, "TimerSiegeEngine", 15048)
 
@@ -48,11 +48,11 @@ local function isPoi(id)
 		or (id >= 9 and id <= 12)		-- Keep
 end
 function getPoiState(id)
-	if isInArgs(id, 16, 135, 140, 145, 150) then		return -1		-- Neutral
-	elseif isInArgs(id, 18, 136, 141, 146, 151) then	return 1		-- Alliance controlled
-	elseif isInArgs(id, 20, 138, 143, 148, 153) then 	return 2		-- Horde controlled
-	elseif isInArgs(id, 17, 137, 142, 147, 152) then	return 3		-- Alliance assaulted
-	elseif isInArgs(id, 19, 139, 144, 149, 154) then	return 4		-- Horde assaulted
+	if isInArgs(id, 16, 135, 140, 145, 150) then			return -1 -- Neutral
+	elseif isInArgs(id, 11, 18, 136, 141, 146, 151) then	return 1 -- Alliance controlled
+	elseif isInArgs(id, 10, 20, 138, 143, 148, 153) then	return 2 -- Horde controlled
+	elseif isInArgs(id, 9, 17, 137, 142, 147, 152) then		return 3 -- Alliance assaulted
+	elseif isInArgs(id, 12, 19, 139, 144, 149, 154) then	return 4 -- Horde assaulted
 	else return false
 	end
 end
@@ -115,13 +115,13 @@ do
 
 	function IsleOfConquest:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
 		if not bgzone then return end
-		if arg1 == L.BgStart60 then
+--[[		if arg1 == L.BgStart60 then
 			startTimer:Start()
 		elseif arg1 == L.BgStart30  then		
 			startTimer:Update(31, 62)
 		elseif arg1 == L.BgStart15 then
 			startTimer:Update(47, 62)
-		end
+		end--]]
 		scheduleCheck(self)
 	end
 	

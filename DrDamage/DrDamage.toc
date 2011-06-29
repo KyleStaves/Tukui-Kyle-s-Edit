@@ -1,10 +1,10 @@
-## Interface: 40000
+## Interface: 40100
 ## Title: DrDamage
 ## Author: Gagorian, Detseuqer, Zarquan, Karzon13
 ## Notes: In-game theorycraft. Calculates actual damage/healing based on gear, talents and buffs.
-## Version: r1626
+## Version: r1640
 ## SavedVariables: DrDamageDB
-## X-Curse-Packaged-Version: r1626
+## X-Curse-Packaged-Version: r1640
 ## X-Curse-Project-Name: DrDamage
 ## X-Curse-Project-ID: dr-damage
 ## X-Curse-Repository-ID: wow/dr-damage/mainline

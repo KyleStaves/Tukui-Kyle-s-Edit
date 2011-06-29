@@ -12,6 +12,27 @@ local ParseTooltip_Enabled = false
 
 local AltasLootItemButton = {}
 
+local CURRENCY_PRICE = {
+	-- http://www.wowhead.com/currencies
+	["DALARANJW"] = 61,		-- Dalaran Jewelcrafter's Token
+	["DALARANCK"] = 81,		-- Dalaran Cooking Award
+	["CHAMPSEAL"] = 241,	-- Champion's Seal
+	["ILLLJW"] = 361,		-- Illustrious Jewelcrafter's Token
+	["CONQUEST"] = 390, 	-- Conquest Points
+	["TOLBARAD"] = 391,		-- Tol Barad Commendation
+	["HONOR"] = 392,		-- Honor Points	
+	["JUSTICE"] = 395,		-- Justice Points
+	["VALOR"] = 396,		-- Valor Points
+	["CHEFAWARD"] = 402,	-- Chef's Award
+	
+	-- Custom currencys
+	["BREWFEST"] = { itemID = 37829 },
+	["NOBLEGARDEN"] = { itemID = 44791 },
+	["CHAMPWRIT"] = { itemID = 46114 },
+	["VALENTINEDAY"] = { itemID = 49927 },
+}
+
+
 -- AtlasLoot:CreateItemButton
 do
 	local mt = {__index = AltasLootItemButton}
@@ -38,7 +59,8 @@ do
 				Frame = {},
 				item = false,
 				spell = false,
-				tableLink = false,				
+				tableLink = false,		
+				type = "ItemIcon",
 			},
 			mt
 		)
@@ -115,10 +137,10 @@ do
 		
 		--- text
 		itemButton.Frame.QA.ExtraText = itemButton.Frame.QA:CreateFontString(name.."_QAExtraText", "ARTWORK", "GameFontNormalSmall")
-		itemButton.Frame.QA.ExtraText:SetPoint("TOPLEFT", itemButton.Frame.QA, "TOPLEFT", 12, -1)
+		itemButton.Frame.QA.ExtraText:SetPoint("TOPLEFT", itemButton.Frame.QA, "TOPLEFT", 13, -1)
 		itemButton.Frame.QA.ExtraText:SetJustifyH("LEFT")
 		itemButton.Frame.QA.ExtraText:SetText("TEST")
-		itemButton.Frame.QA.ExtraText:SetWidth(205)
+		itemButton.Frame.QA.ExtraText:SetWidth(192)
 		itemButton.Frame.QA.ExtraText:SetHeight(10)
 		
 		itemButton.Frame.QA:SetScript("OnEnter", AtlasLoot.QAItemOnEnter)
@@ -145,10 +167,273 @@ do
 
 		return itemButton	
 	end
+	
+	-- AtlasLoot:CreateCompareFrameItemButton(nil, nil, "TestIt")
+	--{ 2, 58155, "", "=q3=Cowl of Pleasant Gloom", "=ds=#s1#, #a1#", "#JUSTICE:2200#" },
+	--button:SetItem(58155, "=q3=Cowl of Pleasant Gloom", "=ds=#s1#, #a1#", nil, nil, nil)
+	-- /run button=AtlasLoot:CreateCompareFrameItemButton(nil, nil, "TestIt")button:SetItem(58155, "=q3=Cowl of Pleasant Gloom", "=ds=#s1#, #a1#", nil, "#JUSTICE:2200#", nil)
+	function AtlasLoot:CreateCompareFrameItemButton(parent, point, name, statsList)
+		parent = parent or UIParent
+		if not point or type(point) ~= "table" then point = {"CENTER", parent, "CENTER"} end--point = {"TOPLEFT", parent, "TOPLEFT", 0, 0} end
+		if not name or name == "" then
+			--error("AtlasLoot:CreateItemButton: Enter a name.", 2)
+			return
+		end
+
+		-- Set the metaTable
+		local itemButton = setmetatable(
+			{
+				Frame = {},
+				item = false,
+				spell = false,
+				tableLink = false,
+				type = "CompareFrameItemButton",
+				statsList = statsList,
+				Stats = {},
+				name = name,
+			},
+			mt
+		)
+		
+		local sortMaxLength = 625
+		local sortCurLenght = 0
+	
+		
+		-- ########################
+		-- Create the itemFrame
+		-- ########################
+			
+		-- MainFrame <frame>
+		itemButton.Frame = CreateFrame("Button", name, parent)
+		itemButton.Frame:SetWidth(sortMaxLength)
+		itemButton.Frame:SetHeight(37)
+		itemButton.Frame:SetPoint(unpack(point));
+		itemButton.Frame:RegisterForClicks("LeftButtonDown", "RightButtonDown")	
+		itemButton.SetPoint = itemButton.Frame.SetPoint
+		itemButton.Frame.par = itemButton
+		
+		-- Menu icon <texture>
+		itemButton.Frame.MenuIcon = itemButton.Frame:CreateTexture(name.."_MenuIcon", "ARTWORK")
+		itemButton.Frame.MenuIcon:SetPoint("TOPLEFT", itemButton.Frame, "TOPLEFT", 3, -3)
+		itemButton.Frame.MenuIcon:SetHeight(32)
+		itemButton.Frame.MenuIcon:SetWidth(32)
+		itemButton.Frame.MenuIcon:Hide()
+		
+		-- Menu IconBorder <texture>
+		itemButton.Frame.MenuIconBorder = itemButton.Frame:CreateTexture(nil, "OVERLAY")
+		itemButton.Frame.MenuIconBorder:SetPoint("TOPLEFT", itemButton.Frame.MenuIcon, "TOPLEFT", -5, 5)
+		itemButton.Frame.MenuIconBorder:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+		itemButton.Frame.MenuIconBorder:SetHeight(64)
+		itemButton.Frame.MenuIconBorder:SetWidth(64)
+		itemButton.Frame.MenuIconBorder:Hide()
+			
+		-- Query Icon <texture>
+		itemButton.Frame.QueryIcon = itemButton.Frame:CreateTexture(name.."_QueryIcon", "OVERLAY")
+		itemButton.Frame.QueryIcon:SetPoint("TOPLEFT", itemButton.Frame.Icon, "TOPLEFT", 0, 0)
+		itemButton.Frame.QueryIcon:SetTexture("Interface\\AddOns\\AtlasLoot\\Images\\arrow")
+		itemButton.Frame.QueryIcon:SetHeight(25)
+		itemButton.Frame.QueryIcon:SetWidth(25)
+		itemButton.Frame.QueryIcon:Hide()		
+			
+		-- ItemName <FontString>
+		itemButton.Frame.Name = itemButton.Frame:CreateFontString(name.."_Name", "BACKGROUND", "GameFontNormal")
+		itemButton.Frame.Name:SetPoint("TOPLEFT", itemButton.Frame, "TOPLEFT", 35, 0)
+		itemButton.Frame.Name:SetJustifyH("LEFT")
+		itemButton.Frame.Name:SetText("NAME")
+		itemButton.Frame.Name:SetWidth(177)
+		itemButton.Frame.Name:SetHeight(15)
+		sortMaxLength = (sortMaxLength - 169) - 43
+			
+		-- ExtraText <FontString>		
+		itemButton.Frame.Extra = itemButton.Frame:CreateFontString(name.."_Extra", "BACKGROUND", "GameFontNormalSmall")
+		itemButton.Frame.Extra:SetPoint("TOPLEFT", itemButton.Frame.Name, "BOTTOMLEFT", 0, -1)
+		itemButton.Frame.Extra:SetJustifyH("LEFT")
+		itemButton.Frame.Extra:SetText("EXTRA")
+		itemButton.Frame.Extra:SetWidth(177)
+		itemButton.Frame.Extra:SetHeight(10)
+		
+		-- Extra text for Quests/Achievements
+		itemButton.Frame.QA = CreateFrame("Button", name.."_QA", itemButton.Frame)
+		itemButton.Frame.QA:SetWidth(177)
+		itemButton.Frame.QA:SetHeight(14)
+		itemButton.Frame.QA:SetPoint("TOPLEFT", itemButton.Frame.Name, "BOTTOMLEFT", 0, -1)
+		itemButton.Frame.QA:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+		itemButton.Frame.QA:RegisterForClicks("LeftButtonDown", "RightButtonDown")	
+		
+		itemButton.Frame.QA.ExtraIcon = itemButton.Frame.QA:CreateTexture(name.."_QAExtraIcon", "OVERLAY")
+		itemButton.Frame.QA.ExtraIcon:SetPoint("TOPLEFT", itemButton.Frame.QA, "TOPLEFT", 0, -1)
+		itemButton.Frame.QA.ExtraIcon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+		itemButton.Frame.QA.ExtraIcon:SetHeight(10)
+		itemButton.Frame.QA.ExtraIcon:SetWidth(10)
+		
+		--- text
+		itemButton.Frame.QA.ExtraText = itemButton.Frame.QA:CreateFontString(name.."_QAExtraText", "ARTWORK", "GameFontNormalSmall")
+		itemButton.Frame.QA.ExtraText:SetPoint("TOPLEFT", itemButton.Frame.QA, "TOPLEFT", 13, -1)
+		itemButton.Frame.QA.ExtraText:SetJustifyH("LEFT")
+		itemButton.Frame.QA.ExtraText:SetText("TEST")
+		itemButton.Frame.QA.ExtraText:SetWidth(164)
+		itemButton.Frame.QA.ExtraText:SetHeight(10)
+		
+		itemButton.Frame.QA:SetScript("OnEnter", AtlasLoot.QAItemOnEnter)
+		itemButton.Frame.QA:SetScript("OnLeave", AtlasLoot.QAItemOnLeave)
+		itemButton.Frame.QA:SetScript("OnClick", AtlasLoot.QAItemOnClick)
+		
+		-- ############
+		-- LAYER
+		local left = itemButton.Frame:CreateTexture(nil, "BACKGROUND")
+		left:SetPoint("LEFT", itemButton.Frame, "LEFT", 34, 2)	
+		left:SetWidth(10)
+		left:SetHeight(32)
+		left:SetTexture("Interface\\AuctionFrame\\UI-AuctionItemNameFrame")
+		left:SetTexCoord(0, 0.078125, 0, 1.0)
+		
+		local right = itemButton.Frame:CreateTexture(nil, "BACKGROUND")
+		right:SetPoint("RIGHT", itemButton.Frame, "RIGHT", 0, 2)	
+		right:SetWidth(10)
+		right:SetHeight(32)
+		right:SetTexture("Interface\\AuctionFrame\\UI-AuctionItemNameFrame")
+		right:SetTexCoord(0.75, 0.828125, 0, 1.0)
+	
+		local center = itemButton.Frame:CreateTexture(nil, "BACKGROUND")
+		center:SetPoint("LEFT", left, "RIGHT", 0, 0)	
+		center:SetPoint("RIGHT", right, "LEFT", 0, 0)
+		center:SetWidth(10)
+		center:SetHeight(32)
+		center:SetTexture("Interface\\AuctionFrame\\UI-AuctionItemNameFrame")
+		center:SetTexCoord(0.078125, 0.75, 0, 1.0)
+		
+		-- #########
+		-- ITEM ICON
+		local itemButtonButton = CreateFrame("BUTTON", "_ItemButtonButton", itemButton.Frame)
+		itemButtonButton:SetWidth(32)
+		itemButtonButton:SetHeight(32)
+		itemButtonButton:SetPoint("TOPLEFT", itemButton.Frame, "TOPLEFT", 0, 0)
+		itemButtonButton.par = itemButton
+		itemButtonButton.GetName = function()
+			return name
+		end
+		
+		itemButton.Frame.Icon = itemButton.Frame:CreateTexture(nil, "BORDER")
+		itemButton.Frame.Icon:SetPoint("TOPLEFT", itemButtonButton, "TOPLEFT", 0, 0)	
+		itemButton.Frame.Icon:SetWidth(32)
+		itemButton.Frame.Icon:SetHeight(32)
+		itemButton.Frame.Icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+		
+		--itemButton.Frame.Icon:SetScript("OnEnter", itemButtonOnEnter)
+		--itemButton.Frame.Icon:SetScript("OnLeave", itemButtonOnLeave)
+		--itemButton.Frame.Icon:SetScript("OnClick", itemButtonOnClick)
+		
+		local normalTextureFrame = itemButton.Frame:CreateTexture(nil, "BORDER")
+		normalTextureFrame:SetPoint("CENTER", itemButtonButton, "CENTER", 0, 0)	
+		normalTextureFrame:SetWidth(60)
+		normalTextureFrame:SetHeight(60)
+		normalTextureFrame:SetTexture("Interface\\Buttons\\UI-Quickslot2")
+		
+		itemButtonButton:SetNormalTexture(normalTextureFrame)
+		itemButtonButton:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+		itemButtonButton:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress")	
+		-- ITEM ICON
+		-- #########
+		
+		
+		local highlightTextureMainFrame = itemButton.Frame:CreateTexture(name.."_Highlight", "BORDER")
+		highlightTextureMainFrame:SetPoint("TOPLEFT", itemButton.Frame, "TOPLEFT", 33, 0)	
+		highlightTextureMainFrame:SetWidth(597-33)
+		highlightTextureMainFrame:SetHeight(32)
+		highlightTextureMainFrame:SetTexture("Interface\\HelpFrame\\HelpFrameButton-Highlight")
+		highlightTextureMainFrame:SetTexCoord(0, 1.0, 0, 0.578125)
+		highlightTextureMainFrame:Hide()
+		
+		itemButton.Frame:SetHighlightTexture(highlightTextureMainFrame, "ADD")
+		-- LAYER
+		-- ############
+		
+		-- ############
+		-- STATS
+		itemButton.Frame.Stats = {}
+		
+		if statsList then
+			sortCurLenght = sortMaxLength / #statsList
+			for k,v in ipairs(statsList) do
+				itemButton.Frame.Stats[k] = itemButton.Frame:CreateFontString(name.."_Stats"..k, "BACKGROUND", "GameFontHighlightSmall")
+				if k == 1 then
+					itemButton.Frame.Stats[k]:SetPoint("TOPLEFT", itemButton.Frame.Name, "TOPRIGHT", 0, 0)
+				else
+					itemButton.Frame.Stats[k]:SetPoint("LEFT", itemButton.Frame.Stats[k-1], "RIGHT", 0, 0)
+				end
+				itemButton.Frame.Stats[k]:SetWidth(sortCurLenght)
+				itemButton.Frame.Stats[k]:SetHeight(32)
+				itemButton.Frame.Stats[k]:SetText(0)
+				
+				itemButton.Stats["ITEM_MOD_"..v.."_SHORT"] = itemButton.Frame.Stats[k]
+			end
+		end
+		-- STATS
+		-- ############
+		
+		-- Unsafe <texture>
+		itemButton.Frame.Unsafe = itemButton.Frame:CreateTexture(name.."_Unsafe", "BACKGROUND")
+		itemButton.Frame.Unsafe:SetPoint("TOPLEFT", itemButton.Frame, "TOPLEFT", -1, -1)
+		itemButton.Frame.Unsafe:SetHeight(34)
+		itemButton.Frame.Unsafe:SetWidth(27)
+		itemButton.Frame.Unsafe:SetTexture(1,0,0,1)
+		itemButton.Frame.Unsafe:Hide()		
+			
+		-- itemButton Scripts
+		itemButtonButton:SetScript("OnEnter", AtlasLoot.ItemOnEnter)
+		itemButtonButton:SetScript("OnLeave", AtlasLoot.ItemOnLeave)
+		itemButton.Frame:SetScript("OnClick", AtlasLoot.ItemOnClick)
+		itemButtonButton:SetScript("OnClick", AtlasLoot.ItemOnClick)
+		itemButton.Frame:SetScript("OnShow", function() itemButton.Frame:SetFrameLevel( (itemButton.Frame:GetParent()):GetFrameLevel() + 1 ) end)
+		itemButton.Frame:SetScript("OnEvent", AtlasLoot.ItemOnEvent)
+		itemButton.Frame.par = itemButton
+		itemButton.itemButtonButton = itemButtonButton
+		-- Hide the button
+		--itemButton.Frame:Hide()
+		
+		itemButton.Frame.oriSetWidth = itemButton.Frame.SetWidth
+		local cur = 0
+		function itemButton.Frame:SetWidth(width)
+			-- true = refresh
+			if width == true then
+				width = cur
+				cur = 0
+			end
+			if width == cur then
+				-- Do nothing
+			elseif width == 597 then
+				itemButton.Frame.Name:SetWidth( 177 - 25 )
+				itemButton.Frame.Extra:SetWidth( 177 - 25 )
+				itemButton.Frame.QA:SetWidth( 177 - 25 )
+				itemButton.Frame.QA.ExtraText:SetWidth( 164 - 25 )
+				local fixVaule = 409 / #self.par.statsList
+				for i=1,#self.Stats do
+					self.Stats[i]:SetWidth(fixVaule)
+				end
+				cur = width
+				itemButton.Frame:oriSetWidth(width)
+			elseif width == 625 then
+				itemButton.Frame.Name:SetWidth( 177 )
+				itemButton.Frame.Extra:SetWidth( 177 )
+				itemButton.Frame.QA:SetWidth( 177 )
+				itemButton.Frame.QA.ExtraText:SetWidth( 164 )
+				local fixVaule = 413 / #self.par.statsList
+				for i=1,#self.Stats do
+					self.Stats[i]:SetWidth(fixVaule)
+				end
+				cur = width
+				itemButton.Frame:oriSetWidth(width)
+			end
+		end
+
+		return itemButton
+	end
+	
+	
 end
 
 --- Sets the type of the button
--- AtlasLoot needs self, too check what things the button can do :o
+-- AtlasLoot needs this, too check what things the button can do :o
 -- @param item Button contains a item
 -- @param spell Button contains a spell
 -- @param tableLink TableLink to another loottable
@@ -183,8 +468,26 @@ do
 	local questIcon = "Interface\\MINIMAP\\TRACKING\\TrivialQuests"
 	local achievementIcon = "Interface\\ACHIEVEMENTFRAME\\UI-Achievement-TinyShield"
 	
-	local function GetAchievementOrQuestText(text)
-		local tempText, isQuest, isAchievement = nil, nil, nil
+	local function GetExtraPriceLink(text)
+		local price, isPrice = nil, nil
+		if text then
+			for k,v in pairs(CURRENCY_PRICE) do
+				if string.find(text, "#"..k..":%d+#") then
+					_,_,price = string.find(text, "#"..k..":(%d+)#")
+					if type(v) == "number" then
+						isPrice = v
+					elseif v["itemID"] then
+						isPrice = k
+					end
+					break
+				end
+			end
+		end	
+		return price, isPrice
+	end 
+	
+	local function GetExtraTextLink(text)
+		local tempText, isQuest, isAchievement, isItem = nil, nil, nil, nil
 		if text and string.find(text, "#QUESTID:%d+#") then
 			_,_,isQuest = string.find(text, "#QUESTID:(%d+)#")
 			tempText = AtlasLoot:GetQuestName(isQuest)
@@ -199,33 +502,27 @@ do
 			end
 			tempText = "|cff1eff00"..tempText
 			tempText = gsub(text, "#ACHIEVEMENTID:%d+#", tempText)
+		elseif text and string.find(text, "#ITEMID:%d+#") then
+			_,_,isItem = string.find(text, "#ITEMID:(%d+)#")
+			local itemQuality
+			tempText, _, itemQuality = GetItemInfo(isItem)
+			if tempText then
+				local _, _, _, itemQuality = GetItemQualityColor(itemQuality)
+				tempText = "|c"..itemQuality..tempText
+			else
+				tempText = "|cffFFFFFF".._G["UNKNOWN"]
+			end
+			tempText = gsub(text, "#ITEMID:%d+#", tempText)
 		end
 		
-		return tempText, isQuest, isAchievement
+		return tempText, isQuest, isAchievement, isItem
 	end
 	
 	-- Create and returns the editet extra Text
 	local function GetItemExtraText(itemID, extraText, price, itemName)
-		local tempText, isQuest, isAchievement = nil, nil, nil
-		--[[
-		if extraText and string.find(extraText, "#QUESTID:%d+#") then
-			_,_,isQuest = string.find(extraText, "#QUESTID:(%d+)#")
-			tempText = AtlasLoot:GetQuestName(isQuest)
-			tempText = "|cffFFFFFF"..tempText
-			tempText = gsub(extraText, "#QUESTID:%d+#", tempText)
-		elseif extraText and string.find(extraText, "#ACHIEVEMENTID:%d+#") then
-			_,_,isAchievement = string.find(extraText, "#ACHIEVEMENTID:(%d+)#")
-			if GetAchievementLink(isAchievement) then
-				tempText = select(2,GetAchievementInfo(isAchievement))
-			else
-				tempText = "ID:"..isAchievement.." not found"
-			end
-			tempText = "|cff1eff00"..tempText
-			tempText = gsub(extraText, "#ACHIEVEMENTID:%d+#", tempText)
-		end
-		]]
-		tempText, isQuest, isAchievement = GetAchievementOrQuestText(extraText)
-		local tempPrice = GetAchievementOrQuestText(price)
+		local tempText, isQuest, isAchievement, isItem = GetExtraTextLink(extraText)
+		local tempPrice, isPrice = GetExtraPriceLink(price)
+
 		if not tempText and extraText and price and price ~= "" then
 			-- lengh < 70  = standart
 			-- this adds the ItemPrice to the Extratext if its not to long
@@ -234,10 +531,10 @@ do
 					if itemName then
 						extraText = AtlasLoot:GetItemEquipInfo(itemID)
 					else
-						extraText = price
+						extraText = tempPrice or price
 					end
 				end
-				local dummyText = AtlasLoot:FixText(extraText).." / "..price
+				local dummyText = tostring(tempPrice or price).." / "..AtlasLoot:FixText(extraText)
 				local lengh = string.len(dummyText)
 				if lengh < 50 then
 					tempText = dummyText
@@ -248,7 +545,11 @@ do
 					if itemName then
 						extraText = AtlasLoot:GetItemEquipInfo(itemID)
 					else
-						extraText = price
+						if tempPrice then
+							extraText = tempPrice
+						else
+							extraText = price
+						end
 					end
 				end
 				if price == "=ds=" or price == "" then
@@ -257,17 +558,22 @@ do
 
 				if AtlasLoot.db.profile.ShowLootTablePrice then
 					if tempPrice then
-						tempText, isQuest, isAchievement = GetAchievementOrQuestText(price)
+						--tempPrice, isPrice = GetExtraPriceLink(price)
+						tempText = tempPrice
 					else
-						tempText = price
+						tempText, isQuest, isAchievement, isItem = GetExtraTextLink(price)
+						if not tempText then
+							tempText = price
+						end
 					end
 				else
 					tempText = extraText
+					isPrice = nil
 				end
 			end
 		elseif not tempText and price and price ~= "" then
 			--if tempPrice then
-			--	price, isQuest, isAchievement = GetAchievementOrQuestText(extraText)
+			--	price, isQuest, isAchievement = GetExtraTextLink(extraText)
 			--end
 			--tempText = price
 		elseif not tempText and extraText then
@@ -277,16 +583,23 @@ do
 		end
 		
 		tempText = AtlasLoot:FixText(tempText)
-		return tempText or "", isQuest, isAchievement
+
+		if isPrice then
+			isPrice = {tempPrice, isPrice}
+		end
+		return tempText or "", isQuest, isAchievement, isItem, isPrice
 	end
 
 	local function Setup_ItemExtraText(self, itemID, extraText, itemPrice, itemNameNew)
-		local tempText, isQuest, isAchievement = GetItemExtraText(itemID, extraText, itemPrice, itemNameNew)
+		local tempText, isQuest, isAchievement, isItem, isPrice = GetItemExtraText(itemID, extraText, itemPrice, itemNameNew)
 		
 		if isQuest then
 			self.Frame.Extra:Hide()
 			self.Frame.QA:Show()
+			self.Frame.QA.achievementID = nil
 			self.Frame.QA.questID = isQuest
+			self.Frame.QA.itemID = nil
+			self.Frame.QA.price = nil
 			self.Frame.QA.ExtraIcon:SetTexture(questIcon)
 			self.Frame.QA.ExtraIcon:SetWidth(10)
 			self.Frame.QA.ExtraIcon:SetHeight(10)	
@@ -296,17 +609,56 @@ do
 			self.Frame.Extra:Hide()
 			self.Frame.QA:Show()
 			self.Frame.QA.achievementID = isAchievement
+			self.Frame.QA.questID = nil
+			self.Frame.QA.itemID = nil
+			self.Frame.QA.price = nil
 			self.Frame.QA.ExtraIcon:SetTexture(achievementIcon)
 			self.Frame.QA.ExtraIcon:SetWidth(20)
 			self.Frame.QA.ExtraIcon:SetHeight(20)	
 			self.Frame.QA.ExtraText:SetPoint("TOPLEFT", self.Frame.QA, "TOPLEFT", 12, -1)
-			self.Frame.QA.ExtraText:SetText(tempText)		
+			self.Frame.QA.ExtraText:SetText(tempText)	
+		elseif isItem then
+			self.Frame.Extra:Hide()
+			self.Frame.QA:Show()
+			self.Frame.QA.achievementID = nil
+			self.Frame.QA.questID = nil
+			self.Frame.QA.itemID = isItem
+			self.Frame.QA.price = nil
+			self.Frame.QA.ExtraIcon:SetTexture(GetItemIcon(isItem))
+			self.Frame.QA.ExtraIcon:SetWidth(12)
+			self.Frame.QA.ExtraIcon:SetHeight(12)	
+			self.Frame.QA.ExtraText:SetPoint("TOPLEFT", self.Frame.QA, "TOPLEFT", 12, -2)
+			self.Frame.QA.ExtraText:SetText(tempText)
+		elseif isPrice then
+			local icon
+			if type(isPrice[2]) == "number" then
+				icon = select(3, GetCurrencyInfo(isPrice[2]))
+				icon = "Interface\\Icons\\"..icon
+			else
+				icon = GetItemIcon(CURRENCY_PRICE[isPrice[2]].itemID)
+			end
+			self.Frame.Extra:Hide()
+			self.Frame.QA:Show()
+			self.Frame.QA.achievementID = nil
+			self.Frame.QA.questID = nil
+			self.Frame.QA.itemID = nil
+			self.Frame.QA.price = {isPrice[2], isPrice[1]}
+			self.Frame.QA.ExtraIcon:SetTexture(icon)
+			self.Frame.QA.ExtraIcon:SetWidth(12)
+			self.Frame.QA.ExtraIcon:SetHeight(12)	
+			self.Frame.QA.ExtraText:SetPoint("TOPLEFT", self.Frame.QA, "TOPLEFT", 12, -2)
+			self.Frame.QA.ExtraText:SetText(tempText)
 		else
+			self.Frame.QA.achievementID = nil
+			self.Frame.QA.questID = nil
+			self.Frame.QA.itemID = nil
+			self.Frame.QA.price = nil
 			self.Frame.QA:Hide()
 			self.Frame.Extra:SetText(tempText)
 			self.Frame.Extra:Show()		
 		end
 	end
+	
 	--- Sets a item to the button
 	-- @param itemID The item ID
 	-- @param itemName The item name, self is only used if the item name is not in the cache. Set to nil and not in cache it will use UNKNOWN
@@ -334,25 +686,50 @@ do
 		if not itemTextureNew then
 			itemTextureNew = "Interface\\Icons\\INV_Misc_QuestionMark"
 		end
-		
 		-- ########################
 		-- itemName
 		-- ########################
 		if itemNameNew then
 			_, _, _, itemQuality = GetItemQualityColor(itemQuality)
 			tempText = itemQuality..string.gsub(itemNameNew, 1, 4)
+			if select(4, GetBuildInfo()) == 40200 then
+				tempText = "|c"..tempText
+			end
 		elseif itemName then
 			tempText = AtlasLoot:FixText(itemName)
 		else
 			tempText = _G["UNKNOWN"]
 		end
-		local wishlist
-		if AtlasLoot.GetItemOnWishlistIconString then
+		local wishlist = ""
+		if self.itemType and self.itemType[1] == "wishlist" then
+		
+		else
 			wishlist = AtlasLoot:GetItemOnWishlistIconString(itemID)
 			wishlist = wishlist or ""
 		end
+		
 		self.Frame.Name:SetText(wishlist..tempText)
 		tempText = ""
+		
+		-- ########################
+		-- itemStats
+		-- ########################
+		if itemLink and self.type == "CompareFrameItemButton" and self.statsList then
+			--self.Frame.Stats[1]:SetText(itemLevel)
+			local stats = GetItemStats(itemLink)
+			for k,v in ipairs(self.statsList) do
+				if self.Stats["ITEM_MOD_"..v.."_SHORT"] then
+					if v == "ITEMLVL" then
+						self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetText(itemLevel)
+					elseif stats and stats["ITEM_MOD_"..v.."_SHORT"] then
+						self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetText(stats["ITEM_MOD_"..v.."_SHORT"])
+					else
+						self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetText(0)
+					end
+				end
+			end
+		end
+		--"CompareFrameItemButton"
 
 		-- ########################
 		-- extraText and itemPrice
@@ -414,7 +791,6 @@ do
 			spellTextureNew = GetItemIcon(itemID)
 		end
 		self:SetButtonType(false, true, nil)
-		
 		-- ########################
 		-- spellName
 		-- ########################
@@ -425,8 +801,44 @@ do
 		else
 			tempText = _G["UNKNOWN"]
 		end
-		self.Frame.Name:SetText(tempText)
+		--self.Frame.Name:SetText(tempText)
+		local wishlist = ""
+		if self.itemType and self.itemType[1] == "wishlist" then
+		
+		else
+			wishlist = AtlasLoot:GetItemOnWishlistIconString(spellID)
+			wishlist = wishlist or ""
+		end
+		self.Frame.Name:SetText(wishlist..tempText)
 		tempText = ""
+		
+		-- ########################
+		-- itemStats
+		-- ########################
+		if itemID and type(itemID) == "number" and itemID ~= 0 then
+			local _, itemLink, _, itemLevel = GetItemInfo(itemID)
+			if itemLink and self.type == "CompareFrameItemButton" and self.statsList then
+				--self.Frame.Stats[1]:SetText(itemLevel)
+				local stats = GetItemStats(itemLink)
+				for k,v in ipairs(self.statsList) do
+					if self.Stats["ITEM_MOD_"..v.."_SHORT"] then
+						if v == "ITEMLVL" then
+							self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetText(itemLevel)
+						elseif stats and stats["ITEM_MOD_"..v.."_SHORT"] then
+							self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetText(stats["ITEM_MOD_"..v.."_SHORT"])
+						else
+							self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetText(0)
+						end
+					end
+				end
+			elseif self.type == "CompareFrameItemButton" then
+				for k,v in ipairs(self.statsList) do
+					if self.Stats["ITEM_MOD_"..v.."_SHORT"] then
+						self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetText(0)
+					end
+				end
+			end
+		end
 		
 		-- ########################
 		-- extraText and itemPrice
@@ -548,6 +960,53 @@ do
 	end
 end
 
+-- Update item stats font colors
+function AltasLootItemButton:UpdateStatsColor()
+	--AtlasLoot.db.profile.CompareFrame.statsColor[v]
+	for k,v in ipairs(self.statsList) do
+		if self.Stats["ITEM_MOD_"..v.."_SHORT"] then
+			self.Stats["ITEM_MOD_"..v.."_SHORT"]:SetTextColor(AtlasLoot.db.profile.CompareFrame.statsColor[v].r, AtlasLoot.db.profile.CompareFrame.statsColor[v].g, AtlasLoot.db.profile.CompareFrame.statsColor[v].b)
+		end
+	end
+end
+
+-- Update the stats table
+function AltasLootItemButton:UpdateStatsList(statsList, refresh)
+	if not statsList or self.type ~= "CompareFrameItemButton" then return end
+	-- Reset all links
+	wipe(self.Stats)
+	
+	local wasShown = self.Frame:IsShown()
+	
+	self.statsList = statsList
+	
+	for k,v in ipairs(self.Frame.Stats) do
+		v:Hide()
+	end
+	
+	for k,v in ipairs(self.statsList) do
+		if self.Frame.Stats[k] then
+			self.Frame.Stats[k]:Show()
+		else
+			self.Frame.Stats[k] = self.Frame:CreateFontString(self.name.."_Stats"..k, "BACKGROUND", "GameFontHighlightSmall")
+			if k == 1 then
+				self.Frame.Stats[k]:SetPoint("TOPLEFT", self.Frame.Name, "TOPRIGHT", 0, 0)
+			else
+				self.Frame.Stats[k]:SetPoint("LEFT", self.Frame.Stats[k-1], "RIGHT", 0, 0)
+			end
+			self.Frame.Stats[k]:SetWidth(100)
+			self.Frame.Stats[k]:SetHeight(32)
+			self.Frame.Stats[k]:SetText(0)
+		end
+		self.Stats["ITEM_MOD_"..v.."_SHORT"] = self.Frame.Stats[k]
+	end
+	self.Frame:SetWidth(true)
+	if wasShown and refresh then
+		self:Refresh()
+	end
+	self:UpdateStatsColor()
+end	
+
 --- Sets a link to the button
 -- Sets a link to another loottable from AtlasLoot
 -- @param lootTable Name of the AtlasLoot loottable
@@ -621,7 +1080,7 @@ function AltasLootItemButton:Clear()
 	self.Frame.Extra:SetText("")
 	self.info = nil
 	self.cutomLvl = nil
-	self.itemType = nil
+	--self.itemType = nil					-- vlt später was überlegen..
 	self.tableLinkFunc = nil
 	self.Frame:Hide()
 end
@@ -702,6 +1161,8 @@ function AtlasLoot:QAItemOnEnter()
 	
 	local questID = self.questID
 	local achievementID = self.achievementID
+	local itemID = self.itemID
+	local price = self.price
 	
 	if questID then
 		AtlasLootTooltip:SetOwner(self, "ANCHOR_RIGHT", -(self:GetWidth() / 2), 24);
@@ -710,6 +1171,37 @@ function AtlasLoot:QAItemOnEnter()
 	elseif achievementID and GetAchievementLink(achievementID) then
 		AtlasLootTooltip:SetOwner(self, "ANCHOR_RIGHT", -(self:GetWidth() / 2), 24);
 		AtlasLootTooltip:SetHyperlink(GetAchievementLink(achievementID))
+		AtlasLootTooltip:Show();
+	elseif itemID then
+		AtlasLootTooltip:SetOwner(self, "ANCHOR_RIGHT", -(self:GetWidth() / 2), 24);
+		AtlasLootTooltip:SetHyperlink("item:"..itemID..":0:0:0");
+		AtlasLootTooltip:Show();
+	elseif price then
+		AtlasLootTooltip:SetOwner(self, "ANCHOR_RIGHT", -(self:GetWidth() / 2), 24);
+		if type(price[1]) == "number" then
+			local name, currentAmount = GetCurrencyInfo(price[1])
+			AtlasLootTooltip:AddLine(name);
+			if currentAmount and tonumber(price[2]) and currentAmount >= tonumber(price[2]) then
+				AtlasLootTooltip:AddLine(GREEN..currentAmount.." / "..price[2]);
+			else
+				AtlasLootTooltip:AddLine(RED..currentAmount.." / "..price[2]);
+			end
+		else
+			local count = GetItemCount(CURRENCY_PRICE[price[1]].itemID)
+			local countAll = GetItemCount(CURRENCY_PRICE[price[1]].itemID, true)
+			local color = "\n"
+			if countAll and tonumber(price[2]) and countAll >= tonumber(price[2]) then
+				color = color..GREEN
+			else
+				color = color..RED
+			end
+			AtlasLootTooltip:SetHyperlink("item:"..CURRENCY_PRICE[price[1]].itemID..":0:0:0")
+			if countAll == count then
+				AtlasLootTooltip:AddLine(color..count.." / "..price[2])
+			else
+				AtlasLootTooltip:AddLine(color..string.format(AL["%d / %d ( Bank: %d )"], countAll, price[2], countAll - count))
+			end
+		end
 		AtlasLootTooltip:Show();
 	end
 end
@@ -723,15 +1215,23 @@ end
 
 function AtlasLoot:QAItemOnClick(arg1)
 	if IsShiftKeyDown() then
-		local questID = self.questID
-		local achievementID = self.achievementID
 		local link
-		if questID then
-			link = "|cffffff00|Hquest:"..questID.."|h["..AtlasLoot:GetQuestName(questID).."]|h|r"
+		if self.questID then
+			link = "|cffffff00|Hquest:"..self.questID.."|h["..AtlasLoot:GetQuestName(self.questID).."]|h|r"
 			--/script DEFAULT_CHAT_FRAME:AddMessage("\124cffffff00\124Hquest:2969:47\124h[Freedom for All Creatures]\124h\124r");
 			--http://www.wowpedia.org/QuestLink
-		elseif achievementID then
-			link = GetAchievementLink(achievementID)
+		elseif self.achievementID then
+			link = GetAchievementLink(self.achievementID)
+		elseif self.itemID then
+			_, link = GetItemInfo(self.itemID)
+		elseif self.price then
+			if type(self.price[1]) == "number" then
+				link = GetCurrencyInfo(self.price[1])
+				link = self.price[2].." x "..link
+			else
+				_, link = GetItemInfo(CURRENCY_PRICE[self.price[1]].itemID)
+				link = self.price[2].." x "..link
+			end
 		end
 		if link then
 			--if ChatFrameEditBox and ChatFrameEditBox:IsVisible() then

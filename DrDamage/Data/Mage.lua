@@ -148,7 +148,12 @@ function DrDamage:PlayerData()
 			calculation.manaRegen = calculation.manaRegen + managem * ((self:GetSetAmount( "T7" ) >= 2) and 1.25 or 1)
 		end
 		if ActiveAuras["Mage Armor"] then
-			calculation.manaRegen = calculation.manaRegen + 0.03 * UnitPowerMax("player", 0) / 5
+			--Glyph of Mage Armor - 4.0
+			calculation.manaRegen = calculation.manaRegen + 0.03 * UnitPowerMax("player", 0) / 5 * (self:HasGlyph(56383) and 1.2 or 1)
+		end
+		--Glyph of Frost Armor - 4.1
+		if ActiveAuras["Frost Armor"] and self:HasGlyph(98397) then
+			calculation.manaRegen = calculation.manaRegen + 0.02 * UnitPowerMax("player", 0) / 5
 		end
 		if Talents["Torment the Weak"] then --Multiplicative - 3.3.3
 			if ActiveAuras["Snare"] then
@@ -354,6 +359,8 @@ function DrDamage:PlayerData()
 --Player
 	--Mage Armor - 4.0
 	self.PlayerAura[GetSpellInfo(6117)] = { ActiveAura = "Mage Armor", ID = 6117 }
+	--Frost Armor - 4.1
+	self.PlayerAura[GetSpellInfo(7302)] = { ActiveAura = "Frost Armor", ID = 7302, NoManual = true }	
 	--Presence of Mind - 4.0
 	self.PlayerAura[GetSpellInfo(12043)] = { Update = true }
 	--Icy Veins - 4.0
@@ -430,11 +437,11 @@ function DrDamage:PlayerData()
 	--self.PlayerAura[GetSpellInfo(3738)]["ActiveAura"] = "Wrath of Air"
 --Custom
 	--Arcane Blast - 4.0
-	self.PlayerAura[GetSpellInfo(36032)] = { Spells = "Arcane Blast", Apps = 4, ID = 30451, ModType =
+	self.PlayerAura[GetSpellInfo(36032)] = { Spells = { "Arcane Blast", "Arcane Explosion" }, Apps = 4, ID = 30451, ModType =
 		function( calculation, _, _, index, apps )
 			--Glyph of Arcane Blast - 4.0 (additive - 3.3.3)
 			calculation.dmgM_Add = calculation.dmgM_Add + apps * (0.10 + (self:HasGlyph(62210) and 0.03 or 0))
-			if not index then
+			if not index and (calculation.spellName == "Arcane Blast") then
 				calculation.manaCost = calculation.manaCost + calculation.baseCost * apps * 1.5
 			end
 		end
@@ -571,7 +578,7 @@ function DrDamage:PlayerData()
 			-- Checked in 4.1
 					["Name"] = "Ice Barrier",
 					["ID"] = 11426,
-					["Data"] = { 8.601 },
+					["Data"] = { 8.6088 },
 					[0] = { School = { "Frost", "Absorb" }, SPBonus = 0.87, Cooldown = 30, NoCrits = true, NoGlobalMod = true, NoTargetAura = true, NoSchoolTalents = true, NoNext = true, NoDPS = true, NoDoom = true, Unresistable = true, NoDPM = true, BaseIncrease = true, },
 					[1] = { 0, 0 },
 		},

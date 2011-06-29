@@ -86,7 +86,9 @@ local function TankWatcherEvents()
 		end			
 	else 
 		wipe(TankNames)
-		if HasPetUI("player") then TankNames[UnitName("pet")] = true end			-- Adds your pet to the list
+		if HasPetUI("player") and UnitName("pet") then 
+			TankNames[UnitName("pet")] = true  			-- Adds your pet to the list (for you, only)
+		end	
 	end	
 end
 	

@@ -1,35 +1,132 @@
 
-if set alpha is greater than 0, then make mouseovers raise the alpha to 1...  so mouseovers have a better highlight method
+Create solutions, not bulk
+---------------------------------------------------------------------
 
-Un-id'd friendly and hostile are greyish versions of the 'normal' colors
-
-Solve problems, not add meaningless features
-
-
-* UnitCache
-	* PLAYER Entering world
-		- Check if BG/instance or whatever, and turn off general polling if it is
-		- only poll in world
-
-Icons
-	- Keyhole watermark for cc
-	- Clamp or claws or bars (behind bars)
-	- 
+- Use default Blizz font should change widget fonts too (or, let the threat widget use arialn)
 
 
+6.2
+* Spell Cast Monitor name search will now strip the "-" from the combat log name, which should fix PvP cast association issues.
+* Debuff Widget will now strip the "-" from combat log events, which should fix pvp association issues
+* fixed a 'nil' error during pet/tank association
+* "Avoid Overlap" has been updated for the new CVar types
+* TextPlates
+* Style Mode, By Player, By Marked, By Elite
+
+6.2.1:
+- Neon and Grey were not meant to show guild names (yet), so that's been removed.  (It will come back, but only when I have a UI option)
+- added "marked" condition to the "By Active" style mode
+- "No Overlap" removed from Panel.  Please see "Interface > Names> Nameplate Motion" from now on.
+- Changed text in a few spots
+- SetCustomText can now accept RGBA colors (but it's not required)...  return string, r, g, b, a
+- Text Plate for Quatre will show the supplemental text with 70% opacity
+- Fixed Damage Hub Vertical position sensitivity
+- Removed force-enable of aggro detection.  First-runs and resets will still enable aggro detect.
+
+
+6.3:
+CURRENT RELEASE
+	* Updated functions for 4.2
+	* Increased width of sliders in Hub
+	* Opacity functions now use a transfer function to correct the opacity (currently, .5 does not translate to 50% opaque; it's more like 65%)
+	* Channeled spells now move the cast bar in reverse.
+	* Friendly/Enemy "V-key" Automation; In Combat, Out of Combat, Always
+	* Debuff widget now Caches texture of debuffs (to fix sunfire phenomenon, and similar)
+
+
+
+To finish:
+- Make the versions compatible with both 40100 and 40200
+
+Optional:
+- Add description block for Automation settings
+- move auto-enable warnings to "first time run" block
+- Integrate TidyPlatesIcon into core
+- Graphite into Hub
+- Spell cast should check for current target, and check against insta-casted spells.
+
+
+
+
+
+
+********
+
+Name Text, Reaction Color; Greyish red for very low level, medium red for tough, Bright red for skull
+Make sure Debuff Widget is clearing itself
+Debuff Widget should cache debuff data on the Icon table/frames
+Reduce Double Calls / reduce context update load
+Check for table leaks from Core to Hub, and Core internal
+Polish Slider Ranges in Hub (Some don't need to have quite so much range)
+Enhance Opacity Range accuracy (Opacity seems to be on a logarythmic scale, where getting closer to 0% does less)
+	- ex. Opactiy = (1-OpacitySlider)
+Debuff Priority (based on height in list)
+? Graphite integrated into Hub 
+
+6.x...........:
+
+- increase debuff count columns to 5?
+- nameplate create event
+- nameplate hide event
+- call event/elegate when nameplate count changes
+- Chganneled spells reverse
+- Re-do config screen, using the Hub Fonts and Such
+	- Big Titles for Theme, Show & Hide, Etc.
+- make range widget part of the usual indicators (to allow for different kinds of warnings)
+- TidyPlatesTarget Integration
+
+
+
+- Buffs added to Aura Widget
+
+
+
+1. Graphical Design
+2. Alter CombatLog Watcher
+3. Alter general event watcher
+
+Enemy: Buffs, Debuffs
+Friendly: Buffs, Debuffs
+
+
+
+6.4+
+Tidy Plates Hub: Heal
+Tidy Plates Hub: Gladiator
+Text Entry box for Slider Widgets
+UnitCache; Class Colors for "Everyone" (Event Handling in World, not BG or Instance; Those colors are provided by group and PvP color)
+UnitCache; Friend List/Guild Feed
+UnitCache; /who for classes?
+Name Text, Class Color Mode; Un-id'd friendly and hostile are greyish versions of the 'normal' colors
+Watermark/Highlight for "CC" prefix (Clamp, Claws, Bars, Lock, Key, ETc)
+"By Low Health" Modes, General Health Warning (greater than, less than)
+Spell Icon Border
+Texture Coordinates for Textures and Statusbar
+Revise "Core" comments
+Revise Friendly Group Member Aggro Color/Graphics
+Widget Testmodes
+Event Handling Callback Functions: Fire an Event when a nameplate is shown, hidden or created
+New Scale Modes: ScaleByActiveDebuffs, ScaleByActiveCC, ScaleByMyActiveDebuffs
+Hub Option: Spell Casting Colors (int/non-int)
+Hub Option: Threat Widget Colors, ShowText Option for Threat Line Widget (Allow text for either side of the tugging)
+
+-------------------------------------------------------------------------------------
+Tidy Plates Blog
+Design Notes
+Design Diary
 Video Content
 	- How to set up Tidy Plates for Tanking
 	- How to set up Tidy Plates for single target and multi-target DPS.
 	- How to set up Tidy Plates for PvP
-	
+Tidy Plates Theme Hacker, Addon
+-------------------------------------------------------------------------------------
 
-Function Definition in Core...  Makes notes of section
-ex...
-local FunctionName										-- Defined in Section II: Frame Init Functions
-local OtherFunctionName, MoreFunctions, EvenMore		-- Defined in Section III			
 
-Debuff Widget (while not in combat, poll every 2 mins to clear aura table, stop polling during combat)
-
+* Allow unit.guid to be fed from another source:
+	- if unit.guid then GUID[unit.guid] = plate end
+	This should go in the OnUpdateNameplate function, I think:
+	- if not GUID[unit.guid] then GUID[unit.guid] = plate; ContextUpdate end
+* Platelevels for plates(1-100), targets(127), casters(101-120), other?(121-125) 
 
 NOTES
 ---------------------
@@ -88,124 +185,25 @@ Damage Hex Color: FF4400
 6.2 Beta
 	- New Section in Hub: Style
 		- 
-	 
-
-6.1 ...x
-Tidy Plates: Crossover (Neon, Graphite, etc. for Friendly, Hostile, etc.)
-- Name Text Color, By Elite (or many levels above)
-- Text entry box to sliders
-- "By Low Health"
-- Texture Coordinates for Textures and Statusbar
-Add a tag to the icon
-UpdateIcon should put the debuff data onto the icon.
-One of the data elements should be "special case" in order to handle CC type spells
-
-* Spell Icon Border
-* Friendly Group Member Aggro Color
-* Reduce Double Calls / reduce context update load
-   * widget:Test() Testmode Update() function
-* Improve ScaleFunctionByActiveDebuffs and Opacity...
-	- Create function within the Aura widget to return if the widget is active
-	- test via guid, name and raid icon search
-	
-Debuff Icon "Create Icon" function, exposed
-
-Tidy Plates Blog
-Design Notes
-Design Diary
-
-
-
-
+		
+................................................................................................................................
 
 Tidy Plates 7
-New Concepts
-Event Scripts...  Delegate Functions
-Direct Access Functions?
-	- Change style
-	- Change Custom Text
-	- Etc..
-Define a style	(TidyPlatesStyleList, TidyPlatesThemeList)
-
-Define a style in the style database
+TidyPlatesStyleList, TidyPlatesThemeList
 
 
 Menu Design
-
-[[frame]
-	- subitems
-frame]
-[[frame]
-	- subitems
-	- items
-	- items
-frame]
-
-
-CategoryFrame
-	- SubItems
-	
-Each Frame has a bounding box and an access function.
+-Each Frame has a bounding box and an access function.
 
 
 Style Full Editing Suite
 Theme/Function Suite
 
 	
--------------------------------------------------------------------------------------
-Statusbar Header Graphic (For multicolor fade effects)
-fire an event when a nameplate is shown , hidden or created
-- Text Plates	
-- InCombat: Does red text still bug?  Test with Pericles
-	- Yes, text color only changes when the unit..
-		- Is attacked by you
-		- The unit health changes
-	- Make InCombat a spotlight option?
-- Make InCombat a filter option
-	- If the combat flag is set
-	- if the health is less than 100%
 
-- Filter: Filter Out Unmarked Units
-- Make a "Neon Mod" as a independent download
-* Checkbox for Aggro stuff: Hide/Avoid mobs that aren't In Combat.  Opacity: Hide if not in combat
-
-UpdateWidget
-UpdateIcon
-
-* Spell Casting Colors (int/non-int)
-* Graphite
-* neon "friendly" style and themecustomization() function
-
-* By Health Warning, By Low Health, Etc (Greater than/Less than)
-* Turn on/off Text Only Plate (Dropdown box: Show Health Bars for: Friendly, Enemy, Both
-* Friend List Feed?
-* Mouseover/Unitid search for cast bar interruptible status
-
-* Threat Widget Colors
-* ShowText Option for Threat Line Widget (Allow text for either side of the tugging)
-* Healer Hub
-
-
-* Allow unit.guid to be fed from another source:
-	- if unit.guid then GUID[unit.guid] = plate end
-	This should go in the OnUpdateNameplate function, I think:
-	- if not GUID[unit.guid] then GUID[unit.guid] = plate; ContextUpdate end
-
-* Platelevels for plates(1-100), targets(127), casters(101-120), other?(121-125) 
-
-* Raid_Target_Update should trigger UpdateWidgetContext
-------
 
 Slacker Bear
 
-Cataclysm So Far
-
-Hyjal I enjoyed immensly; It was like the Howling Fjords for me.  The "Regrowth" was one of my favorite parts.  Also enjoyed Deepholm, but that felt a bit small.  Went to Uldum, of course.  It's...  beautiful, of course.  I hate the pygmies.  I won't try to explain it, but I hate them soooo much.  Right from that cut scene at the intro to the zone, I hated them.  My character certainly wouldn't be taken captive my those little runts; He's soloed frost giants 40 times his size in Icecrown, and would certainly not SURRENDER to such a thing.  That pissed me off.  I stewed.
-
-Are the encounters fun?
-Do your characters feel special?  Do they feel OP in certain situations?  Do they feel unique?  Talent trees should give players the choice to be OP in ONE area.  Otherwise, it's all the same.  Use your strengths.  Water beats fire, which beats wood... Battlbeasts!
-Are the mechanics of a class enjoyable?
-5-mans...
 
 Raid accessibility...
 
@@ -228,10 +226,10 @@ Configuring a tanking setup for Tidy Plates
 - Leveling
 - CC
 
-Need to test Hibernate with no prefix
 
+/run SAF = SpellActivationOverlayFrame FOS = "TEXTURES
+SPELLACTIVATIONOVERLAYS
+FURY_OF_STORMRAGE.BLP" SAS = SpellActivationOverlay_ShowOverlay SAH = SpellActivationOverlay_HideOverlays PSF=CreateFrame("FRAME")
 
-"Default" style
-Tidy Plates Cross
-CC Highlkighting
+/run PSF:RegisterEvent("UNIT_AURA");PSF:SetScript('OnEvent',function() o=0 for i=1,40 do _,_,_,_,_,_,_,_,_,_,id=UnitAura("Player",i) if id==69369 then SAS(SAF,69369,FOS,"TOP",1,255,255,255,false,false) o=1 end end if o==0 then SAH(SAF,69369) end end)
 

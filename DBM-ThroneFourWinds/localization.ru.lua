@@ -5,6 +5,7 @@ local L
 ------------------------
 --  Conclave of Wind  --
 ------------------------
+--L = DBM:GetModLocalization(154)
 L = DBM:GetModLocalization("Conclave")
 
 L:SetGeneralLocalization({
@@ -41,6 +42,7 @@ L:SetMiscLocalization({
 ---------------
 --  Al'Akir  --
 ---------------
+--L = DBM:GetModLocalization(155)
 L = DBM:GetModLocalization("AlAkir")
 
 L:SetGeneralLocalization({
@@ -60,10 +62,11 @@ L:SetOptionLocalization({
 	LightningRodIcon= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(89668),
 	TimerFeedback	= "Отсчет времени действия $spell:87904",
 	WarnAdd			= "Предупреждать о призыве помощников",
-	TimerAddCD		= "Отсчет времени до новых помощников"	
+	TimerAddCD		= "Отсчет времени до новых помощников",
+	RangeFrame		= "Показывать окно проверки дистанции (20), когда на вас $spell:89668"
 })
 
 L:SetMiscLocalization({
-	summonSquall    ="Буря! Приди мне на помощь!", -- or this: Ветра! Повинуйтесь моей воле!
+	summonAdd	    ="Буря! Приди мне на помощь!", -- or this: Ветра! Повинуйтесь моей воле!
 	phase3          ="Довольно! Меня ничто не в силах сдерживать!"
 })

@@ -71,6 +71,15 @@ DBM_CORE_RANGECHECK_SOUND_2			= "짜증나는 소리(-_-;)"
 DBM_CORE_RANGECHECK_HIDE			= "숨기기"
 DBM_CORE_RANGECHECK_SETRANGE_TO		= "%d m"
 DBM_CORE_RANGECHECK_LOCK			= "프레임 잠금"
+DBM_CORE_RANGECHECK_OPTION_FRAMES	= "프레임 표시 방법"
+DBM_CORE_RANGECHECK_OPTION_RADAR	= "원형 레이더로 표시"
+DBM_CORE_RANGECHECK_OPTION_TEXT		= "글자로 표시"
+DBM_CORE_RANGECHECK_OPTION_BOTH		= "모두 표시"
+DBM_CORE_RANGECHECK_OPTION_SPEED	= "갱신 주기 (UI재시작 필요)"
+DBM_CORE_RANGECHECK_OPTION_SLOW		= "낮음 (CPU 소모량 낮음)"
+DBM_CORE_RANGECHECK_OPTION_AVERAGE	= "보통"
+DBM_CORE_RANGECHECK_OPTION_FAST		= "빠름 (실시간)"
+DBM_CORE_RANGERADAR_HEADER			= "거리 레이더 (%d 미터)"
 
 DBM_CORE_INFOFRAME_LOCK				= "프레임 잠금"
 DBM_CORE_INFOFRAME_HIDE				= "숨기기"
@@ -178,6 +187,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT			= "$spell:%d 대상 전술 목표 아이콘 설정"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "$spell:%d의 영향을 받을 경우 소리 재생"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "$spell:%d의 카운트 다운 소리 재생 (5,4,3,2,1)"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "$spell:%d의 영향을 받을 경우 외치기"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "나에게 %s!"
 
@@ -208,11 +218,13 @@ DBM_ERROR_NO_RAID					= "이 기능을 사용하기 위해서는 공격대에 �
 DBM_INSTANCE_INFO_REQUESTED			= "공격대원에게 공격대 귀속 정보를 요청합니다.\n모든 공격대원에게 별도의 수락 메세지가 갈 것이므로, 모두 응답하기 전까지 약간의 시간이 필요합니다."
 DBM_INSTANCE_INFO_STATUS_UPDATE		= "%d명의 플레이어가 응답했습니다. (총 %d명): %d명이 요청을 수락했으며, %d명은 요청을 거부했습니다. 응답을 %d초 동안 더 기다립니다..."
 DBM_INSTANCE_INFO_ALL_RESPONSES		= "모든 공격대원의 공격대 귀속 정보"
+DBM_INSTANCE_INFO_DETAIL_DEBUG		= "플레이어: %s, 응답정보: %s, 공격대명: %s, 공격대ID: %s, 난이도: %d, 인원: %d, 킬수: %s"
 DBM_INSTANCE_INFO_DETAIL_HEADER		= "%s (%d), 난이도 %d:"
 DBM_INSTANCE_INFO_DETAIL_INSTANCE	= "    ID %s, 킬수 %d: %s"
 DBM_INSTANCE_INFO_STATS_DENIED		= "요청거부: %s"
 DBM_INSTANCE_INFO_STATS_AWAY		= "자리비움: %s"
 DBM_INSTANCE_INFO_STATS_NO_RESPONSE	= "DBM 구버전 사용중: %s"
 DBM_INSTANCE_INFO_RESULTS			= "공격대 귀속 정보 확인 결과입니다. 만약 공격대원이 다른 언어의 WoW 클라이언트를 사용 중이라면 결과가 중복되어 보일 수도 있습니다."
+DBM_INSTANCE_INFO_SHOW_RESULTS		= "아직 응답하지 않은 플레이어 : %s\n|HDBM:showRaidIdResults|h|cff3588ff[지금 결과 보기]|r|h"
 
 end

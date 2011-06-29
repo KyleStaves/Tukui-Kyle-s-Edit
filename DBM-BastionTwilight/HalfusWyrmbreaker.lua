@@ -1,9 +1,14 @@
+--local mod	= DBM:NewMod(156, "DBM-BastionTwilight", nil, 72)
 local mod	= DBM:NewMod("HalfusWyrmbreaker", "DBM-BastionTwilight")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5557 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6017 $"):sub(12, -3))
 mod:SetCreatureID(44600)
+mod:SetModelID(34816)
 mod:SetZone()
+mod:SetModelSound("Sound\\Creature\\Chogall\\VO_BT_Chogall_BotEvent02.wav", "Sound\\Creature\\Halfus\\VO_BT_Halfus_Event07.wav")
+--Long: Halfus! Hear me! The master calls, the master wants! Protect our secrets, Halfus! Destroy the intruders! Murder for his glory, murder for his hunger!
+--Short: Dragons to my side!
 
 mod:RegisterCombat("combat")
 
@@ -23,6 +28,7 @@ local warnParalysis			= mod:NewSpellAnnounce(84030, 2)
 local warnMalevolentStrike	= mod:NewStackAnnounce(83908, 2, nil, mod:IsTank() or mod:IsHealer())
 
 local specWarnShadowNova	= mod:NewSpecialWarningInterrupt(83703, false)
+local specWarnMalevolent	= mod:NewSpecialWarningStack(83908, nil, 8)
 
 local timerFuriousRoar		= mod:NewCDTimer(30, 83710)
 local timerBreathCD			= mod:NewCDTimer(20, 83707)--every 20-25 seconds.
@@ -63,10 +69,13 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(87683) then
 		warnVengeance:Show()
 	elseif args:IsSpellID(83908, 86158, 86157, 86159) then
-		if args.amount % 4 == 0 or args.amount >= 10 then		-- warn every 4th stack and every stack if 10 or more (goes up to 12 @heroic and 15 @normal)
+		timerMalevolentStrike:Start(args.destName)
+		if args.amount % 4 == 0 or args.amount >= 10 then		-- warn every 4th stack and every stack if 10 or more
 			warnMalevolentStrike:Show(args.destName, args.amount)
 		end
-		timerMalevolentStrike:Start(args.destName)
+		if args:IsPlayer() and (args.amount or 1) >= 8 then
+			specWarnMalevolent:Show(args.amount)
+		end
 	end
 end
 

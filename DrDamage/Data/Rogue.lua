@@ -64,6 +64,7 @@ function DrDamage:PlayerData()
 		elseif spec == 2 then
 			if mastery > 0 and mastery ~= masteryLast then
 				if baseSpell.AutoAttack and calculation.offHand then
+					--Mastery: Main Gauche
 					--Each point of Mastery increases the chance by an additional 2.00%
 					calculation.extraWeaponDamageChance = mastery * 0.01 * 2
 					calculation.masteryLast = mastery
@@ -107,10 +108,12 @@ function DrDamage:PlayerData()
 		elseif spec == 2 then
 			--Vitality: Increased attack power by 25%
 			calculation.APM = calculation.APM * 1.25
-			--Increased off-hand damage
+			--Ambidexterity: Increased off-hand damage
 			calculation.offHdmgM = calculation.offHdmgM * 1.75
 			if calculation.group == "Ranged" then
+				--Increased throwing weapon damage
 				calculation.wDmgM = calculation.wDmgM * 1.75
+				calculation.dmgM = calculation.dmgM * 1.75
 			end
 			if calculation.mastery > 0 then
 				--Main gauche
@@ -145,34 +148,36 @@ function DrDamage:PlayerData()
 		if ActiveAuras["Blade Flurry"] then
 			if not calculation.aoe then
 				calculation.aoe = 2
+				calculation.NoExtraAoE = true
 			else
 				calculation.targets = calculation.targets * 2
 			end
 		end
 		local buff = self:GetWeaponBuff()
 		local buffO = self:GetWeaponBuff(true)
-		local hit
+		local hit, chance
 		if buff or buffO then
 			calculation.E_dmgM = (1 + (Talents["Vile Poisons"] or 0)) * calculation.dmgM_Magic --* select(7,UnitDamage("player")) / calculation.dmgM_Physical
 			calculation.E_canCrit = true
 			calculation.E_critPerc = GetSpellCritChance(4) + calculation.spellCrit
 			calculation.E_critM = 0.5 + self.Damage_critMBonus * 1.5
 			hit = 0.01 * math_max(0,math_min(100, self:GetSpellHit(calculation.playerLevel,calculation.targetLevel) + calculation.spellHit))
+			chance = Talents["Poison Chance"]
 		end
-		if not baseSpell.OffhandAttack and not baseSpell.NoPoison and buff then
+		if not baseSpell.OffhandAttack and (not baseSpell.NoPoison or chance) and buff then
 			--Instant Poison
 			if buff == instant then
 				local spd = self:GetWeaponSpeed()
 				calculation.extra = math_ceil(self:ScaleData(0.313,0.28,calculation.playerLevel,0))
 				calculation.extraDamage = 0.09
-				calculation.extraChance = 0.2/1.4 * spd * (1 + (calculation.impPoison and 0.5 or 0) + (ActiveAuras["Envenom"] and 0.75 or 0)) * hit
+				calculation.extraChance = 0.2/1.4 * spd * (1 + (calculation.impPoison and 0.5 or 0) + (ActiveAuras["Envenom"] and 0.75 or 0)) * hit * (chance or 1)
 				calculation.extraName = calculation.extraName and (calculation.extraName .. "+" .. ipicon) or ipicon
 			--Wound Poison
 			elseif buff == wound then
 				local spd = self:GetWeaponSpeed()
 				calculation.extra = math_ceil(self:ScaleData(0.245,0,calculation.playerLevel,0))
 				calculation.extraDamage = 0.04
-				calculation.extraChance = 0.5/1.4 * spd * hit
+				calculation.extraChance = 0.5/1.4 * spd * hit * (chance or 1)
 				calculation.extraName = calculation.extraName and (calculation.extraName .. "+" .. wpicon) or wpicon
 			--Deadly Poison
 			elseif baseSpell.AutoAttack and buff == deadly then
@@ -369,7 +374,7 @@ function DrDamage:PlayerData()
 	--Envenom (4.0)
 	self.PlayerAura[GetSpellInfo(32645)] = { ActiveAura = "Envenom", ID = 32645 }
 	--Blade Flurry (4.0)
-	self.PlayerAura[GetSpellInfo(13877)] = { ActiveAura = "Blade Flurry", ID = 13877, }
+	self.PlayerAura[GetSpellInfo(13877)] = { ActiveAura = "Blade Flurry", Not = "Fan of Knives", ID = 13877, }
 	--Slice and Dice (4.0)
 	self.PlayerAura[GetSpellInfo(5171)] = { ID = 5171, Mods = { ["haste"] = function(v) return v * 1.4 end } }
 	--Cold Blood (4.0)
@@ -510,7 +515,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(51723)] = {
 			["Name"] = "Fan of Knives",
 			["ID"] = 51723,
-			[0] = { School = { "Physical", "Ranged" }, WeaponDamage = 0.8, --[[DualAttack = true,--]] AoE = true, NoNormalization = true },
+			[0] = { School = { "Physical", "Ranged" }, WeaponDamage = 0.8, --[[DualAttack = true,--]] AoE = true, NoPoison = true, NoNormalization = true },
 			[1] = { 0 },
 		},
 		[GetSpellInfo(51690)] = {

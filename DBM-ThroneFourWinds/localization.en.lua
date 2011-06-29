@@ -3,6 +3,7 @@ local L
 ------------------------
 --  Conclave of Wind  --
 ------------------------
+--L = DBM:GetModLocalization(154)
 L = DBM:GetModLocalization("Conclave")
 
 L:SetGeneralLocalization({
@@ -39,6 +40,7 @@ L:SetMiscLocalization({
 ---------------
 --  Al'Akir  --
 ---------------
+--L = DBM:GetModLocalization(155)
 L = DBM:GetModLocalization("AlAkir")
 
 L:SetGeneralLocalization({
@@ -58,10 +60,11 @@ L:SetOptionLocalization({
 	LightningRodIcon= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(89668),
 	TimerFeedback	= "Show timer for $spell:87904 duration",
 	WarnAdd			= "Show warning when Stormling add spawns",
-	TimerAddCD		= "Show timer for new add"
+	TimerAddCD		= "Show timer for new add",
+	RangeFrame		= "Show range frame (20) when affected by $spell:89668"
 })
 
 L:SetMiscLocalization({
-	summonSquall	=	"Storms! I summon you to my side!",
-	phase3		=	"Enough! I will no longer be contained!"
+	summonAdd		=	"Storms! I summon you to my side!",
+	phase3			=	"Enough! I will no longer be contained!"
 })

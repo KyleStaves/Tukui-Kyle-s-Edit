@@ -1,10 +1,10 @@
 --[[
 Name: LibStatLogic-1.2
 Description: A Library for stat conversion, calculation and summarization.
-Revision: $Revision: 62 $
+Revision: $Revision: 65 $
 Author: Whitetooth
 Email: hotdogee [at] gmail [dot] com
-Last Update: $Date: 2011-04-25 16:23:13 +0000 (Mon, 25 Apr 2011) $
+Last Update: $Date: 2011-06-27 01:08:41 +0000 (Mon, 27 Jun 2011) $
 Website:
 Documentation:
 SVN: $URL $
@@ -28,7 +28,7 @@ Debug:
 ]]
 
 local MAJOR = "LibStatLogic-1.2"
-local MINOR = "$Revision: 62 $"
+local MINOR = "$Revision: 65 $"
 
 local StatLogic = LibStub:NewLibrary(MAJOR, MINOR)
 if not StatLogic then return end
@@ -5775,7 +5775,7 @@ if not tip then
   tip = CreateFrame("GameTooltip", MAJOR.."Tooltip", nil, "GameTooltipTemplate")
   StatLogic.tip = tip
   tip:SetOwner(UIParent, "ANCHOR_NONE")
-  for i = 1, 30 do
+  for i = 1, 40 do
     tip[i] = _G[MAJOR.."TooltipTextLeft"..i]
     if not tip[i] then
       tip[i] = tip:CreateFontString()
@@ -5783,8 +5783,8 @@ if not tip then
       _G[MAJOR.."TooltipTextLeft"..i] = tip[i]
     end
   end
-elseif not _G[MAJOR.."TooltipTextLeft30"] then
-  for i = 1, 30 do
+elseif not _G[MAJOR.."TooltipTextLeft40"] then
+  for i = 1, 40 do
     _G[MAJOR.."TooltipTextLeft"..i] = tip[i]
   end
 end
@@ -5794,7 +5794,7 @@ if not tipMiner then
   tipMiner = CreateFrame("GameTooltip", MAJOR.."MinerTooltip", nil, "GameTooltipTemplate")
   StatLogic.tipMiner = tipMiner
   tipMiner:SetOwner(UIParent, "ANCHOR_NONE")
-  for i = 1, 30 do
+  for i = 1, 40 do
     tipMiner[i] = _G[MAJOR.."MinerTooltipTextLeft"..i]
     if not tipMiner[i] then
       tipMiner[i] = tipMiner:CreateFontString()
@@ -5802,8 +5802,8 @@ if not tipMiner then
       _G[MAJOR.."MinerTooltipTextLeft"..i] = tipMiner[i]
     end
   end
-elseif not _G[MAJOR.."MinerTooltipTextLeft30"] then
-  for i = 1, 30 do
+elseif not _G[MAJOR.."MinerTooltipTextLeft40"] then
+  for i = 1, 40 do
     _G[MAJOR.."MinerTooltipTextLeft"..i] = tipMiner[i]
   end
 end
@@ -7493,12 +7493,21 @@ elseif playerClass == "DEATHKNIGHT" then
     },
     -- Tanks: Forceful Deflection - Passive
     -- 4.0.1: Increases your Parry Rating by 25% of your total Strength.
+    -- 4.2.0: Increases your Parry Rating by 27% of your total Strength.
     ["ADD_PARRY_RATING_MOD_STR"] = {
       {
         ["spellid"] = 49410,
         ["rank"] = {
           0.25,
         },
+        ["old"] = 14333, -- 4.2.0
+      },
+      {
+        ["spellid"] = 49410,
+        ["rank"] = {
+          0.27,
+        },
+        ["new"] = 14333, -- 4.2.0
       },
     },
     -- Death Knight: Bladed Armor - Rank 3/3 - 1,3
@@ -7805,6 +7814,7 @@ elseif playerClass == "DEATHKNIGHT" then
     -- Death Knight: Unholy Might - Passive: 91107
     -- 4.0.1: Dark power courses through your limbs, increasing your Strength by 15%.
     -- 4.0.6: Dark power courses through your limbs, increasing your Strength by 5%.
+    -- 4.2.0: Dark power courses through your limbs, increasing your Strength by 20%.
     -- Death Knight: Abomination's Might - 1,11
     -- 4.0.1: Also increases your total Strength by 1%/2%.
     -- Death Knight: Pillar of Frost - Buff: 51271
@@ -7833,6 +7843,14 @@ elseif playerClass == "DEATHKNIGHT" then
           0.05,
         },
         ["known"] = 91107, -- ["Unholy Might"]
+        ["old"] = 14333, -- 4.2.0
+      },
+      {-- Unholy Might
+        ["rank"] = {
+          0.2,
+        },
+        ["known"] = 91107, -- ["Unholy Might"]
+        ["new"] = 14333, -- 4.2.0
       },
       {-- Abomination's Might
         ["tab"] = 1,
@@ -8116,12 +8134,21 @@ elseif playerClass == "PALADIN" then
     },
     -- Tanks: Forceful Deflection - Passive
     -- 4.0.1: Increases your Parry Rating by 25% of your total Strength. (No spell, talent, ability or buff. Tanks just get it)
+    -- 4.2.0: Increases your Parry Rating by 27% of your total Strength.
     ["ADD_PARRY_RATING_MOD_STR"] = {
-      {-- Forceful Deflection
+      {
         ["spellid"] = 49410,
         ["rank"] = {
           0.25,
         },
+        ["old"] = 14333, -- 4.2.0
+      },
+      {
+        ["spellid"] = 49410,
+        ["rank"] = {
+          0.27,
+        },
+        ["new"] = 14333, -- 4.2.0
       },
     },
     -- Paladin: Sheath of Light - Passive: 53503
@@ -8414,9 +8441,11 @@ elseif playerClass == "ROGUE" then
   StatModTable["ROGUE"] = {
     -- Rogue: Savage Combat - Rank 2/2 - 2,16
     -- 4.0.1: Increases your total attack power by 2/4%.
+    -- 4.2.0: Increases your total attack power by 3/6%.
     -- Rogue: Vitality - Passive: 61329
     -- 4.0.1: Increases your Attack Power by 15%.
     -- 4.0.1: Increases your Attack Power by 25%.
+    -- 4.2.0: Increases your Attack Power by 30%.
     ["MOD_AP"] = {
       {-- Savage Combat
         ["tab"] = 2,
@@ -8424,12 +8453,29 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           0.02, 0.04,
         },
+        ["old"] = 14333, -- 4.2.0
+      },
+      {-- Savage Combat
+        ["tab"] = 2,
+        ["num"] = 16,
+        ["rank"] = {
+          0.03, 0.06,
+        },
+        ["new"] = 14333, -- 4.2.0
       },
       {-- Vitality
         ["rank"] = {
           0.25,
         },
         ["known"] = 61329,
+        ["old"] = 14333, -- 4.2.0
+      },
+      {-- Vitality
+        ["rank"] = {
+          0.3,
+        },
+        ["known"] = 61329,
+        ["new"] = 14333, -- 4.2.0
       },
     },
     -- Rogue: Reinforced Leather - Rank 2/2 - 2,10
@@ -8851,12 +8897,21 @@ elseif playerClass == "WARRIOR" then
   StatModTable["WARRIOR"] = {
     -- Tanks: Forceful Deflection - Passive
     --        Increases your Parry Rating by 25% of your total Strength.
+    -- 4.2.0: Increases your Parry Rating by 27% of your total Strength.
     ["ADD_PARRY_RATING_MOD_STR"] = {
       {
         ["spellid"] = 49410,
         ["rank"] = {
           0.25,
         },
+        ["old"] = 14333, -- 4.2.0
+      },
+      {
+        ["spellid"] = 49410,
+        ["rank"] = {
+          0.27,
+        },
+        ["new"] = 14333, -- 4.2.0
       },
     },
     -- Warrior: Bastion of Defense - Rank 2/2 - 3,10 - Stance: "Interface\\Icons\\Ability_Warrior_DefensiveStance"
@@ -9816,13 +9871,15 @@ Notes:
 Arguments:
   string - The type of stat mod you want to get
   [optional] string - Certain stat mods require an extra school argument
+  [optional] string - Target spec to check
+  [optional] string - modTable to check, "CLASS", "ALL", "BOTH"(default)
 Returns:
   None
 Example:
   StatLogic:GetStatMod("MOD_INT")
 -----------------------------------]]
 local buffGroup = {}
-function StatLogic:GetStatMod(stat, school, talentGroup)
+function StatLogic:GetStatMod(stat, school, talentGroup, modTable)
   local statModInfo = StatModInfo[stat]
   
 	--Check that it wasn't an invalid stat
@@ -9841,9 +9898,11 @@ function StatLogic:GetStatMod(stat, school, talentGroup)
 	-- disable for 4.0.1 until we get talent/buffs data implemented
 	--if toc >= 40000 then return mod + statModInfo.finalAdjust end
 	wipe(buffGroup)
+  
+  if not modTable then modTable = "BOTH" end
 	
 	-- Class specific mods
-	if type(StatModTable[playerClass][stat]) == "table" then
+	if type(StatModTable[playerClass][stat]) == "table" and modTable ~= "ALL" then
 	
 		for _, case in ipairs(StatModTable[playerClass][stat]) do
 		
@@ -9913,7 +9972,7 @@ function StatLogic:GetStatMod(stat, school, talentGroup)
 	end
 	
 	-- Non class specific mods
-	if type(StatModTable["ALL"][stat]) == "table" then
+	if type(StatModTable["ALL"][stat]) == "table" and modTable ~= "CLASS"  then
 		for _, case in ipairs(StatModTable["ALL"][stat]) do
 			local ok = true
 			if school and not case[school] then ok = nil end
@@ -10765,6 +10824,21 @@ local APPerStr = {
   --["WARLOCK"] = 2,
   --["DRUID"] = 2,
 }
+if wowBuildNo >= 14333 then -- 4.2.0
+APPerStr = {
+  2, 2, 1, 1, 2, 2, 1, 2, 2, 1,
+  --["WARRIOR"] = 2,
+  --["PALADIN"] = 2,
+  --["HUNTER"] = 1,
+  --["ROGUE"] = 1,
+  --["PRIEST"] = 2,
+  --["DEATHKNIGHT"] = 2,
+  --["SHAMAN"] = 1,
+  --["MAGE"] = 2,
+  --["WARLOCK"] = 2,
+  --["DRUID"] = 1,
+}
+end
 
 function StatLogic:GetAPPerStr(class)
   -- argCheck for invalid input
@@ -11006,6 +11080,21 @@ BaseDodge = {
   --["WARLOCK"] =     2.0350,
   --["DRUID"] =       4.9510,
 }
+if wowBuildNo >= 14333 then -- 4.2.0
+BaseDodge = {
+  5, 5, -5.4499989748001, -0.590, 3.1830, 5, 1.6750, 3.4575, 2.0350, 4.9510,
+  --["WARRIOR"] =     5,
+  --["PALADIN"] =     5,
+  --["HUNTER"] =      -5.450,
+  --["ROGUE"] =       -0.590,
+  --["PRIEST"] =      3.1830,
+  --["DEATHKNIGHT"] = 5,
+  --["SHAMAN"] =      1.6750,
+  --["MAGE"] =        3.4575,
+  --["WARLOCK"] =     2.0350,
+  --["DRUID"] =       4.9510,
+}
+end
 
 function StatLogic:GetBaseDodge(class)
   -- argCheck for invalid input
@@ -11075,18 +11164,44 @@ DodgePerAgiStatic = {
   --["WARLOCK"] =     0.0192366,
   --["DRUID"] =       0.0240458,
 }
+local ZeroDodgePerAgiClasses = {}
+
+if wowBuildNo >= 14333 then
+DodgePerAgiStatic = {
+  0, 0, 0.0133266, 0.0240537, 0.0192366, 0, 0.0192366, 0.0195253, 0.0192366, 0.0240458,
+  --["WARRIOR"] =     0,
+  --["PALADIN"] =     0,
+  --["HUNTER"] =      0.0133266,
+  --["ROGUE"] =       0.0240537,
+  --["PRIEST"] =      0.0192366,
+  --["DEATHKNIGHT"] = 0,
+  --["SHAMAN"] =      0.0192366,
+  --["MAGE"] =        0.0195253,
+  --["WARLOCK"] =     0.0192366,
+  --["DRUID"] =       0.0240458,
+}
+ZeroDodgePerAgiClasses = {
+  ["WARRIOR"] = true,
+  ["PALADIN"] = true,
+  ["DEATHKNIGHT"] = true,
+}
+end
 
 local ModAgiClasses = {
   ["DRUID"] = true,
   ["HUNTER"] = true,
   ["ROGUE"] = true,
+  ["SHAMAN"] = true,
 }
 local BoK = GetSpellInfo(20217)
 function StatLogic:GetDodgePerAgi()
   local level = UnitLevel("player")
   local class = ClassNameToID[playerClass]
   if level == 80 and DodgePerAgiStatic[class] then
-    --return DodgePerAgiStatic[class], "DODGE"
+    return DodgePerAgiStatic[class], "DODGE"
+  end
+  if ZeroDodgePerAgiClasses[playerClass] then
+    return 0, "DODGE"
   end
   -- Collect data
   local D_dr = GetDodgeChance()
@@ -11100,10 +11215,7 @@ function StatLogic:GetDodgePerAgi()
   -- But Kings added AGi will add to posBuff, so we need to check for Kings
   local modAgi = 1
   if ModAgiClasses[playerClass] then
-    modAgi = self:GetStatMod("MOD_AGI")
-    if PlayerHasAura(BoK) then
-      modAgi = modAgi - 0.1
-    end
+    modAgi = self:GetStatMod("MOD_AGI", nil, nil, "CLASS")
   end
   local A = effectiveStat
   local A_b = ceil((stat - posBuff - negBuff) / modAgi)

@@ -1,10 +1,15 @@
+--local mod	= DBM:NewMod(157, "DBM-BastionTwilight", nil, 72)
 local mod	= DBM:NewMod("ValionaTheralion", "DBM-BastionTwilight")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5614 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6022 $"):sub(12, -3))
 mod:SetCreatureID(45992, 45993)
+mod:SetModelID(34812)
 mod:SetZone()
 mod:SetUsedIcons(6, 7, 8)
+mod:SetModelSound("Sound\\Creature\\Chogall\\VO_BT_Chogall_BotEvent10.wav", "Sound\\Creature\\Valiona\\VO_BT_Valiona_Event06.wav")
+--Long: Valiona, Theralion put them in their place!
+--Short: Enter twilight!
 
 mod:RegisterCombat("combat")
 
@@ -18,7 +23,7 @@ mod:RegisterEvents(
 	"SPELL_MISSED",
 	"SPELL_HEAL",
 	"SPELL_PERIODIC_HEAL",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"RAID_BOSS_EMOTE",
 	"UNIT_AURA"
 )
 
@@ -328,7 +333,7 @@ end
 
 mod.SPELL_MISSED = mod.SPELL_DAMAGE--Absorbs still show as spell missed, such as PWS, but with this you'll still get a special warning to GTFO, instead of dbm waiting til your shield breaks and you take a second tick :)
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.Trigger1 or msg:find(L.Trigger1) then
 		breathCast = breathCast + 1
 		warnDeepBreath:Show(breathCast)

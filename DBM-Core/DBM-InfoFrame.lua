@@ -63,6 +63,7 @@ local headerText = "DBM Info Frame"	-- this is only used if DBM.InfoFrame:SetHea
 local currentEvent
 local sortingAsc
 local lines = {}
+local icons = {}
 local sortedLines = {}
 
 ---------------------
@@ -176,15 +177,59 @@ local function updateLines()
 	end
 end
 
+local function updateIcons()
+	table.wipe(icons)
+	if GetNumRaidMembers() > 0 then
+		for i=1, GetNumRaidMembers() do
+			local uId = "raid"..i
+			local icon = GetRaidTargetIndex(uId)
+			if icon then
+				icons[UnitName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
+			end
+		end
+	elseif GetNumPartyMembers() > 0 then
+		for i=1, GetNumPartyMembers() do
+			local uId = "party"..i
+			local icon = GetRaidTargetIndex(uId)
+			if icon then
+				icons[UnitName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
+			end
+		end
+		local icon = GetRaidTargetIndex("player")
+		if icon then
+			icons[UnitName("player")] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
+		end
+	end
+end
+		
+
+--Icons are violently unstable in this method do to the health sorting code, it will creating about 200 errors per second.
 local function updateHealth()
 	table.wipe(lines)
-	for i = 1, GetNumRaidMembers() do
-		if UnitHealth("raid"..i) < infoFrameThreshold and not UnitIsDeadOrGhost("raid"..i) then
-			lines[UnitName("raid"..i)] = UnitHealth("raid"..i) - infoFrameThreshold 
+	if GetNumRaidMembers() > 0 then
+		for i = 1, GetNumRaidMembers() do
+			local uId = "raid"..i
+			local icon = GetRaidTargetIndex(uId)
+			if UnitHealth(uId) < infoFrameThreshold and not UnitIsDeadOrGhost(uId) then
+				lines[UnitName(uId)] = UnitHealth(uId) - infoFrameThreshold
+			end
+		end
+	elseif GetNumPartyMembers() > 0 then
+		for i = 1, GetNumPartyMembers() do
+			local uId = "party"..i
+			if UnitHealth(uId) < infoFrameThreshold and not UnitIsDeadOrGhost(uId) then
+				lines[UnitName(uId)] = UnitHealth(uId) - infoFrameThreshold
+			end
+		end
+		if UnitHealth("player") < infoFrameThreshold and not UnitIsDeadOrGhost("player") then
+			lines[UnitName("player")] = UnitHealth("player") - infoFrameThreshold
 		end
 	end
 	updateLines()
+	updateIcons()
 end
+
+
 
 local function updatePlayerPower()
 	table.wipe(lines)
@@ -197,6 +242,7 @@ local function updatePlayerPower()
 		lines[UnitName("player")] = UnitPower("player", pIndex)
 	end
 	updateLines()
+	updateIcons()
 end
 
 local function updateEnemyPower()
@@ -207,6 +253,76 @@ local function updateEnemyPower()
 		end
 	end
 	updateLines()
+end
+
+local function updatePlayerBuffs()
+	table.wipe(lines)
+	if GetNumRaidMembers() > 0 then
+		for i = 1, GetNumRaidMembers() do
+			local uId = "raid"..i
+			if not UnitBuff(uId, GetSpellInfo(infoFrameThreshold)) and not UnitIsDeadOrGhost(uId) then
+				lines[UnitName(uId)] = ""
+			end
+		end
+	elseif GetNumPartyMembers() > 0 then
+		for i = 1, GetNumPartyMembers() do
+			local uId = "party"..i
+			if not UnitBuff(uId, GetSpellInfo(infoFrameThreshold)) and not UnitIsDeadOrGhost(uId) then
+				lines[UnitName(uId)] = ""
+			end
+		end
+		if not UnitBuff("player", GetSpellInfo(infoFrameThreshold)) and not UnitIsDeadOrGhost("player") then
+			lines[UnitName("player")] = ""
+		end
+	end
+	updateLines()
+	updateIcons()
+end
+
+local function updatePlayerDebuffs()
+	table.wipe(lines)
+	if GetNumRaidMembers() > 0 then
+		for i = 1, GetNumRaidMembers() do
+			local uId = "raid"..i
+			if not UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) and not UnitIsDeadOrGhost(uId) then
+				lines[UnitName(uId)] = ""
+			end
+		end
+	elseif GetNumPartyMembers() > 0 then
+		for i = 1, GetNumPartyMembers() do
+			local uId = "party"..i
+			if not UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) and not UnitIsDeadOrGhost(uId) then
+				local icon = GetRaidTargetIndex(uId)
+				lines[UnitName(uId)] = ""
+			end
+		end
+		if not UnitDebuff("player", GetSpellInfo(infoFrameThreshold)) and not UnitIsDeadOrGhost("player") then--"party"..i excludes player but "raid"..i includes player wtf?
+			lines[UnitName("player")] = ""
+		end
+	end
+	updateLines()
+	updateIcons()
+end
+
+local function updatePlayerAggro()
+	table.wipe(lines)
+	if GetNumRaidMembers() > 0 then
+		for i = 1, GetNumRaidMembers() do
+			local uId = "raid"..i
+			if UnitThreatSituation(uId) == infoFrameThreshold then
+				lines[UnitName(uId)] = ""
+			end
+		end
+	elseif GetNumPartyMembers() > 0 then
+		for i = 1, GetNumPartyMembers() do
+			local uId = "party"..i
+			if UnitThreatSituation(uId) == infoFrameThreshold then
+				lines[UnitName(uId)] = ""
+			end
+		end
+	end
+	updateLines()
+	updateIcons()
 end
 
 ----------------
@@ -225,17 +341,28 @@ function onUpdate(self, elapsed)
 		updatePlayerPower()
 	elseif currentEvent == "enemypower" then
 		updateEnemyPower()
+	elseif currentEvent == "playerbuff" then
+		updatePlayerBuffs()
+	elseif currentEvent == "playerdebuff" then
+		updatePlayerDebuffs()
+	elseif currentEvent == "playeraggro" then
+		updatePlayerAggro()
 	end
+--	updateIcons()
 	for i = 1, #sortedLines do
 		if self:NumLines() > maxlines or not addedSelf and DBM.Options.InfoFrameShowSelf and self:NumLines() > maxlines-1 then break end
 		local name = sortedLines[i]
 		local power = lines[name]
-		self:AddDoubleLine(name, power, color.R, color.G, color.B, 255, 255, 255)	-- (leftText, rightText, left.R, left.G, left.B, right.R, right.G, right.B)
-		if name == UnitName("player") then 						-- Add a method to color the power value?
+		local icon = icons[name]
+		if name == UnitName("player") then
 			addedSelf = true
 		end
-	end
-	if not addedSelf and DBM.Options.InfoFrameShowSelf then
+		if icon then
+			name = icons[name]..name
+		end
+		self:AddDoubleLine(name, power, color.R, color.G, color.B, 255, 255, 255)	-- (leftText, rightText, left.R, left.G, left.B, right.R, right.G, right.B)
+	end					 						-- Add a method to color the power value?
+	if not addedSelf and DBM.Options.InfoFrameShowSelf and currentEvent == "playerpower" then 	-- Don't show self on health/enemypower/playerdebuff
 		self:AddDoubleLine(UnitName("player"), lines[UnitName("player")], color.R, color.G, color.B, 255, 255, 255)
 	end
 	self:Show()
@@ -263,6 +390,12 @@ function infoFrame:Show(maxLines, event, threshold, ...)
 		updatePlayerPower()
 	elseif event == "enemypower" then
 		updateEnemyPower()
+	elseif event == "playerbuff" then
+		updatePlayerBuffs()
+	elseif event == "playerdebuff" then
+		updatePlayerDebuffs()
+	elseif currentEvent == "playeraggro" then
+		updatePlayerAggro()
 	else
 		print("DBM-InfoFrame: Unsupported event given")
 	end

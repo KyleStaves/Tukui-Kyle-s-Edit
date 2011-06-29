@@ -4,6 +4,7 @@ local L
 ------------------------
 --  Conclave of Wind  --
 ------------------------
+--L = DBM:GetModLocalization(154)
 L = DBM:GetModLocalization("Conclave")
 
 L:SetGeneralLocalization({
@@ -40,6 +41,7 @@ L:SetMiscLocalization({
 ---------------
 --  Al'Akir  --
 ---------------
+--L = DBM:GetModLocalization(155)
 L = DBM:GetModLocalization("AlAkir")
 
 L:SetGeneralLocalization({
@@ -60,10 +62,11 @@ L:SetOptionLocalization({
 	LightningRodIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(89668),
 	TimerFeedback		= "$spell:87904 유지 타이머 보기",
 	WarnAdd				= "폭풍 정령이 생성 될 때 경고 보기",
-	TimerAddCD			= "다음 폭풍 정령 생성 타이머 보기"
+	TimerAddCD			= "다음 폭풍 정령 생성 타이머 보기",
+	RangeFrame			= "$spell:89668의 영향을 받을 경우 거리 프레임 보기(20 m)"
 })
 
 L:SetMiscLocalization({
-	summonSquall		= "폭풍이여! 너를 소환하노라!",
+	summonAdd			= "폭풍이여! 너를 소환하노라!",
 	phase3				= "그만! 더는 자제하지 않겠다!" -- check "Enough! I will no longer be contained!"
 })

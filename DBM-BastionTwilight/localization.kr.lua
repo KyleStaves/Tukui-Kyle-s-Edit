@@ -4,6 +4,7 @@ local L
 --------------------------
 --  Halfus Wyrmbreaker  --
 --------------------------
+--L= DBM:GetModLocalization(156)
 L = DBM:GetModLocalization("HalfusWyrmbreaker")
 
 L:SetGeneralLocalization({
@@ -26,6 +27,7 @@ L:SetMiscLocalization({
 ---------------------------
 --  Valiona & Theralion  --
 ---------------------------
+--L= DBM:GetModLocalization(157)
 L = DBM:GetModLocalization("ValionaTheralion")
 
 L:SetGeneralLocalization({
@@ -55,6 +57,7 @@ L:SetMiscLocalization{
 ----------------------------------
 --  Twilight Ascendant Council  --
 ----------------------------------
+--L= DBM:GetModLocalization(158)
 L = DBM:GetModLocalization("AscendantCouncil")
 
 L:SetGeneralLocalization({
@@ -63,8 +66,8 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specWarnBossLow			= "%s 체력 30%% 이하 - 곧 다음 단계!",
-	SpecWarnGrounded		= "접지 버프 받기!!",
-	SpecWarnSearingWinds	= "소용돌이 치는 바람 버프 받기!!"
+	SpecWarnGrounded		= "접지 받으세요!",
+	SpecWarnSearingWinds	= "소용돌이 치는 바람 받으세요!"
 })
 
 L:SetTimerLocalization({
@@ -73,10 +76,12 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	specWarnBossLow			= "보스의 체력이 30% 이하로 내려갈 경우 특수 경고 보기",
-	SpecWarnGrounded		= "$spell:83581 버프가 없을 경우, 특수 경고 보기(~10초 전)",
-	SpecWarnSearingWinds	= "$spell:83500 버프가 없을 경우, 특수 경고 보기(~10초 전)",
+	SpecWarnGrounded		= "$spell:83581 디버프가 없을 경우, 특수 경고 보기(~10초 전)",
+	SpecWarnSearingWinds	= "$spell:83500 디버프가 없을 경우, 특수 경고 보기(~10초 전)",
 	timerTransition			= "전환 단계 타이머 보기",
 	RangeFrame				= "거리 프레임이 필요하게 될 경우 자동으로 보기",
+	yellScrewed				= "$spell:83099와 $spell:92307의 영향을 동시에 받을경우 외치기",
+	InfoFrame				= "$spell:83581 또는 $spell:83500 디버프 없음에 대한 정보 프레임 보기",
 	HeartIceIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(82665),
 	BurningBloodIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(82660),
 	LightningRodIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(83099),
@@ -96,12 +101,15 @@ L:SetMiscLocalization({
 	Arion			= "아리온",
 	Terrastra		= "테라스트라",
 	Monstrosity		= "엘레멘티움 괴물",
-	Kill			= "이럴 수가..."
+	Kill			= "이럴 수가...",
+	blizzHatesMe	= "봉화랑 벼락 막대 같이 걸렸어요! 비켜주세요!",
+	WrongDebuff		= "%s 없음"
 })
 
 ----------------
 --  Cho'gall  --
 ----------------
+--L= DBM:GetModLocalization(167)
 L = DBM:GetModLocalization("Chogall")
 
 L:SetGeneralLocalization({
@@ -129,6 +137,7 @@ L:SetMiscLocalization({
 ----------------
 --  Sinestra  --
 ----------------
+--L= DBM:GetModLocalization(168)
 L = DBM:GetModLocalization("Sinestra")
 
 L:SetGeneralLocalization({
@@ -136,53 +145,52 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnDragon			= "새끼용 등장",
-	WarnOrbsSoon		= "%d초 후 구슬!",
+	WarnDragon			= "새끼용 추가",
+	WarnOrbSoon			= "%d초 후 구슬!",
 	WarnEggWeaken		= "황혼 껍질 사라짐",
 	SpecWarnOrbs		= "곧 구슬! 조심하세요!",
 	warnWrackJump		= "%s 전이 : >%s<",
-	WarnWrackCount5s	= "마지막 파멸 후 %d초 지남",
-	warnAggro			= "위협 수준 획득(구슬 예상 대상) : %s",
+	warnAggro			= "위협 수준 획득(구슬 예상 대상) : >%s<",
 	SpecWarnAggroOnYou	= "위협 수준 획득함! 구슬 조심하세요!",
-	SpecWarnDispel		= "마지막 파멸 후 %d초 지남 - 지금 해제!",
 	SpecWarnEggWeaken	= "황혼 껍질 사라짐 - 알 극딜!",
 	SpecWarnEggShield	= "황혼 껍질 재생성!"
 })
 
 L:SetTimerLocalization({
-	TimerDragon        	= "다음 새끼용 등장",
+	TimerDragon        	= "다음 새끼용 추가",
 	TimerEggWeakening 	= "황혼 껍질 제거",
 	TimerEggWeaken		= "황혼 껍질 재생성",
 	TimerOrbs			= "다음 구슬"
 })	
 
 L:SetOptionLocalization({
-	WarnDragon       	= "새끼용 등장 경고 보기",
-	WarnOrbsSoon		= "구슬 등장 사전 경고 보기 (5초 전부터, 1초 마다)\n(예상 경보이며, 정확하지 않을 수 있습니다.)",
+	WarnDragon       	= "새끼용 추가 경고 보기",
+	WarnOrbSoon			= "구슬 카운트 다운 경고 보기 (5초 전부터, 1초 마다)\n(예상 경보이며, 정확하지 않을 수 있습니다.)",
 	WarnEggWeaken    	= "$spell:87654 제거 사전 경고 보기",
 	warnWrackJump		= "$spell:92955 전이 경고 보기",
-	WarnWrackCount5s	= "$spell:92955이 시전/전이 된 후 10, 15, 20 초가 지나면 경고 보기",
-	warnAggro			= "구슬 등장시 위협 수준이 있는 대상 알리기 (구슬 예상 대상)",
-	SpecWarnAggroOnYou	= "구슬 등장시 위협 수준을 획득한 경우 특수 경고 보기\n(구슬 대상이 될 수 있습니다.)",
-	SpecWarnOrbs		= "구슬 등장시 특수 경고 보기 (예상 경보이며, 정확하지 않을 수 있습니다.)",
-	SpecWarnDispel		= "$spell:92955이 시전/전이 된 후 일정 시간이 지나면 특수 경고 보기(해제)",
+	warnAggro			= "구슬 생성시 위협 수준이 있는 대상 알리기 (구슬 예상 대상)",
+	SpecWarnAggroOnYou	= "구슬 생성시 당신이 위협 수준을 획득한 경우 특수 경고 보기\n(구슬 대상일 가능성이 높습니다.)",
+	SpecWarnOrbs		= "구슬 특수 경고 보기 (예상 경보이며, 정확하지 않을 수 있습니다.)",
 	SpecWarnEggWeaken	= "$spell:87654 사라짐 특수 경고 보기",
 	SpecWarnEggShield	= "$spell:87654의 재생성 특수 경고 보기",
 	TimerDragon        	= "다음 새끼용 등장 타이머 보기",
 	TimerEggWeakening  	= "$spell:87654 사라짐 타이머 보기",
 	TimerEggWeaken		= "$spell:87654 재생성 타이머 보기",
 	TimerOrbs			= "다음 구슬 타이머 보기 (예상 시간이며, 정확하지 않을 수 있습니다.)",
-	SetIconOnOrbs		= "구슬 등장시 위협 수준이 있는 대상에게 전술 목표 아이콘 설정하기\n(구슬 대상이 될 수 있습니다.)"
+	SetIconOnOrbs		= "구슬 생성시 위협 수준이 있는 대상에게 전술 목표 아이콘 설정하기\n(구슬 대상일 가능성이 높습니다.)",
+	OrbsCountdown		= "구슬 카운트 다운 소리 재생",
+	InfoFrame			= "위협 수준 획득 대상 정보 프레임 보기 (구슬 대상자 후보)"
 })
 
 L:SetMiscLocalization({
 	YellDragon		= "얘들아, 먹어치워라",
-	YellEgg			= "이게 약해지는 걸로 보이느냐? 멍청한 놈!"
+	YellEgg			= "이게 약해지는 걸로 보이느냐? 멍청한 놈!",
+	HasAggro		= "위협 수준 있음"
 })
 
---------------------------
+-------------------------------------
 --  The Bastion of Twilight Trash  --
---------------------------
+-------------------------------------
 L = DBM:GetModLocalization("BoTrash")
 
 L:SetGeneralLocalization({

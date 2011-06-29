@@ -1,6 +1,6 @@
 --[[
 Name: RatingBuster ruRU locale
-Revision: $Revision: 339 $
+Revision: $Revision: 343 $
 Translated by:
 - Orsana \ StingerSoft \ Swix
 ]]
@@ -600,7 +600,7 @@ L["numberPatterns"] = {
 	{pattern = " на (%d+)", addInfo = "AfterNumber", space = " ", },
 	{pattern = "([%+%-]%d+)", addInfo = "AfterNumber", space = " ", },
 	{pattern = " увеличена на (%d+)", addInfo = "AfterNumber", space = " ", },
-	{pattern = "(%d+) к ", addInfo = "AfterNumber"}, -- тест
+	{pattern = "(%d+) к ", addInfo = "AfterNumber", space = " ", }, -- тест
 	{pattern = "увеличение (%d+)", addInfo = "AfterNumber", space = " ", }, -- for "grant you xx stat" type pattern, ex: Quel'Serrar, Assassination Armor set
 	{pattern = "дополнительно (%d+)", addInfo = "AfterNumber", space = " ", }, -- for "add xx stat" type pattern, ex: Adamantite Sharpening Stone
 	-- Added [^%%] so that it doesn't match strings like "Increases healing by up to 10% of your total Intellect." [Whitemend Pants] ID: 24261

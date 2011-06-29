@@ -1,0 +1,37 @@
+------------------------------------------------------------------------
+r1637 | gagorian | 2011-06-10 10:56:17 +0000 (Fri, 10 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Warlock.lua
+
+- Hand of Gul'dan fix
+------------------------------------------------------------------------
+r1636 | gagorian | 2011-05-24 18:26:24 +0000 (Tue, 24 May 2011) | 1 line
+Changed paths:
+   M /trunk/Data/DeathKnight.lua
+   M /trunk/Data/Shaman.lua
+   M /trunk/Data/Warlock.lua
+
+- Applied changes from May 19 hotfixes: Obliterate, Howling Blast and Drain Life damage reduced. Healing Surge has also been nerfed.
+------------------------------------------------------------------------
+r1634 | gagorian | 2011-05-13 22:32:55 +0000 (Fri, 13 May 2011) | 4 lines
+Changed paths:
+   M /trunk/Data/Rogue.lua
+   M /trunk/Melee.lua
+
+- Blade Flurry no longer doubles Fan of Knives effect
+- Blade Flurry hits no longer have a chance to add poison
+- Rogue passive Ambidexterity should correctly increase Fan of Knives and Deadly Throw damage
+
+------------------------------------------------------------------------
+r1633 | gagorian | 2011-05-10 02:32:59 +0000 (Tue, 10 May 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Druid.lua
+
+- Fixed error in Druid module line 223
+------------------------------------------------------------------------
+r1632 | gagorian | 2011-05-09 01:51:34 +0000 (Mon, 09 May 2011) | 1 line
+Changed paths:
+   M /trunk/Aura.lua
+
+- Fixed error in Aura module line 189
+------------------------------------------------------------------------

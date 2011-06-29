@@ -1,12 +1,18 @@
-local mod	= DBM:NewMod("Nefarian-BD", "DBM-BlackwingDescent")
+--local mod	= DBM:NewMod(174, "DBM-BlackwingDescent", nil, 73)
+local mod	= DBM:NewMod("Nefarian", "DBM-BlackwingDescent")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5655 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6022 $"):sub(12, -3))
 mod:SetCreatureID(41376, 41270)
+mod:SetModelID(32716)
 mod:SetZone()
+mod:SetModelSound("Sound\\Creature\\Nefarian\\VO_BD_Nefarian_Event09.wav", "Sound\\Creature\\Nefarian\\VO_BD_Nefarian_Event13.wav")
+--"Ha ha ha ha ha! The heroes have made it to the glorious finale. I take it you are in good spirits? Prepared for the final battle? Then gaze now upon my ultimate creation! RISE, SISTER!" = "Nefarian\\VO_BD_Nefarian_Event01",
+--Long: I have tried to be an accommodating host, but you simply will not die! Time to throw all pretense aside and just... KILL YOU ALL!.
+--Short: You really have to want it!
 
 mod:SetBossHealthInfo(
-	41376, L.Nefarian,		-- L.name = "Nefarian"
+	41376, L.Nefarian,
 	41270, L.Onyxia
 )
 
@@ -21,7 +27,7 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"SWING_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"RAID_BOSS_EMOTE",
 	"UNIT_DIED"
 )
 
@@ -30,41 +36,44 @@ local warnNefTailSwipe			= mod:NewAnnounce("NefTailSwipe", 3, 77827, false)--but
 local warnOnyShadowflameBreath	= mod:NewAnnounce("OnyBreath", 3, 94124, mod:IsTank())
 local warnNefShadowflameBreath	= mod:NewAnnounce("NefBreath", 3, 94124, mod:IsTank())
 local warnBlastNova				= mod:NewSpellAnnounce(80734, 3, nil, false)--Can be spammy so now off by default.
-local warnShadowBlaze			= mod:NewSpellAnnounce(94085, 4)--May be quirky
 local warnCinder				= mod:NewTargetAnnounce(79339, 4)
 local warnPhase2				= mod:NewPhaseAnnounce(2)
 local warnPhase3				= mod:NewPhaseAnnounce(3)
 local warnDominion				= mod:NewTargetAnnounce(79318, 3)
+local warnShadowBlaze			= mod:NewSpellAnnounce(81031, 4)--May be quirky
+local warnShadowblazeSoon		= mod:NewAnnounce("warnShadowblazeSoon", 2, 81031, mod:IsTank(), nil, true)--Back to on by default for tanks until option isn't tied to sound.
 
 local specWarnElectrocute		= mod:NewSpecialWarningSpell(81198, nil, nil, nil, true)
-local specWarnShadowblaze		= mod:NewSpecialWarningMove(94085)
-local specWarnShadowblazeSoon	= mod:NewSpecialWarning("specWarnShadowblazeSoon", mod:IsTank())
 local specWarnBlastsNova		= mod:NewSpecialWarningInterrupt(80734)
 local specWarnDominion			= mod:NewSpecialWarningYou(79318)
 local specWarnStolenPower		= mod:NewSpecialWarningStack(80627, nil, 150)
 local specWarnCinder			= mod:NewSpecialWarningYou(79339)
+local specWarnCinderMove		= mod:NewSpecialWarningMove(79339, false, "specWarnCinderMove")
 local yellCinder				= mod:NewYell(79339)
+local specWarnShadowblaze		= mod:NewSpecialWarningMove(94085)
+local specWarnShadowblazeSoon	= mod:NewSpecialWarning("specWarnShadowblazeSoon", mod:IsTank())
 
 local timerBlastNova			= mod:NewCastTimer(1.5, 80734)
 local timerElectrocute			= mod:NewCastTimer(5, 81198)
 local timerNefLanding			= mod:NewTimer(30, "timerNefLanding", 78620)
 local timerShadowflameBarrage	= mod:NewBuffActiveTimer(150, 78621)
-local timerShadowBlazeCD		= mod:NewCDTimer(10, 94085)
 local timerOnySwipeCD			= mod:NewTimer(10, "OnySwipeTimer", 77827)--10-20 second cd (18 being the most consistent)
 local timerNefSwipeCD			= mod:NewTimer(10, "NefSwipeTimer", 77827, false)--Same as hers, but not synced.
 local timerOnyBreathCD			= mod:NewTimer(12, "OnyBreathTimer", 94124, mod:IsTank() or mod:IsHealer())--12-20 second variations
 local timerNefBreathCD			= mod:NewTimer(12, "NefBreathTimer", 94124, mod:IsTank() or mod:IsHealer())--same as above
 local timerCinder				= mod:NewBuffActiveTimer(8, 79339)--Heroic Ability
 local timerCinderCD				= mod:NewCDTimer(22, 79339)--Heroic Ability (Every 22-25 seconds, 25 being most common but we gotta use 22 for timer cause of that small chance it's that).
-local timerDominionCD			= mod:NewNextTimer(15, 79318)
+local timerDominionCD			= mod:NewNextTimer(15, 79318, nil, not mod:IsTank())
+local timerShadowBlazeCD		= mod:NewCDTimer(10, 81031)
 
 local berserkTimer				= mod:NewBerserkTimer(630)
 
 local soundCinder				= mod:NewSound(79339)
+local shadowblazeCountdown		= mod:NewCountdown(30, 94085, mod:IsTank())
 
 mod:AddBoolOption("RangeFrame", true)
 mod:AddBoolOption("SetIconOnCinder", true)
-mod:AddBoolOption("HealthFrame", true)
+mod:AddBoolOption("HealthFrame", false)
 mod:AddBoolOption("InfoFrame", true)
 mod:AddBoolOption("SetWater", false)
 mod:AddBoolOption("TankArrow", false)--May be prone to some issues if you have 2 kiters, or unpicked up adds, but it's off by default so hopefully feature is used by smart people.
@@ -77,14 +86,26 @@ local playerDebuffed = false
 local playerDebuffs = 0
 local cinderTargets	= {}
 local dominionTargets = {}
+local lastBlaze = 0
+local shadowBlazeSynced = false
 
 --Credits to Bigwigs for original, modified when blizz nerfed it.
 function mod:ShadowBlazeFunction()
-	if shadowblazeTimer > 10 then--Keep it from dropping below 10
+	lastBlaze = GetTime()
+	if thenshadowblazeTimer > 15 and mod:IsDifficulty("normal10", "normal25") or shadowblazeTimer > 10 then--Keep it from dropping below 10 (15 in normal mode 4.2+)
 		shadowblazeTimer = shadowblazeTimer - 5
 	end
 	warnShadowBlaze:Show()
-	specWarnShadowblazeSoon:Schedule(shadowblazeTimer - 5)--Pre warning 5 seconds prior
+	if not shadowBlazeSynced then
+		specWarnShadowblazeSoon:Schedule(shadowblazeTimer - 5, L.ShadowBlazeEstimate)--Pre warning 5 seconds prior to be safe, until we sync timer and know for sure.
+	else
+		shadowblazeCountdown:Start(shadowblazeTimer)
+		warnShadowblazeSoon:Schedule(shadowblazeTimer - 5, L.ShadowBlazeExact:format(5))--Start pre warning with regular warnings only as you don't move at this point yet.
+		warnShadowblazeSoon:Schedule(shadowblazeTimer - 4, L.ShadowBlazeExact:format(4))
+		warnShadowblazeSoon:Schedule(shadowblazeTimer - 3, L.ShadowBlazeExact:format(3))
+		warnShadowblazeSoon:Schedule(shadowblazeTimer - 2, L.ShadowBlazeExact:format(2))
+		specWarnShadowblazeSoon:Schedule(shadowblazeTimer - 1, L.ShadowBlazeExact:format(1))--Special warn at 1 seconds to hall ass at this time.
+	end
 	timerShadowBlazeCD:Start(shadowblazeTimer)
 	self:ScheduleMethod(shadowblazeTimer, "ShadowBlazeFunction")
 end
@@ -109,6 +130,7 @@ end
 
 function mod:OnCombatStart(delay)
 	spamShadowblaze = 0
+	shadowBlazeSynced = false
 	spamLightningDischarge = 0
 	shadowblazeTimer = 35
 	playerDebuffed = false
@@ -145,12 +167,14 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(77826, 94124, 94125, 94126) and args:GetSrcCreatureID() == 41270 then--Onyxia's Breath
-		warnOnyShadowflameBreath:Show()
-		timerOnyBreathCD:Start()
-	elseif args:IsSpellID(77826, 94124, 94125, 94126) and args:GetSrcCreatureID() == 41376 then--Nefarians Breath
-		warnNefShadowflameBreath:Show()
-		timerNefBreathCD:Start()
+	if args:IsSpellID(77826, 94124, 94125, 94126) then
+		if args:GetSrcCreatureID() == 41270 then--Source is onyxia
+			warnOnyShadowflameBreath:Show()
+			timerOnyBreathCD:Start()
+		else--if not onyxia then it's nef
+			warnNefShadowflameBreath:Show()
+			timerNefBreathCD:Start()
+		end
 	elseif args:IsSpellID(80734) then--Since this is cast within 5 seconds of adds spawning, can use a GUID check here to add all 3 of http://www.wowhead.com/npc=41948 to boss health if not already on boss health.
 		if not DBM.BossHealth:HasBoss(args.sourceGUID) then
 			DBM.BossHealth:AddBoss(args.sourceGUID, args.sourceName)
@@ -170,7 +194,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			playerDebuffed = true
 			specWarnCinder:Show()
-			soundCinder:Play()
+			specWarnCinderMove:Schedule(3)
+			soundCinder:Schedule(3)	-- no need to move as soon as the debuff is applied
 			yellCinder:Yell()
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(10)
@@ -222,17 +247,19 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(77827, 94128, 94129, 94130) and args:GetSrcCreatureID() == 41270 then
-		warnOnyTailSwipe:Show()
-		timerOnySwipeCD:Start()
-	elseif args:IsSpellID(77827, 94128, 94129, 94130) and args:GetSrcCreatureID() == 41376 then
-		warnNefTailSwipe:Show()
-		timerNefSwipeCD:Start()
+	if args:IsSpellID(77827, 94128, 94129, 94130) then
+		if args:GetSrcCreatureID() == 41270 then
+			warnOnyTailSwipe:Show()
+			timerOnySwipeCD:Start()
+		else
+			warnNefTailSwipe:Show()
+			timerNefSwipeCD:Start()
+		end
 	end
 end
 
 function mod:SPELL_DAMAGE(args)
-	if args:IsPlayer() and args:IsSpellID(81007, 94085, 94086, 94087) and GetTime() - spamShadowblaze > 5 then--Drycodes
+	if args:IsPlayer() and args:IsSpellID(81007, 94085, 94086, 94087) and GetTime() - spamShadowblaze > 5 then
 		specWarnShadowblaze:Show()
 		spamShadowblaze = GetTime()
 	elseif args:GetDestCreatureID() == 41918 and args:IsSrcTypePlayer() and not args:IsSpellID(50288) and self:IsInCombat() then--Any spell damage except for starfall
@@ -256,6 +283,9 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellPhase2 or msg:find(L.YellPhase2) then
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:Hide()
+		end
 		warnPhase2:Show()
 		timerOnySwipeCD:Cancel()
 		timerNefSwipeCD:Cancel()
@@ -267,15 +297,33 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerCinderCD:Start(11.5)--10+ cast, since we track application not cast.
 		end
 	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
+		lastBlaze = 0
 		warnPhase3:Show()
 		timerCinderCD:Cancel()
 		timerShadowflameBarrage:Cancel()
 		timerShadowBlazeCD:Start(12)--Seems to vary some, 12 should be a happy medium, it can be off 1-2 seconds though.
 		self:ScheduleMethod(12, "ShadowBlazeFunction")
+	elseif msg == L.YellShadowBlaze or msg:find(L.YellShadowBlaze) then--He only does this sometimes, it's not a trigger to replace loop, more so to correct it.
+		shadowBlazeSynced = true
+		self:UnscheduleMethod("ShadowBlazeFunction")--Unschedule any running stuff
+		specWarnShadowblazeSoon:Cancel()--^^
+		shadowblazeCountdown:Cancel()--^^ Auto corrections still occur more then once, lets make sure to unschedule audio countdown as well so we don't start getting 2 running.
+		if GetTime() - lastBlaze <= 3 then--The blaze timer is too fast, since the actual cast happened immediately after the method ran. So reschedule functions using last timing which should be right just a little fast. :)
+			shadowblazeCountdown:Start(shadowblazeTimer)
+			warnShadowblazeSoon:Schedule(shadowblazeTimer - 5, L.ShadowBlazeExact:format(5))--Start pre warning with regular warnings only as you don't move at this point yet.
+			warnShadowblazeSoon:Schedule(shadowblazeTimer - 4, L.ShadowBlazeExact:format(4))
+			warnShadowblazeSoon:Schedule(shadowblazeTimer - 3, L.ShadowBlazeExact:format(3))
+			warnShadowblazeSoon:Schedule(shadowblazeTimer - 2, L.ShadowBlazeExact:format(2))
+			specWarnShadowblazeSoon:Schedule(shadowblazeTimer - 1, L.ShadowBlazeExact:format(1))--Special warn at 1 seconds to hall ass at this time.
+			timerShadowBlazeCD:Start(shadowblazeTimer)
+			self:ScheduleMethod(shadowblazeTimer, "ShadowBlazeFunction")
+		elseif GetTime() - lastBlaze >= 6 then--It's been a considerable amount of time since last blaze, which means timer is slow cause he cast it before a new time stamp could be created.
+			self:ShadowBlazeFunction()--run function immediately, the function will handle the rest.
+		end
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:RAID_BOSS_EMOTE(msg)
 	if (msg == L.NefAoe or msg:find(L.NefAoe)) and self:IsInCombat() then
 		specWarnElectrocute:Show()
 		timerElectrocute:Start()

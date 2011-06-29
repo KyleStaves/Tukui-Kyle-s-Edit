@@ -123,10 +123,9 @@ function DrDamage:PlayerData()
 			end
 		elseif spec == 3 then
 			-- Shadow Spec
-			-- Spell damage increased by 25%.  Shadow crit damage increased by 100%.
+			-- Spell damage increased by 15%.  Shadow crit damage increased by 100%.
 			if not calculation.healingSpell then
 				--Passive: Shadow Power
-				--HOTFIX: Shadow Power (Shadow priest passive) now increases Shadow damage by 15%, down from 25%.
 				calculation.dmgM = calculation.dmgM * 1.15
 				if calculation.school == "Shadow" then
 					calculation.critM = calculation.critM + 0.5
@@ -663,7 +662,7 @@ function DrDamage:PlayerData()
 					-- Checked in 4.0.3
 					["Name"] = "Holy Fire",
 					["ID"] = 14914,
-					["Data"] = { 1.0829, 0.238, 1.11, 0.054, 0, 0.031 },
+					["Data"] = { 1.0829, 0.238, 1.11, 0.054, 0, 0.0312 },
 					[0] = { School = "Holy",  Cooldown = 10, Hits_dot = 7, eDuration = 7, sTicks = 1 },
 					[1] = { 0, 0 },
 		},

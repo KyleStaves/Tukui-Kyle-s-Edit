@@ -576,11 +576,40 @@ if select(2, GetBuildInfo()) >= "9061" then
 *********************
 ** Version History **
 *********************
+1.6.5
+- New: Support for 4.2.0
+- New: Death knights, paladins, and warriors no longer receive any bonus to their chance to dodge from Agility. Their base chance to dodge is now a fixed 5%.
+- New: Death knights, paladins, and warriors now receive 27% of their Strength bonuses as parry rating, up from 25%.
+- New: Death Knight: Unholy Might now increases Strength by 20%, up from 5%.
+- New: Druid: Now gain 1 attack power per point of Strength, down from 2.
+- New: Rogue: Savage Combat now increases attack power by 3/6%, up from 2/4%.
+- New: Rogue: Vitality now increases attack power by 30%, up from 25%.
+- Fix: Doesn't error on tooltips with a lot of lines
+- Fix: Don't show ItemID by default
+- Fix: Removed Reforging UI loaded debug text
 1.6.4
 - New: Option to replace Blizzard Item Level with RatingBusters colored Item Level and Item ID
 - New: Option to Enable Subtract Equipped Stats for calculation of mana regen from intellect and spirit, and diminishing stats like dodge, parry, resilience. Replaces the old option to Enable Avoidance Diminishing Returns.
 - New: Support for 4.1.0 Resilience diminishing returns
+- New: Attack Speed and Haste buffs now increase the amount of haste gained from haste rating
+- New: Levels 81 and up gain increased health per point of stamina, with 14 health per stamina at level 85
 - Fix: Stat Breakdown: Removed duplicate code and fixed heal calculations for Mental Quickness and Sheath of Light (Thanks to Belechannas)
+- Fix: enUS: Haste and Resilience should be properly detected
+- Fix: Several localization updates and optimizations
+- Fix: Shamans, Paladins, Druids, and Death Knights no longer receive 30% more melee haste from Haste Rating.
+- Mage: Glyph of Frost Armor (new glyph): Frost Armor also causes the mage to regenerate 2% of maximum mana every 5 seconds.
+- Priest: Mysticism: Fixed
+- Priest: Holy Concentration: 15/30%, down from 20/40%.
+- Fixed: Death Knight: Veteran of the Third War
+- Druid: Nurturing Instinct: Increases your healing spells by up to 50%/100% of your Agility.
+- Hunter: Animal Handler: Now provides a passive 25% bonus to attack power, up from 15%.
+- Hunter: Hunter vs. Wild: Has been increased to 5/10/15% Stamina, up from 4/8/12%.
+- Hunter: Into the Wilderness (passive): has been reduced to a 10% Agility increase, down from 15%.
+- Rogue: Sinister Calling: Now grants 30% Agility, up from 25%
+- Dwarf: Stoneform: Now reduces all damage taken by 10%, rather than increasing armor by 10%.
+- Death Knight: Unholy Might: Reduced to a 5% Strength increase, down from 10%.
+- Hunter: Hunting Party: Increases your total Agility by an additional 2%.
+- Rogue: Vitality: Increases your Attack Power by 25%.
 1.6.3
 - New: StatSummary: Protection Warriors and Paladins now shows Block Chance from Mastery
 1.6.2

@@ -1,9 +1,14 @@
+--local mod	= DBM:NewMod(170, "DBM-BlackwingDescent", nil, 73)
 local mod	= DBM:NewMod("Magmaw", "DBM-BlackwingDescent")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5662 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6022 $"):sub(12, -3))
 mod:SetCreatureID(41570)
+mod:SetModelID(37993)
 mod:SetZone()
+mod:SetModelSound("Sound\\Creature\\Nefarian\\VO_BD_Nefarian_MagmawIntro01.wav", nil)
+--Long: I found this fascinating specimen in the lava underneath this very room. Magmaw should provide an adequate challenge for your pathetic little band.
+--Short: There isn't one
 
 mod:RegisterCombat("combat")
 
@@ -14,7 +19,7 @@ mod:RegisterEvents(
 	"SPELL_SUMMON",
 	"SPELL_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"RAID_BOSS_EMOTE",
 	"UNIT_HEALTH",
 	"UNIT_DIED"
 )
@@ -24,6 +29,7 @@ local warnPillarFlame		= mod:NewSpellAnnounce(78006, 3)
 local warnMoltenTantrum		= mod:NewSpellAnnounce(78403, 4)
 local warnInferno			= mod:NewSpellAnnounce(92190, 4)
 local warnMangle			= mod:NewTargetAnnounce(89773, 3)
+local warnArmageddon		= mod:NewSpellAnnounce(92177, 4)
 local warnPhase2Soon		= mod:NewPrePhaseAnnounce(2, 3)--heroic
 local warnPhase2			= mod:NewPhaseAnnounce(2, 4)--heroic
 
@@ -92,11 +98,12 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(77690, 91931, 91932) and GetTime() - lastLavaSpew > 5 then--SpellIds for other modes are guesswork, 77690 10 man confirmed
+	if args:IsSpellID(77690, 91919, 91931, 91932) and GetTime() - lastLavaSpew > 5 then--SpellIds for other modes are guesswork, 77690 10 man confirmed
 		warnLavaSpew:Show()
 		timerLavaSpew:Start()
 		lastLavaSpew = GetTime()
 	elseif args:IsSpellID(92177) then
+		warnArmageddon:Show()
 		specWarnArmageddon:Show()
 		timerArmageddon:Start()
 		geddonConstruct = args.sourceGUID--Cache last mob to cast armageddon
@@ -130,7 +137,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.Slump or msg:find(L.Slump) then
 		timerPillarFlame:Start(15)--Resets to 15. If you don't get his head down by then he gives you new adds to mess with. (theory, don't have a lot of logs with chain screwups yet)
 	elseif msg == L.HeadExposed or msg:find(L.HeadExposed) then

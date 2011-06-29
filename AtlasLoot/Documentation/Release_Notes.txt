@@ -5,15 +5,49 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 -Hegarol
 
 Patch Notes
+v6.04.01 (June 28, 2011)
+Updated Cooking, Enchanting & Jewelcrafting.
+Fixed a bug that prevented AtlasLoot from working.
+
+v6.04.00 (June 28, 2011)
+Compatible with Patch 4.2.
+Added support for Atlas 1.20.0.
+Added Firelands Raid loot Normal and Heroic.
+Added new Baradin Hold boss.
+Added new faction: Avengers of Hyjal.
+Added Tier 12 Raid Set.
+Added Season 10 PvP Set.
+Added Molten Fire Daily Rewards.
+Added various new mounts and companions.
+Added various new crafting recipes.
+Updated Alchemy section (Thanks to Auràya @ EU-Arygos).
+Updated Crafting section with Molten Front rewards.
+Updated Brewfest and Hallows' End boss loot.
+Added links for bosses and instances between AtlasLoot and DungeonJournal.
+Added a CompareFrame window to compare all items of an instance.
+Added a new Wishlist interface.
+Added an option to filter by stats.
+Added an option to use the search only for selected modules.
+Added viewable currencies to the item description.
+Dungeons and Raids are now seperated in the loot browser.
+The loot browser now remembers the last opened page.
+Many minor fixes, additions and translations.
+
+v6.03.02 (May 08, 2011)
+Added support for Atlas 1.19.1.
+Revamped Vault of Archavon and Baradin Hold loot tables.
+Fixed a localization bug for missing Babble entries.
+Fixed a bug with the instance autoselect.
+Minor fixes and additions.
 
 v6.03.01 (May 02, 2011)
 Added missing Zul'Aman and Zul'Gurub loot.
 Minor fixes, additions and translations.
 
 v6.03.00 (Apr 26, 2011)
-Compatible with Patch 4.1
-Added support for Atlas 1.18.3
-Added support for upcoming Atlas 1.19.0
+Compatible with Patch 4.1.
+Added support for Atlas 1.18.3.
+Added support for upcoming Atlas 1.19.0.
 Added some missing 4.0.6 stuff.
 Added various new 4.1 items.
 Added loot for heroic Zul'Gurub and Zul'Aman.

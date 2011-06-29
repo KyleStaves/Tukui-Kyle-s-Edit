@@ -1,10 +1,15 @@
+--local mod	= DBM:NewMod(169, "DBM-BlackwingDescent", nil, 73)
 local mod	= DBM:NewMod("DarkIronGolemCouncil", "DBM-BlackwingDescent")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5654 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6017 $"):sub(12, -3))
 mod:SetCreatureID(42180, 42178, 42179, 42166)
+mod:SetModelID(32688)
 mod:SetZone()
 mod:SetUsedIcons(1, 3, 6, 7, 8)
+mod:SetModelSound("Sound\\Creature\\Nefarian\\VO_BD_Nefarian_OmnitronIntro01.wav", "Sound\\Creature\\Council\\VO_BD_Council_Event01.wav")
+--Long: Hmm, the Omnotron Defense System. Centuries ago, these constructs were considered the dwarves greatest tactical achievements. With so many counters to each construct's attacks, I'll have to rectify these designs for them to provide me ANY entertainment!
+--Short: Intruders detected. Primary defense matrix initiated.
 
 mod:RegisterCombat("combat")
 
@@ -21,17 +26,18 @@ mod:RegisterEvents(
 local warnIncineration			= mod:NewSpellAnnounce(79023, 2, nil, mod:IsHealer())
 local warnBarrierSoon			= mod:NewPreWarnAnnounce(79582, 10, 3, nil, not mod:IsHealer())
 local warnBarrier				= mod:NewSpellAnnounce(79582, 4, nil, not mod:IsHealer())
-local warnAcquiringTarget		= mod:NewTargetAnnounce(92036, 4)
+local warnAcquiringTarget		= mod:NewTargetAnnounce(92036, 4, nil, false)--Off by default, default UI has this warning built in
 --Electron
+local warnLightningConductor	= mod:NewTargetAnnounce(91431, 4, nil, false)--Off by default, default UI has this warning built in
 local warnUnstableShieldSoon	= mod:NewPreWarnAnnounce(79900, 10, 3, nil, not mod:IsHealer())
 local warnUnstableShield		= mod:NewSpellAnnounce(79900, 4, nil, not mod:IsHealer())
 local warnShadowConductorCast	= mod:NewPreWarnAnnounce(92053, 5, 4)--Heroic Ability
 --Toxitron
-local warnPoisonProtocol		= mod:NewSpellAnnounce(80053, 2)
-local warnFixate				= mod:NewTargetAnnounce(80094, 3, nil, false)--Spammy, off by default. Raid leader can turn it on if they wanna yell at these people.
+local warnPoisonProtocol		= mod:NewSpellAnnounce(80053, 3)
+local warnFixate				= mod:NewTargetAnnounce(80094, 4, nil, false)--Spammy, off by default. Raid leader can turn it on if they wanna yell at these people.
 local warnChemicalBomb			= mod:NewTargetAnnounce(80157, 3)
-local warnShellSoon				= mod:NewPreWarnAnnounce(79835, 10, 3, nil, false)
-local warnShell					= mod:NewSpellAnnounce(79835, 4, nil, not mod:IsHealer())
+local warnShellSoon				= mod:NewPreWarnAnnounce(79835, 10, 2, nil, false)
+local warnShell					= mod:NewSpellAnnounce(79835, 3, nil, not mod:IsHealer())
 local warnGrip					= mod:NewCastAnnounce(91849, 4)--Heroic Ability
 --Arcanotron
 local warnGenerator				= mod:NewSpellAnnounce(79624, 3)
@@ -45,7 +51,7 @@ local warnActivated				= mod:NewTargetAnnounce(78740, 3)
 local specWarnBarrier			= mod:NewSpecialWarningSpell(79582, not mod:IsHealer())
 local specWarnAcquiringTarget	= mod:NewSpecialWarningYou(92037)
 local yellAcquiringTarget		= mod:NewYell(92037)
-local specWarnEncasingShadows	= mod:NewSpecialWarningTarget(92023, false, nil, nil, true)--Heroic Ability
+local specWarnEncasingShadows	= mod:NewSpecialWarningTarget(92023, false)--Heroic Ability
 local yellEncasingShadows		= mod:NewYell(92023, L.YellTargetLock)
 --Electron
 local specWarnUnstableShield	= mod:NewSpecialWarningSpell(79900, not mod:IsHealer())
@@ -64,7 +70,7 @@ local specWarnGrip				= mod:NewSpecialWarningSpell(91849, nil, nil, nil, true)--
 --Arcanotron
 local specWarnConversion		= mod:NewSpecialWarningSpell(79729, not mod:IsHealer())
 local specWarnGenerator			= mod:NewSpecialWarning("specWarnGenerator", mod:IsTank())
-local specWarnAnnihilator		= mod:NewSpecialWarningInterrupt(91542, false)
+local specWarnAnnihilator		= mod:NewSpecialWarningInterrupt(91542, mod:IsMelee())--On by default for melee now that there is a smart filterin place on whether or not they should be warned.
 local specWarnOvercharged		= mod:NewSpecialWarningSpell(91857, false)--Heroic Ability
 --All
 local specWarnActivated			= mod:NewSpecialWarning("SpecWarnActivated", not mod:IsHealer())--Good for target switches, but healers probably don't want an extra special warning for it.
@@ -94,17 +100,16 @@ local timerNefAbilityCD			= mod:NewTimer(30, "timerNefAblity", 92048)--Huge vari
 
 local berserkTimer				= mod:NewBerserkTimer(600)
 
+local soundLightningConductor	= mod:NewSound(79888)
 local soundFixate				= mod:NewSound(80094)
 
 mod:AddBoolOption("AcquiringTargetIcon")
 mod:AddBoolOption("ConductorIcon")
 mod:AddBoolOption("ShadowConductorIcon")
-mod:AddBoolOption("SetIconOnActivated")
+mod:AddBoolOption("SetIconOnActivated", false)
 
 local pulled = false
 local cloudSpam = 0
-local lastActivate = 0
-local activateThreshold = 25
 local lastInterrupt = 0
 local incinerateCast = 0
 local encasing = false
@@ -184,12 +189,8 @@ function mod:OnCombatStart(delay)
 	lastInterrupt = 0
 	encasing = false
 	incinerateCast = 0
-	lastActivate = 0
 	if mod:IsDifficulty("heroic10", "heroic25") then
 		berserkTimer:Start(-delay)
-		activateThreshold = 25
-	else
-		activateThreshold = 40
 	end
 	DBM.BossHealth:Clear()
 	DBM.BossHealth:AddBoss(42180, 42178, 42179, 42166, L.name)
@@ -200,10 +201,9 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(78740, 95016, 95017, 95018) and GetTime() - lastActivate > activateThreshold then--Ignore any activates that fire too close to eachother thanks to 4.1 screwing it up.
+	if args:IsSpellID(78740, 95016, 95017, 95018) then--Ignore any activates that fire too close to eachother thanks to 4.1 screwing it up.
 		warnActivated:Show(args.destName)
 		bossActivate(args.destName)
-		lastActivate = GetTime()
 		if pulled then -- prevent show warning when first pulled.
 			specWarnActivated:Show(args.destName)
 		end
@@ -240,8 +240,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 7, 8)
 		end
 	elseif args:IsSpellID(79888, 91431, 91432, 91433) then
+		warnLightningConductor:Show(args.destName)
 		if args:IsPlayer() then
 			specWarnConductor:Show()
+			soundLightningConductor:Play()
 			yellLightConductor:Yell()
 		end
 		if self.Options.ConductorIcon then
@@ -347,7 +349,9 @@ function mod:SPELL_CAST_START(args)
 		timerNefAbilityCD:Start()
 		cloudSpam = GetTime()
 	elseif args:IsSpellID(79710, 91540, 91541, 91542) then
-		specWarnAnnihilator:Show()
+		if self:IsMelee() and (self:GetUnitCreatureId("target") == 42166 or self:GetUnitCreatureId("focus") == 42166) or not self:IsMelee() then
+			specWarnAnnihilator:Show()--Only warn for melee targeting him or exclicidly put him on focus, else warn regardless if he's your target/focus or not if you aren't a melee
+		end
 	end
 end
 

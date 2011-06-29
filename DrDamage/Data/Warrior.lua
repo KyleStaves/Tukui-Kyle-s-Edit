@@ -45,6 +45,7 @@ function DrDamage:PlayerData()
 		if spec == 1 then
 			if mastery > 0 and mastery ~= masteryLast then
 				if baseSpell.AutoAttack then
+					--Mastery: Strikes of Opportunity
 					calculation.extraChance = mastery * 0.01 * 2.2
 					calculation.masteryLast = mastery
 				end
@@ -66,9 +67,6 @@ function DrDamage:PlayerData()
 					calculation.masteryLast = mastery
 					calculation.masteryBonus = bonus
 				end
-                if baseSpell.AutoAttack then
-                    calculation.dmgM = calculation.dmgM * 1.4
-                end
 			end
 		end
 	end
@@ -106,7 +104,13 @@ function DrDamage:PlayerData()
 			end
 			calculation.offHdmgM = calculation.offHdmgM * 1.25
 			--calculation.dmgM_Physical = calculation.dmgM_Physical * 1.1
-			--Precision is handled correctly by the API
+			--Precision (Passive)
+			if baseSpell.AutoAttack then
+				calculation.dmgM = calculation.dmgM * 1.4
+				calculation.wDmgM = calculation.wDmgM * 1.4
+			else
+				calculation.wDmgM = calculation.wDmgM * 1.4
+			end			
 		end
 		--Deep Wounds
 		if Talents["Deep Wounds"] and (not calculation.NoCrits or calculation.spellName ~= "Rend") then
@@ -394,9 +398,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(1464)] = {
 			["Name"] = "Slam",
 			["ID"] = 1464,
-			--TOOLTIP BUG?: 175%.. I've added this as 145%.
-			["Data"] = { 0.383, ["weaponDamageM"] = true, ["weaponDamage"] = 1.03, ["PPL_start"] = 44, ["PPL"] = 1.168 },
-			--["Data"] = { 0.383, ["weaponDamageM"] = true, ["weaponDamage"] = 1.32, ["PPL_start"] = 44, ["PPL"] = 1.168 },
+			["Data"] = { 0.383, ["weaponDamageM"] = true, ["weaponDamage"] = 1.1, ["PPL_start"] = 44, ["PPL"] = 0.973 },
 			[0] = { },
 			[1] = { 0 },
 		},
@@ -424,7 +426,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(20243)] = {
 			["Name"] = "Devastate",
 			["ID"] = 20243,
-			["Data"] = { 0.299, ["weaponDamage"] = 1.09, ["PPL_start"] = 39, ["PPL"] = 1 },
+			["Data"] = { 0.759, ["weaponDamage"] = 1.09, ["PPL_start"] = 39, ["PPL"] = 1 },
 			[0] = { },
 			[1] = { 0 },
 		},
@@ -492,8 +494,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(85288)] = {
 			["Name"] = "Raging Blow",
 			["ID"] = 85288,
-			--HOTFIX: Raging Blow has been reduced from 120% to 100% weapon damage at max level
-			["Data"] = { ["weaponDamage"] = 0.66, ["PPL_start"] = 39, ["PPL"] = 0.83 },
+			["Data"] = { ["weaponDamage"] = 0.72, ["PPL_start"] = 39, ["PPL"] = 0.683 },
 			[0] = { DualAttack = true, Cooldown = 6 },
 			[1] = { 0 },
 		},

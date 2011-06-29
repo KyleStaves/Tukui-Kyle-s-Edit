@@ -1,4 +1,4 @@
-﻿## Interface: 40000
+﻿## Interface: 40200
 
 ## Title: ArkInventory [Rules] Example
 ## Notes: Example rule for ArkInventory

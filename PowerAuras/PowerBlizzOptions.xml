@@ -173,7 +173,7 @@
 			<Slider name="PowaOptionsUpdateSlider2"
 				  inherits="PowaBarSliderTemplate">
 				<Size>
-				  <AbsDimension x="360"
+				  <AbsDimension x="580"
 								y="16" />
 				</Size>
 				<Anchors>
@@ -201,7 +201,7 @@
 		  <Slider name="PowaOptionsTimerUpdateSlider2"
 				  inherits="PowaBarSliderTemplate">
 			<Size>
-			  <AbsDimension x="360"
+			  <AbsDimension x="580"
 							y="16" />
 			</Size>
 			<Anchors>
@@ -257,7 +257,7 @@
 		  <Slider name="PowaOptionsTextureCount"
 				  inherits="PowaBarSliderTemplateWithButtons">
 			<Size>
-			  <AbsDimension x="335"
+			  <AbsDimension x="550"
 							y="16" />
 			</Size>
 			<Anchors>
@@ -272,13 +272,13 @@
 			</Anchors>
 			<Scripts>
 			  <OnLoad>
-				self:SetMinMaxValues(10,300);
+				self:SetMinMaxValues(10,500);
 				self:SetValue(PowaMisc.UserSetMaxTextures);
 				self:SetValueStep(1);
 				self.aide = aideTextureCount;
 				PowaOptionsTextureCountText:SetText(PowaAuras.Text.nomTextureCount.." : "..self:GetValue());
 				PowaOptionsTextureCountLow:SetText("10"); 
-				PowaOptionsTextureCountHigh:SetText("300");
+				PowaOptionsTextureCountHigh:SetText("500");
 			  </OnLoad>
 			  <OnValueChanged>PowaAuras:PowaOptionsMaxTexturesSliderChanged(self);</OnValueChanged>
  			</Scripts>
@@ -420,7 +420,7 @@
                        autoFocus="false"
                        inherits="InputBoxTemplate">
                 <Size>
-                  <AbsDimension x="380"
+                  <AbsDimension x="580"
                                 y="16" />
                 </Size>
                 <Anchors>
@@ -473,7 +473,7 @@
                        autoFocus="false" justifyH="LEFT"
                        inherits="InputBoxTemplate">
                 <Size>
-                  <AbsDimension x="380"
+                  <AbsDimension x="580"
                                 y="16" />
                 </Size>
                 <Anchors>

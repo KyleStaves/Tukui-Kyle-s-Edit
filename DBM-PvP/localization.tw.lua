@@ -61,18 +61,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart			= "戰鬥開始", 
 	TimerTower			= "%s",
 	TimerGY				= "%s"
 })
 
-L:SetMiscLocalization({
-	BgStart60			= "奧特蘭克山谷一分鐘後開始戰鬥。",
-	BgStart30			= "奧特蘭克山谷30秒後開始戰鬥。"
-})
-
 L:SetOptionLocalization({
-	TimerStart			= "顯示開始計時器",
 	TimerTower			= "顯示奪取哨塔計時器",
 	TimerGY				= "顯示奪取墓地計時器",
 	AutoTurnIn			= "自動繳交任務物品"
@@ -88,8 +81,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60			= "戰鬥將在1分鐘後開始。",
-	BgStart30			= "戰鬥將在30秒後開始。",
 	ScoreExpr 			= "(%d+)/1600",
 	Alliance 			= "聯盟",
 	Horde 				= "部落",
@@ -99,12 +90,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart 			= "戰鬥開始", 
 	TimerCap 			= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerStart			= "顯示開始計時器",
 	TimerWin			= "顯示勝利計時器",
 	TimerCap			= "顯示奪取計時器",
 	ShowAbEstimatedPoints		= "顯示戰鬥結束時雙方資源預計值",
@@ -121,8 +110,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60			= "戰鬥在1分鐘內開始!",
-	BgStart30			= "戰鬥在30秒內開始!",
 	ZoneName			= "暴風之眼",
 	ScoreExpr			= "(%d+)/1600",
 	Alliance 			= "聯盟",
@@ -135,12 +122,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart 			= "戰鬥開始", 
 	TimerFlag 			= "旗幟重生"
 })
 
 L:SetOptionLocalization({
-	TimerStart			= "顯示開始計時器",
 	TimerWin 			= "顯示勝利計時器",
 	TimerFlag 			= "顯示旗幟重生計時器",
 	ShowPointFrame			= "顯示旗幟攜帶者和預計勝利方"
@@ -271,8 +256,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60			= "戰鬥將在1分鐘後開始。",
-	BgStart30			= "戰鬥將在30秒後開始。",
 	ScoreExpr 			= "(%d+)/2000",
 	Alliance 			= "聯盟",
 	Horde 				= "部落",
@@ -282,12 +265,10 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart 			= "戰鬥開始", 
 	TimerCap 			= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerStart			= "顯示開始計時器",
 	TimerWin			= "顯示勝利計時器",
 	TimerCap			= "顯示奪取計時器",
 	ShowGilneasEstimatedPoints	= "顯示戰鬥結束時雙方資源預計值",

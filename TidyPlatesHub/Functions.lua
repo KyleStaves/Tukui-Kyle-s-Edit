@@ -223,12 +223,19 @@ local AlphaFunctionsTank = { DummyFunction, AlphaFunctionByThreatLow, AlphaFunct
 -- Alpha Functions Listed by Role order: Damage, Tank, Heal
 local AlphaFunctions = {AlphaFunctionsDamage, AlphaFunctionsTank}
 
+local function Diminish(num)
+	if num == 1 then return 1
+	elseif num < .3 then return num*.60
+	elseif num < .6 then return num*.70
+	else return num * .80 end
+end
+
 local function AlphaDelegate(...)
 	local unit = ...
 	local alpha
 	
-	if unit.isTarget then return LocalVars.OpacityTarget
-	elseif unit.isCasting and LocalVars.OpacityFullSpell then return LocalVars.OpacityTarget
+	if unit.isTarget then return Diminish(LocalVars.OpacityTarget)
+	elseif unit.isCasting and LocalVars.OpacityFullSpell then return Diminish(LocalVars.OpacityTarget)
 	else
 		-- Filter
 		if AlphaFilter(unit) then alpha = LocalVars.OpacityFiltered 
@@ -236,10 +243,10 @@ local function AlphaDelegate(...)
 		else alpha = AlphaFunctions[LocalRole][LocalVars.OpacitySpotlightMode](...) end
 	end
 	
-	if alpha then return alpha
+	if alpha then return Diminish(alpha)
 	else 
-		if (not UnitExists("target")) and LocalVars.OpacityFullNoTarget then return LocalVars.OpacityTarget
-		else return LocalVars.OpacityNonTarget end
+		if (not UnitExists("target")) and LocalVars.OpacityFullNoTarget then return Diminish(LocalVars.OpacityTarget)
+		else return Diminish(LocalVars.OpacityNonTarget) end
 	end
 end
 
@@ -441,11 +448,29 @@ local StyleModeFunctions = {
 	end,
 	-- Bars when unit is active or damaged
 	function(unit)
-		if (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isInCombat then 
+		if (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isInCombat or unit.isMarked then 
 			return 1
+		end
+		return 2
+	end,
+	-- elite units
+	function(unit)
+		if unit.isElite then 
+			return 1 
 		else return 2 end
 	end,
-
+	-- marked
+	function(unit)
+		if unit.isMarked then 
+			return 1 
+		else return 2 end
+	end,
+		-- player chars
+	function(unit)
+		if unit.type == "PLAYER" then 
+			return 1 
+		else return 2 end
+	end,
 }
 
 local function StyleDelegate(unit)
@@ -661,7 +686,7 @@ local function EnableWatchers()
 	TidyPlatesUtility:EnableUnitCache()
 	TidyPlatesWidgets:EnableAuraWatcher()
 	TidyPlatesWidgets:EnableTankWatch()
-	SetCVar("threatWarning", 3)		-- Required for threat/aggro detection
+	--SetCVar("threatWarning", 3)		-- Required for threat/aggro detection
 end
 
 local function UseDamageVariables()

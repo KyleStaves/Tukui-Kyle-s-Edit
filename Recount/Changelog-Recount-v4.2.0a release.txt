@@ -1,0 +1,25 @@
+------------------------------------------------------------------------
+r1156 | elsia | 2011-06-29 14:37:22 +0000 (Wed, 29 Jun 2011) | 1 line
+Changed paths:
+   A /tags/v4.2.0a release (from /trunk:1155)
+
+Tagging as v4.2.0a release
+------------------------------------------------------------------------
+r1155 | elsia | 2011-06-29 14:29:51 +0000 (Wed, 29 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Recount.toc
+
+- TOC updated.
+------------------------------------------------------------------------
+r1154 | elsia | 2011-06-29 01:56:28 +0000 (Wed, 29 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Tracker.lua
+
+- Trying to fix up shotty infinite recursion commit someone made. This is a quick fix for now.
+------------------------------------------------------------------------
+r1153 | mysticalos | 2011-06-28 10:08:22 +0000 (Tue, 28 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Tracker.lua
+
+CLEU 4.2 compatible
+------------------------------------------------------------------------

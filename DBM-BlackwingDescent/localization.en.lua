@@ -3,6 +3,7 @@ local L
 --------------
 --  Magmaw  --
 --------------
+--L = DBM:GetModLocalization(170)
 L = DBM:GetModLocalization("Magmaw")
 
 L:SetGeneralLocalization({
@@ -30,6 +31,7 @@ L:SetMiscLocalization({
 -------------------------------
 --  Dark Iron Golem Council  --
 -------------------------------
+--L = DBM:GetModLocalization(169)
 L = DBM:GetModLocalization("DarkIronGolemCouncil")
 
 L:SetGeneralLocalization({
@@ -72,6 +74,7 @@ L:SetMiscLocalization({
 ----------------
 --  Maloriak  --
 ----------------
+--L = DBM:GetModLocalization(173)
 L = DBM:GetModLocalization("Maloriak")
 
 L:SetGeneralLocalization({
@@ -112,6 +115,7 @@ L:SetMiscLocalization({
 -----------------
 --  Chimaeron  --
 -----------------
+--L = DBM:GetModLocalization(172)
 L = DBM:GetModLocalization("Chimaeron")
 
 L:SetGeneralLocalization({
@@ -137,6 +141,7 @@ L:SetMiscLocalization({
 -----------------
 --  Atramedes  --
 -----------------
+--L = DBM:GetModLocalization(171)
 L = DBM:GetModLocalization("Atramedes")
 
 L:SetGeneralLocalization({
@@ -179,7 +184,8 @@ L:SetMiscLocalization({
 ----------------
 --  Nefarian  --
 ----------------
-L = DBM:GetModLocalization("Nefarian-BD")	-- No conflict with BWL version :)
+--L = DBM:GetModLocalization(174)
+L = DBM:GetModLocalization("Nefarian")
 
 L:SetGeneralLocalization({
 	name = "Nefarian's End"	-- No conflict with BWL version (probably also why blizzard calls the encounter "Nefarian's End"
@@ -190,7 +196,8 @@ L:SetWarningLocalization({
 	NefTailSwipe			= "Tail Lash (Nefarian)",
 	OnyBreath				= "Breath (Onyxia)",
 	NefBreath				= "Breath (Nefarian)",
-	specWarnShadowblazeSoon	= "Shadowblaze Soon (~5s)"
+	specWarnShadowblazeSoon	= "%s",
+	warnShadowblazeSoon		= "%s"
 })
 
 L:SetTimerLocalization({
@@ -206,7 +213,9 @@ L:SetOptionLocalization({
 	NefTailSwipe			= "Show warning for Nefarian's $spell:77827",
 	OnyBreath				= "Show warning for Onyxia's $spell:94124",
 	NefBreath				= "Show warning for Nefarian's $spell:94124",
-	specWarnShadowblazeSoon	= "Show pre-special warning for $spell:94085 (~5s)",
+	specWarnCinderMove		= "Show special warning to move away when you are affected by\n $spell:79339 (5s before explosion)",
+	warnShadowblazeSoon		= "Show pre-warning countdown for $spell:81031 (5s before)\n(Only after timer has been synced to first yell to ensure accuracy)",
+	specWarnShadowblazeSoon	= "Show pre-special warning for $spell:81031\n(5s prewarn at first, 1s prewarn after first yell sync to ensure accuracy)",
 	timerNefLanding			= "Show timer for when Nefarian lands",
 	OnySwipeTimer			= "Show timer for Onyxia's $spell:77827 cooldown",
 	NefSwipeTimer			= "Show timer for Nefarian's $spell:77827 cooldown",
@@ -223,14 +232,17 @@ L:SetMiscLocalization({
 	NefAoe					= "The air crackles with electricity!",
 	YellPhase2				= "Curse you, mortals! Such a callous disregard for one's possessions must be met with extreme force!",
 	YellPhase3				= "I have tried to be an accommodating host, but you simply will not die! Time to throw all pretense aside and just... KILL YOU ALL!",
+	YellShadowBlaze			= "Flesh turns to ash!",
 	Nefarian				= "Nefarian",
 	Onyxia					= "Onyxia",
-	Charge					= "Electric Charge"
+	Charge					= "Electric Charge",
+	ShadowBlazeExact		= "Shadowblaze Spark in %ds",
+	ShadowBlazeEstimate		= "Shadowblaze Spark soon (~5s)"
 })
 
---------------
+-------------------------------
 --  Blackwing Descent Trash  --
---------------
+-------------------------------
 L = DBM:GetModLocalization("BWDTrash")
 
 L:SetGeneralLocalization({

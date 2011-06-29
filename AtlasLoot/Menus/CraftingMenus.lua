@@ -79,9 +79,9 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 5, "AlchemyCauldron", "inv_misc_cauldron_fire", "=ds="..AL["Cauldrons"], "" };
 				{ 7, "AlchemyPotion", "inv_alchemy_elixir_02", "=ds="..AL["Potions"], "" };
 				{ 16, "AlchemyOtherElixir", "inv_potion_112", "=ds="..AL["Other Elixirs"], "" };				
-				{ 18, "AlchemyOil", "inv_potion_07", "=ds="..AL["Oils"], "" };
-				{ 20, "AlchemyTransmute", "inv_elemental_eternal_air", "=ds="..AL["Transmutes"], "" };				
-				{ 21, "AlchemyMisc", "spell_holy_aspiration", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 19, "AlchemyTransmute", "inv_elemental_eternal_air", "=ds="..AL["Transmutes"], "" };				
+				{ 20, "AlchemyMisc", "spell_holy_aspiration", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 22, "AlchemyOil", "inv_potion_07", "=ds="..AL["Oils"], "" };
 			};
 		};
 		info = {
@@ -146,7 +146,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["ENGINEERINGMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "EngineeringGem", "inv_gizmo_gnomishflameturret", "=ds="..BabbleInventory["Gem"], "" };
+				{ 2, "EngineeringGem", "inv_gizmo_gnomishflameturret", "=ds="..BabbleInventory["Cogwheel"], "" };
 				{ 3, "EngineeringMisc", "inv_pet_lilsmoky", "=ds="..BabbleInventory["Miscellaneous"], "" };
 				{ 4, "EngineeringReagents", "inv_misc_enggizmos_27", "=ds="..AL["Reagents"], "" };
 				{ 5, "EngineeringScope", "inv_misc_spyglass_02", "=ds="..AL["Scope"], "" };				
@@ -282,7 +282,8 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 19, "ArchaeologyTroll", "trade_archaeology_troll_tablet", "=ds="..AL["Troll"], "" };
 				{ 20, "ArchaeologyVrykul", "trade_archaeology_vrykul_runestick", "=ds="..AL["Vrykul"], "" };
 				{ 8, "ArchaeologyArmorAndWeapons", "trade_archaeology_ancientorcshamanheaddress", "=ds="..BabbleInventory["Armor"].." & "..AL["Weapons"], "" };
-				{ 23, "ArchaeologyMisc", "trade_archaeology_tinydinosaurskeleton", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 23, "ArchaeologyPetMount", "trade_archaeology_tinydinosaurskeleton", "=ds="..BabbleInventory["Pet"].." & "..BabbleInventory["Mount"], "" };
+				{ 9, "ArchaeologyMisc", "trade_archaeology_theinnkeepersdaughter", "=ds="..BabbleInventory["Miscellaneous"], "" };
 			};
 		};
 		info = {

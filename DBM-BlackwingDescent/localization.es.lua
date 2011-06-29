@@ -5,6 +5,7 @@ local L
 --------------
 --  Magmaw  --
 --------------
+--L = DBM:GetModLocalization(170)
 L = DBM:GetModLocalization("Magmaw")
 
 L:SetGeneralLocalization({
@@ -27,12 +28,13 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Slump			= "¡%s cae hacia delante y deja expuestas sus tenazas!",
 	HeadExposed		= "¡%s acaba empalado en el pincho y deja expuesta la cabeza!",
-	YellPhase2		= "Inconceivable! You may actually defeat my lava worm! Perhaps I can help... tip the scales."--translate
+	YellPhase2		= "¡Inconcebible! ¡Existe la posibilidad de que venzáis a mi gusano de lava! Quizás yo pueda... desequilibrar la balanza."
 })
 
 -------------------------------
 --  Dark Iron Golem Council  --
 -------------------------------
+--L = DBM:GetModLocalization(169)
 L = DBM:GetModLocalization("DarkIronGolemCouncil")
 
 L:SetGeneralLocalization({
@@ -53,14 +55,14 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	timerShadowConductorCast	= "Mostrar tiempo para lanzamiento de $spell:92053",
-	timerArcaneBlowbackCast	= "Mostrar tiempo para lanzamiento de $spell:91879",
+	timerArcaneBlowbackCast		= "Mostrar tiempo para lanzamiento de $spell:91879",
 	timerArcaneLockout			= "Mostrar tiempo de silenciamiento de hechizo de $spell:91542",
 	timerNefAblity				= "Mostrar tiempo de CoolDown de las habilidades de bufos en heroico",
 	SpecWarnActivated			= "Mostrar aviso especial cuando se activa un nuevo boss",
 	specWarnGenerator			= "Mostrar aviso especial cuando un boss gana $spell:91557",
-	AcquiringTargetIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79501),
-	ConductorIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79888),
-	ShadowConductorIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92053),
+	AcquiringTargetIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79501),
+	ConductorIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79888),
+	ShadowConductorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92053),
 	SetIconOnActivated			= "Poner un icono en el último boss activado"
 })
 
@@ -75,6 +77,7 @@ L:SetMiscLocalization({
 ----------------
 --  Maloriak  --
 ----------------
+--L = DBM:GetModLocalization(173)
 L = DBM:GetModLocalization("Maloriak")
 
 L:SetGeneralLocalization({
@@ -115,6 +118,7 @@ L:SetMiscLocalization({
 -----------------
 --  Chimaeron  --
 -----------------
+--L = DBM:GetModLocalization(172)
 L = DBM:GetModLocalization("Chimaeron")
 
 L:SetGeneralLocalization({
@@ -140,6 +144,7 @@ L:SetMiscLocalization({
 -----------------
 --  Atramedes  --
 -----------------
+--L = DBM:GetModLocalization(171)
 L = DBM:GetModLocalization("Atramedes")
 
 L:SetGeneralLocalization({
@@ -182,7 +187,8 @@ L:SetMiscLocalization({
 ----------------
 --  Nefarian  --
 ----------------
-L = DBM:GetModLocalization("Nefarian-BD")
+--L = DBM:GetModLocalization(174)
+L = DBM:GetModLocalization("Nefarian")
 
 L:SetGeneralLocalization({
 	name = "El Final de Nefarian"
@@ -193,7 +199,8 @@ L:SetWarningLocalization({
 	NefTailSwipe		= "Latigazo de cola (Nefarian)",
 	OnyBreath			= "Aliento (Onyxia)",
 	NefBreath			= "Aliento (Nefarian)",
-	specWarnShadowblazeSoon	= "Llamarada de las Sombras pronto (~5s)"
+	specWarnShadowblazeSoon	= "%s",
+	warnShadowblazeSoon		= "%s"
 })
 
 L:SetTimerLocalization({
@@ -208,8 +215,10 @@ L:SetOptionLocalization({
 	OnyTailSwipe		= "Mostrar aviso para el $spell:77827 de Onyxia",
 	NefTailSwipe		= "Mostrar aviso para el $spell:77827 de Nefarian",
 	OnyBreath			= "Mostrar aviso para el $spell:94124 de Onyxia",
-	NefBreath			= "Mostrar aviso para el $spell:94124 de Nefarian",
-	specWarnShadowblazeSoon	= "Mostrar pre-aviso especial para $spell:94085 (~5s)",
+	NefBreath			= "Mostrar aviso para el $spell:94124 de Nefarian",	
+	specWarnCinderMove		= "Mostrar aviso especial para moverte si te afecta\n $spell:79339 (5s antes de la explosión)",	
+	warnShadowblazeSoon		= "Mostrar pre-aviso de cuenta atrás para $spell:81031 (5s before)\n(Solo después que el contador se haya sincronizado para asegurar precisión)",
+	specWarnShadowblazeSoon	= "Mostrar pre-aviso especial para $spell:81031 (~5s)",
 	timerNefLanding		= "Mostrar tiempo para que Nefarian aterrice",
 	OnySwipeTimer		= "Mostrar tiempo de cooldown de $spell:77827 de Onyxia",
 	NefSwipeTimer		= "Mostrar tiempo de cooldown de $spell:77827 de Nefarian",
@@ -223,17 +232,20 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	NefAoe			= "¡El aire crepita cargado de electricidad!",
-	YellPhase2		= "¡Os maldigo, mortales! ¡Ese cruel menosprecio por las posesiones de uno debe ser castigado con fuerza extrema!",
+	NefAoe			= "¡El aire crepita cargado de electricidad!",--translate?
+	YellPhase2		= "¡Malditos mortales! ¡Tal negligencia con las posesiones ajenas debe ser castigada!",--translate?
 	YellPhase3		= "He intentado ser un buen anfitrión, pero ¡no morís! Es hora de dejarnos de tonterías y simplemente... ¡MATAROS A TODOS!",--translate?
+	YellShadowBlaze	= "¡La llama de las sombras los reanima! ¡Luchan a mis órdenes!",--translate?
 	Nefarian		= "Nefarian",
 	Onyxia			= "Onyxia",
-	Charge			= "Carga Eléctrica"
+	Charge			= "Carga Eléctrica",
+	ShadowBlazeExact	= "hispa de Fuegoarbusto en %ds",
+	ShadowBlazeEstimate	= "Llamarada de las Sombras pronto (~5s)"
 })
 
---------------
+-------------------------------
 --  Blackwing Descent Trash  --
---------------
+-------------------------------
 L = DBM:GetModLocalization("BWDTrash")
 
 L:SetGeneralLocalization({

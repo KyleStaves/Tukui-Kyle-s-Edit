@@ -231,6 +231,7 @@ end
 local function CreateQuickSlider(name, label, ... ) --, neighborFrame, xOffset, yOffset)
 		local columnFrame = ...
 		local frame = PanelHelpers:CreateSliderFrame(name, columnFrame, label, .5, 0, 1, .1)	
+		frame:SetWidth(170)	
 		-- Margins	-- Bottom/Left are negative
 		frame.Margins = { Left = 12, Right = 8, Top = 20, Bottom = 13,}		
 		QuickSetPoints(frame, ...)
@@ -402,6 +403,16 @@ end
 ------------------------------------------------------------------
 local function CreateInterfacePanel( panelName, panelTitle, heading, parentTitle)
 	
+						
+	local StyleModes = { 																-- Nameplate Style
+						{ text = "Default", notCheckable = 1 } ,
+						{ text = "Text Only", notCheckable = 1 } , 
+						{ text = "Bars during Combat", notCheckable = 1 } , 
+						{ text = "Bars on Active/Damaged Units", notCheckable = 1 } , 
+						{ text = "Bars on Elite Units", notCheckable = 1 } , 
+						{ text = "Bars on Marked Units", notCheckable = 1 } , 
+						{ text = "Bars on Players", notCheckable = 1 } , 
+						}	
 	
 	local TextModes = { { text = "None", notCheckable = 1 },
 						{ text = "Percent Health", notCheckable = 1 } ,
@@ -426,15 +437,7 @@ local function CreateInterfacePanel( panelName, panelTitle, heading, parentTitle
 						{ text = "Show All My Debuffs ", notCheckable = 1 } , 
 						{ text = "Show My Specific Debuffs... ", notCheckable = 1 } , 
 						{ text = "By Prefix...", notCheckable = 1 } ,
-						}
-
-						
-	local StyleModes = { 																-- Nameplate Style
-						{ text = "Default", notCheckable = 1 } ,
-						{ text = "Text Only", notCheckable = 1 } , 
-						{ text = "Bars during Combat", notCheckable = 1 } , 
-						{ text = "Bars on Active/Damaged Units", notCheckable = 1 } , 
-						}						
+						}					
 	
 	local OpacityModes = {
 						{ text = "None", notCheckable = 1 } ,
@@ -446,6 +449,7 @@ local function CreateInterfacePanel( panelName, panelTitle, heading, parentTitle
 						{ text = "By Raid Icon", notCheckable = 1 } ,
 						--{ text = "By Aggro Lost, Attacking Others", notCheckable = 1 } ,
 						}
+						
 	local ScaleModes = {
 						{ text = "None", notCheckable = 1 } ,
 						{ text = "By Elite", notCheckable = 1 } ,
@@ -457,6 +461,7 @@ local function CreateInterfacePanel( panelName, panelTitle, heading, parentTitle
 						{ text = "By Raid Icon", notCheckable = 1 } ,
 						--{ text = "By Aggro Lost, Attacking Others", notCheckable = 1 } ,
 						}
+						
 	local HealthColorModes = {
 						{ text = "Default", notCheckable = 1 } ,
 						{ text = "By Class", notCheckable = 1 } ,
@@ -613,7 +618,7 @@ local function CreateInterfacePanel( panelName, panelTitle, heading, parentTitle
 	SetSliderMechanics(panel.OpacityFiltered, 1, 0, 1, .01)
 	SetSliderMechanics(panel.ScaleStandard, 1, .1, 3, .1)
 	SetSliderMechanics(panel.ScaleSpotlight, 1, .1, 3, .1)
-	--SetSliderMechanics(panel.FrameVerticalPosition, .5, 0, 1, .02)
+	SetSliderMechanics(panel.FrameVerticalPosition, .5, 0, 1, .02)
 	
 		-- [[
 		--TidyPlatesHubDamageCache = CopyTable(TidyPlatesHubDamageVariables)

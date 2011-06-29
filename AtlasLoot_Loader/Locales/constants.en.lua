@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 3371 2011-04-28 19:57:26Z hegarol $
+-- $Id: constants.en.lua 3471 2011-06-27 12:48:34Z arith $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -23,6 +23,48 @@ if AL then
 	-- #########
 	-- UI things
 	-- #########
+	-- compare frame
+	AL["Compare Frame"] = true;
+	AL["Show in Compare Frame"] = true;
+	AL["Name"] = true;
+	AL["ItemLvl"] = true;
+	AL["Normal"] = true;
+	AL["%d items"] = true;
+	AL["All"] = true;
+	AL["Stats"] = true;
+	AL["Show \"Base Stats list\""] = true;
+	AL["Show \"Extra Stats list\""] = true;
+	AL["Base Stats list"] = true;
+	AL["Extra Stats list"] = true;	
+	AL["Add Stats list"] = true;
+	AL["Are you sure you want to delete Sort list |cff1eff00%s|r?"] = true;
+	AL["Delete Stats list"] = true;
+	AL["Stats color"] = true;
+	AL["Stats list name:"] = true;
+	AL["Select Stats list"] = true;
+	AL["You cant set more then %d item stats."] = true;
+
+	-- Stats short
+	AL["iLvl"] = true;	-- Item lvl
+	AL["str"] = true;	-- Strength
+	AL["agi"] = true;	-- Agility
+	AL["sta"] = true;	-- Stamina
+	AL["int"] = true;	-- Intellect
+	AL["spi"] = true;	-- Spirit
+	AL["Crit"] = true;	-- Crit Rating
+	AL["Dodge"] = true;	-- Dodge Rating
+	AL["Exp"] = true;	-- Expertise Rating
+	AL["Hit"] = true;	-- Hit Rating
+	AL["Haste"] = true;	-- Haste Rating
+	AL["Parry"] = true;	-- Parry Rating
+	AL["Spell"] = true;	-- Spell Power
+	AL["Resi"] = true;	-- Resilience Rating
+	AL["Mast"] = true;	-- Mastery
+
+	-- Stats
+	AL["Resilience Rating"] = true;
+	AL["Base Stats"] = true;
+	AL["Extra Stats"] = true;
 
 	-- Loader
 	AL["Load AtlasLoot"] = true;
@@ -41,7 +83,6 @@ if AL then
 	AL["Safe Chat Links"] = true;
 	AL["Comparison TT"] = true;
 	AL["Show Comparison Tooltips"] = true;
-	AL["Supress item query text"] = true;
 	AL["Opaque"] = true;
 	AL["Make Loot Table Opaque"] = true;
 	AL["Treat Crafted Items:"] = true;
@@ -92,6 +133,7 @@ if AL then
 	AL["Show price and slot if possible"] = true;
 	AL["Use GameTooltip"] = true;
 	AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = true;
+	AL["%d / %d ( Bank: %d )"] = true;
 	-- Unsafe Item
 	AL["Item Unavailable"] = true;
 	AL["|cff0070ddItemID: %d |r\nThis item is unsafe.  To view this item without the risk of disconnection, you need to have first seen it in the game world.\n\nYou can right-click to attempt to query the server.  You may be disconnected."] = true;
@@ -109,7 +151,7 @@ if AL then
 	AL["Item Slot"] = true;
 	AL["Item Quality"] = true;
 
-	-- Wishlist 
+	-- Wishlist
 	AL["Wishlist"] = true;
 	AL["Wishlists"] = true;
 	AL["Own"] = true;
@@ -134,6 +176,8 @@ if AL then
 	AL["Table Sort"] = true;
 	AL["Table Sort:"] = true;
 	AL["Item Sort:"] = true;
+	AL["Show own wishlists"] = true;
+	AL["Show all wishlists"] = true;
 
 	-- Filter
 	AL["Filter"] = true;
@@ -197,6 +241,8 @@ if AL then
 	AL["Location"] = true;
 	AL["ilvl 359"] = true;
 	AL["ilvl 372"] = true;
+	AL["ilvl 378"] = true;
+	AL["ilvl 391"] = true;
 
 	-- #######################################
 	-- UI things END
@@ -288,7 +334,6 @@ if AL then
 	AL["Set"] = true;
 	AL["Justice Points"] = true;
 	AL["Valor Points"] = true;
-	AL["Badge of Justice"] = true; --should be removed
 	AL["Emblem Rewards"] = true; --should be removed
 	AL["Emblem of Valor"] = true; --should be removed
 	AL["Emblem of Heroism"] = true; --should be removed
@@ -303,10 +348,9 @@ if AL then
 	AL["Tier 3 Set"] = true;
 	AL["Tier 4/5/6 Set"] = true;
 	AL["Tier 7/8 Set"] = true;
-	AL["Tier 8 Set"] = true;
 	AL["Tier 9 Set"] = true;
 	AL["Tier 10 Set"] = true;
-	AL["Tier 11 Set"] = true;
+	AL["Tier 11/12 Set"] = true;
 	AL["TCG Items"] = true; -- Trading Card Game Items
 	AL["Transformation Items"] = true;
 
@@ -317,10 +361,8 @@ if AL then
 	AL["PvP Weapons"] = true;
 	AL["PvP Non-Set Epics"] = true;
 	AL["PvP Reputation Sets"] = true;
-	AL["Arena PvP Weapons"] = true;
 	AL["PvP Misc"] = true;
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = true;
-	AL["PvP Class Items"] = true;
 	AL["PvP Trinkets"] = true;
 	AL["NOT AVAILABLE ANYMORE"] = true;
 
@@ -331,7 +373,6 @@ if AL then
 	AL["Brewfest"] = true;
 	AL["Children's Week"] = true;
 	AL["Day of the Dead"] = true;
-	AL["Elemental Invasion"] = true;
 	AL["Ethereum Prison"] = true;
 	AL["Feast of Winter Veil"] = true;
 	AL["Gurubashi Arena Booty Run"] = true;
@@ -345,7 +386,6 @@ if AL then
 	AL["Skettis"] = true;
 	AL["Stranglethorn Fishing Extravaganza"] = true;
 	AL["Kalu'ak Fishing Derby"] = true;
-	AL["Elemental Unrest"] = true;
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = true;
@@ -391,9 +431,6 @@ if AL then
 	AL["Banner"] = true;
 	AL["Set"] = true;
 	AL["Token"] = true;
-	AL["Tokens"] = true;
-	AL["Token Hand-Ins"] = true;
-	AL["Skinning Knife"] = true;
 	AL["Combat Pet"] = true;
 	AL["Fireworks"] = true;
 	AL["Transformation Item"] = true;
@@ -470,16 +507,9 @@ if AL then
 	AL["Quest Reward"] = true;
 	AL["Old Quest Reward"] = true;
 	AL["Shared"] = true;
-	AL["Unique"] = true;
 	AL["Right Half"] = true;
 	AL["Left Half"] = true;
-	AL["28 Slot Soul Shard"] = true;--is this still an item?
-	AL["20 Slot"] = true;
-	AL["18 Slot"] = true;
-	AL["16 Slot"] = true;
-	AL["10 Slot"] = true;
 	AL["Currency"] = true;
-	AL["Conjured Item"] = true;
 	AL["Used to summon boss"] = true;
 	AL["Tradable for sunmote + item above"] = true;
 	AL["Card Game Item"] = true;
@@ -488,8 +518,6 @@ if AL then
 	AL["Random Heroic Reward"] = true;
 	AL["Fishing Daily Reward"] = true;
 	AL["Collector's Edition"] = true;
-	AL["Blizzcon"] = true;
-	AL["WoW Anniversary Celebration"] = true;
 	AL["Daily Reward"] = true;
 	AL["No Longer Available"] = true;
 
@@ -514,6 +542,7 @@ if AL then
 	AL["Tier 9"] = true;
 	AL["Tier 10"] = true;
 	AL["Tier 11"] = true;
+	AL["Tier 12"] = true;
 	AL["10 Man"] = true;
 	AL["10/25 Man"] = true;
 	AL["Epic Set"] = true;
@@ -527,6 +556,7 @@ if AL then
 	AL["Season 7"] = true;
 	AL["Season 8"] = true;
 	AL["Season 9"] = true;
+	AL["Season 10"] = true;
 	AL["Fire"] = true;
 	AL["Water"] = true;
 	AL["Wind"] = true;
@@ -537,7 +567,6 @@ if AL then
 	AL["Nature Resistance Gear"] = true;
 	AL["Frost Resistance Gear"] = true;
 	AL["Shadow Resistance Gear"] = true;
-	AL["Classic Sets"] = true;
 
 	-- Labels for loot table sections
 	AL["Additional Heroic Loot"] = true;
@@ -557,8 +586,6 @@ if AL then
 	AL["Heirloom"] = true;
 	AL["Weapons"] = true;
 	AL["Accessories"] = true;
-	AL["Low Level"] = true;
-	AL["High Level"] = true;
 	AL["Rare"] = true;
 	AL["Specializations"] = true;
 
@@ -609,8 +636,8 @@ if AL then
 	AL["Special"] = true;
 	AL["Feasts"] = true;
 	AL["Speed"] = true;
-	AL["Rod"] = true;
-	AL["Oil"] = true;
+	AL["Rod"] = true; -- Used in categorizing Enchating Misc, ex: Runed Elementium Rod, Runed Fel Iron Rod. "Rod" is used as a category name
+	AL["Oil"] = true; -- Used in categorizing Enchating Misc, ex: Superior Wizard Oil, Wizard Oil
 	AL["Dwarf"] = true;
 	AL["Draenei"] = true;
 	AL["Night Elf"] = true;
@@ -627,24 +654,10 @@ if AL then
 	AL["Proc"] = true;
 
 	-- Extra Text in Boss lists
-	AL["Set: Embrace of the Viper"] = true;
-	AL["Set: Defias Leather"] = true;
-	AL["Set: The Gladiator"] = true;
-	AL["Set: Chain of the Scarlet Crusade"] = true;
-	AL["Set: The Postmaster"] = true;
-	AL["Set: Necropile Raiment"] = true;
-	AL["Set: Cadaverous Garb"] = true;
-	AL["Set: Bloodmail Regalia"] = true;
-	AL["Set: Deathbone Guardian"] = true;
-	AL["Set: Dal'Rend's Arms"] = true;
-	AL["Set: Spider's Kiss"] = true;
 	AL["AQ20 Class Sets"] = true;
 	AL["AQ Enchants"] = true;
 	AL["AQ40 Class Sets"] = true;
 	AL["AQ Opening Quest Chain"] = true;
-	AL["ZG Class Sets"] = true;
-	AL["ZG Enchants"] = true;
-	AL["Class Books"] = true;
 	AL["Tribute Run"] = true;
 	AL["Dire Maul Books"] = true;
 	AL["Random Boss Loot"] = true;
@@ -841,7 +854,6 @@ if AL then
 	AL["Venture Bay"] = true;
 
 	-- Karazhan Opera Event Headings
-	AL["Shared Drops"] = true;
 	AL["Wizard of Oz"] = true;
 	AL["Red Riding Hood"] = true;
 
@@ -849,17 +861,6 @@ if AL then
 	AL["Spider"] = true;
 	AL["Darkhound"] = true;
 	AL["Bat"] = true;
-
-	-- ZG Tokens
-	AL["Primal Hakkari Kossack"] = true;
-	AL["Primal Hakkari Shawl"] = true;
-	AL["Primal Hakkari Bindings"] = true;
-	AL["Primal Hakkari Sash"] = true;
-	AL["Primal Hakkari Stanchion"] = true;
-	AL["Primal Hakkari Aegis"] = true;
-	AL["Primal Hakkari Girdle"] = true;
-	AL["Primal Hakkari Armsplint"] = true;
-	AL["Primal Hakkari Tabard"] = true;
 
 	-- AQ20 Tokens
 	AL["Qiraji Ornate Hilt"] = true;
@@ -879,9 +880,6 @@ if AL then
 	AL["Husk of the Old God"] = true;
 	AL["Carapace of the Old God"] = true;
 
-	-- Classic WoW Sets
-	AL["Zul'Gurub Rings"] = true;
-
 	-- Recipe origin strings
 	AL["Trainer"] = true;
 	AL["Discovery"] = true;
@@ -889,9 +887,6 @@ if AL then
 	AL["Drop"] = true;
 	AL["Vendor"] = true;
 	AL["Crafted"] = true;
-
-	-- Level 80 PvP Weapons
-	AL["Wrathful Gladiator\'s Weapons"] = true;
 
 	-- Months
 	AL["January"] = true;
@@ -923,13 +918,6 @@ if AL then
 	AL["Destruction"] = true;
 	AL["Tanking"] = true;
 	AL["DPS"] = true;
-
-	-- Naxx Zones
-	AL["Construct Quarter"] = true;
-	AL["Arachnid Quarter"] = true;
-	AL["Military Quarter"] = true;
-	AL["Plague Quarter"] = true;
-	AL["Frostwyrm Lair"] = true;
 
 	-- NPCs missing from BabbleBoss
 	AL["Trash Mobs"] = true;
@@ -1048,25 +1036,21 @@ if AL then
 	AL["Jadefang"] = true;
 	AL["Aeonaxx"] = true;
 	AL["Prince Sarsarun"] = true;
-	AL["Highlord Kruul"] = true; -- added until decided if the set gets removed
 	AL["Dormus the Camel-Hoarder"] = true;
 	AL["The Behemoth"] = true;
 	AL["Master Elemental Shaper Krixix"] = true;
+	AL["Zen'Vorka"] = true;
+	AL["Ayla Shadowstorm"] = true;
+	AL["Damek Bloombeard"] = true;
+	AL["Varlan Highbough"] = true;
+	AL["Firestone Vendor"] = true;
 
 	-- Zones
-	AL["World Drop"] = true;
 	AL["Trial of the Grand Crusader"] = true;
 	AL["Crusader's Square"] = true;
 	AL["The Gauntlet"] = true;
 
 	-- Shortcuts for Bossname files
-	AL["LBRS"] = true;
-	AL["UBRS"] = true;
-	AL["CoT1"] = true;
-	AL["CoT2"] = true;
-	AL["Scholo"] = true;
-	AL["Strat"] = true;
-	AL["Serpentshrine"] = true;
 	AL["Avatar"] = true; -- Avatar of the Martyred
 
 	-- Chests, etc

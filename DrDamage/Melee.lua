@@ -309,6 +309,7 @@ end
 --Static values
 local baseSpiM = (select(2,UnitRace("player")) == "Human") and 1.03 or 1
 local troll = (select(2,UnitRace("player")) == "Troll")
+local warrior = (playerClass == "WARRIOR")
 local mastery = GetSpellInfo(86471)
 
 --Static tables
@@ -563,6 +564,7 @@ function DrDamage:MeleeCalc( name, rank, tooltip, modify, debug )
 			calculation.critPerc = calculation.critPerc - GetCombatRatingBonus((baseSpell.SpellCrit and 11 or 9))
 			calculation.hitPerc = calculation.hitPerc - GetCombatRatingBonus((baseSpell.SpellHit and 8 or 6))
 			calculation.mastery = 8
+			calculation.mastery = warrior and (calculation.spec == 2) and 2 or 8
 		end
 		calculation.expertise = math_max(0, calculation.expertise + self:GetRating("Expertise", settings.ExpertiseRating, true))
 		calculation.expertise_O = math_max(0, (calculation.expertise_O or 0) + self:GetRating("Expertise", settings.ExpertiseRating, true))
@@ -1072,7 +1074,7 @@ DrD_DmgCalc = function( baseSpell, spell, nextCalc, hitCalc, tooltip )
 		end
 	end
 
-	local extraDam, extraAvg, extraMin, extraMax
+	local extraDam, extraAvg, extraMin, extraMax, extraAvgM, extraAvgO
 	local perTarget, targets
 	if not calculation.zero then
 		--CORE: Extra damage effect calculation
@@ -1191,12 +1193,16 @@ DrD_DmgCalc = function( baseSpell, spell, nextCalc, hitCalc, tooltip )
 			end
 			--Adds extra effect to minimum damage
 			extraMin = extraMin + extraDam + extraDam_O
+			--Sums up main-hand average extra effect
+			extraAvgM = extraDam * calculation.extraChance + extraAvgTotal + critBonus_Extra
 			--Sums up main-hand average for DPS calculation
-			avgTotal = avgTotal + extraDam * calculation.extraChance + extraAvgTotal + critBonus_Extra
+			avgTotal = avgTotal + extraAvgM
+			--Sums up off-hand average extra effect
+			extraAvgO = extraDam_O * calculation.extraChance_O + extraAvgTotal_O + critBonus_Extra_O
 			--Sums up off-hand average for DPS calculation
-			avgTotal_O = avgTotal_O + extraDam_O * calculation.extraChance_O + extraAvgTotal_O + critBonus_Extra_O
+			avgTotal_O = avgTotal_O + extraAvgO
 			--Sums the average extra effect
-			extraAvg = extraDam * calculation.extraChance + extraDam_O * calculation.extraChance_O + critBonus_Extra + critBonus_Extra_O + extraAvgTotal + extraAvgTotal_O
+			extraAvg = extraAvgM + extraAvgO
 			--The amount of damage done on combined successful procs, non-crit
 			extraDam = extraDam + extraDam_O + extra + extra_O
 			--AP bonus from extra module
@@ -1278,6 +1284,14 @@ DrD_DmgCalc = function( baseSpell, spell, nextCalc, hitCalc, tooltip )
 				local aoeM = calculation.aoeM or 1
 				perTarget = (avgTotal - extraAvg) * aoeM + extraAvg
 				aoe = (targets - 1) * perTarget
+				if aoeM < 1 then
+					targets = targets - 1
+				end
+			elseif calculation.NoExtraAoE then
+				local aoeM = calculation.aoeM or 1
+				perTarget = (avgTotal + avgTotal_O - extraAvg) * aoeM
+				aoe = (targets - 1) * (avgTotal - extraAvgM) * aoeM
+				aoeO = (targets - 1) * (avgTotal_O - extraAvgO) * aoeM
 				if aoeM < 1 then
 					targets = targets - 1
 				end

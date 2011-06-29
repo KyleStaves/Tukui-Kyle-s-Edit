@@ -1,10 +1,15 @@
+--local mod	= DBM:NewMod(173, "DBM-BlackwingDescent", nil, 73)
 local mod	= DBM:NewMod("Maloriak", "DBM-BlackwingDescent")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5557 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6022 $"):sub(12, -3))
 mod:SetCreatureID(41378)
+mod:SetModelID(33186)
 mod:SetZone()
 mod:SetUsedIcons(1, 2, 3, 4, 6, 7, 8)
+mod:SetModelSound("Sound\\Creature\\Nefarian\\VO_BD_Nefarian_MaloriakIntro01.wav", "Sound\\Creature\\Maloriak\\VO_BD_Maloriak_Event05.wav")
+--Long: Maloriak, try not to lose to these mortals. Semicompetent help is SO hard to create.
+--Short: Mix and stir, apply heat...
 
 mod:RegisterCombat("combat")
 
@@ -14,9 +19,13 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"SPELL_INTERRUPT",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"RAID_BOSS_EMOTE",
 	"UNIT_HEALTH"
 )
+
+local isDispeller = select(2, UnitClass("player")) == "MAGE"
+	    		 or select(2, UnitClass("player")) == "PRIEST"
+	    		 or select(2, UnitClass("player")) == "SHAMAN"
 
 local warnPhase					= mod:NewAnnounce("WarnPhase", 2)
 local warnReleaseAdds			= mod:NewSpellAnnounce(77569, 3)
@@ -47,11 +56,11 @@ local timerEngulfingDarknessCD	= mod:NewNextTimer(12, 92754, nil, mod:IsHealer()
 local specWarnBitingChill		= mod:NewSpecialWarningYou(77760)
 local specWarnConsumingFlames	= mod:NewSpecialWarningYou(77786)
 local specWarnSludge			= mod:NewSpecialWarningMove(92987)
-local specWarnArcaneStorm		= mod:NewSpecialWarningInterrupt(77896)
+local specWarnArcaneStorm		= mod:NewSpecialWarningInterrupt(77896, false)
 local specWarnMagmaJets			= mod:NewSpecialWarningMove(78194, mod:IsTank())
-local specWarnEngulfingDarkness	= mod:NewSpecialWarningSpell(92754, mod:IsTank())--Heroic Ability
+local specWarnEngulfingDarkness	= mod:NewSpecialWarningSpell(92754, mod:IsHealer() or mod:IsTank())--Heroic Ability
 local specWarnFlashFreeze		= mod:NewSpecialWarningTarget(77699, mod:IsRanged())--On Heroic it has a lot more health.
-local specWarnRemedy			= mod:NewSpecialWarningDispel(77912, false)
+local specWarnRemedy			= mod:NewSpecialWarningDispel(77912, isDispeller)
 local specWarnAdds				= mod:NewSpecialWarningSpell(77569, false)
 
 local berserkTimer				= mod:NewBerserkTimer(420)
@@ -149,12 +158,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(77912, 92965, 92966, 92967) and not args:IsDestTypePlayer() then
 		warnRemedy:Show()
 		specWarnRemedy:Show(args.destName)
-	elseif args:IsSpellID(77896) then
-		warnArcaneStorm:Show()
-		timerArcaneStormCD:Start()
-		if self:GetUnitCreatureId("target") == 41378 or self:GetUnitCreatureId("focus") == 41378 then
-			specWarnArcaneStorm:Show()
-		end
 	elseif args:IsSpellID(77786, 92971, 92972, 92973) then
 		warnConsumingFlames:Show(args.destName)
 		timerConsumingFlames:Start(args.destName)
@@ -193,10 +196,10 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(77569) then
 		warnReleaseAdds:Show()
-		specWarnAdds:Show()
+		specWarnAdds:Show()--Special case that does not use standardized melee/ranged check do to fact this one usually has very specific assignments and may have a melee assigned that has to be warned regardless of target.
 		timerAddsCD:Start()
 		if adds >= 3 then--only schedule it if there actually are adds left.
-			self:Schedule(2.6, InterruptCheck)--Schedule after 2.6 just to consider all posibilities such as a slow interrupt and curse of tongues having been up.
+			self:Schedule(3, InterruptCheck)
 		end
 	elseif args:IsSpellID(77991) then
 		warnPhase2:Show()
@@ -211,9 +214,13 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(92754) then
 		warnEngulfingDarkness:Show()
 		timerEngulfingDarknessCD:Start()
-		if self:GetUnitCreatureId("target") == 41378 then--Add tank doesn't need this spam, just tank on mal.
+		if self:GetUnitCreatureId("target") == 41378 or self:GetBossTarget(33186) == UnitName("target") then--Add tank doesn't need this spam, just tank on mal and healers healing that tank.
 			specWarnEngulfingDarkness:Show()
 		end
+	elseif args:IsSpellID(77896) then
+		warnArcaneStorm:Show()
+		timerArcaneStormCD:Start()
+		specWarnArcaneStorm:Show()
 	elseif args:IsSpellID(78194) then
 		warnMagmaJets:Show()
 		if mod:IsDifficulty("heroic10", "heroic25") then
@@ -240,7 +247,7 @@ function mod:SPELL_INTERRUPT(args)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.YellRed or msg:find(L.YellRed) then
 		warnPhase:Show(L.Red)
 		timerAddsCD:Start()

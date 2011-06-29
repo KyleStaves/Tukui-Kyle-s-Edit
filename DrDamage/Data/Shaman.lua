@@ -691,12 +691,11 @@ function DrDamage:PlayerData()
 			[0] = { School = "Fire", NoDotHaste = true, Hits = 24, eDot = true, eDuration = 60, sTicks = 2.5 },
 			[1] = { 0, 0 },
 		},
-        --TODO: Cannot find updated Fire Nova data
 		[GetSpellInfo(1535)] = {
 			["Name"] = "Fire Nova",
 			["ID"] = 1535,
 			["Data"] = { 0.683, 0.112, 0.143, },
-			[0] = { School = "Fire", Cooldown = 10, AoE = true, },
+			[0] = { School = "Fire", Cooldown = 4, AoE = true, },
 			[1] = { 0, 0 },
 		},
 		[GetSpellInfo(8190)] = {
@@ -720,10 +719,11 @@ function DrDamage:PlayerData()
 			[0] = { School = "Fire", Cooldown = 8, },
 			[1] = { 0, 0 },
 		},
+		--HOTFIX 4.1: Healing Surge has been reduced in power by 20%.
 		[GetSpellInfo(8004)] = {
 			["Name"] = "Healing Surge",
 			["ID"] = 8004,
-			["Data"] = { 5.978, 0.133, 0.604, },
+			["Data"] = { 5.978 * 0.8, 0.133, 0.604 * 0.8, },
 			[0] = { School = { "Nature", "Healing", }, DirectHeal = true },
 			[1] = { 0, 0 },
 		},
@@ -759,7 +759,7 @@ function DrDamage:PlayerData()
 		[GetSpellInfo(974)] = {
 			["Name"] = "Earth Shield",
 			["ID"] = 974,
-			["Data"] = { 1.41, 0, 1, },
+			["Data"] = { 1.40976, 0, 1, },
 			[0] = { School = { "Nature", "Healing", }, Hits = 9, NoDPS = true, NoDoom = true, NoPeriod = true, },
 			[1] = { 0, 0 },
 		},
@@ -803,8 +803,8 @@ function DrDamage:PlayerData()
 			["Name"] = "Earthquake",
 			["ID"] = 61882,
 			["Data"] = { 0.324 },
-			--TOOLTIP BUG: Blizzard states coefficient to be 0.21
-			[0] = { Melee = true, SPBonus = 0.063, Duration = 10, Unavoidable = true, NoArmor = true },
+			--4.1 TODO: Check SP Coefficient
+			[0] = { Melee = true, SPBonus = 0.063, Hits = 10, eDot = true, eDuration = 10, Ticks = 1, Unavoidable = true, NoArmor = true, AoE = true },
 			[1] = { 0 },
 		},
 		[GetSpellInfo(51886)] = {

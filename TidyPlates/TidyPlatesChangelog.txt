@@ -1,14 +1,25 @@
-6.2
--------------
+6.3
+-----------------
+6.3.0 (r284)
+	* Updated functions for 4.2
+	* Increased width of sliders in Hub
+	* Opacity functions now use a transfer function to correct the opacity (currently, .5 does not translate to 50% opaque; it's more like 65%)
+	* Channeled spells now move the cast bar in reverse.
+	* Friendly/Enemy "V-key" Automation; In Combat, Out of Combat, Always
+	* Debuff widget now Caches texture of debuffs (to fix sunfire phenomenon, and similar)
 
-r259 (Beta)
-	- The Hub gets a new category: Style
-		- This new category has two menus for Friendly and Enemy nameplates
-		- Users can select between two styles (Health Bars vs Text Only),
-		  and several different visibility conditions.
-		- If you use the Text Only bars, you might want to check out the Name Text
-		  Color options, to spice up that text!
 
+6.2 (r269) 
+-----------------
+* The Hub gets a new category: Style
+	- This new category has two menus for Friendly and Enemy nameplates
+	- Users can select between two styles (Health Bars vs Text Only), and several different visibility conditions.
+	- If you use the Text Only bars, you might want to check out the Name Text Color options, to spice up that text!
+* Spell Cast Monitor name search will now strip the "-" from the combat log name, which should fix PvP cast association issues.
+* Debuff Widget will now strip the "-" from combat log events, which should fix pvp association issues
+* fixed a 'nil' error during pet/tank association
+* "Avoid Overlap" has been updated for the new CVar types
+* Fixed a bug where the debuff widget was not getting the correct data from the combat log
 
 6.1
 -------------

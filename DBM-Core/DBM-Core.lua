@@ -42,10 +42,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 5663 $"):sub(12, -3),
-	Version = "4.801",
-	DisplayVersion = "4.80b", -- the string that is shown as version
-	ReleaseRevision = 5663 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 6029 $"):sub(12, -3),
+	Version = "4.90",
+	DisplayVersion = "4.91 alpha", -- the string that is shown as version
+	ReleaseRevision = 6028 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -60,6 +60,8 @@ DBM.DefaultOptions = {
 	RaidWarningSound = "Sound\\Doodad\\BellTollNightElf.wav",
 	SpecialWarningSound = "Sound\\Spells\\PVPFlagTaken.wav",
 	SpecialWarningSound2 = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav",
+	ModelSoundValue = "Short",
+	CountdownVoice = "Corsica",
 	RaidWarningPosition = {
 		Point = "TOP",
 		X = 0,
@@ -76,19 +78,24 @@ DBM.DefaultOptions = {
 	SpamBlockRaidWarning = true,
 	SpamBlockBossWhispers = false,
 	ShowMinimapButton = true,
-	FixCLEUOnCombatStart = false,
-	SetCurrentMapOnPull = true,
 	BlockVersionUpdatePopup = true,
 	ShowSpecialWarnings = true,
+	ShowLHFrame = true,
 	AlwaysShowHealthFrame = false,
 	ShowBigBrotherOnCombatStart = false,
 	UseMasterVolume = true,
+	EnableModels = true,
+	RangeFrameFrames = "radar",
+	RangeFrameUpdates = "Average",
 	RangeFramePoint = "CENTER",
 	RangeFrameX = 50,
 	RangeFrameY = -50,
 	RangeFrameSound1 = "none",
 	RangeFrameSound2 = "none",
 	RangeFrameLocked = false,
+	RangeFrameRadarPoint = "CENTER",
+	RangeFrameRadarX = 100,
+	RangeFrameRadarY = -100,
 	InfoFramePoint = "CENTER",
 	InfoFrameX = 75,
 	InfoFrameY = -75,
@@ -364,7 +371,7 @@ do
 	end
 	
 
-	function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+	function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
 		if not registeredEvents[event] then return end
 		twipe(args)
 		args.timestamp = timestamp
@@ -372,9 +379,11 @@ do
 		args.sourceGUID = sourceGUID
 		args.sourceName = sourceName
 		args.sourceFlags = sourceFlags
+		args.sourceRaidFlags = sourceRaidFlags
 		args.destGUID = destGUID
 		args.destName = destName
 		args.destFlags = destFlags
+		args.destRaidFlags = destRaidFlags
 		-- taken from Blizzard_CombatLog.lua
 		if event == "SWING_DAMAGE" then
 			args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(1, ...)
@@ -481,15 +490,13 @@ do
 		return handleEvent(nil, event, args)
 	end
 	
-	-- fix for 4.1 which introduces the hideCaster argument
-	-- this is a temporary work-around which just drops the new argument for a quick and easy fix. It doesn't look like that we are going to need this argument ever, so this is okay for now.
-	-- TODO: apply this change to the actual function above when 4.1 goes live, hideCaster can then be added to the args table
-	if tonumber((select(2, GetBuildInfo()))) >= 13682 then
+	-- fix for 4.3 which will probably screw with combat log even more crap, so commented out instead of deleted :)
+--[[	if tonumber((select(4, GetBuildInfo()))) >= 40300 then
 		local oldHandler = DBM.COMBAT_LOG_EVENT_UNFILTERED
-		function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, ...)
-			return oldHandler(self, timestamp, event, ...)
+		function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
+			return oldHandler(self, timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
 		end
-	end
+	end--]]
 	
 	mainFrame:SetScript("OnEvent", handleEvent)
 end
@@ -783,6 +790,7 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		local timer = tonumber(cmd:sub(5)) or 10
 		local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
 		DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_PULL, true)
+		DBM:Unschedule(SendChatMessage)
 		SendChatMessage(DBM_CORE_ANNOUNCE_PULL:format(timer), channel)
 		if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(7), channel) end
 		if timer > 5 then DBM:Schedule(timer - 5, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(5), channel) end
@@ -943,7 +951,7 @@ do
 		if sender and ignore[sender] then return end
 		text = text:sub(1, 16)
 		text = text:gsub("%%t", UnitName("target") or "<no target>")
-		self.Bars:CreateBar(time, text)
+		self.Bars:CreateBar(time, text, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 		if broadcast and self:GetRaidRank() >= 1 then
 			sendSync("U", ("%s\t%s"):format(time, text))
 		end
@@ -980,14 +988,19 @@ do
 
 	DEFAULT_CHAT_FRAME:HookScript("OnHyperlinkClick", function(self, link, string, button, ...)
 		local linkType, arg1, arg2, arg3 = strsplit(":", link)
-		if linkType == "DBM" and arg1 == "cancel" then
+		if linkType ~= "DBM" then
+			return
+		end
+		if arg1 == "cancel" then
 			DBM.Bars:CancelBar(link:match("DBM:cancel:(.+):nil$"))
-		elseif linkType == "DBM" and arg1 == "ignore" then
+		elseif arg1 == "ignore" then
 			cancel = link:match("DBM:ignore:(.+):[^%s:]+$")
 			ignore = link:match(":([^:]+)$")
 			StaticPopup_Show("DBM_CONFIRM_IGNORE", ignore)
-		elseif linkType == "DBM" and arg1 == "update" then
-			DBM:ShowUpdateReminder(arg2, arg3) -- displayVersion, revision			
+		elseif arg1 == "update" then
+			DBM:ShowUpdateReminder(arg2, arg3) -- displayVersion, revision
+		elseif arg1 == "showRaidIdResults" then
+			DBM:ShowRaidIDRequestResults()
 		end
 	end)
 end
@@ -995,7 +1008,9 @@ end
 do
 	local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function
 	function ItemRefTooltip:SetHyperlink(link, ...)
-		if link:match("^DBM") then return end
+		if link:sub(0, 4) == "DBM:" then
+			return
+		end
 		return old(self, link, ...)
 	end
 end
@@ -1401,6 +1416,7 @@ do
 				"CHAT_MSG_MONSTER_EMOTE",
 				"CHAT_MSG_MONSTER_SAY",
 				"CHAT_MSG_RAID_BOSS_EMOTE",
+				"RAID_BOSS_EMOTE",
 				"PLAYER_ENTERING_WORLD",
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
@@ -1554,6 +1570,7 @@ do
 	-- CI = Combat Info
 	-- TI = Timer Info
 	-- IR = Instance Info Request
+	-- IRE = Instance Info Requested Ended/Canceled
 	-- II = Instance Info
 	
 	syncHandlers["M"] = function(sender, mod, revision, event, arg)
@@ -1681,9 +1698,17 @@ do
 			end
 		end
 		
+		syncHandlers["IRE"] = function(sender)
+			local popup = StaticPopup_FindVisible("DBM_INSTANCE_ID_PERMISSION", sender)
+			if popup and popup.data == sender then -- found the popup with the correct data (StaticPopup_FindVisible already checks the data (but only if multiple is set), check it again to be safe is the function changes or something...)
+				popup:Hide()
+			end
+		end
+		
 		local lastRequest = 0
 		local numResponses = 0
 		local expectedResponses = 0
+		local allResponded = false
 		local results
 		
 		local updateInstanceInfo, showResults
@@ -1723,8 +1748,11 @@ do
 			if numResponses >= expectedResponses then -- unlikely, lol
 				DBM:Unschedule(updateInstanceInfo)
 				DBM:Unschedule(showResults)
-				DBM:AddMsg(DBM_INSTANCE_INFO_ALL_RESPONSES)
-				showResults()
+				if not allResponded then --Only display message once in case we get for example 4 syncs the last sender
+					DBM:Schedule(0.99, DBM.AddMsg, DBM, DBM_INSTANCE_INFO_ALL_RESPONSES)
+					allResponded = true
+				end
+				DBM:Schedule(1, showResults) --Delay results so we allow time for same sender to send more than 1 lockout, otherwise, if we get expectedResponses before all data is sent from 1 user, we clip some of their data.
 			end
 		end
 		
@@ -1733,7 +1761,7 @@ do
 			DBM:AddMsg(DBM_INSTANCE_INFO_RESULTS)
 			for i, v in pairs(results.data) do
 				DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_HEADER:format(v.name, v.maxPlayers, v.diff))
-				for id, v in ipairs(v.ids) do
+				for id, v in pairs(v.ids) do
 					DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_INSTANCE:format(id, v.progress, table.concat(v, ", ")))
 				end
 			end
@@ -1766,6 +1794,17 @@ do
 			results = nil
 		end
 		
+		-- called when the chat link is clicked
+		function DBM:ShowRaidIDRequestResults()
+			if not results then -- check if we are currently querying raid IDs, results will be nil if we don't
+				return
+			end
+			DBM:Unschedule(updateInstanceInfo)
+			DBM:Unschedule(showResults)
+			showResults() -- sets results to nil after the results are displayed, ending the current id request; future incoming data will be discarded
+			sendSync("IRE")
+		end
+		
 		local function getResponseStats()
 			local numResponses = 0
 			local sent = 0
@@ -1787,21 +1826,48 @@ do
 		local function getNumDBMUsers() -- without ourselves
 			local r = 0
 			for i, v in pairs(raid) do
-				if v.revision and v.name ~= UnitName("player") then
+				if v.revision and v.name ~= UnitName("player") and UnitIsConnected(DBM:GetRaidUnitId(v.name)) then
 					r = r + 1
 				end
 			end
 			return r
 		end
 		
-		function updateInstanceInfo(timeRemaining)
+		function updateInstanceInfo(timeRemaining, dontAddShowResultNowButton)
 			local numResponses, sent, denied, away = getResponseStats()
-			DBM:AddMsg(DBM_INSTANCE_INFO_STATUS_UPDATE:format(numResponses, getNumDBMUsers(), sent, denied, timeRemaining))
+			local dbmUsers = getNumDBMUsers()
+			DBM:AddMsg(DBM_INSTANCE_INFO_STATUS_UPDATE:format(numResponses, dbmUsers, sent, denied, timeRemaining))
+			if not dontAddShowResultNowButton then
+				if dbmUsers - numResponses <= 7 then -- waiting for 7 or less players, show their names and the early result option
+					-- copied from above, todo: implement a smarter way of keeping track of stuff like this
+					local noResponse = {}
+					for i = 1, GetNumRaidMembers() do
+						if not UnitIsUnit("raid"..i, "player") and raid[UnitName("raid"..i)] and raid[UnitName("raid"..i)].revision then -- only show players who actually can respond (== DBM users)
+							table.insert(noResponse, (UnitName("raid"..i)))
+						end
+					end
+					for i, v in pairs(results.responses) do
+						removeEntry(noResponse, i)
+					end
+				
+					--[[
+					-- this looked like the easiest way (for some reason?) to create the player string when writing this code -.-
+					local function dup(...) if select("#", ...) == 0 then return else return ..., ..., dup(select(2, ...)) end end
+					DBM:AddMsg(DBM_INSTANCE_INFO_SHOW_RESULTS:format(("|Hplayer:%s|h[%s]|h| "):rep(#noResponse):format(dup(unpack(noResponse)))))
+					]]
+					-- code that one can actually read
+					for i, v in ipairs(noResponse) do
+						noResponse[i] = ("|Hplayer:%s|h[%s]|h|"):format(v, v)
+					end
+					DBM:AddMsg(DBM_INSTANCE_INFO_SHOW_RESULTS:format(table.concat(noResponse, ", ")))
+				end
+			end
 		end
 		
 		function DBM:RequestInstanceInfo()
 			DBM:AddMsg(DBM_INSTANCE_INFO_REQUESTED)
 			lastRequest = GetTime()
+			allResponded = false
 			results = {
 				responses = { -- who responded to our request?
 				},
@@ -1813,7 +1879,7 @@ do
 			sendSync("IR")
 			DBM:Unschedule(updateInstanceInfo)
 			DBM:Unschedule(showResults)
-			DBM:Schedule(17, updateInstanceInfo, 45)
+			DBM:Schedule(17, updateInstanceInfo, 45, true)
 			DBM:Schedule(32, updateInstanceInfo, 30)
 			DBM:Schedule(48, updateInstanceInfo, 15)
 			DBM:Schedule(62, showResults)
@@ -1859,15 +1925,13 @@ do
 	function DBM:CHAT_MSG_ADDON(prefix, msg, channel, sender)
 		if prefix == "D4" and msg and (channel == "PARTY" or channel == "RAID" or channel == "BATTLEGROUND" or channel == "WHISPER" and self:GetRaidUnitId(sender) ~= "none") then
 			handleSync(channel, sender, strsplit("\t", msg))
---		elseif prefix == "DBMv4-Ver" and msg == "Hi!" then -- an old client is trying to communicate with us, but we can't respond as he won't be able to receive our messages
---			if raid[sender] and not raid[sender].revision then -- it is actually an old client and not a recent one sending an old sync for compatibility reasons during 4.0
---				raid[sender].revision = 0
---				raid[sender].version = 4
---				raid[sender].displayVersion = "Unknown (uses incompatible pre-4.1 sync system without support for filters)"
---				raid[sender].locale = "unknown"
---			end
---		elseif prefix == "DBMv4-Ver" then -- 4.1 isn't live yet and the old clients can still communicate with us
---			syncHandlers["V"](sender, strsplit("\t", msg))
+		elseif prefix == "DBMv4-Ver" and msg == "Hi!" then -- an old client is trying to communicate with us, but we can't respond as he won't be able to receive our messages
+			if raid[sender] and not raid[sender].revision then -- it is actually an old client and not a recent one sending an old sync for compatibility reasons during 4.0
+				raid[sender].revision = 0
+				raid[sender].version = 4
+				raid[sender].displayVersion = "Unknown (uses incompatible pre-4.1 sync system)"
+				raid[sender].locale = "unknown"
+			end
 		end
 	end
 end
@@ -1976,6 +2040,7 @@ do
 			clearTargetList()
 		end
 	end
+
 	
 	local function checkForPull(mob, combatInfo)
 		local uId = targetList[mob]
@@ -2111,6 +2176,11 @@ do
 		onMonsterMessage("emote", msg)
 		return self:FilterRaidBossEmote(msg, ...)
 	end
+	
+	function DBM:RAID_BOSS_EMOTE(msg, ...)--In 4.2 CHAT_MSG_ is removed from it, when patch launches we can delete the above prototype
+		onMonsterMessage("emote", msg)
+		return self:FilterRaidBossEmote(msg, ...)
+	end
 
 	function DBM:CHAT_MSG_MONSTER_SAY(msg)
 		return onMonsterMessage("say", msg)
@@ -2208,24 +2278,18 @@ function DBM:StartCombat(mod, delay, synced)
 				BigBrother:ConsumableCheck("SELF")
 			end
 		end	
-		if DBM.Options.FixCLEUOnCombatStart then
-			CombatLogClearEntries()
-		end
-		if DBM.Options.SetCurrentMapOnPull then
-			SetMapToCurrentZone()--Set to current map once engaged for /range and /arrow functions.
-		end
 	end
 end
 
 
 function DBM:EndCombat(mod, wipe)
 	if removeEntry(inCombat, mod) then
-		mod:Stop()
-		mod.inCombat = false
-		mod.blockSyncs = true
 		if not wipe then
 			mod.lastKillTime = GetTime()
 		end
+		mod:Stop()
+		mod.inCombat = false
+		mod.blockSyncs = true
 		if mod.combatInfo.killMobs then
 			for i, v in pairs(mod.combatInfo.killMobs) do
 				mod.combatInfo.killMobs[i] = true
@@ -2644,15 +2708,17 @@ do
 	local testMod
 	local testWarning1, testWarning2, testWarning3
 	local testTimer
-	local testSpecialWarning
+	local testSpecialWarning1
+	local testSpecialWarning2
 	function DBM:DemoMode()
 		if not testMod then
 			testMod = DBM:NewMod("TestMod")
 			testWarning1 = testMod:NewAnnounce("%s", 1, "Interface\\Icons\\Spell_Nature_WispSplode")
 			testWarning2 = testMod:NewAnnounce("%s", 2, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
 			testWarning3 = testMod:NewAnnounce("%s", 3, "Interface\\Icons\\Spell_Fire_SelfDestruct")
-			testTimer = testMod:NewTimer(20, "%s")			
-			testSpecialWarning = testMod:NewSpecialWarning("%s")
+			testTimer = testMod:NewTimer(20, "%s")	
+			testSpecialWarning1 = testMod:NewSpecialWarning("%s")		
+			testSpecialWarning2 = testMod:NewSpecialWarning("%s", nil, nil, nil, true)
 		end
 		testTimer:Start(20, "Pew Pew Pew...")
 		testTimer:UpdateIcon("Interface\\Icons\\Spell_Nature_Starfall", "Pew Pew Pew...")
@@ -2665,7 +2731,8 @@ do
 		testWarning1:Cancel()
 		testWarning2:Cancel()
 		testWarning3:Cancel()
-		testSpecialWarning:Cancel()
+		testSpecialWarning1:Cancel()
+		testSpecialWarning2:Cancel()
 		testWarning1:Show("Test-mode started...")
 		testWarning1:Schedule(62, "Test-mode finished!")
 		testWarning3:Schedule(50, "Boom in 10 sec!")
@@ -2673,7 +2740,8 @@ do
 		testWarning2:Schedule(38, "Evil Spell in 5 sec!")
 		testWarning2:Schedule(43, "Evil Spell!")
 		testWarning1:Schedule(10, "Test bar expired!")
-		testSpecialWarning:Schedule(60, "Boom!")
+		testSpecialWarning1:Schedule(43, "Evil Spell!")
+		testSpecialWarning2:Schedule(60, "Boom!")
 	end
 end
 
@@ -2732,7 +2800,8 @@ do
 	local modsById = setmetatable({}, {__mode = "v"})
 	local mt = {__index = bossModPrototype}
 
-	function DBM:NewMod(name, modId, modSubTab)
+	function DBM:NewMod(name, modId, modSubTab, instanceId, encounterId)
+		if type(name) == "number" then encounterId = name end
 		if modsById[name] then error("DBM:NewMod(): Mod names are used as IDs and must therefore be unique.", 2) end
 		local obj = setmetatable(
 			{
@@ -2749,6 +2818,8 @@ do
 				specwarns = {},
 				timers = {},
 				modId = modId,
+				instanceId = instanceId,
+				encounterId = encounterId,
 				revision = 0,
 				localization = self:GetModLocalization(name)
 			},
@@ -2760,7 +2831,15 @@ do
 				break
 			end
 		end
-		if obj.localization.general.name == "name" then obj.localization.general.name = name end
+
+		if obj.localization.general.name == "name" then
+			if type(name) == "number" then
+				local t = EJ_GetEncounterInfo(name)
+				obj.localization.general.name = string.split(",", t)
+			else
+				obj.localization.general.name = name 
+			end
+		end
 		table.insert(self.Mods, obj)
 		modsById[name] = obj
 		obj:AddBoolOption("SpeedKillTimer", false, "misc")
@@ -2988,6 +3067,19 @@ local function IsDruidTank()
 	return tankTalents >= 3
 end
 
+function bossModPrototype:IsDps()--For features that simply should only be on for dps and not healers or tanks and without me having to use "not is heal or not is tank" rules :)
+	return (class == "WARRIOR" and not IsSpellKnown(93098))--Veangeance Check (false)
+	or (class == "DEATHKNIGHT" and not IsSpellKnown(93099))--Veangeance Check (false)
+	or (class == "PALADIN" and IsSpellKnown(53503))--Sheath of Light (true)
+	or (class == "DRUID" and not (IsSpellKnown(85101) or IsDruidTank()))--Druids suck, have to check 3 tank talents on top of Meditation.
+    or (class == "SHAMAN" and not IsSpellKnown(95862))--Meditation Check (False)
+   	or (class == "PRIEST" and IsSpellKnown(95740))--Shadow Orbs Check (true)
+	or class == "WARLOCK"
+	or class == "MAGE"
+	or class == "HUNTER"
+	or class == "ROGUE"
+end
+
 --A simple check to see if these classes know "Vengeance".
 function bossModPrototype:IsTank()
 	return (class == "WARRIOR" and IsSpellKnown(93098))
@@ -3074,10 +3166,12 @@ do
 					self.mod:AddMsg(text, nil)
 				end
 			end
-			if DBM.Options.UseMasterVolume then
-				PlaySoundFile(DBM.Options.RaidWarningSound, "Master")--4.0.6 arg to use master sound channel, re-enableing sound playback when effects are turned off.
-			else
-				PlaySoundFile(DBM.Options.RaidWarningSound)--not cata so we don't use the channel arg to maintain CN wow compatability.
+			if self.sound then
+				if DBM.Options.UseMasterVolume then
+					PlaySoundFile(DBM.Options.RaidWarningSound, "Master")--4.0.6 arg to use master sound channel, re-enableing sound playback when effects are turned off.
+				else
+					PlaySoundFile(DBM.Options.RaidWarningSound)--not cata so we don't use the channel arg to maintain CN wow compatability.
+				end
 			end
 		end
 	end
@@ -3091,12 +3185,13 @@ do
 	end
 
 	-- old constructor (no auto-localize)
-	function bossModPrototype:NewAnnounce(text, color, icon, optionDefault, optionName)
+	function bossModPrototype:NewAnnounce(text, color, icon, optionDefault, optionName, noSound)
 		local obj = setmetatable(
 			{
 				text = self.localization.warnings[text],
 				color = DBM.Options.WarningColors[color or 1] or DBM.Options.WarningColors[1],
 				option = optionName or text,
+				sound = not noSound,
 				mod = self,
 				icon = (type(icon) == "number" and select(3, GetSpellInfo(icon))) or icon,
 			},
@@ -3139,6 +3234,7 @@ do
 				option = optionName or text,
 				mod = self,
 				icon = (type(icon) == "number" and select(3, GetSpellInfo(icon))) or icon,
+				sound = not noSound,
 			},
 			mt
 		)
@@ -3230,7 +3326,81 @@ do
 
 	function soundPrototype:Cancel(...)
 		return unschedule(self.Play, self.mod, self, ...)
-	end	
+	end
+end
+
+------------------------
+--  Countdown object  --
+------------------------
+do
+	local countdownProtoType = {}
+	local mt = {__index = countdownProtoType}
+
+	function countdownProtoType:Start(timer)
+		if not self.option or self.mod.Options[self.option] then
+			timer = timer or self.timer or 10
+			timer = timer <= 5 and self.timer or timer
+			if DBM.Options.CountdownVoice == "Mosh" then
+				self.sound5:Schedule(timer-5, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\5.ogg")
+				self.sound5:Schedule(timer-4, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\4.ogg")
+				self.sound5:Schedule(timer-3, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.ogg")
+				self.sound5:Schedule(timer-2, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.ogg")
+				self.sound5:Schedule(timer-1, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.ogg")
+			else--When/if more voices get added we can tweak it to use elseif rules, but for now else works smarter cause then ANY value will return to a default voice.
+				self.sound5:Schedule(timer-5, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\5.mp3")
+				self.sound5:Schedule(timer-4, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\4.mp3")
+				self.sound5:Schedule(timer-3, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\3.mp3")
+				self.sound5:Schedule(timer-2, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\2.mp3")
+				self.sound5:Schedule(timer-1, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\1.mp3")
+			end
+		end
+	end
+
+	function countdownProtoType:Schedule(t)
+		return self.owner:Schedule(t, self.Start, self)
+	end
+
+	function countdownProtoType:Cancel()
+		self.mod:Unschedule(self.Start, self)
+		self.sound1:Cancel()
+		self.sound2:Cancel()
+		self.sound3:Cancel()
+		self.sound4:Cancel()
+		self.sound5:Cancel()
+	end
+	countdownProtoType.Stop = countdownProtoType.Cancel
+
+	function bossModPrototype:NewCountdown(timer, spellId, optionDefault, optionName)
+		local sound5 = self:NewSound(5, false, true)
+		local sound4 = self:NewSound(4, false, true)
+		local sound3 = self:NewSound(3, false, true)
+		local sound2 = self:NewSound(2, false, true)
+		local sound1 = self:NewSound(1, false, true)
+		timer = timer or 10
+		if not spellId then
+			DBM:AddMsg("Error: No spellID given for countdown timer")
+			spellId = 39505
+		end
+		local obj = setmetatable(
+			{
+				sound1 = sound1,
+				sound2 = sound2,
+				sound3 = sound3,
+				sound4 = sound4,
+				sound5 = sound5,
+				timer = timer,
+				option = optionName or DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT:format(spellId),
+				mod = self
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "misc")
+		end
+		return obj
+	end
 end
 
 --------------------
@@ -3269,7 +3439,9 @@ do
 
 	function yellPrototype:Cancel(...)
 		return unschedule(self.Yell, self.mod, self, ...)
-	end	
+	end
+	
+	yellPrototype.Show = yellPrototype.Yell
 end
 
 ------------------------------
@@ -3308,11 +3480,15 @@ do
 	frame:SetScript("OnUpdate", function(self, elapsed)
 		self.timer = self.timer - elapsed
 		if self.timer >= 3 and self.timer <= 4 then
-			LowHealthFrame:SetAlpha(self.timer - 3)
+			if not self.healthFrameHidden then
+				LowHealthFrame:SetAlpha(self.timer - 3)
+			end
 		elseif self.timer <= 2 then
 			frame:SetAlpha(self.timer/2)
 		elseif self.timer <= 0 then
-			LowHealthFrame:Hide()
+			if not self.healthFrameHidden then
+				LowHealthFrame:Hide()
+			end
 			frame:Hide()
 		end
 	end)
@@ -3320,8 +3496,13 @@ do
 	function specialWarningPrototype:Show(...)
 		if DBM.Options.ShowSpecialWarnings and (not self.option or self.mod.Options[self.option]) and not moving and frame then	
 			font:SetText(pformat(self.text, ...))
-			LowHealthFrame:Show()
-			LowHealthFrame:SetAlpha(1)
+			if DBM.Options.ShowLHFrame and not UnitIsDeadOrGhost("player") then
+				LowHealthFrame:Show()
+				LowHealthFrame:SetAlpha(1)
+				frame.healthFrameHidden = nil
+			else
+				frame.healthFrameHidden = true -- to prevent bugs in the case that this option is changed while the flash effect is active (which is not that unlikely as there is a test button in the gui...)
+			end
 			frame:Show()
 			frame:SetAlpha(1)
 			frame.timer = 5
@@ -4131,6 +4312,11 @@ function bossModPrototype:SetModelID(id)
 	self.modelId = id
 end
 
+function bossModPrototype:SetModelSound(long, short)--PlaySoundFile prototype for model viewer, long is long sound, short is a short clip, configurable in UI, both sound paths defined in boss mods.
+	self.modelSoundLong = long
+	self.modelSoundShort = short
+end
+
 function bossModPrototype:EnableModel()
 	self.modelEnabled = true
 end
@@ -4239,4 +4425,3 @@ do
 		return modLocalizations[name] or self:CreateModLocalization(name)
 	end
 end
-

@@ -1,10 +1,15 @@
+--local mod	= DBM:NewMod(171, "DBM-BlackwingDescent", nil, 73)
 local mod	= DBM:NewMod("Atramedes", "DBM-BlackwingDescent")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5625 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6017 $"):sub(12, -3))
 mod:SetCreatureID(41442)
+mod:SetModelID(34547)
 mod:SetZone()
 mod:SetUsedIcons(8)
+mod:SetModelSound("Sound\\Creature\\Nefarian\\VO_BD_Nefarian_AtramedesIntro.wav", "Sound\\Creature\\Atramedes\\VO_BD_Atramedes_Event03.wav")
+--Long: Atramedes, are you going deaf as well as blind? Hurry up and kill them all.
+--Short: Death waits in the darkness!
 
 mod:RegisterCombat("combat")
 
@@ -34,8 +39,8 @@ local specWarnSonarPulse	= mod:NewSpecialWarningSpell(92411, false, nil, nil, tr
 local specWarnTracking		= mod:NewSpecialWarningYou(78092)
 local specWarnPestered		= mod:NewSpecialWarningYou(92685)
 local yellPestered			= mod:NewYell(92685, L.YellPestered)
-local specWarnObnoxious		= mod:NewSpecialWarningInterrupt(92702, false)
-local specWarnAddTargetable	= mod:NewSpecialWarning("specWarnAddTargetable", false)
+local specWarnObnoxious		= mod:NewSpecialWarningInterrupt(92702, mod:IsMelee())
+local specWarnAddTargetable	= mod:NewSpecialWarning("specWarnAddTargetable", mod:IsRanged())
 
 local timerSonarPulseCD		= mod:NewCDTimer(10, 92411)
 local timerSonicBreath		= mod:NewCDTimer(41, 78075)
@@ -110,7 +115,9 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(92677, 92702) then
 		warnObnoxious:Show()
-		specWarnObnoxious:Show()
+		if self:IsMelee() and (self:GetUnitCreatureId("target") == 49740 or self:GetUnitCreatureId("focus") == 49740) or not self:IsMelee() then
+			specWarnObnoxious:Show()--Only warn for melee targeting him or exclicidly put him on focus, else warn regardless if he's your target/focus or not if you aren't a melee
+		end
 	end
 end
 

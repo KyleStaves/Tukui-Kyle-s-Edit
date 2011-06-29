@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 3373 2011-04-29 13:19:28Z dynaletik $
+﻿-- $Id: constants.de.lua 3454 2011-06-19 09:14:22Z hegarol $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -23,6 +23,48 @@ if AL then
 	-- #########
 	-- UI things
 	-- #########
+	-- compare frame
+	AL["Compare Frame"] = "Vergleichsfenster";
+	AL["Show in Compare Frame"] = "Im Vergleichsfenster anzeigen";
+	-- AL["Name"] = true;
+	AL["ItemLvl"] = "Gegenstandsstufe";
+	-- AL["Normal"] = true;
+	AL["%d items"] = "%d Gegenstände";
+	AL["All"] = "Alle";
+	AL["Stats"] = "Werte";
+	AL["Show \"Base Stats list\""] = "\"Liste der Grundwerte\" anzeigen";
+	AL["Show \"Extra Stats list\""] = "\"Liste der weiteren Werte\" anzeigen";
+	AL["Base Stats list"] = "Liste der Grundwerte";
+	AL["Extra Stats list"] = "Liste der weiteren Werte";
+	AL["Add Stats list"] = "Werteliste hinzufügen";
+	AL["Are you sure you want to delete Sort list |cff1eff00%s|r?"] = "Möchten Sie die Sortierliste |cff1eff00%s|r wirklich löschen?";
+	AL["Delete Stats list"] = "Werteliste löschen";
+	AL["Stats color"] = "Wertefarbe";
+	AL["Stats list name:"] = "Wertelistenname";
+	AL["Select Stats list"] = "Werteliste auswählen";
+	AL["You cant set more then %d item stats."] = "Sie können nicht mehr als %d Gegenstandswerte festlegen.";
+
+	-- Stats short
+	-- AL["iLvl"] = true;	-- Item lvl
+	-- AL["str"] = true;	-- Strength
+	-- AL["agi"] = true;	-- Agility
+	-- AL["sta"] = true;	-- Stamina
+	-- AL["int"] = true;	-- Intellect
+	-- AL["spi"] = true;	-- Spirit
+	-- AL["Crit"] = true;	-- Crit Rating
+	-- AL["Dodge"] = true;	-- Dodge Rating
+	-- AL["Exp"] = true;	-- Expertise Rating
+	-- AL["Hit"] = true;	-- Hit Rating
+	-- AL["Haste"] = true;	-- Haste Rating
+	-- AL["Parry"] = true;	-- Parry Rating
+	-- AL["Spell"] = true;	-- Spell Power
+	-- AL["Resi"] = true;	-- Resilience Rating
+	-- AL["Mast"] = true;	-- Mastery
+
+	-- Stats
+	AL["Resilience Rating"] = "Abhärtungswertung";
+	AL["Base Stats"] = "Grundwerte";
+	AL["Extra Stats"] = "Weitere Werte";
 
 	-- Loader
 	AL["Load AtlasLoot"] = "AtlasLoot laden";
@@ -41,7 +83,6 @@ if AL then
 	AL["Safe Chat Links"] = "Sichere Chatlinks";
 	AL["Comparison TT"] = "Vergleiche Item";
 	AL["Show Comparison Tooltips"] = "Zeige eigenes Item zum Vergleich";
-	AL["Supress item query text"] = "Meldung der Serverabfrage verstecken";
 	AL["Opaque"] = "Undurchsichtig";
 	AL["Make Loot Table Opaque"] = "Schwarzer Hintergrund";
 	AL["Treat Crafted Items:"] = "Herstellbare Gegenstände behandeln";
@@ -92,6 +133,7 @@ if AL then
 	AL["Show price and slot if possible"] = "Preis und Slot anzeigen wenn möglich";
 	AL["Use GameTooltip"] = "Spiel-ToolTip verwenden";
 	AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = "Statt dem angepassten AtlasLoot-ToolTip den normalen Spiel-ToolTip verwenden";
+	-- AL["%d / %d ( Bank: %d )"] = true;
 	-- Unsafe Item
 	AL["Item Unavailable"] = "Item nicht verfügbar";
 	AL["|cff0070ddItemID: %d |r\nThis item is unsafe.  To view this item without the risk of disconnection, you need to have first seen it in the game world.\n\nYou can right-click to attempt to query the server.  You may be disconnected."] = "|cff0070ddItemID: %d |r\nDieses Item ist unsicher.  Sobald Sie dieses Item im Spiel gesehen haben, besteht nicht mehr die Gefahr eines Verbindungsabbruchs.\n\nSie können die Abfrage mit einem Rechtsklick erzwingen.  Dies kann zu einem Verbindungsabbruch führen.";
@@ -109,7 +151,7 @@ if AL then
 	AL["Item Slot"] = "Itemslot";
 	AL["Item Quality"] = "Itemqualität";
 
-	-- Wishlist 
+	-- Wishlist
 	AL["Wishlist"] = "Wunschzettel";
 	AL["Wishlists"] = "Wunschzettel";
 	AL["Own"] = "Eigene";
@@ -134,6 +176,8 @@ if AL then
 	AL["Table Sort"] = "Beute sortieren";
 	AL["Table Sort:"] = "Beute sortieren:";
 	AL["Item Sort:"] = "Items sortieren:";
+	AL["Show own wishlists"] = "Eigene Wunschzettel anzeigen";
+	AL["Show all wishlists"] = "Alle Wunschzettel anzeigen";
 
 	-- Filter
 	-- AL["Filter"] = true;
@@ -197,6 +241,8 @@ if AL then
 	AL["Location"] = "Quelle";
 	AL["ilvl 359"] = "Gegenstandsstufe 359";
 	AL["ilvl 372"] = "Gegenstandsstufe 372";
+	AL["ilvl 378"] = "Gegenstandsstufe 378";
+	AL["ilvl 391"] = "Gegenstandsstufe 391";
 
 	-- #######################################
 	-- UI things END
@@ -288,7 +334,6 @@ if AL then
 	-- AL["Set"] = true;
 	AL["Justice Points"] = "Gerechtigkeitspunkte";
 	AL["Valor Points"] = "Tapferkeitspunkte";
-	AL["Badge of Justice"] = "Abzeichen der Gerechtigkeit";
 	AL["Emblem Rewards"] = "Belohnungen für Embleme";
 	AL["Emblem of Valor"] = "Emblem der Ehre";
 	AL["Emblem of Heroism"] = "Emblem des Heldentums";
@@ -303,10 +348,9 @@ if AL then
 	-- AL["Tier 3 Set"] = true;
 	-- AL["Tier 4/5/6 Set"] = true;
 	-- AL["Tier 7/8 Set"] = true;
-	-- AL["Tier 8 Set"] = true;
 	-- AL["Tier 9 Set"] = true;
 	-- AL["Tier 10 Set"] = true;
-	-- AL["Tier 11 Set"] = true;
+	-- AL["Tier 11/12 Set"] = true;
 	AL["TCG Items"] = "TCG Gegenstände";
 	AL["Transformation Items"] = "Transformations-Gegenstände";
 
@@ -317,10 +361,8 @@ if AL then
 	AL["PvP Weapons"] = "PvP-Waffen";
 	AL["PvP Non-Set Epics"] = "PvP Nicht-Set Epics";
 	AL["PvP Reputation Sets"] = "PvP-Rufbelohnungen";
-	AL["Arena PvP Weapons"] = "PvP-Waffen (Arena)";
 	AL["PvP Misc"] = "PvP (Sonstiges)";
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = "PvP Edelsteine/Verzauberungen/Rezepte";
-	AL["PvP Class Items"] = "PvP Klassengegenstände";
 	AL["PvP Trinkets"] = "PvP Schmuckstücke";
 	AL["NOT AVAILABLE ANYMORE"] = "NICHT MEHR VERFÜGBAR";
 
@@ -331,7 +373,6 @@ if AL then
 	AL["Brewfest"] = "Braufest";
 	AL["Children's Week"] = "Kinderwoche";
 	AL["Day of the Dead"] = "Tag der Toten";
-	AL["Elemental Invasion"] = "Invasion der Elementare";
 	AL["Ethereum Prison"] = "Gefängnis des Astraleums";
 	AL["Feast of Winter Veil"] = "Winterhauchfest";
 	AL["Gurubashi Arena Booty Run"] = "Gurubashiarena";
@@ -345,7 +386,6 @@ if AL then
 	-- AL["Skettis"] = true;
 	AL["Stranglethorn Fishing Extravaganza"] = "Anglerwettbewerb im Schlingendorntal";
 	AL["Kalu'ak Fishing Derby"] = "Angelwettstreit der Kalu'ak";
-	AL["Elemental Unrest"] = "Elementare Invasion";
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00Linksklick|r Beuteverzeichnis durchsuchen";
@@ -391,9 +431,6 @@ if AL then
 	-- AL["Banner"] = true;
 	-- AL["Set"] = true;
 	AL["Token"] = "Gutschein";
-	AL["Tokens"] = "Gutscheine";
-	-- AL["Token Hand-Ins"] = true;
-	AL["Skinning Knife"] = "Kürschnermesser";
 	AL["Combat Pet"] = "Haustier (Kampf)";
 	AL["Fireworks"] = "Feuerwerk";
 	AL["Transformation Item"] = "Verwandlungsitem";
@@ -470,16 +507,9 @@ if AL then
 	AL["Quest Reward"] = "Questbelohnung";
 	AL["Old Quest Reward"] = "Alte Questbelohnung";
 	AL["Shared"] = "geteilter Loot";
-	AL["Unique"] = "Einzigartig";
 	AL["Right Half"] = "Rechte Hälfte";
 	AL["Left Half"] = "Linke Hälfte";
-	AL["28 Slot Soul Shard"] = "28er-Behälter Seelensplitter";
-	AL["20 Slot"] = "20 Platz";
-	AL["18 Slot"] = "18 Platz";
-	AL["16 Slot"] = "16 Platz";
-	AL["10 Slot"] = "10 Platz";
 	AL["Currency"] = "Zum Kaufen von Belohnungen";
-	AL["Conjured Item"] = "Verbrauchbar";
 	AL["Used to summon boss"] = "Zur Beschwörung benötigt (Boss)";
 	AL["Tradable against sunmote + item above"] = "Tausch:obiges Item + Sonnenpartikel";
 	AL["Card Game Item"] = "Kartenspiel Item";
@@ -488,8 +518,6 @@ if AL then
 	AL["Random Heroic Reward"] = "Zufällige heroische Belohnung";
 	AL["Fishing Daily Reward"] = "Tägliche Angelquest-Belohnung";
 	-- AL["Collector's Edition"] = true;
-	-- AL["Blizzcon"] = true;
-	AL["WoW Anniversary Celebration"] = "WoW Geburtstagsgeschenke";
 	AL["Daily Reward"] = "Tägliche Belohnung";
 	AL["No Longer Available"] = "Nicht mehr erhältlich";
 
@@ -514,6 +542,7 @@ if AL then
 	-- AL["Tier 9"] = true;
 	-- AL["Tier 10"] = true;
 	-- AL["Tier 11"] = true;
+	-- AL["Tier 12"] = true;
 	AL["10 Man"] = "10 Spieler";
 	AL["10/25 Man"] = "10/25 Spieler";
 	AL["Epic Set"] = "Episches Set";
@@ -527,6 +556,7 @@ if AL then
 	AL["Season 7"] = "7. Saison";
 	AL["Season 8"] = "8. Saison";
 	AL["Season 9"] = "9. Saison";
+	AL["Season 10"] = "10. Saison";
 	AL["Fire"] = "Feuer";
 	AL["Water"] = "Wasser";
 	AL["Wind"] = "Wind";
@@ -537,7 +567,6 @@ if AL then
 	AL["Nature Resistance Gear"] = "Naturresistenz";
 	AL["Frost Resistance Gear"] = "Frostresistenz";
 	AL["Shadow Resistance Gear"] = "Schattenresistenz";
-	AL["Classic Sets"] = "Klassische Sets";
 
 	-- Labels for loot table sections
 	AL["Additional Heroic Loot"] = "Zusätzliche heroische Beute";
@@ -557,8 +586,6 @@ if AL then
 	AL["Heirloom"] = "Erbstücke";
 	AL["Weapons"] = "Waffen";
 	AL["Accessories"] = "Zubehör";
-	AL["Low Level"] = "Niedrigstufig";
-	AL["High Level"] = "Hochstufig";
 	AL["Rare"] = "Selten";
 	AL["Specializations"] = "Spezialisierungen";
 
@@ -627,24 +654,10 @@ if AL then
 	-- AL["Proc"] = true;
 
 	-- Extra Text in Boss lists
-	AL["Set: Embrace of the Viper"] = "Set: Umarmung der Viper (5 Teile)";
-	AL["Set: Defias Leather"] = "Set: Defiasleder (5 Teile)";
-	AL["Set: The Gladiator"] = "Set: Der Gladiator (5 Teile)";
-	AL["Set: Chain of the Scarlet Crusade"] = "Set: Kettenrüstung des Scharlachroten Kreuzzugs";
-	AL["Set: The Postmaster"] = "Der Postmeister (5 Teile)";
-	AL["Set: Necropile Raiment"] = "Set: Roben des Totenbeschwörers (5 Teile)";
-	AL["Set: Cadaverous Garb"] = "Set: Leichenhaftes Gewand (5 Teile)";
-	AL["Set: Bloodmail Regalia"] = "Set: Ornat des Blutpanzers (5 Teile)";
-	AL["Set: Deathbone Guardian"] = "Set: Wächter der Totengebeine (5 Teile)";
-	AL["Set: Dal'Rend's Arms"] = "Set: Dal'Rends Waffen (2 Teile)";
-	AL["Set: Spider's Kiss"] = "Set: Kuss der Spinne (2 Teile)";
 	AL["AQ20 Class Sets"] = "AQ20-Klassen-Sets";
 	AL["AQ Enchants"] = "AQ-Verzauberungen";
 	AL["AQ40 Class Sets"] = "AQ40-Klassen-Sets";
 	AL["AQ Opening Quest Chain"] = "AQ-Öffnungsquestreihe";
-	AL["ZG Class Sets"] = "ZG-Klassen-Sets";
-	AL["ZG Enchants"] = "ZG-Verzauberungen";
-	AL["Class Books"] = "Klassenbücher";
 	AL["Tribute Run"] = "Tribut Run";
 	AL["Dire Maul Books"] = "Düsterbruch Bücher";
 	AL["Random Boss Loot"] = "Zufälliger Boss Loot";
@@ -841,7 +854,6 @@ if AL then
 	AL["Venture Bay"] = "Venturebucht";
 
 	-- Karazhan Opera Event Headings
-	AL["Shared Drops"] = "geteilte Beute";
 	AL["Wizard of Oz"] = "Zauberer von Oz";
 	AL["Red Riding Hood"] = "Rotkäppchen";
 
@@ -849,17 +861,6 @@ if AL then
 	AL["Spider"] = "Spinne";
 	AL["Darkhound"] = "Schattenhund";
 	AL["Bat"] = "Fledermaus";
-
-	-- ZG Tokens
-	AL["Primal Hakkari Kossack"] = "Hakkarikosak";
-	AL["Primal Hakkari Shawl"] = "Hakkarischal";
-	AL["Primal Hakkari Bindings"] = "Hakkaribindungen";
-	AL["Primal Hakkari Sash"] = "Hakkarischärpe";
-	AL["Primal Hakkari Stanchion"] = "Hakkaristütze";
-	AL["Primal Hakkari Aegis"] = "Aegis der Hakkari";
-	AL["Primal Hakkari Girdle"] = "Hakkarigurt";
-	AL["Primal Hakkari Armsplint"] = "Hakkariarmsplintes";
-	AL["Primal Hakkari Tabard"] = "Hakkariwappenrock";
 
 	-- AQ20 Tokens
 	AL["Qiraji Ornate Hilt"] = "Verschnörkelter Griff";
@@ -879,9 +880,6 @@ if AL then
 	AL["Husk of the Old God"] = "Hülle des Gottes";
 	AL["Carapace of the Old God"] = "Knochenpanzer des Gottes";
 
-	-- Classic WoW Sets
-	AL["Zul'Gurub Rings"] = "Zul'Gurub Ringe";
-
 	-- Recipe origin strings
 	AL["Trainer"] = "Lehrer";
 	AL["Discovery"] = "Entdeckung";
@@ -889,9 +887,6 @@ if AL then
 	-- AL["Drop"] = true;
 	AL["Vendor"] = "Händler";
 	AL["Crafted"] = "Hergestellt";
-
-	-- Level 80 PvP Weapons
-	AL["Wrathful Gladiator\'s Weapons"] = "Waffen des zornerfüllten Gladiators";
 
 	-- Months
 	AL["January"] = "Januar";
@@ -923,13 +918,6 @@ if AL then
 	AL["Destruction"] = "Zerstörung";
     	AL["Tanking"] = "Schutz";
 	AL["DPS"] = "Schaden";
-
-	-- Naxx Zones
-	AL["Construct Quarter"] = "Konstruktviertel";
-	AL["Arachnid Quarter"] = "Arachnidenviertel";
-	AL["Military Quarter"] = "Militärviertel";
-	AL["Plague Quarter"] = "Seuchenviertel";
-	AL["Frostwyrm Lair"] = "Frostwyrmhöhle";
 
 	-- NPCs missing from BabbleBoss
 	--AL["Trash Mobs"] = true;
@@ -1048,25 +1036,21 @@ if AL then
 	AL["Jadefang"] = "Jadezahn";
 	-- AL["Aeonaxx"] = true;
 	AL["Prince Sarsarun"] = "Prinz Sarsarun";
-	AL["Highlord Kruul"] = "Hochlord Kruul";
 	AL["Dormus the Camel-Hoarder"] = "Dormus der Kameltreiber";
 	AL["The Behemoth"] = "Das Ungetüm";
 	AL["Master Elemental Shaper Krixix"] = "Meisterelementarformer Krixix";
+	-- AL["Zen'Vorka"] = true;
+	AL["Ayla Shadowstorm"] = "Ayla Schattensturm";
+	AL["Damek Bloombeard"] = "Damek Blühbart";
+	AL["Varlan Highbough"] = "Varlan Hochblatt";
+	AL["Firestone Vendor"] = "Händler für Feuersteine";
 
 	-- Zones
-	AL["World Drop"] = "Weltdrops";
 	AL["Trial of the Grand Crusader"] = "Prüfung des Obersten Kreuzfahrers";
 	AL["Crusader's Square"] = "Kreuzzüglerpass";
 	AL["The Gauntlet"] = "Der Spießrutenlauf";
 
 	-- Shortcuts for Bossname files
-	-- AL["LBRS"] = true;
-	-- AL["UBRS"] = true;
-	AL["CoT1"] = "HdZ1";
-	AL["CoT2"] = "HdZ2";
-	-- AL["Scholo"] = true;
-	-- AL["Strat"] = true;
-	AL["Serpentshrine"] = "Schlangenschrein";
 	-- AL["Avatar"] = true; Avatar of the Martyred
 
 	-- Chests, etc

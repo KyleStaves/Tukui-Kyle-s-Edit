@@ -612,12 +612,14 @@ L:SetOptionLocalization{
 	WarnNormal		= "Mostrar aviso para forma de Normal",
 	WarnNormalSoon	= "Mostrar preaviso para forma de Normal",
 	TimerBear		= "Mostrar tiempo para forma de Oso",
-	TimerNormal		= "Mostrar tiempo para forma Normal"
+	TimerNormal		= "Mostrar tiempo para forma Normal",
+	InfoFrame		= "Mostrar información para jugadores a los que no les afecta $spell:42402"
 }
 
 L:SetMiscLocalization{
-	YellBear 	= "¡Si llamáis a la bestia, vais a recibir más de lo que esperáis!",--translate ?
-	YellNormal	= "¡Dejad paso al Nalorakk!"--translate ?
+	YellBear 	= "¡Si llamáis a la beh'tia, vais a recibir más de lo que eh'peráis!",
+	YellNormal	= "¡Dejad paso al Nalorakk!",
+	PlayerDebuffs	= "Sin debuff de Oleada"
 }
 
 ---------------
@@ -637,7 +639,9 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	StormIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(43648),
-	RangeFrame	= "Mostrar distancia"
+	RangeFrame	= "Mostrar distancia",
+	StormArrow	= "Mostrar flecha para $spell:97300",
+	SetIconOnEagle	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97318)
 }
 
 L:SetMiscLocalization{
@@ -663,8 +667,9 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellBomb	= "¡Ahora os quemaré!",--translate ?
-	YellAdds	= "¿Dónde está mi criador? ¡A por los huevos!"--translate ?
+	YellBomb	= "¡Ahora os quemaré!",
+	YellHatchAll= "Os mostraré la fuerza... con números.",
+	YellAdds	= "¿Dónde está mi criador? ¡A por los huevos!"
 }
 
 -------------
@@ -690,8 +695,8 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellSpirit	= "Lucho con libertad de espíritu...",--translate ?
-	YellNormal	= "¡Espíritu, vuelve a mí!"--translate ?
+	YellSpirit	= "Lucho con libertad de espíritu...",
+	YellNormal	= "¡Espíritu, vuelve a mí!"
 }
 
 -----------------------
@@ -715,6 +720,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	YellPull	= "Las sombras caerán sobre vosotros..."
 }
 
 -------------
@@ -730,13 +736,18 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
+	timerNextForm	= "Next Form Change"
 }
 
 L:SetOptionLocalization{
+	timerNextForm	= "Mostrar tiempo para los cambios de forma.",
+	InfoFrame		= "Mostrar información para jugadores a los que no les afecta $spell:42402",
+	ThrowIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97639),
+	ClawRageIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97672)
 }
 
 L:SetMiscLocalization{
-	SetIconOnThrow		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97639)
+	PlayerDebuffs	= "Sin debuff de Oleada"
 }
 
 -----------------
@@ -757,15 +768,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477)
+	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477),
+	LinkArrow		= "Mostrar una flecha cuando te afecte $spell:96477"
 }
 
 L:SetMiscLocalization{
 }
 
-------------
+--------------
 -- Mandokir --
-------------
+--------------
 L = DBM:GetModLocalization("Mandokir")
 
 L:SetGeneralLocalization{
@@ -773,7 +785,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnRevive		= "Revive un fantasma - %d restantes",
+	WarnRevive		= "%d fantasmas restantes",
 	SpecWarnOhgan	= "¡Ohgan ha resucitado! ¡Ataca ahora!"
 }
 
@@ -782,7 +794,8 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnRevive	= "Anunciar cuantas resurrecciones de fantasmas quedan",
-	SpecWarnOhgan	= "Mostrar aviso cuando Ohgan es resucitado"
+	SpecWarnOhgan	= "Mostrar aviso cuando Ohgan es resucitado",
+	SetIconOnOhgan	= "Poner un icono a Ohgan cuando resucite" 
 }
 
 L:SetMiscLocalization{
@@ -799,16 +812,20 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
+	SpecWarnToxic	= "Coge Tormento tóxico"
 }
 
 L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
+	SpecWarnToxic	= "Mostrar aviso especial cuando pierdas el debufo de $spell:96328",
+	InfoFrame		= "Mostrar información de jugadores sin $spell:96328",
 	SetIconOnGaze	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96342)
 }
 
 L:SetMiscLocalization{
+	PlayerDebuffs	= "Sin Tormento tóxico"
 }
 
 ----------------------------
@@ -849,7 +866,8 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnBarrierDown	= "Anunciar cuando se elimine una barrera de cadenas"
+	WarnBarrierDown	= "Anunciar cuando se elimine una barrera de cadenas",
+	BodySlamIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97198)
 }
 
 L:SetMiscLocalization{

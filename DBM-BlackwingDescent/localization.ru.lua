@@ -5,6 +5,7 @@ local L
 --------------
 --  Magmaw  --
 --------------
+--L = DBM:GetModLocalization(170)
 L = DBM:GetModLocalization("Magmaw")
 
 L:SetGeneralLocalization({
@@ -32,6 +33,7 @@ L:SetMiscLocalization({
 -------------------------------
 --  Dark Iron Golem Council  --
 -------------------------------
+--L = DBM:GetModLocalization(169)
 L = DBM:GetModLocalization("DarkIronGolemCouncil")
 
 L:SetGeneralLocalization({
@@ -74,6 +76,7 @@ L:SetMiscLocalization({
 ----------------
 --  Maloriak  --
 ----------------
+--L = DBM:GetModLocalization(173)
 L = DBM:GetModLocalization("Maloriak")
 
 L:SetGeneralLocalization({
@@ -114,6 +117,7 @@ L:SetMiscLocalization({
 -----------------
 --  Chimaeron  --
 -----------------
+--L = DBM:GetModLocalization(172)
 L = DBM:GetModLocalization("Chimaeron")
 
 L:SetGeneralLocalization({
@@ -139,6 +143,7 @@ L:SetMiscLocalization({
 -----------------
 --  Atramedes  --
 -----------------
+--L = DBM:GetModLocalization(171)
 L = DBM:GetModLocalization("Atramedes")
 
 L:SetGeneralLocalization({
@@ -181,7 +186,8 @@ L:SetMiscLocalization({
 ----------------
 --  Nefarian  --
 ----------------
-L = DBM:GetModLocalization("Nefarian-BD")	-- No conflict with BWL version :)
+--L = DBM:GetModLocalization(174)
+L = DBM:GetModLocalization("Nefarian")
 
 L:SetGeneralLocalization({
 	name = "Нефариан"
@@ -192,7 +198,8 @@ L:SetWarningLocalization({
 	NefTailSwipe		= "Удар хвостом (Нефариан)",
 	OnyBreath			= "Дыхание темного огня (Ониксия)",
 	NefBreath			= "Дыхание темного огня (Нефариан)",
-	specWarnShadowblazeSoon	= "Скоро Пламя тени (~5с)"
+	specWarnShadowblazeSoon	= "%s",
+	warnShadowblazeSoon		= "%s"
 })
 
 L:SetTimerLocalization({
@@ -208,7 +215,9 @@ L:SetOptionLocalization({
 	NefTailSwipe		= "Предупреждение для $spell:77827 Нефариана",
 	OnyBreath			= "Предупреждение для $spell:94124 Ониксии",
 	NefBreath			= "Предупреждение для $spell:94124 Нефариана",
-	specWarnShadowblazeSoon	= "Предупреждение для $spell:94085 (~5с)",
+	specWarnCinderMove	= "Спец-предупреждение за 5 секунд до взрыва $spell:79339",
+	warnShadowblazeSoon	= "Отсчитывать время до $spell:81031 (за 5 секунд до каста)\n(Отсчет пойдет только после первой синхронизации с эмоцией босса)",
+	specWarnShadowblazeSoon	= "Предупреждать заранее о $spell:81031\n(За 5 секунд до первого каста, за 1 секунду до каждого следующего)",
 	timerNefLanding		= "Отсчет времени до приземления Нефариана",
 	OnySwipeTimer		= "Отсчет времени до восстановления $spell:77827 Ониксии",
 	NefSwipeTimer		= "Отсчет времени до восстановления $spell:77827 Нефариана",
@@ -225,14 +234,17 @@ L:SetMiscLocalization({
 	NefAoe				= "В воздухе трещат электрические разряды!",
 	YellPhase2			= "Дерзкие смертные! Неуважение к чужой собственности нужно пресекать самым жестоким образом!",
 	YellPhase3			= "Я пытался следовать законам гостеприимства, но вы всё никак не умрете!",
+	YellShadowBlaze		= "И плоть превратится в прах!",
 	Nefarian			= "Нефариан",
 	Onyxia				= "Ониксия",
-	Charge				= "Электрический заряд"
+	Charge				= "Электрический заряд",
+	ShadowBlazeExact		= "Вспышка пламени тени через %d",
+	ShadowBlazeEstimate		= "Скоро вспышка пламени тени (~5с)"
 })
 
---------------
+-------------------------------
 --  Blackwing Descent Trash  --
---------------
+-------------------------------
 L = DBM:GetModLocalization("BWDTrash")
 
 L:SetGeneralLocalization({

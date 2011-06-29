@@ -73,7 +73,6 @@ bar:SetScript("OnEvent", function(self, event, ...)
 
 		RegisterStateDriver(self, "page", GetBar())
 	elseif event == "PLAYER_ENTERING_WORLD" then
-		MainMenuBar_UpdateKeyRing()
 		local button
 		for i = 1, 12 do
 			local b = _G["MultiBarLeftButton"..i]

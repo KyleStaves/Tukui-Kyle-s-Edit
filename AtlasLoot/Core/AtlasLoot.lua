@@ -14,15 +14,15 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "6";
-local VERSION_MINOR = "03";
+local VERSION_MINOR = "04";
 local VERSION_BOSSES = "01";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
 --Now allows for multiple compatible Atlas versions.  Always put the newest first
 ATLASLOOT_MIN_ATLAS = "1.18.0"
-ATLASLOOT_CURRENT_ATLAS = {"1.19.0"};
-ATLASLOOT_PREVIEW_ATLAS = {"1.19.2", "1.19.1"};
+ATLASLOOT_CURRENT_ATLAS = {"1.20.0"};
+ATLASLOOT_PREVIEW_ATLAS = {"1.20.2", "1.20.1"};
 
 --ATLASLOOT_POSITION = AL["Position:"];
 ATLASLOOT_DEBUGMESSAGES = false;
@@ -81,7 +81,6 @@ local AtlasLootDBDefaults = {
         EquipCompare = false,
 		Opaque = false,
         ItemIDs = false,
-        ItemSpam = false,
         MiniMapButton = {
 			hide = false,
 		},
@@ -97,8 +96,21 @@ local AtlasLootDBDefaults = {
         LootBrowserScale = 1.0,
 		LootBrowserAlpha = 1.0,
 		LootBrowserAlphaOnLeave = false,
-        SearchOn = {
-            All = true,
+        SearchModule = {
+        	["*"] = false,
+        },
+        CompareFrame = {
+        	showBaseSort = true,
+        	showExtraSort = true,
+        	lastSortType = "BASE",
+        	ownSortLists = {
+        		["*"] = {
+        			["*"] = false,
+        		}
+        	},
+        	statsColor = {
+        		["*"] = { r = 1.0, g = 1.0, b = 1.0 }
+        	},
         },
         AtlasType = "Release",
 		modules = { ["*"] = true },
@@ -185,6 +197,8 @@ function AtlasLoot:OnLoaderLoad()
 	if self.DevToolsInitialize then
 		self:DevToolsInitialize()
 	end
+	self:CompareFrame_Create()
+	self:EncounterJournal_Initialize()
 
 
 	--#########
@@ -607,6 +621,18 @@ do
 		["25Man"] = { "25ManHeroic", "Normal", "Heroic" },
 		["25ManHeroic"] = { "25Man", "Heroic", "Normal" },
 	}
+	
+	function AtlasLoot:GetLootTableTypeFromDataID(dataID)
+		if dataID then
+			for k,v in ipairs(lootTableTypes) do
+				if string.match(dataID, "#"..v) then
+					--local _,_,newLootTableType = string.match(dataID, "#"..v)
+					return v
+				end
+			end
+			return "Normal"
+		end
+	end
 
 	--- Gets the current LootTableType
 	-- @param dataID the name of the AtlasLootTable
@@ -983,19 +1009,35 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 		self.ItemFrame.Switch:Show()
 	elseif self.ItemFrame.Switch.changePoint then
 		if AtlasLoot.db.profile.ShowLootTablePrice then
-			if moduleName == "AtlasLootCrafting" then
-				self.ItemFrame.Switch:SetText(AL["Skill"])
+			if AtlasLoot_Data[dataID].info.switchText and AtlasLoot_Data[dataID].info.switchText[1] then
+				self.ItemFrame.Switch:SetText(AtlasLoot_Data[dataID].info.switchText[1])
 			else
-				self.ItemFrame.Switch:SetText(AL["Show Slot"])
+				if moduleName == "AtlasLootCrafting" then
+					self.ItemFrame.Switch:SetText(AL["Skill"])
+				else
+					self.ItemFrame.Switch:SetText(AL["Show Slot"])
+				end
 			end
 		else
-			if moduleName == "AtlasLootCrafting" then
-				self.ItemFrame.Switch:SetText(AL["Location"])
+			if AtlasLoot_Data[dataID].info.switchText and AtlasLoot_Data[dataID].info.switchText[2] then
+				self.ItemFrame.Switch:SetText(AtlasLoot_Data[dataID].info.switchText[2])
 			else
-				self.ItemFrame.Switch:SetText(AL["Show Price"])
+				if moduleName == "AtlasLootCrafting" then
+					self.ItemFrame.Switch:SetText(AL["Location"])
+				else
+					self.ItemFrame.Switch:SetText(AL["Show Price"])
+				end
 			end
 		end
 		self.ItemFrame.Switch:Show()
+	end
+	
+	AtlasLoot.ItemFrame.EncounterJournal.info = dataID
+	AtlasLoot:EncounterJournal_ButtonsRefresh()
+	if AtlasLoot.ItemFrame.CloseButton:IsShown() then
+		AtlasLoot.ItemFrame.EncounterJournal:SetPoint("RIGHT", AtlasLoot.ItemFrame.CloseButton, "LEFT", 0, 0)
+	else
+		AtlasLoot.ItemFrame.EncounterJournal:SetPoint("TOPRIGHT", AtlasLoot.ItemFrame, "TOPRIGHT", -5, -5)
 	end
 	
 	if string.find(dataID, "SortedTable") then
@@ -1052,6 +1094,7 @@ do
 		
 		local itemCount = 1
 		local pageCount = 1
+		local bossName, instanceName, spellID, itemID
 		for instance, instanceTab in SortTable(itemCache) do
 			for _,iniType in ipairs(lootTableTypes) do
 				if instanceTab[iniType] then
@@ -1062,7 +1105,7 @@ do
 						if not AtlasLoot_Data["FormatedList"]["Normal"][pageCount] then AtlasLoot_Data["FormatedList"]["Normal"][pageCount] = {} end
 					end
 					
-					local bossName, instanceName = AtlasLoot:GetTableInfo(instance)
+					bossName, instanceName = AtlasLoot:GetTableInfo(instance)
 					if itemCount ~= 1 and itemCount ~= 16 then itemCount = itemCount + 1 end
 					table.insert( AtlasLoot_Data["FormatedList"]["Normal"][pageCount], { itemCount, instance, "INV_Box_01", "=q6="..bossName.." ("..iniType..")", "=q5="..instanceName } )
 					itemCount = itemCount + 1
@@ -1075,8 +1118,8 @@ do
 							if not AtlasLoot_Data["FormatedList"]["Normal"][pageCount] then AtlasLoot_Data["FormatedList"]["Normal"][pageCount] = {} end
 						end
 						
-						local spellID = item[2]
-						local itemID = ""
+						spellID = item[2]
+						itemID = ""
 						if item[2] and item[2] ~= "" and item[2] > 0 and item[3] ~= "" then
 							spellID = "s"..item[2]
 							itemID = item[3]
@@ -1101,8 +1144,7 @@ do
 	local function hideOtherFramesOnShow(self)
 		for k,v in pairs(pFrameRegister) do
 			if k ~= self.AtlasLootRegisterName and v[2] then
-				local frame = _G[v[2]]
-				frame:Hide()
+				_G[v[2]]:Hide()
 			end
 		end
 	end
@@ -1129,7 +1171,6 @@ do
 		end
 	end
 end
-
 
 --- Set the Position of the ItemFrame
 -- @param pFrame can be a string with the name from a registered pFrame ( AtlasLoot:RegisterPFrame ) or a table
@@ -1167,8 +1208,6 @@ function AtlasLoot:SetItemInfoFrame(pFrame)
 	end
 	AtlasLootItemsFrame:Show();
 end
-
-
 
 --- Gets current parent of ItemFrame
 -- Only works if the frame is registered with AtlasLoot:RegisterPFrame
@@ -1296,7 +1335,6 @@ do
 end
 
 function AtlasLoot:CheckHeroic(itemTable)
-	local heroic
 	local checkName = {
 		"|cffFF0000"..AL["Heroic Mode"],
 		"=q6=#j3#",
@@ -1306,7 +1344,7 @@ function AtlasLoot:CheckHeroic(itemTable)
 		for itemNum,item in ipairs(itemTable) do
 			for k,v in ipairs(checkName) do
 				if item[4] == v then
-					heroic = itemNum
+					return itemNum
 				end
 			end
 		end
@@ -1314,12 +1352,11 @@ function AtlasLoot:CheckHeroic(itemTable)
 		for itemNum,item in ipairs(AtlasLoot.ItemFrame.ItemButtons) do
 			for k,v in ipairs(checkName) do
 				if item.Frame.Name:GetText() == v then
-					heroic = itemNum
+					return itemNum
 				end
 			end
 		end
 	end
-	return heroic
 end
 
 

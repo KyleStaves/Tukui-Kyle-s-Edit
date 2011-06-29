@@ -183,10 +183,11 @@ local function DrD_LoadAuras()
 		Aura[GetSpellInfo(94324)] = { School = "Spells", Caster = true, NoManual = true, ModType =
 			function(calculation, _, _, index)
 				if index then
-					local _, _, _, apps = UnitBuff("player",index)
+					local _, _, _, apps, _, _, _, unit = UnitBuff("player",index)
 					--NOTE: Need to check for apps here as there are two buffs with the same name and texture
 					if apps then
-						calculation.dmgM_dot = calculation.dmgM_dot * (1 + tonumber(apps) * 0.03)
+						local bonus = unit and UnitIsUnit("player",unit) and 0.03 or 0.01
+						calculation.dmgM_dot = calculation.dmgM_dot * (1 + tonumber(apps) * bonus)
 					end
 				end
 			end
@@ -393,7 +394,16 @@ local function DrD_LoadAuras()
 		Aura[GetSpellInfo(19028)] = { Value = -0.2, NoManual = true }
 		--Stoneform (Dwarf Racial)
 		Aura[GetSpellInfo(65116)] = { Value = -0.1, NoManual = true }
+		--Frost Armor (Mage)
+		Aura[GetSpellInfo(7302)] = { School = "Physical", Value = -0.15, NoManual = true }
+		--Spell Block (Warrior Talent)
+		Aura[GetSpellInfo(97954)] = { School = "Damage Spells", Ranks = 3, Value = { -0.07, -0.14, -0.20 }, NoManual = true }
 --Debuffs
+	--+10% Damage
+		--Brutal Assault
+		Aura[GetSpellInfo(46393)] = { Value = 0.1, Apps = 1, NoManual = true }
+		--Focused Assault
+		Aura[GetSpellInfo(46392)] = { Value = 0.1, Apps = 1, NoManual = true }
 	--+8% Magic Damage
 		--Curse of the Elements (Warlock)
 		Aura[GetSpellInfo(1490)] = { Value = 0.08, Category = "+8% dmg", ID = 1490, ModType = "dmgM_Magic" }

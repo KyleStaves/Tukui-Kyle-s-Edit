@@ -1,0 +1,33 @@
+------------------------------------------------------------------------
+r1640 | zarquan | 2011-06-29 06:30:25 +0000 (Wed, 29 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Caster.lua
+
+fix typo
+------------------------------------------------------------------------
+r1639 | zarquan | 2011-06-29 00:24:46 +0000 (Wed, 29 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Druid.lua
+
+Druid updates for 4.2
+------------------------------------------------------------------------
+r1638 | zarquan | 2011-06-28 22:59:59 +0000 (Tue, 28 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Caster.lua
+
+100% base crit bonus for heals
+------------------------------------------------------------------------
+r1637 | gagorian | 2011-06-10 10:56:17 +0000 (Fri, 10 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/Data/Warlock.lua
+
+- Hand of Gul'dan fix
+------------------------------------------------------------------------
+r1636 | gagorian | 2011-05-24 18:26:24 +0000 (Tue, 24 May 2011) | 1 line
+Changed paths:
+   M /trunk/Data/DeathKnight.lua
+   M /trunk/Data/Shaman.lua
+   M /trunk/Data/Warlock.lua
+
+- Applied changes from May 19 hotfixes: Obliterate, Howling Blast and Drain Life damage reduced. Healing Surge has also been nerfed.
+------------------------------------------------------------------------

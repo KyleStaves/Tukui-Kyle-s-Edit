@@ -728,6 +728,7 @@ function cPowaAura:ShouldShow(giveReason, reverse)
 	local result, reason = self:CheckIfShouldShow(giveReason);
 	if (self.Debug) then
 		PowaAuras:DisplayText("ShouldShow result=",result, " inv=", self.inverse, " rev=", reverse);
+		PowaAuras:DisplayText("           reason=",reason);
 	end
 	if (result==-1) then
 		return result, reason;
@@ -1462,16 +1463,17 @@ function cPowaBuffBase:CheckSingleUnit(group, unit, giveReason)
 	end
 	local present, reason = self:CheckAllAuraSlots(unit, giveReason);
 	if (present) then
-		if (self.groupany == true) then
+		if (self.groupany==true) then
 			--PowaAuras:UnitTestDebug("CheckGroup("..group..") Present!");
 			self.CurrentUnit = unit;
 			if (self.Debug) then
-				PowaAuras:DisplayText("CurrentUnit=", self.CurrentUnit);
+				PowaAuras:DisplayText("CheckSingleUnit ", unit, " Present!");
 			end
 			if (not giveReason) then return true; end
 			return true, PowaAuras:InsertText(PowaAuras.Text.nomReasonOneInGroupHasBuff, unit, self.OptionText.typeText, self.buffname);
 		end
 	elseif (self.groupany==false) then
+		--PowaAuras:ShowText("CheckSingleUnit ", unit," Missing!");
 		if (not giveReason) then return false; end
 		return false, PowaAuras:InsertText(PowaAuras.Text.nomReasonNotAllInGroupHaveBuff, group, self.OptionText.typeText, self.buffname);
 	end
@@ -1489,7 +1491,7 @@ function cPowaBuffBase:CheckGroup(group, count, giveReason)
 		return show, reason;
 	end
 	self.CurrentSlot = nil;
-	if (not PowaAuras:TableEmpty(PowaAuras.ChangedUnits.Buffs)) then
+	if (not PowaAuras:TableEmpty(PowaAuras.ChangedUnits.Buffs) and self.groupany==true) then
 		--PowaAuras.BuffUnitSetCount = PowaAuras.BuffUnitSetCount + 1;
 		for unit in pairs(PowaAuras.ChangedUnits.Buffs) do
 			if (self.Debug) then
@@ -1514,10 +1516,11 @@ function cPowaBuffBase:CheckGroup(group, count, giveReason)
 		end
 	end
 	if (self.groupany==false) then
-		--PowaAuras:UnitTestDebug("CheckGroup("..group..") All Present!");
+		--PowaAuras:ShowText("CheckGroup("..group..") All Present!");
 		if (not giveReason) then return true; end
 		return true, PowaAuras:InsertText(PowaAuras.Text.nomReasonAllInGroupHaveBuff, group, self.OptionText.typeText, self.buffname);
 	end
+	--PowaAuras:ShowText("CheckGroup("..group..") No one has!");
 	if (not giveReason) then return false; end
 	return false, PowaAuras:InsertText(PowaAuras.Text.nomReasonNoOneInGroupHasBuff, group, self.OptionText.typeText, self.buffname);
 end
@@ -2657,12 +2660,12 @@ cPowaPowerType.ShowOptions={
 };
 
 function cPowaPowerType:Init()
+	-- Fix for happiness auras.
+	if(self.PowerType == 4 or self.PowerType == -1) then
+		self.PowerType = SPELL_POWER_RAGE;
+	end
 	-- Set the ranges properly.
 	self._base.Init(self);
-	-- Fix for happiness auras.
-	if(self.PowerType == 4) then
-		self.PowerType = -1;
-	end
 	self:SetFixedIcon();
 end
 
@@ -3917,7 +3920,7 @@ function cPowaStatic:SetFixedIcon()
 	self:SetIcon("Interface\\icons\\Spell_frost_frozencore");
 end
 
--- Unit Match Aura--
+-- Unit Match Aura
 cPowaUnitMatch= PowaClass(cPowaAura, { AuraType = "UnitMatch", ValueName = "Unit Check" });
 cPowaUnitMatch.OptionText = {
 	typeText=PowaAuras.Text.AuraType[PowaAuras.BuffTypes.UnitMatch],
@@ -3930,8 +3933,6 @@ cPowaUnitMatch.TooltipOptions = {
 };
 cPowaUnitMatch.CheckBoxes={
 	["PowaInverseButton"]=1,
-	["PowaIngoreCaseButton"]=1,
-	["PowaOwntexButton"]=1,
 	["PowaRoleTankButton"]=1,
 	["PowaRoleHealerButton"]=1,
 	["PowaRoleMeleDpsButton"]=1,
@@ -3978,6 +3979,81 @@ function cPowaUnitMatch:SetFixedIcon()
 	self:SetIcon("Interface\\Icons\\Spell_Misc_EmotionAngry");
 end
 
+-- Pet Stance Aura
+cPowaPetStance= PowaClass(cPowaAura, { AuraType = "PetStance", ValueName = "Pet Stance" });
+cPowaPetStance.OptionText = {
+	typeText=PowaAuras.Text.AuraType[PowaAuras.BuffTypes.PetStance],
+	buffNameTooltip=PowaAuras.Text.aidePetStance,
+};
+cPowaPetStance.TooltipOptions = {
+	r=0.8, 
+	g=0.6, 
+	b=0.4
+};
+cPowaPetStance.CheckBoxes={
+	["PowaInverseButton"]=1,
+}
+
+function cPowaPetStance:AddEffectAndEvents()
+	table.insert(PowaAuras.AurasByType[self.AuraType], self.id);
+	PowaAuras.Events.PET_BAR_UPDATE = true;
+end
+
+function cPowaPetStance:CheckIfShouldShow(giveReason)
+	-- Pet needed.
+	if(not UnitExists("pet") or not HasPetSpells()) then
+		return false, PowaAuras.Text.nomReasonNoPet;
+	end
+	-- Determine what stances are allowed.
+	local allowAssist, allowDefensive, allowPassive, stance = false, false, false, "";
+	for pword in string.gmatch(self.buffname, "[^/]+") do
+		if(pword == "1") then
+			allowAssist = true;
+		elseif(pword == "2") then
+			allowDefensive = true;
+		elseif(pword == "3") then
+			allowPassive = true;
+		end
+	end
+	-- Check all indexes on the pet action bar, you can move them around so...
+	for i=1, NUM_PET_ACTION_SLOTS do
+		-- Check the name and token state.
+		local name, _, _, isToken, isActive = GetPetActionInfo(i);
+		if(isToken and isActive) then
+			-- Check token.
+			if(name == "PET_MODE_ASSIST" or name == "PET_MODE_AGGRESSIVE") then
+				-- Active stance, store this for return text.
+				stance = name;
+				if(allowAssist) then
+					-- Done.
+					return true, (giveReason and PowaAuras:InsertText(PowaAuras.Text.nomReasonPetStance, _G[stance]) or "");
+				end
+			elseif(name == "PET_MODE_DEFENSIVE") then
+				-- Active stance, store this for return text.
+				stance = name;
+				if(allowDefensive) then
+					-- Done.
+					return true, (giveReason and PowaAuras:InsertText(PowaAuras.Text.nomReasonPetStance, _G[stance]) or "");
+				end
+			elseif(name == "PET_MODE_PASSIVE") then
+				-- Active stance, store this for return text.
+				stance = name;
+				if(allowPassive) then
+					-- Done.
+					return true, (giveReason and PowaAuras:InsertText(PowaAuras.Text.nomReasonPetStance, _G[stance]) or "");
+				end
+			end
+		end
+	end
+	-- If we got here, the stances we're looking for are clearly not active.
+	return false, (giveReason and PowaAuras:InsertText(PowaAuras.Text.nomReasonPetStance, _G[stance]) or "");
+end
+
+function cPowaPetStance:SetFixedIcon()
+	self.icon = nil;
+	self:SetIcon("Interface\\Icons\\ABILITY_HUNTER_SICKEM");
+end
+
 -- Concrete Classes
 PowaAuras.AuraClasses = {
 	[PowaAuras.BuffTypes.Buff]=cPowaBuff,
@@ -4007,6 +4083,7 @@ PowaAuras.AuraClasses = {
 	[PowaAuras.BuffTypes.TypeBuff]=cPowaTypeBuff,
 	[PowaAuras.BuffTypes.Static]=cPowaStatic,
 	[PowaAuras.BuffTypes.UnitMatch]=cPowaUnitMatch,
+	[PowaAuras.BuffTypes.PetStance]=cPowaPetStance,
 }
 
 -- Instance concrete class based on type

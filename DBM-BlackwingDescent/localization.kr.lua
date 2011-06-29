@@ -5,6 +5,7 @@ local L
 --------------
 --  Magmaw  --
 --------------
+--L = DBM:GetModLocalization(170)
 L = DBM:GetModLocalization("Magmaw")
 
 L:SetGeneralLocalization({
@@ -32,6 +33,7 @@ L:SetMiscLocalization({
 -------------------------------
 --  Dark Iron Golem Council  --
 -------------------------------
+--L = DBM:GetModLocalization(169)
 L = DBM:GetModLocalization("DarkIronGolemCouncil")
 
 L:SetGeneralLocalization({
@@ -74,6 +76,7 @@ L:SetMiscLocalization({
 ----------------
 --  Maloriak  --
 ----------------
+--L = DBM:GetModLocalization(173)
 L = DBM:GetModLocalization("Maloriak")
 
 L:SetGeneralLocalization({
@@ -114,6 +117,7 @@ L:SetMiscLocalization({
 -----------------
 --  Chimaeron  --
 -----------------
+--L = DBM:GetModLocalization(172)
 L = DBM:GetModLocalization("Chimaeron")
 
 L:SetGeneralLocalization({
@@ -139,6 +143,7 @@ L:SetMiscLocalization({
 -----------------
 --  Atramedes  --
 -----------------
+--L = DBM:GetModLocalization(171)
 L = DBM:GetModLocalization("Atramedes")
 
 L:SetGeneralLocalization({
@@ -180,7 +185,8 @@ L:SetMiscLocalization({
 ----------------
 --  Nefarian  --
 ----------------
-L = DBM:GetModLocalization("Nefarian-BD")	-- No conflict with BWL version :)
+--L = DBM:GetModLocalization(174)
+L = DBM:GetModLocalization("Nefarian")
 
 L:SetGeneralLocalization({
 	name = "네파리안의 최후"
@@ -191,7 +197,8 @@ L:SetWarningLocalization({
 	NefTailSwipe			= "꼬리 채찍 (네파리안)",
 	OnyBreath				= "암흑불길 숨결 (오닉시아)",
 	NefBreath				= "암흑불길 숨결 (네파리안)",
-	specWarnShadowblazeSoon	= "곧 암흑 화로 (~5초 전)!"
+	specWarnShadowblazeSoon	= "%s",
+	warnShadowblazeSoon		= "%s"
 })
 
 L:SetTimerLocalization({
@@ -207,13 +214,16 @@ L:SetOptionLocalization({
 	NefTailSwipe			= "네파리안의 $spell:77827 경고 보기",
 	OnyBreath				= "오닉시아의 $spell:94124 경고 보기",
 	NefBreath				= "네파리안의 $spell:94124 경고 보기",
-	specWarnShadowblazeSoon	= "$spell:94085의 사전 특수 경고 보기 (~5초 전)",
+	specWarnCinderMove		= "$spell:79339의 이동 알림 특수 경고 보기 (폭발 5초 전)",
+	warnShadowblazeSoon		= "$spell:81031의 사전 카운트다운 보기 (~5초 전)\n(정확성을 위해 동기화 후에만 작동됨)",
+	specWarnShadowblazeSoon	= "$spell:81031의 사전 특수 경고 보기\n(처음에는 5초 전에 알림. 동기화 후에는 1초 전에 알림)",
 	timerNefLanding			= "네파리안 착지 타이머 보기",
 	OnySwipeTimer			= "오닉시아의 $spell:77827 쿨다운 타이머 보기",
 	NefSwipeTimer			= "네파리안의 $spell:77827 쿨다운 타이머 보기",
 	OnyBreathTimer			= "오닉시아의 $spell:94124 쿨다운 타이머 보기",
 	NefBreathTimer			= "네파리안의 $spell:94124 쿨다운 타이머 보기",
 	InfoFrame				= "오닉시아 전하 충전 정보 프레임 보기",
+	FixShadowblaze			= "$spell:94085의 타이머를 자동으로 보정하기\n(테스트 중: 네파리안이 가끔 사용하는 외침에만 반응합니다.)",
 	SetWater				= "풀링시 수면 자동 시점 옵션을 자동으로 끄기\n(전투가 종료 되면 원상태로)",
 	TankArrow				= "살아난 뼈다귀 전사 탱커 방향으로 DBM 화살표 보기\n(한 명의 탱커를 사용하는 경우에만 정상 작동)",--npc 41918
 	SetIconOnCinder			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79339),
@@ -224,14 +234,17 @@ L:SetMiscLocalization({
 	NefAoe				= "전기가 튀며 파지직하는 소리가 납니다!",
 	YellPhase2			= "저주받을 필멸자들! 내 소중한 작품을 이렇게 망치다니! 쓴맛을 봐야 정신을 차리겠군!",
 	YellPhase3			= "품위있는 집주인답게 행동하려 했건만, 네놈들이 도무지 죽질 않는군! 겉치레는 이제 집어치우자고. 그냥 모두 없애 버리겠어!", -- "I have tried to be an accommodating host, but you simply will not die! Time to throw all pretense aside and just... KILL YOU ALL!",
+	YellShadowBlaze		= "살을 재로 만들어 주마!",
 	Nefarian			= "네파리안",
 	Onyxia				= "오닉시아",
-	Charge				= "전하 충전"
+	Charge				= "전하 충전",
+	ShadowBlazeExact	= "%d초 후 암흑 불길 불꽃!",
+	ShadowBlazeEstimate	= "약 5초 후 암흑 불길 불꽃!"
 })
 
---------------
+-------------------------------
 --  Blackwing Descent Trash  --
---------------
+-------------------------------
 L = DBM:GetModLocalization("BWDTrash")
 
 L:SetGeneralLocalization({

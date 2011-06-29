@@ -330,6 +330,19 @@ local function DrD_DetermineAB()
 			end
 		end
 	end
+	if IsAddOnLoaded("ButtonForge") and ButtonForge_API1 then
+		local func = function(button, name) 
+			local spell, id = ButtonForge_API1:GetButtonActionInfo(name)
+			if spell == "spell" then return id end
+		end
+		ABrefresh["ButtonForge"] = function()
+			local buttons = ButtonForge_API1:GetButtonFrameNames()
+			for k in pairs(buttons) do
+				ABtable[k] = func
+			end
+		end
+		--ButtonForge_API1.RegisterCallback(self.refreshAB)	
+	end	
 	if IsAddOnLoaded("LunarSphere") then
 		if Lunar and Lunar.DrDamageFunc then
 			ABrefresh["LunarSphereButtons"] = function()

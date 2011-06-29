@@ -35,7 +35,7 @@ local OnNewNameplate, OnShowNameplate, OnHideNameplate, OnUpdateNameplate, OnRes
 local OnUpdateHealth, OnUpdateLevel, OnUpdateThreatSituation, OnUpdateRaidIcon
 local OnMouseoverNameplate, OnLeaveNameplate, OnRequestWidgetUpdate, OnRequestDelegateUpdate
 -- Spell Casting
-local UpdateCastAnimation, StartCastAnimation, StopCastAnimation, OnUpdateTargetCastbar
+local UpdateCastAnimation, UpdateChannelAnimation, StartCastAnimation, StopCastAnimation, OnUpdateTargetCastbar
 -- Main Loop 
 local OnUpdate
 local ApplyPlateExtension
@@ -214,7 +214,10 @@ do
 			end
 			-- Set Special-Case Regions
 			if style.customtext.show then
-				if activetheme.SetCustomText then visual.customtext:SetText(activetheme.SetCustomText(unit))
+				if activetheme.SetCustomText then 
+					local text, r, g, b, a = activetheme.SetCustomText(unit)
+					visual.customtext:SetText( text or "")
+					visual.customtext:SetTextColor(r or 1, g or 1, b or 1, a or 1)
 				else visual.customtext:SetText("") end
 			end
 			if style.customart.show then
@@ -620,6 +623,13 @@ do
 		else castbar:SetValue(currentTime) end
 	end
 	
+	function UpdateChannelAnimation(castbar)
+		local currentTime = GetTime()
+		if currentTime > (castbar.endTime or 0) then
+			StopCastAnimation(castbar.parentPlate)
+		else castbar:SetValue(castbar.startTime + (castbar.endTime - currentTime)) end
+	end
+	
 	-- Shows the Cast Animation (requires references)
 	function StartCastAnimation(plate, spell, displayName, icon, startTime, endTime, notInterruptible, channel)
 		UpdateReferences(plate)
@@ -632,10 +642,9 @@ do
 			if activetheme.SetCastbarColor then  r, g, b, a = activetheme.SetCastbarColor(unit)  end	
 			
 			castbar.endTime = endTime
+			castbar.startTime = startTime
 			castbar:SetStatusBarColor( r, g, b, a or 1)
 			castbar:SetMinMaxValues(startTime, endTime)
-			castbar:SetValue(GetTime())
-			castbar:Show()	
 			visual.spelltext:SetText(displayName or spell)
 
 			visual.spellicon:SetTexture(icon)
@@ -643,7 +652,16 @@ do
 				visual.castnostop:Show(); visual.castborder:Hide()
 			else visual.castnostop:Hide(); visual.castborder:Show() end
 			
-			castbar:SetScript("OnUpdate", UpdateCastAnimation)	
+			castbar:Show()	
+			if channel then 
+				castbar:SetValue(endTime - GetTime())
+				castbar:SetScript("OnUpdate", UpdateChannelAnimation)	
+			else 
+				castbar:SetValue(GetTime())
+				castbar:SetScript("OnUpdate", UpdateCastAnimation)	
+			end
+			
+			
 			UpdateIndicator_CustomScaleText()	
 			UpdateIndicator_CustomAlpha()
 		end
@@ -694,28 +712,12 @@ do
 	local region
 	local platelevels = 125
 	
-	-- PTR / Live Compatibility ....................................................................
-	local function GetNewRegions(plate, regions, cast)
+	local function GetNameplateRegions(plate, regions, cast)
 		regions.threatglow, regions.healthborder, regions.highlight, regions.name, regions.level, 
 			regions.skullicon, regions.raidicon, regions.eliteicon = plate:GetRegions()
 		
 		_, regions.castborder, regions.castnostop, regions.spellicon = cast:GetRegions()
 	end
-	
-	local function GetOldRegions(plate, regions)
-		regions.threatglow, regions.healthborder, regions.castborder, regions.castnostop,
-			regions.spellicon, regions.highlight, regions.name, regions.level,
-			regions.skullicon, regions.raidicon, regions.eliteicon = plate:GetRegions()
-	end
-	
-	local _, _, _, tocVersion = GetBuildInfo()
-	local NewNameplateFormat = tonumber((select(2, GetBuildInfo()))) >= 13682 
-	
-	local GetNameplateRegions
-	
-	if NewNameplateFormat then GetNameplateRegions = GetNewRegions
-	else GetNameplateRegions = GetOldRegions end
-	-- .................................................................... PTR / Live Compatibility
 	
 	function ApplyPlateExtension(plate)
 		Plates[plate] = true
@@ -957,7 +959,8 @@ do
 		SetMassQueue(OnUpdateNameplate)		-- Could be "SetMassQueue(UpdateTarget), someday...  :-o
 	end
 
-	function events:RAID_TARGET_UPDATE() ForEachPlate(OnUpdateRaidIcon) end
+	--function events:RAID_TARGET_UPDATE() ForEachPlate(OnUpdateRaidIcon) end
+	function events:RAID_TARGET_UPDATE() SetMassQueue(OnUpdateNameplate) end
 	function events:UNIT_THREAT_SITUATION_UPDATE() 	SetMassQueue(OnUpdateThreatSituation) end  -- Only fired when a target changes
 	function events:UNIT_LEVEL() ForEachPlate(OnUpdateLevel) end
 	function events:PLAYER_CONTROL_LOST() ForEachPlate(OnUpdateReaction) end

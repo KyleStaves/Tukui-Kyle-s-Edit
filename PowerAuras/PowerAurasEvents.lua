@@ -280,6 +280,7 @@ function PowaAuras:SpellcastEvent(unit)
 			end
 			if UnitIsUnit(unit, "focus") then
 				self.DoCheck.FocusSpells = true;
+
 			end
 			if UnitIsUnit(unit, "target") then
 				self.DoCheck.TargetSpells = true;
@@ -666,22 +667,11 @@ end
 function PowaAuras:COMBAT_LOG_EVENT_UNFILTERED(...)
 	--self:ShowText("COMBAT_LOG_EVENT_UNFILTERED");
 	if (self.ModTest) then return end
-	-- 4.2 changes.
+	-- Args.
 	local timestamp, event, casterHidden, 
-		sourceGUID, sourceName, sourceFlags, sourceFlags2, 
-		destGUID, destName, destFlags, destFlags2, 
-		spellId, spellName, _, spellType;
-	if(self.WoWBuild >= 40200) then
-		timestamp, event, casterHidden, 
 		sourceGUID, sourceName, sourceFlags, sourceFlags2,
 		destGUID, destName, destFlags, destFlags2, 
 		spellId, spellName, _, spellType = ...;
-	else
-		timestamp, event, casterHidden, 
-		sourceGUID, sourceName, sourceFlags,
-		destGUID, destName, destFlags, 
-		spellId, spellName, _, spellType = ...;
-	end	
 	if (not spellName) then return end
 	--self:ShowText("CLEU: ", event, " by me=", sourceGUID==UnitGUID("player"), " on me=", destGUID==UnitGUID("player"), " ", spellName);
 	--self:ShowText("Player=", UnitGUID("player"), " sourceGUID=", sourceGUID, " destGUID=", destGUID);
@@ -889,6 +879,14 @@ end
 function PowaAuras:UNIT_NAME_UPDATE()
 	if (self.ModTest == false) then
 		self.DoCheck.UnitMatch = true;
+		self.DoCheck.CheckIt = true;
+	end
+end
+
+-- Fires when the pet action bar is updated, we use this to see what stance is selected.
+function PowaAuras:PET_BAR_UPDATE()
+	if (self.ModTest == false) then
+		self.DoCheck.PetStance = true;
 		self.DoCheck.CheckIt = true;
 	end
 end

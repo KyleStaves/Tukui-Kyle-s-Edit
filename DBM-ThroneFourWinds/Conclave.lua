@@ -1,8 +1,10 @@
+--local mod	= DBM:NewMod(154, "DBM-ThroneFourWinds", nil, 75)
 local mod	= DBM:NewMod("Conclave", "DBM-ThroneFourWinds")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 5572 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6022 $"):sub(12, -3))
 mod:SetCreatureID(45870, 45871, 45872)
+mod:SetModelID(35232)
 mod:SetZone()
 
 mod:SetBossHealthInfo(
@@ -21,7 +23,7 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"UNIT_POWER",
-	"CHAT_MSG_RAID_BOSS_EMOTE"
+	"RAID_BOSS_EMOTE"
 )
 
 local warnNurture			= mod:NewSpellAnnounce(85422, 3)
@@ -44,7 +46,7 @@ local timerWindChill		= mod:NewNextTimer(10.5, 84645, nil, false)
 local timerSlicingGale		= mod:NewBuffActiveTimer(45, 93058, nil, false)
 local timerWindBlast		= mod:NewBuffActiveTimer(11.5, 86193)
 local timerWindBlastCD		= mod:NewCDTimer(60, 86193)-- Cooldown: 1st->2nd = 22sec || 2nd->3rd = 60sec || 3rd->4th = 60sec ?
-local timerStormShieldCD	= mod:NewNextTimer(35, 95865)--Heroic ability, seems to share CD/line up with Nurture and also 35 seconds after a special ended.
+local timerStormShieldCD	= mod:NewCDTimer(35, 95865)--Heroic ability, seems to have a 35-40second cd and no longer syncs up to nurture since the windblast change. No longer consistent.
 local timerGatherStrength	= mod:NewTargetTimer(60, 86307)
 local timerPoisonToxic		= mod:NewBuffActiveTimer(5, 86281)
 local timerPoisonToxicCD	= mod:NewCDTimer(21, 86281)--is this a CD or a next timer?
@@ -56,7 +58,7 @@ local timerSpecialActive	= mod:NewTimer(15, "timerSpecialActive", "Interface\\Ic
 local enrageTimer			= mod:NewBerserkTimer(480) -- Both normal and heroic mode
 
 mod:AddBoolOption("OnlyWarnforMyTarget", false, "announce")--Default off do to targeting dependance (not great for healers who don't set focus). Has ability to filter all timers/warnings for bosses you are not targeting or focusing.
-mod:AddBoolOption("HealthFrame", true)
+mod:AddBoolOption("HealthFrame", false)
 
 local windBlastCounter = 0
 local specialSpam = 0
@@ -225,7 +227,7 @@ function mod:UNIT_POWER(uId)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, boss)
+function mod:RAID_BOSS_EMOTE(msg, boss)
 	if msg == L.gatherstrength or msg:find(L.gatherstrength) then
 		self:SendSync("GatherStrength", boss)
 	end
@@ -235,7 +237,11 @@ function mod:OnSync(msg, boss)
 	if msg == "GatherStrength" and self:IsInCombat() then
 		warnGatherStrength:Show(boss)
 		if not GatherStrengthwarned then
-			timerGatherStrength:Start(boss)
+			if mod:IsDifficulty("heroic10", "heroic25") then
+				timerGatherStrength:Start(boss)
+			else
+				timerGatherStrength:Start(120, boss)--2 minutes on normal as of 4.2
+			end
 			GatherStrengthwarned = true
 		end
 	end

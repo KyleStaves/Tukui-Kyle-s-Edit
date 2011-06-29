@@ -125,6 +125,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 		[PowaAuras.BuffTypes.Tracking] = "Tracking",
 		[PowaAuras.BuffTypes.TypeBuff] = "Buff type",
 		[PowaAuras.BuffTypes.UnitMatch] = "Unit Match",
+		[PowaAuras.BuffTypes.PetStance] = "Pet Stance",
 		[PowaAuras.BuffTypes.GTFO] = "GTFO Alert",
 	},
 	
@@ -228,8 +229,9 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	aideItems = "Enter full name of Item or [xxx] for Id",
 	aideSlots = "Enter name of slot to track: Ammo, Back, Chest, Feet, Finger0, Finger1, Hands, Head, Legs, MainHand, Neck, Ranged, SecondaryHand, Shirt, Shoulder, Tabard, Trinket0, Trinket1, Waist, Wrist",
 	aideTracking = "Enter name of Tracking type e.g. fish",
-	aideUnitMatch = "Enter the names of the units that need to match, separated by a forward slash (/).\n\nYou can use unit ID's such as \"player\", \"pet\", \"boss1\", \"arena1\", as well as an asterisk (*) to see if the unit in question exists.\n\n|cFFCCCCCCExamples|r\nTarget is Ragnaros:\ntarget/Ragnaros\n\nPet target exists:\npettarget/*\n\nBoss targetting me:\nboss1target/player",
-
+	aideUnitMatch = "Enter the names of the units that need to match, separated by a forward slash (/).\n\nYou can use unit ID's such as \"player\", \"pet\", \"boss1\", \"arena1\", as well as an asterisk (*) to see if the unit in question exists.\n\n|cFFEFEFEFExamples|r\nTarget is Ragnaros:\ntarget/Ragnaros\n\nPet target exists:\npettarget/*\n\nBoss targetting me:\nboss1target/player",
+	aidePetStance = "Enter the ID numbers of pet stances that need to be active in order for the aura to show. You can specify multiple stances to trigger an aura by separating them with a forward slash (/).\n\n|cFFEFEFEFStance ID Numbers|r\nAggressive/Assist = 1\nDefensive = 2\nPassive = 3\n\n|cFFFF0000Note: |rYou must have the three stances on your pet action bar for this to work.",
+	
 	-- editor
 	aideCustomText = "Enter text to display (%t=target name, %f=focus name, %v=display value, %u=unit name, %str=str, %agl=agl, %sta=sta, %int=int, %spi=spi, %sp=spell power, %ap=attack power, %df=defence)",
 
@@ -718,6 +720,8 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	
 	nomReasonUnitMatch = "Unit $1 matches unit $2.",
 	nomReasonNoUnitMatch = "Unit $1 does not match unit $2.",
+	
+	nomReasonPetStance = "Pet is in $1 stance.",
 	
 	nomReasonUnknownName = "Unit name unknown",
 	nomReasonRoleUnknown = "Role unknown",
